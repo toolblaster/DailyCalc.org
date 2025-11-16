@@ -125,7 +125,8 @@ const headerHTML = `
                     <i class="fa-solid fa-robot fa-fw"></i>
                     <span>AI-Based</span>
                 </a>
-                <a href="/#footer-newsletter" class="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-brand-red shadow-soft transition hover:bg-slate-200">
+                <!-- MODIFIED: Changed padding (px-4 py-2 -> px-3 py-1.5) and text size (text-sm -> text-xs) -->
+                <a href="/#footer-newsletter" class="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-brand-red shadow-soft transition hover:bg-slate-200">
                     <i class="fa-regular fa-bell"></i>
                     Stay notified
                 </a>
