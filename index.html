@@ -90,10 +90,12 @@
             display: block;
         }
 
-        /* Custom focus-visible styles for search */
+        /* MODIFIED: 
+          Custom focus styles are now applied directly in the header HTML.
+          This block can be simplified or removed, but we'll keep the base
+          style for any *other* search bars just in case.
+        */
         #calculatorSearch:focus {
-            border-color: #F1203D;
-            box-shadow: 0 0 0 3px rgba(241, 32, 61, 0.2);
             outline: none;
         }
 
@@ -154,51 +156,34 @@
 
 
     <main id="home">
-        <!-- New Hero Section (Omnicalculator Style) -->
-        <section class="bg-gradient-to-br from-white via-white to-slate-100">
-            <!-- Reduced vertical padding from py-16 md:py-24 to py-10 md:py-12 -->
-            <div class="mx-auto max-w-[1050px] px-6 py-10 text-center md:py-12">
-                <div class="mx-auto max-w-2xl">
-                    <!-- H1: 22px -->
-                    <h1 class="font-heading text-[22px] font-semibold leading-tight text-brand-dark">
-                        Find the calculator you need
-                    </h1>
-                    <!-- Descriptive Text: 12px -->
-                    <p class="mt-3 text-[12px] text-slate-600">
-                        Search our growing library of accurate, lightweight calculators across finance, health, productivity, and more. Designed for instant answers on any device.
-                    </p>
-                    <!-- Search Bar -->
-                    <div class="mt-6 flex w-full flex-col gap-3 sm:flex-row">
-                        <label for="calculatorSearch" class="sr-only">Search calculators</label>
-                        <input
-                            type="search"
-                            id="calculatorSearch"
-                            placeholder="e.g., 'Mortgage', 'BMI', or 'Date difference'..."
-                            class="w-full rounded-full border border-slate-300 px-5 py-3 text-sm text-brand-dark shadow-sm transition duration-200"
-                        />
-                        <button
-                            type="button"
-                            id="searchButton"
-                            class="inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-dark sm:w-auto"
-                        >
-                            <i class="fa-solid fa-search"></i>
-                            Search
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- 
+          MODIFIED: 
+          Removed the entire Hero Section.
+        -->
 
         <!-- *** CATEGORIES SECTION *** -->
         <section id="categories" class="bg-white">
-            <div class="mx-auto max-w-[1050px] px-6 py-16">
+            <!-- MODIFIED: Reduced padding from py-16 to py-12 -->
+            <div class="mx-auto max-w-[1050px] px-6 py-12">
+                
+                <!-- MODIFIED: Added a centered H1 and description from the old hero -->
+                <div class="mx-auto max-w-2xl text-center">
+                    <h1 class="font-heading text-[22px] font-semibold leading-tight text-brand-dark">
+                        Find the calculator you need
+                    </h1>
+                    <p class="mt-3 text-[12px] text-slate-600">
+                        Browse our growing library of accurate, lightweight calculators across finance, health, productivity, and more. Designed for instant answers on any device.
+                    </p>
+                </div>
+
                 <!-- 
                   MODIFIED: 
                   Removed the div with H2 and P.
                   Changed justify-between to justify-end.
+                  ADDED: mt-8 to space from new heading, md:self-auto to button
                 -->
-                <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-end">
-                    <button id="toggleSubcategories" class="inline-flex items-center gap-2 self-start rounded-full border border-slate-200 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-brand-dark transition hover:border-brand-red hover:text-brand-red">
+                <div class="mt-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-end">
+                    <button id="toggleSubcategories" class="inline-flex items-center gap-2 self-start rounded-full border border-slate-200 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-brand-dark transition hover:border-brand-red hover:text-brand-red md:self-auto">
                         <i class="fa-solid fa-diagram-project"></i>
                         Toggle subcategories preview
                     </button>
@@ -387,206 +372,8 @@
     
     <!-- 
       *** UPDATED Merged JavaScript ***
-      All redundant code (mobile menu, current year) has been REMOVED.
-      Only homepage-specific JS remains.
+      MODIFIED: Moved all homepage-specific JS to 'js/homepage.js'
     -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // --- Homepage-specific functionality ---
-
-            const toggleSubcategoriesBtn = document.getElementById('toggleSubcategories');
-            const subcategoryLists = document.querySelectorAll('[data-subcategory]');
-            let subcategoriesExpanded = false;
-
-            if (toggleSubcategoriesBtn && subcategoryLists.length) {
-                toggleSubcategoriesBtn.setAttribute('aria-pressed', 'false');
-                toggleSubcategoriesBtn.addEventListener('click', () => {
-                    subcategoriesExpanded = !subcategoriesExpanded;
-                    toggleSubcategoriesBtn.setAttribute('aria-pressed', String(subcategoriesExpanded));
-                    toggleSubcategoriesBtn.classList.toggle('bg-brand-red/5', subcategoriesExpanded);
-                    toggleSubcategoriesBtn.classList.toggle('border-brand-red', subcategoriesExpanded);
-                    toggleSubcategoriesBtn.classList.toggle('text-brand-red', subcategoriesExpanded);
-
-                    subcategoryLists.forEach((list) => {
-                        list.classList.toggle('is-visible', subcategoriesExpanded);
-                    });
-                });
-            }
-
-            const featuredList = document.querySelector('[data-featured-list]');
-            if (featuredList) {
-                featuredList.setAttribute('role', 'list');
-                featuredList.querySelectorAll('article').forEach((item) => {
-                    item.setAttribute('role', 'listitem');
-                });
-            }
-
-            const newsletterSection = document.getElementById('newsletter');
-            if (newsletterSection) {
-                const form = newsletterSection.querySelector('form');
-                const emailInput = form ? form.querySelector('input[type="email"]') : null;
-                let feedbackEl = null;
-
-                if (form && emailInput) {
-                    form.addEventListener('submit', (event) => {
-                        event.preventDefault();
-                        const emailValue = emailInput.value.trim();
-
-                        if (!emailValue) {
-                            emailInput.focus();
-                            return;
-                        }
-
-                        if (!feedbackEl) {
-                            feedbackEl = document.createElement('p');
-
-                            feedbackEl.className = 'mt-3 text-sm'; // Using text-sm as it's a feedback message
-                            feedbackEl.setAttribute('role', 'alert');
-                            // Find the parent of the form to append after
-                            form.parentElement.insertAdjacentElement('afterend', feedbackEl);
-                        }
-
-                        feedbackEl.textContent = `Thanks, ${emailValue}! We will notify you when new calculators launch.`;
-                        feedbackEl.classList.remove('text-red-500');
-                        feedbackEl.classList.add('text-emerald-600');
-
-                        emailInput.value = '';
-                        emailInput.blur();
-                    });
-                }
-            }
-
-            // --- Homepage Search/Filter Functionality ---
-
-            const searchInput = document.getElementById('calculatorSearch');
-            const searchButton = document.getElementById('searchButton');
-            const categoryCards = document.querySelectorAll('#categoryGrid .category-card'); 
-            const noResultsMessage = document.getElementById('noResultsMessage');
-            
-            // NOTE: The 'filterLinks' from common-layout.js are *different* from these.
-            // These links are in the category bar *on the homepage*.
-            // The logic in common-layout.js is for the category bar *on calculator pages*.
-            // We need to wait for the header to be injected to find these links.
-            
-            let filterLinks = []; // We will query this *after* layout loads
-
-            const filterCategories = () => {
-                const searchTerm = searchInput.value.toLowerCase().trim();
-                let resultsFound = 0;
-
-                categoryCards.forEach(card => {
-                    // Added data attributes to cards for easier searching
-                    const title = card.dataset.title.toLowerCase();
-                    const description = card.dataset.description.toLowerCase();
-                    
-                    const isVisible = title.includes(searchTerm) || description.includes(searchTerm);
-                    
-                    if (isVisible) {
-                        // This needs to be 'flex' to match the original display style
-                        card.style.display = 'flex'; 
-                        resultsFound++;
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-
-                // Show or hide the 'no results' message
-                if (noResultsMessage) { // Check if noResultsMessage exists
-                    if (resultsFound === 0) {
-                        noResultsMessage.style.display = 'block';
-                    } else {
-                        noResultsMessage.style.display = 'none';
-                    }
-                }
-            };
-
-            // This function finds the filter links *after* the header is injected
-            // and attaches the homepage-specific click event.
-            const setupHomepageFilterLinks = () => {
-                // Find links in the category bar *not* in the mobile menu
-                filterLinks = document.querySelectorAll('nav[aria-label="Calculator Categories"] [data-filter-link]');
-                
-                filterLinks.forEach(link => {
-                    link.addEventListener('click', (e) => {
-                        // On the homepage, we *don't* want the link to just scroll.
-                        // We want it to filter.
-                        e.preventDefault(); 
-                        
-                        const searchTerm = link.dataset.filterLink;
-                        if (searchInput) {
-                            searchInput.value = searchTerm; // Set the search bar's value
-                        }
-                        filterCategories(); // Run the filter
-                        
-                        // Scroll search input into view smoothly
-                        if (searchInput) {
-                            searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        }
-                        // No focus, to avoid mobile keyboard popping up
-                    });
-                });
-
-                // Also attach filter logic to the *mobile menu links* on the homepage
-                const mobileMenuFilterLinks = document.querySelectorAll('#mobileMenuContent [data-filter-link]');
-                mobileMenuFilterLinks.forEach(link => {
-                    link.addEventListener('click', (e) => {
-                        // The common-layout.js script will close the menu.
-                        // We just need to add the filter logic.
-                        e.preventDefault(); // Prevent default anchor jump
-
-                        const searchTerm = link.dataset.filterLink;
-                        if (searchInput) {
-                            searchInput.value = searchTerm;
-                            filterCategories();
-                            
-                            // Scroll to categories section after menu closes
-                            setTimeout(() => {
-                                const categoriesSection = document.getElementById('categories');
-                                if (categoriesSection) {
-                                    categoriesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                                }
-                            }, 300); // Wait for menu to close
-                        }
-                    });
-                });
-            };
-            
-            // We need to wait for the common layout to *finish* loading
-            // before we can attach events to its links.
-            // We can check for an element we know it injects, like 'mobileMenu'.
-            const observer = new MutationObserver((mutations, obs) => {
-                if (document.getElementById('mobileMenu')) {
-                    setupHomepageFilterLinks();
-                    obs.disconnect(); // We found it, stop observing
-                }
-            });
-            // Start observing the body for changes
-            observer.observe(document.body, {
-                childList: true,
-                subtree: true
-            });
-
-
-            // Trigger search on input (live search)
-            if (searchInput) {
-                searchInput.addEventListener('input', filterCategories);
-            }
-
-            // Trigger search on button click
-            if (searchButton) {
-                searchButton.addEventListener('click', filterCategories);
-            }
-
-            // Also trigger on pressing 'Enter' in the search box
-            if (searchInput) {
-                searchInput.addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter') {
-                        e.preventDefault(); 
-                        filterCategories();
-                    }
-                });
-            }
-        });
-    </script>
+    <script src="js/homepage.js" defer></script>
 </body>
 </html>
