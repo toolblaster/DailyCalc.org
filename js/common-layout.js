@@ -68,7 +68,7 @@ const headerHTML = `
                     <!-- Desktop "Stay Notified" Button -->
                     <div class="hidden items-center gap-3 md:flex">
                         <!-- Link to homepage newsletter section -->
-                        <a href="/#footer-newsletter" class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-brand-red shadow-soft transition hover:bg-slate-200">
+                        <a href="/" class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-brand-red shadow-soft transition hover:bg-slate-200">
                             <i class="fa-regular fa-bell"></i>
                             Stay notified
                         </a>
@@ -198,36 +198,9 @@ const headerHTML = `
 const footerHTML = `
     <footer class="bg-brand-dark text-slate-200">
         
-        <!-- MODIFIED: Newsletter Section added to footer -->
-        <section id="footer-newsletter" class="border-b border-white/10">
-            <!-- MODIFIED: Reduced padding py-12 -->
-            <div class="mx-auto max-w-[1050px] px-6 py-12">
-                <!-- Restyled for dark footer -->
-                <!-- MODIFIED: Reduced padding p-6 -->
-                <div class="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-soft">
-                    <!-- MODIFIED: Changed to flex-col and centered -->
-                    <div class="flex flex-col items-center gap-6 text-center">
-                        <div class="max-w-lg">
-                            <!-- H2: 18px -->
-                            <h2 class="font-heading text-[18px] font-semibold text-white">Stay ahead of new calculators</h2>
-                            <!-- Descriptive Text: 12px -->
-                            <p class="mt-3 text-[12px] text-slate-300">Join the update list to hear when new tools launch, read in-depth guides, and access beta features.</p>
-                        </div>
-                        <!-- MODIFIED: Form is now vertical, centered, and thinner -->
-                        <form class="flex w-full max-w-sm flex-col gap-3" aria-label="Email signup form">
-                            <label class="sr-only" for="footer-email">Email address</label>
-                            <input id="footer-email" type="email" placeholder="you@example.com" class="w-full rounded-full border border-white/20 bg-white/10 px-4 py-3 text-sm text-white outline-none transition placeholder:text-slate-300 focus:border-white focus:ring-2 focus:ring-white/50" required>
-                            <button type="submit" class="inline-flex items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-dark hover:ring-2 hover:ring-brand-red">
-                                <i class="fa-regular fa-paper-plane"></i>
-                                Subscribe
-                            </button>
-                        </form>
-                    </div>
-                    <!-- MODIFIED: Centered privacy text -->
-                    <p class="mt-4 text-center text-xs text-slate-400">No spam. Unsubscribe anytime. We respect your privacy.</p>
-                </div>
-            </div>
-        </section>
+        <!-- 
+          REMOVED: Newsletter Section 
+        -->
 
         <div class="mx-auto max-w-[1050px] px-6 py-12">
             <div class="flex flex-col items-center gap-10 text-center md:flex-row md:items-start md:justify-center md:gap-16">
@@ -417,42 +390,7 @@ function loadCommonLayout() {
         desktopSearchInput.addEventListener('keypress', handleSearchRedirect);
     }
 
-    // --- MODIFIED: Newsletter Logic moved from homepage.js to common-layout.js ---
-    const newsletterSection = document.getElementById('footer-newsletter');
-    if (newsletterSection) {
-        const form = newsletterSection.querySelector('form');
-        const emailInput = form ? form.querySelector('input[type="email"]') : null;
-        let feedbackEl = null;
-
-        if (form && emailInput) {
-            form.addEventListener('submit', (event) => {
-                event.preventDefault();
-                const emailValue = emailInput.value.trim();
-
-                if (!emailValue) {
-                    emailInput.focus();
-                    return;
-                }
-
-                if (!feedbackEl) {
-                    feedbackEl = document.createElement('p');
-
-                    feedbackEl.className = 'mt-3 text-sm'; // Using text-sm as it's a feedback message
-                    feedbackEl.setAttribute('role', 'alert');
-                    // Find the parent of the form to append after
-                    form.parentElement.insertAdjacentElement('afterend', feedbackEl);
-                }
-
-                // Style for dark mode
-                feedbackEl.textContent = `Thanks, ${emailValue}! We will notify you when new calculators launch.`;
-                feedbackEl.classList.remove('text-red-500'); // Ensure no error class
-                feedbackEl.classList.add('text-emerald-400'); // Brighter green for dark bg
-
-                emailInput.value = '';
-                emailInput.blur();
-            });
-        }
-    }
+    // --- REMOVED: Newsletter Logic ---
 }
 
 // 3. Add the event listener to run our function
