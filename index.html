@@ -40,6 +40,10 @@
         html {
             scroll-behavior: smooth;
         }
+        /* Prevent layout shift when body scroll is locked */
+        body.overflow-hidden {
+            padding-right: 0px; /* Adjust if scrollbar width is an issue, but modern browsers handle this well with overlay */
+        }
         .category-card {
             display: flex; /* Re-applied by JS filter */
             flex-direction: column;
@@ -103,6 +107,7 @@
         }
 
         /* --- New Mobile Menu Link Styles --- */
+        /* These styles are used by the new slide-in menu */
         .mobile-menu-link {
             display: flex;
             align-items: center;
@@ -140,7 +145,7 @@
 
     <!-- Header -->
     <!-- Applied gradient, shadow, and removed border -->
-    <header class="bg-gradient-to-r from-brand-dark to-brand-red shadow-md sticky top-0 z-50"> <!-- Added sticky and z-index -->
+    <header class="bg-gradient-to-r from-brand-dark to-brand-red shadow-md sticky top-0 z-40"> <!-- MODIFIED: z-index lowered to 40 so menu (z-50) slides over it -->
         <!-- Reduced vertical padding from py-4 to py-3 for compact view -->
         <div class="mx-auto flex max-w-[1050px] flex-wrap items-center justify-between gap-4 px-6 py-3">
             <div>
@@ -179,46 +184,62 @@
         </div>
     </header>
 
-    <!-- *** NEW MOBILE MENU PANEL *** -->
-    <div id="mobileMenu" class="hidden md:hidden sticky top-[88px] z-40"> <!-- Adjust top offset based on header height -->
-        <div class="flex flex-col gap-1 bg-gradient-to-r from-brand-dark to-brand-red px-4 pb-4 pt-2 shadow-lg">
-            <a href="#categories" class="mobile-menu-link" data-filter-link="Finance">
-                <i class="fa-solid fa-sack-dollar fa-fw"></i>
-                <span>Finance</span>
-            </a>
-            <a href="#categories" class="mobile-menu-link" data-filter-link="Health">
-                <i class="fa-solid fa-heart-pulse fa-fw"></i>
-                <span>Health & Fitness</span>
-            </a>
-            <a href="#categories" class="mobile-menu-link" data-filter-link="Date">
-                <i class="fa-regular fa-calendar fa-fw"></i>
-                <span>Date & Time</span>
-            </a>
-            <a href="#categories" class="mobile-menu-link" data-filter-link="Math">
-                <i class="fa-solid fa-square-root-variable fa-fw"></i>
-                <span>Math & Numbers</span>
-            </a>
-            <a href="#categories" class="mobile-menu-link" data-filter-link="Study">
-                <i class="fa-solid fa-graduation-cap fa-fw"></i>
-                <span>Study & Education</span>
-            </a>
-            <a href="#categories" class="mobile-menu-link" data-filter-link="Converters">
-                <i class="fa-solid fa-arrows-rotate fa-fw"></i>
-                <span>Converters</span>
-            </a>
-            <a href="#categories" class="mobile-menu-link" data-filter-link="General">
-                <i class="fa-solid fa-screwdriver-wrench fa-fw"></i>
-                <span>General Tools</span>
-            </a>
-            <a href="#categories" class="mobile-menu-link" data-filter-link="AI">
-                <i class="fa-solid fa-robot fa-fw"></i>
-                <span>AI-Based</span>
-            </a>
-            <!-- "Stay Notified" button for mobile menu -->
-            <a href="#newsletter" class="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-brand-red shadow-soft transition hover:bg-slate-200">
-                <i class="fa-regular fa-bell"></i>
-                Stay notified
-            </a>
+    <!-- *** MODIFIED: NEW MOBILE MENU PANEL (Slide-in) *** -->
+    <!-- Main container: fixed, full-screen, z-50, hidden by default -->
+    <div id="mobileMenu" class="md:hidden fixed inset-0 z-50 hidden">
+        <!-- Overlay: covers screen, closes menu on click -->
+        <div id="mobileMenuOverlay" class="absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300 ease-in-out" aria-hidden="true"></div>
+
+        <!-- Menu Content: slides in from left, 50% width, with a max width -->
+        <div id="mobileMenuContent" class="relative flex flex-col bg-gradient-to-r from-brand-dark to-brand-red h-full w-1/2 max-w-sm shadow-xl transform -translate-x-full transition-transform duration-300 ease-in-out">
+            
+            <!-- Header with Close button -->
+            <div class="flex justify-end p-2">
+                 <button id="mobileMenuClose" class="rounded-lg p-2 text-white transition hover:bg-white/10" aria-label="Close menu">
+                    <i class="fa-solid fa-xmark h-6 w-6"></i>
+                </button>
+            </div>
+            
+            <!-- Scrollable links area -->
+            <nav class="flex-1 overflow-y-auto px-4 pb-4" aria-label="Mobile Navigation">
+                <a href="#categories" class="mobile-menu-link" data-filter-link="Finance">
+                    <i class="fa-solid fa-sack-dollar fa-fw"></i>
+                    <span>Finance</span>
+                </a>
+                <a href="#categories" class="mobile-menu-link" data-filter-link="Health">
+                    <i class="fa-solid fa-heart-pulse fa-fw"></i>
+                    <span>Health & Fitness</span>
+                </a>
+                <a href="#categories" class="mobile-menu-link" data-filter-link="Date">
+                    <i class="fa-regular fa-calendar fa-fw"></i>
+                    <span>Date & Time</span>
+                </a>
+                <a href="#categories" class="mobile-menu-link" data-filter-link="Math">
+                    <i class="fa-solid fa-square-root-variable fa-fw"></i>
+                    <span>Math & Numbers</span>
+                </a>
+                <a href="#categories" class="mobile-menu-link" data-filter-link="Study">
+                    <i class="fa-solid fa-graduation-cap fa-fw"></i>
+                    <span>Study & Education</span>
+                </a>
+                <a href="#categories" class="mobile-menu-link" data-filter-link="Converters">
+                    <i class="fa-solid fa-arrows-rotate fa-fw"></i>
+                    <span>Converters</span>
+                </a>
+                <a href="#categories" class="mobile-menu-link" data-filter-link="General">
+                    <i class="fa-solid fa-screwdriver-wrench fa-fw"></i>
+                    <span>General Tools</span>
+                </a>
+                <a href="#categories" class="mobile-menu-link" data-filter-link="AI">
+                    <i class="fa-solid fa-robot fa-fw"></i>
+                    <span>AI-Based</span>
+                </a>
+                <!-- "Stay Notified" button for mobile menu -->
+                <a href="#newsletter" class="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-brand-red shadow-soft transition hover:bg-slate-200">
+                    <i class="fa-regular fa-bell"></i>
+                    Stay notified
+                </a>
+            </nav>
         </div>
     </div>
 
@@ -650,52 +671,117 @@
                 }
             };
 
-            // --- NEW Mobile Menu JS ---
-            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-            const mobileMenu = document.getElementById('mobileMenu');
-            const menuOpenIcon = document.getElementById('menuOpenIcon');
-            const menuCloseIcon = document.getElementById('menuCloseIcon');
-            const mobileMenuLinks = document.querySelectorAll('#mobileMenu .mobile-menu-link');
+            // --- MODIFIED: NEW Mobile Menu JS (Slide-in) ---
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle'); // Header hamburger
+            const mobileMenu = document.getElementById('mobileMenu'); // Main fixed container
+            const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+            const mobileMenuContent = document.getElementById('mobileMenuContent');
+            const mobileMenuClose = document.getElementById('mobileMenuClose'); // Button inside panel
+            const menuOpenIcon = document.getElementById('menuOpenIcon'); // Header bar icon
+            const menuCloseIcon = document.getElementById('menuCloseIcon'); // Header X icon
+            const mobileMenuLinks = document.querySelectorAll('#mobileMenuContent .mobile-menu-link'); // Links inside panel
 
-            const toggleMenu = () => {
-                const isExpanded = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
-                mobileMenuToggle.setAttribute('aria-expanded', !isExpanded);
-                mobileMenu.classList.toggle('hidden');
-                menuOpenIcon.classList.toggle('hidden');
-                menuCloseIcon.classList.toggle('hidden');
+            const openMenu = () => {
+                if (!mobileMenu || !mobileMenuContent || !mobileMenuOverlay || !menuOpenIcon || !menuCloseIcon) return;
+                
+                // 1. Make container visible
+                mobileMenu.classList.remove('hidden');
+                
+                // 2. Start transitions
+                requestAnimationFrame(() => {
+                    mobileMenuOverlay.classList.remove('opacity-0');
+                    mobileMenuOverlay.classList.add('opacity-100'); // Use explicit add for clarity
+                    mobileMenuContent.classList.remove('-translate-x-full');
+                    mobileMenuContent.classList.add('translate-x-0');
+                });
+
+                // 3. Update header icon
+                menuOpenIcon.classList.add('hidden');
+                menuCloseIcon.classList.remove('hidden');
+                mobileMenuToggle.setAttribute('aria-expanded', 'true');
+
+                // 4. Prevent body scroll
+                document.body.classList.add('overflow-hidden');
             };
 
-            if (mobileMenuToggle && mobileMenu && menuOpenIcon && menuCloseIcon) {
-                mobileMenuToggle.addEventListener('click', toggleMenu);
+            const closeMenu = () => {
+                if (!mobileMenu || !mobileMenuContent || !mobileMenuOverlay || !menuOpenIcon || !menuCloseIcon) return;
+
+                // 1. Start transitions
+                mobileMenuOverlay.classList.add('opacity-0');
+                mobileMenuOverlay.classList.remove('opacity-100');
+                mobileMenuContent.classList.add('-translate-x-full');
+                mobileMenuContent.classList.remove('translate-x-0');
+
+                // 2. Update header icon
+                menuOpenIcon.classList.remove('hidden');
+                menuCloseIcon.classList.add('hidden');
+                mobileMenuToggle.setAttribute('aria-expanded', 'false');
+
+                // 3. Allow body scroll
+                document.body.classList.remove('overflow-hidden');
+
+                // 4. Hide container after transition
+                setTimeout(() => {
+                    mobileMenu.classList.add('hidden');
+                }, 300); // Must match transition duration (300ms)
+            };
+
+            if (mobileMenuToggle && mobileMenu) {
+                mobileMenuToggle.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent immediate close if something bubbles
+                    // Check current state by looking at the header icon
+                    const isExpanded = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
+                    if (isExpanded) {
+                        closeMenu();
+                    } else {
+                        openMenu();
+                    }
+                });
             }
 
+            if (mobileMenuClose) {
+                mobileMenuClose.addEventListener('click', closeMenu);
+            }
+
+            if (mobileMenuOverlay) {
+                mobileMenuOverlay.addEventListener('click', closeMenu);
+            }
+
+            // Handle link clicks
             if (mobileMenuLinks.length && searchInput) {
                 mobileMenuLinks.forEach(link => {
                     // Check if it's a category filter link
                     if (link.dataset.filterLink) {
                         link.addEventListener('click', () => {
                             // 1. Close the menu
-                            toggleMenu();
+                            closeMenu();
 
-                            // 2. Run the filter logic (copied from existing link handler)
+                            // 2. Run the filter logic
                             const searchTerm = link.dataset.filterLink;
                             searchInput.value = searchTerm;
                             filterCategories(); // Assumes filterCategories is in scope
                             
                             // 3. Scroll to search
-                            searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            // Use a short delay to ensure menu is closing before scrolling
+                            setTimeout(() => {
+                                // We scroll to the categories section, not the search input, for a better UX
+                                const categoriesSection = document.getElementById('categories');
+                                if (categoriesSection) {
+                                    categoriesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                }
+                            }, 300); // Wait for menu to close
                         });
                     } else {
                         // For other links like 'Stay notified'
                         link.addEventListener('click', () => {
-                            toggleMenu();
+                            closeMenu();
                             // The default href="#newsletter" will handle the scrolling
                         });
                     }
                 });
             }
-
-            // --- End of Mobile Menu JS ---
+            // --- End of NEW Mobile Menu JS ---
 
 
             // Trigger search on input (live search)
@@ -724,11 +810,18 @@
                     // We don't prevent default, so the #categories anchor jump still works
                     
                     const searchTerm = link.dataset.filterLink;
-                    searchInput.value = searchTerm; // Set the search bar's value
+                    if (searchInput) {
+                        searchInput.value = searchTerm; // Set the search bar's value
+                    }
                     filterCategories(); // Run the filter
                     
                     // Scroll search input into view smoothly
-                    searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    // Only do this for the *desktop* quick-bar links, not mobile menu links
+                    if (!link.closest('#mobileMenuContent')) {
+                        if (searchInput) {
+                            searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    }
                     // No focus, to avoid mobile keyboard popping up
                 });
             });
