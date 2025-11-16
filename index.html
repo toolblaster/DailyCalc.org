@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Meta Title (47 Chars) -->
+    <!-- Meta Title (60 Chars Max) -->
     <title>DailyCalc.org | Daily calculators for everyone.</title>
-    <!-- Meta Description (148 Chars) -->
+    <!-- Meta Description (160 Chars Max) -->
     <meta name="description" content="DailyCalc.org is a fast, trustworthy home for daily-use calculators across finance, health, productivity, education, and more.">
     <meta name="keywords" content="daily calculators, finance calculator, health calculator, productivity tools, converters, math calculators">
     <link rel="canonical" href="https://dailycalc.org/">
@@ -101,6 +101,29 @@
             -ms-overflow-style: none;  /* IE and Edge */
             scrollbar-width: none;  /* Firefox */
         }
+
+        /* --- New Mobile Menu Link Styles --- */
+        .mobile-menu-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem; /* 12px */
+            padding: 0.75rem 1rem; /* 12px 16px */
+            border-radius: 0.5rem; /* 8px */
+            font-size: 1rem; /* 16px */
+            font-weight: 500;
+            color: rgb(226 232 240); /* slate-200 */
+            transition: background-color 0.2s ease;
+        }
+        .mobile-menu-link:hover, .mobile-menu-link:focus {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        .mobile-menu-link i {
+            width: 1.25rem; /* 20px */
+            text-align: center;
+            color: rgb(241 32 61); /* brand-red */
+            opacity: 0.9;
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900 font-sans antialiased">
@@ -117,7 +140,7 @@
 
     <!-- Header -->
     <!-- Applied gradient, shadow, and removed border -->
-    <header class="bg-gradient-to-r from-brand-dark to-brand-red shadow-md">
+    <header class="bg-gradient-to-r from-brand-dark to-brand-red shadow-md sticky top-0 z-50"> <!-- Added sticky and z-index -->
         <!-- Reduced vertical padding from py-4 to py-3 for compact view -->
         <div class="mx-auto flex max-w-[1050px] flex-wrap items-center justify-between gap-4 px-6 py-3">
             <div>
@@ -135,10 +158,17 @@
                     </div>
                 </a>
             </div>
-            <nav aria-label="Primary" class="flex flex-wrap items-center gap-5 text-sm font-medium text-slate-600">
-                <!-- Categories, Featured, Roadmap, FAQ links removed as requested -->
+            
+            <!-- MODIFIED: Added Mobile Menu Toggle Button -->
+            <nav aria-label="Primary" class="flex flex-wrap items-center gap-5 text-sm font-medium text-slate-600 md:hidden">
+                <!-- Mobile Menu Toggle Button -->
+                <button id="mobileMenuToggle" class="rounded-lg p-2 text-white transition hover:bg-white/10" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu">
+                    <i class="fa-solid fa-bars h-6 w-6" id="menuOpenIcon"></i>
+                    <i class="fa-solid fa-xmark h-6 w-6 hidden" id="menuCloseIcon"></i>
+                </button>
             </nav>
-            <div class="flex items-center gap-3">
+
+            <div class="hidden items-center gap-3 md:flex"> <!-- Hide "Stay notified" on small screens, show button in nav -->
                 <!-- "Ad space" link removed as section was deleted earlier -->
                 <!-- Inverted button colors for dark header -->
                 <a href="#newsletter" class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-brand-red shadow-soft transition hover:bg-slate-200">
@@ -148,6 +178,50 @@
             </div>
         </div>
     </header>
+
+    <!-- *** NEW MOBILE MENU PANEL *** -->
+    <div id="mobileMenu" class="hidden md:hidden sticky top-[88px] z-40"> <!-- Adjust top offset based on header height -->
+        <div class="flex flex-col gap-1 bg-gradient-to-r from-brand-dark to-brand-red px-4 pb-4 pt-2 shadow-lg">
+            <a href="#categories" class="mobile-menu-link" data-filter-link="Finance">
+                <i class="fa-solid fa-sack-dollar fa-fw"></i>
+                <span>Finance</span>
+            </a>
+            <a href="#categories" class="mobile-menu-link" data-filter-link="Health">
+                <i class="fa-solid fa-heart-pulse fa-fw"></i>
+                <span>Health & Fitness</span>
+            </a>
+            <a href="#categories" class="mobile-menu-link" data-filter-link="Date">
+                <i class="fa-regular fa-calendar fa-fw"></i>
+                <span>Date & Time</span>
+            </a>
+            <a href="#categories" class="mobile-menu-link" data-filter-link="Math">
+                <i class="fa-solid fa-square-root-variable fa-fw"></i>
+                <span>Math & Numbers</span>
+            </a>
+            <a href="#categories" class="mobile-menu-link" data-filter-link="Study">
+                <i class="fa-solid fa-graduation-cap fa-fw"></i>
+                <span>Study & Education</span>
+            </a>
+            <a href="#categories" class="mobile-menu-link" data-filter-link="Converters">
+                <i class="fa-solid fa-arrows-rotate fa-fw"></i>
+                <span>Converters</span>
+            </a>
+            <a href="#categories" class="mobile-menu-link" data-filter-link="General">
+                <i class="fa-solid fa-screwdriver-wrench fa-fw"></i>
+                <span>General Tools</span>
+            </a>
+            <a href="#categories" class="mobile-menu-link" data-filter-link="AI">
+                <i class="fa-solid fa-robot fa-fw"></i>
+                <span>AI-Based</span>
+            </a>
+            <!-- "Stay Notified" button for mobile menu -->
+            <a href="#newsletter" class="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-brand-red shadow-soft transition hover:bg-slate-200">
+                <i class="fa-regular fa-bell"></i>
+                Stay notified
+            </a>
+        </div>
+    </div>
+
 
     <!-- New Category Quick Bar -->
     <nav class="border-b border-slate-200 bg-white" aria-label="Calculator Categories">
@@ -407,11 +481,14 @@
     <!-- Footer -->
     <footer class="bg-brand-dark text-slate-200">
         <div class="mx-auto max-w-[1050px] px-6 py-12">
-            <!-- Updated grid from 3 cols to 2 cols -->
-            <div class="grid gap-10 md:grid-cols-2">
+            <!-- MODIFIED: Changed from grid to flex, added centering -->
+            <div class="flex flex-col items-center gap-10 text-center md:flex-row md:items-start md:justify-center md:gap-16">
+                
+                <!-- MODIFIED: Parent div handles text-center -->
                 <div>
                     <!-- Replaced H2 with smaller logo + text -->
-                    <a href="#home" class="flex items-center gap-3 text-white" aria-label="DailyCalc.org homepage (footer)">
+                    <!-- MODIFIED: Parent div handles centering -->
+                    <a href="#home" class="flex items-center justify-center gap-3 text-white" aria-label="DailyCalc.org homepage (footer)">
                         <!-- Smaller 10x10 logo -->
                         <div class="flex h-10 w-10 flex-none items-center justify-center rounded-full border-2 border-white text-white">
                             <span class="text-lg font-semibold">DC</span>
@@ -422,21 +499,26 @@
                         </div>
                     </a>
                     <!-- Descriptive Text: 12px -->
-                    <p class="mt-4 text-[12px] text-slate-400">Neutral, global, and helpful calculators for daily life. Built to grow one trusted tool at a time.</p>
+                    <p class="mt-4 max-w-sm text-[12px] text-slate-400">Neutral, global, and helpful calculators for daily life. Built to grow one trusted tool at a time.</p>
                 </div>
+
                 <!-- Explore section removed -->
+                <!-- MODIFIED: Parent div handles text-center -->
                 <div>
                     <h3 class="text-[14px] font-semibold uppercase tracking-widest text-white">Contact</h3>
                     <p class="mt-4 text-[12px] text-slate-300">Have a calculator request or partnership opportunity?</p>
-                    <a href="mailto:hello@dailycalc.org" class="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-white transition hover:text-brand-red">
+                    <!-- MODIFIED: Parent div handles centering -->
+                    <a href="mailto:hello@dailycalc.org" class="mt-3 inline-flex items-center justify-center gap-2 text-sm font-semibold text-white transition hover:text-brand-red">
                         <i class="fa-regular fa-envelope"></i>
                         hello@dailycalc.org
                     </a>
                 </div>
             </div>
-            <div class="mt-10 flex flex-col gap-4 border-t border-white/10 pt-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-                <p>&copy; <span id="currentYear"></span> DailyCalc.org. All rights reserved.</p>
-                <div class="flex flex-wrap gap-4">
+            
+            <!-- MODIFIED: Centered bottom bar content on mobile and as a group on desktop -->
+            <div class="mt-10 flex flex-col items-center gap-4 border-t border-white/10 pt-6 text-xs text-slate-500 sm:flex-row sm:justify-center sm:gap-6">
+                <p class="text-center sm:text-left">&copy; <span id="currentYear"></span> DailyCalc.org. All rights reserved.</p>
+                <div class="flex flex-wrap justify-center gap-4 sm:justify-start">
                     <a href="#" class="transition hover:text-white">Privacy</a>
                     <a href="#" class="transition hover:text-white">Terms</a>
                     <a href="#" class="transition hover:text-white">Accessibility</a>
@@ -513,6 +595,7 @@
 
                         if (!feedbackEl) {
                             feedbackEl = document.createElement('p');
+
                             feedbackEl.className = 'mt-3 text-sm'; // Using text-sm as it's a feedback message
                             feedbackEl.setAttribute('role', 'alert');
                             // Find the parent of the form to append after
@@ -567,6 +650,54 @@
                 }
             };
 
+            // --- NEW Mobile Menu JS ---
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuOpenIcon = document.getElementById('menuOpenIcon');
+            const menuCloseIcon = document.getElementById('menuCloseIcon');
+            const mobileMenuLinks = document.querySelectorAll('#mobileMenu .mobile-menu-link');
+
+            const toggleMenu = () => {
+                const isExpanded = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
+                mobileMenuToggle.setAttribute('aria-expanded', !isExpanded);
+                mobileMenu.classList.toggle('hidden');
+                menuOpenIcon.classList.toggle('hidden');
+                menuCloseIcon.classList.toggle('hidden');
+            };
+
+            if (mobileMenuToggle && mobileMenu && menuOpenIcon && menuCloseIcon) {
+                mobileMenuToggle.addEventListener('click', toggleMenu);
+            }
+
+            if (mobileMenuLinks.length && searchInput) {
+                mobileMenuLinks.forEach(link => {
+                    // Check if it's a category filter link
+                    if (link.dataset.filterLink) {
+                        link.addEventListener('click', () => {
+                            // 1. Close the menu
+                            toggleMenu();
+
+                            // 2. Run the filter logic (copied from existing link handler)
+                            const searchTerm = link.dataset.filterLink;
+                            searchInput.value = searchTerm;
+                            filterCategories(); // Assumes filterCategories is in scope
+                            
+                            // 3. Scroll to search
+                            searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        });
+                    } else {
+                        // For other links like 'Stay notified'
+                        link.addEventListener('click', () => {
+                            toggleMenu();
+                            // The default href="#newsletter" will handle the scrolling
+                        });
+                    }
+                });
+            }
+
+            // --- End of Mobile Menu JS ---
+
+
             // Trigger search on input (live search)
             if (searchInput) {
                 searchInput.addEventListener('input', filterCategories);
@@ -598,7 +729,7 @@
                     
                     // Scroll search input into view smoothly
                     searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    searchInput.focus();
+                    // No focus, to avoid mobile keyboard popping up
                 });
             });
         });
