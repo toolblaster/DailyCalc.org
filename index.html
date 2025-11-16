@@ -103,14 +103,9 @@
             outline: none;
         }
 
-        /* Utility to hide scrollbars (already in common-layout.js, but good to have here too) */
-        .hide-scrollbar::-webkit-scrollbar {
-            display: none; /* Safari and Chrome */
-        }
-        .hide-scrollbar {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
-        }
+        /* REMOVED: .hide-scrollbar styles 
+          (They are now injected by js/global.js) 
+        */
 
         /* --- Mobile Menu Link Styles --- */
         /* These styles are used by the injected mobile menu */
@@ -138,7 +133,13 @@
     </style>
 
     <!-- 
-      *** OUR NEW LAYOUT SCRIPT ***
+      *** OUR NEW GLOBAL SCRIPT ***
+      This script will load global utilities.
+    -->
+    <script src="js/global.js" defer></script>
+    
+    <!-- 
+      *** OUR LAYOUT SCRIPT ***
       This script will load the header and footer.
       The 'defer' attribute is important.
       Path is relative to the root.
