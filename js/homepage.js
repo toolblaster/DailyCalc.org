@@ -1,24 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- Homepage-specific functionality ---
 
-    const toggleSubcategoriesBtn = document.getElementById('toggleSubcategories');
-    const subcategoryLists = document.querySelectorAll('[data-subcategory]');
-    let subcategoriesExpanded = false;
-
-    if (toggleSubcategoriesBtn && subcategoryLists.length) {
-        toggleSubcategoriesBtn.setAttribute('aria-pressed', 'false');
-        toggleSubcategoriesBtn.addEventListener('click', () => {
-            subcategoriesExpanded = !subcategoriesExpanded;
-            toggleSubcategoriesBtn.setAttribute('aria-pressed', String(subcategoriesExpanded));
-            toggleSubcategoriesBtn.classList.toggle('bg-brand-red/5', subcategoriesExpanded);
-            toggleSubcategoriesBtn.classList.toggle('border-brand-red', subcategoriesExpanded);
-            toggleSubcategoriesBtn.classList.toggle('text-brand-red', subcategoriesExpanded);
-
-            subcategoryLists.forEach((list) => {
-                list.classList.toggle('is-visible', subcategoriesExpanded);
-            });
-        });
-    }
+    // REMOVED: "toggleSubcategoriesBtn" logic as the button was removed from index.html
 
     const featuredList = document.querySelector('[data-featured-list]');
     if (featuredList) {
