@@ -108,7 +108,8 @@ const headerHTML = `
     </div>
 
     <!-- New Category Quick Bar -->
-    <nav class="border-b border-slate-200 bg-white" aria-label="Calculator Categories">
+    <!-- MODIFIED: Added 'hidden' to hide on mobile, and 'md:block' to show on desktop -->
+    <nav class="border-b border-slate-200 bg-white hidden md:block" aria-label="Calculator Categories">
         <div class="px-6">
             <div class="hide-scrollbar flex items-center gap-6 overflow-x-auto whitespace-nowrap py-3 md:gap-8 lg:justify-center">
                 <!-- Links now point back to homepage categories -->
