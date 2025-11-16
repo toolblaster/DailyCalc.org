@@ -22,35 +22,88 @@ const headerHTML = `
 
     <!-- Header -->
     <header class="bg-gradient-to-r from-brand-dark to-brand-red shadow-md sticky top-0 z-40">
-        <div class="mx-auto flex max-w-[1050px] flex-wrap items-center justify-between gap-4 px-6 py-3">
-            <div>
-                <!-- Link to homepage -->
-                <a href="/" class="flex items-center gap-3 text-white" aria-label="DailyCalc.org homepage">
-                    <div class="flex h-12 w-12 items-center justify-center rounded-full border-2 border-white text-white">
-                        <span class="text-xl font-semibold">DC</span>
-                    </div>
-                    <div>
-                        <p class="font-heading text-[22px] font-semibold">DailyCalc.org</p> 
-                        <p class="text-[12px] text-slate-300">Daily calculators for everyone.</p>
-                    </div>
-                </a>
-            </div>
+        <!-- Main header container -->
+        <!-- MODIFIED: Kept flex-col for mobile toggle behavior -->
+        <div class="mx-auto max-w-[1050px] flex-col px-6 py-4">
             
-            <!-- Mobile Menu Toggle Button -->
-            <nav aria-label="Primary" class="flex flex-wrap items-center gap-5 text-sm font-medium text-slate-600 md:hidden">
-                <button id="mobileMenuToggle" class="rounded-lg p-2 text-white transition hover:bg-white/10" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu">
-                    <i class="fa-solid fa-bars h-6 w-6" id="menuOpenIcon"></i>
-                    <i class="fa-solid fa-xmark h-6 w-6 hidden" id="menuCloseIcon"></i>
-                </button>
-            </nav>
+            <!-- Top row: Logo, Desktop Search, Buttons -->
+            <div class="flex w-full items-center justify-between gap-4">
+                
+                <!-- 1. Logo -->
+                <div class="flex-shrink-0">
+                    <!-- Link to homepage -->
+                    <a href="/" class="flex items-center gap-3 text-white" aria-label="DailyCalc.org homepage">
+                        <div class="flex h-12 w-12 items-center justify-center rounded-full border-2 border-white text-white">
+                            <span class="text-xl font-semibold">DC</span>
+                        </div>
+                        <div>
+                            <p class="font-heading text-[22px] font-semibold">DailyCalc.org</p> 
+                            <p class="text-[12px] text-slate-300">Daily calculators for everyone.</p>
+                        </div>
+                    </a>
+                </div>
 
-            <div class="hidden items-center gap-3 md:flex">
-                <!-- Link to homepage newsletter section -->
-                <a href="/#newsletter" class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-brand-red shadow-soft transition hover:bg-slate-200">
-                    <i class="fa-regular fa-bell"></i>
-                    Stay notified
-                </a>
+                <!-- 2. Desktop Search Bar -->
+                <!-- MODIFIED: This is a NEW search bar, only for desktop -->
+                <div class="hidden flex-1 px-4 md:block">
+                    <div class="relative w-full max-w-sm mx-auto">
+                        <label for="desktopCalculatorSearch" class="sr-only">Search calculators</label>
+                        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
+                            <i class="fa-solid fa-search text-slate-300"></i>
+                        </div>
+                        <input
+                            type="search"
+                            id="desktopCalculatorSearch"
+                            placeholder="Search calculators..."
+                            class="w-full rounded-full border border-white/30 bg-white/10 px-5 py-2 pl-10 text-sm text-white shadow-sm transition duration-200 placeholder:text-slate-300 focus:border-white focus:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/50"
+                        />
+                    </div>
+                </div>
+                
+                <!-- 3. Mobile/Desktop Buttons -->
+                <div class="flex-shrink-0">
+                    <!-- Mobile Menu Toggle Button -->
+                    <nav aria-label="Primary" class="flex flex-wrap items-center gap-2 text-sm font-medium text-slate-600 md:hidden">
+                        <button id="mobileSearchToggle" class="rounded-lg p-2 text-white transition hover:bg-white/10" aria-label="Toggle search" aria-expanded="false">
+                            <i class="fa-solid fa-search h-6 w-6"></i>
+                        </button>
+                        <button id="mobileMenuToggle" class="rounded-lg p-2 text-white transition hover:bg-white/10" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu">
+                            <i class="fa-solid fa-bars h-6 w-6" id="menuOpenIcon"></i>
+                            <i class="fa-solid fa-xmark h-6 w-6 hidden" id="menuCloseIcon"></i>
+                        </button>
+                    </nav>
+
+                    <!-- Desktop "Stay Notified" Button -->
+                    <div class="hidden items-center gap-3 md:flex">
+                        <!-- Link to homepage newsletter section -->
+                        <a href="/#newsletter" class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-brand-red shadow-soft transition hover:bg-slate-200">
+                            <i class="fa-regular fa-bell"></i>
+                            Stay notified
+                        </a>
+                    </div>
+                </div>
             </div>
+
+            <!-- Bottom row: Centered Search Bar -->
+            <!-- MODIFIED: This is now the MOBILE search bar, hidden on desktop -->
+            <div id="searchBarContainer" class="mx-auto hidden w-full max-w-sm pt-4 md:hidden">
+                <div class="relative w-full">
+                    <label for="calculatorSearch" class="sr-only">Search calculators</label>
+                    
+                    <!-- Search Icon -->
+                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
+                        <i class="fa-solid fa-search text-slate-300"></i>
+                    </div>
+
+                    <input
+                        type="search"
+                        id="calculatorSearch"
+                        placeholder="Search calculators..."
+                        class="w-full rounded-full border border-white/30 bg-white/10 px-5 py-2 pl-10 text-sm text-white shadow-sm transition duration-200 placeholder:text-slate-300 focus:border-white focus:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/50"
+                    />
+                </div>
+            </div>
+
         </div>
     </header>
 
@@ -289,6 +342,56 @@ function loadCommonLayout() {
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     `;
     document.head.appendChild(style);
+
+    // --- Search Input ---
+    // Define search input once, as it's used by multiple sections
+    const searchInput = document.getElementById('calculatorSearch'); // Mobile search
+    const desktopSearchInput = document.getElementById('desktopCalculatorSearch'); // Desktop search
+
+    // --- NEW: Mobile Search Toggle Logic ---
+    const mobileSearchToggle = document.getElementById('mobileSearchToggle');
+    const searchBarContainer = document.getElementById('searchBarContainer');
+
+    if (mobileSearchToggle && searchBarContainer && searchInput) {
+        mobileSearchToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isHidden = searchBarContainer.classList.contains('hidden');
+            
+            searchBarContainer.classList.toggle('hidden'); // This toggles visibility
+            
+            if (isHidden) {
+                mobileSearchToggle.setAttribute('aria-expanded', 'true');
+                searchInput.focus(); // Focus the input when it appears
+            } else {
+                mobileSearchToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+
+    // --- Global Search Redirect Logic ---
+    const isHomepage = document.getElementById('home'); // Check for homepage <main> ID
+
+    // Helper function for redirect
+    const handleSearchRedirect = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            const searchTerm = e.target.value.trim();
+            if (searchTerm) {
+                // Redirect to homepage with search query
+                window.location.href = '/?q=' + encodeURIComponent(searchTerm);
+            }
+        }
+    };
+
+    if (searchInput && !isHomepage) {
+        // If we are *not* on the homepage, make 'Enter' redirect to homepage search
+        searchInput.addEventListener('keypress', handleSearchRedirect);
+    }
+    
+    if (desktopSearchInput && !isHomepage) {
+        // Also apply to desktop search
+        desktopSearchInput.addEventListener('keypress', handleSearchRedirect);
+    }
 }
 
 // 3. Add the event listener to run our function
