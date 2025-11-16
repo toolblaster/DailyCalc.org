@@ -1,7 +1,8 @@
 /*
   DailyCalc.org Common Layout Injector
   This file contains the HTML for the site-wide header, navigation, and footer.
-  It injects this HTML into placeholder elements on any page that includes this script.
+  It injects this HTML into placeholder elements AND handles the internal
+  logic for those injected elements (e.g., mobile menu, search toggles).
 */
 
 // 1. Define the HTML for the common elements
@@ -332,13 +333,9 @@ function loadCommonLayout() {
     // On calculator pages, the category links should just go to the homepage
     // and let the homepage's JS handle filtering.
     // The `data-filter-link` attribute is now just for consistency.
-    // We also add a simple "hide scrollbar" style dynamically
-    const style = document.createElement('style');
-    style.textContent = `
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    `;
-    document.head.appendChild(style);
+    
+    // --- REMOVED: Scrollbar Hide Style ---
+    // This logic was moved to js/global.js
 
     // --- Search Input ---
     // Define search input once, as it's used by multiple sections
