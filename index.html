@@ -47,17 +47,18 @@
         .category-card {
             display: flex; /* Re-applied by JS filter */
             flex-direction: column;
-            gap: 0.375rem; /* Made more compact */
-            padding: 1rem; /* Made more compact */
-            border-radius: 0.75rem; /* Made more compact */
-            border: 1px solid rgb(226 232 240);
-            background: rgba(248, 250, 252, 0.7);
+            gap: 0.25rem; /* MODIFIED: Was 0.375rem */
+            padding: 0.75rem; /* MODIFIED: Was 1rem */
+            border-radius: 0.5rem; /* MODIFIED: Was 0.75rem */
+            border: 1px solid rgba(241, 32, 61, 0.15); /* MODIFIED: Faint brand-red border */
+            background: #ffffff; /* Solid white for better shadow */
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05); /* Smooth shadow */
             transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
         }
         .category-card:hover {
             transform: translateY(-4px);
-            border-color: rgba(241, 32, 61, 0.35);
-            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+            border-color: #F1203D; /* MODIFIED: Solid brand-red on hover */
+            box-shadow: 0 10px 30px rgba(241, 32, 61, 0.1); /* Prominent red-tinted shadow */
         }
         /* Applied H3 size via Tailwind */
         .category-card h3 {
@@ -73,18 +74,21 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 2rem; /* Made more compact */
-            height: 2rem;
+            width: 1.75rem; /* MODIFIED: Was 2rem */
+            height: 1.75rem; /* MODIFIED: Was 2rem */
             border-radius: 9999px;
-            font-size: 0.875rem; /* Made more compact */
+            font-size: 0.75rem; /* MODIFIED: Was 0.875rem */
+            /* NEW: Gradient background for icons */
+            background-image: linear-gradient(135deg, #f97316, #F1203D);
+            color: white;
         }
         .subcategory-list {
             display: none;
-            padding-left: 1.25rem;
+            padding-left: 1rem; /* MODIFIED: Was 1.25rem */
             margin-top: 0.25rem;
             list-style: disc;
             color: rgb(100 116 139);
-            font-size: 12px; /* Set subcategory list to 12px */
+            font-size: 11px; /* MODIFIED: Was 12px */
         }
         .subcategory-list.is-visible {
             display: block;
@@ -162,33 +166,31 @@
         -->
 
         <!-- *** CATEGORIES SECTION *** -->
-        <section id="categories" class="bg-white">
-            <!-- MODIFIED: Reduced padding from py-16 to py-12 -->
-            <div class="mx-auto max-w-[1050px] px-6 py-12">
+        <!-- MODIFIED: Changed background -->
+        <section id="categories" class="bg-slate-50">
+            <!-- MODIFIED: Reduced horizontal padding -->
+            <div class="mx-auto max-w-[1050px] px-4 py-12">
                 
-                <!-- MODIFIED: Added a centered H1 and description from the old hero -->
-                <div class="mx-auto max-w-2xl text-center">
-                    <h1 class="font-heading text-[22px] font-semibold leading-tight text-brand-dark">
-                        Find the calculator you need
-                    </h1>
-                    <p class="mt-3 text-[12px] text-slate-600">
-                        Browse our growing library of accurate, lightweight calculators across finance, health, productivity, and more. Designed for instant answers on any device.
-                    </p>
-                </div>
+                <!-- NEW: Wrapper div for border and shadow -->
+                <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-soft sm:p-10">
+
+                    <!-- MODIFIED: Added a centered H1 and description from the old hero -->
+                    <div class="mx-auto max-w-2xl text-center">
+                        <!-- MODIFIED: Fixed structure -->
+                        <h1 class="font-heading text-[22px] font-semibold leading-tight text-brand-dark">
+                            Find the Daily Calculator you need
+                        </h1>
+                        <p class="mt-3 text-[12px] text-slate-600">
+                            Browse our growing library of accurate, lightweight calculators across finance, health, productivity, and more. Designed for instant answers on any device.
+                        </p>
+                    </div>
 
                 <!-- 
-                  MODIFIED: 
-                  Removed the div with H2 and P.
-                  Changed justify-between to justify-end.
-                  ADDED: mt-8 to space from new heading, md:self-auto to button
+                  REMOVED: "Toggle subcategories preview" button and its container div.
                 -->
-                <div class="mt-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-end">
-                    <button id="toggleSubcategories" class="inline-flex items-center gap-2 self-start rounded-full border border-slate-200 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-brand-dark transition hover:border-brand-red hover:text-brand-red md:self-auto">
-                        <i class="fa-solid fa-diagram-project"></i>
-                        Toggle subcategories preview
-                    </button>
-                </div>
+                
                 <!-- Updated grid to 2-col mobile, 4-col tablet+ -->
+                <!-- MODIFIED: Adjusted margin-top to mt-10 since the button div was removed -->
                 <div id="categoryGrid" class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-6">
                     <!-- 
                       IMPORTANT: 
@@ -196,13 +198,14 @@
                       Example: <a href="/calculators/mortgage-calculator.html" class="category-card" ...>
                     -->
                     <a href="/calculators/bmi-calculator.html" class="category-card" data-title="Finance" data-description="Budgeting, loans, investments, and personal wealth tools.">
-                        <div class="category-icon bg-brand-red/10 text-brand-red">
+                        <!-- MODIFIED: Removed bg/text classes, style is in CSS now -->
+                        <div class="category-icon">
                             <i class="fa-solid fa-sack-dollar"></i>
                         </div>
                         <!-- H3: 14px -->
-                        <h3 class="text-[14px]">Finance</h3>
+                        <h3 class="text-[13px]">Finance</h3>
                         <!-- Descriptive Text: 12px -->
-                        <p class="text-[12px]">Budgeting, loans, investments, and personal wealth tools.</p>
+                        <p class="text-[11px]">Budgeting, loans, investments, and personal wealth tools.</p>
                         <ul class="subcategory-list" data-subcategory>
                             <li>Mortgage &amp; loans</li>
                             <li>Budget planners</li>
@@ -211,13 +214,14 @@
                     </a>
                     
                     <a href="/calculators/bmi-calculator.html" class="category-card" data-title="Health & Fitness" data-description="Track wellness goals, nutrition, and body metrics with ease.">
-                        <div class="category-icon bg-brand-red/10 text-brand-red">
+                        <!-- MODIFIED: Removed bg/text classes, style is in CSS now -->
+                        <div class="category-icon">
                             <i class="fa-solid fa-heart-pulse"></i>
                         </div>
                         <!-- H3: 14px -->
-                        <h3 class="text-[14px]">Health &amp; Fitness</h3>
+                        <h3 class="text-[13px]">Health &amp; Fitness</h3>
                         <!-- Descriptive Text: 12px -->
-                        <p class="text-[12px]">Track wellness goals, nutrition, and body metrics with ease.</p>
+                        <p class="text-[11px]">Track wellness goals, nutrition, and body metrics with ease.</p>
                         <ul class="subcategory-list" data-subcategory>
                             <li>Hydration &amp; nutrition</li>
                             <li>Body metrics</li>
@@ -226,13 +230,14 @@
                     </a>
                     
                     <a href="/calculators/bmi-calculator.html" class="category-card" data-title="Date & Time" data-description="Countdowns, date math, time zone helpers, and scheduling.">
-                        <div class="category-icon bg-brand-red/10 text-brand-red">
+                        <!-- MODIFIED: Removed bg/text classes, style is in CSS now -->
+                        <div class="category-icon">
                             <i class="fa-regular fa-calendar"></i>
                         </div>
                         <!-- H3: 14px -->
-                        <h3 class="text-[14px]">Date &amp; Time</h3>
+                        <h3 class="text-[13px]">Date &amp; Time</h3>
                         <!-- Descriptive Text: 12px -->
-                        <p class="text-[12px]">Countdowns, date math, time zone helpers, and scheduling.</p>
+                        <p class="text-[11px]">Countdowns, date math, time zone helpers, and scheduling.</p>
                         <ul class="subcategory-list" data-subcategory>
                             <li>Time tracking</li>
                             <li>Event planning</li>
@@ -241,13 +246,14 @@
                     </a>
                     
                     <a href="/calculators/bmi-calculator.html" class="category-card" data-title="Math & Numbers" data-description="Algebra, geometry, statistics, and quick number crunchers.">
-                        <div class="category-icon bg-brand-red/10 text-brand-red">
+                        <!-- MODIFIED: Removed bg/text classes, style is in CSS now -->
+                        <div class="category-icon">
                             <i class="fa-solid fa-square-root-variable"></i>
                         </div>
                         <!-- H3: 14px -->
-                        <h3 class="text-[14px]">Math &amp; Numbers</h3>
+                        <h3 class="text-[13px]">Math &amp; Numbers</h3>
                         <!-- Descriptive Text: 12px -->
-                        <p class="text-[12px]">Algebra, geometry, statistics, and quick number crunchers.</p>
+                        <p class="text-[11px]">Algebra, geometry, statistics, and quick number crunchers.</p>
                         <ul class="subcategory-list" data-subcategory>
                             <li>Algebra helpers</li>
                             <li>Geometry solvers</li>
@@ -256,13 +262,14 @@
                     </a>
                     
                     <a href="/calculators/bmi-calculator.html" class="category-card" data-title="Study & Education" data-description="Learning aids, grading, study planners, and academic tools.">
-                        <div class="category-icon bg-brand-red/10 text-brand-red">
+                        <!-- MODIFIED: Removed bg/text classes, style is in CSS now -->
+                        <div class="category-icon">
                             <i class="fa-solid fa-graduation-cap"></i>
                         </div>
                         <!-- H3: 14px -->
-                        <h3 class="text-[14px]">Study &amp; Education</h3>
+                        <h3 class="text-[13px]">Study &amp; Education</h3>
                         <!-- Descriptive Text: 12px -->
-                        <p class="text-[12px]">Learning aids, grading, study planners, and academic tools.</p>
+                        <p class="text-[11px]">Learning aids, grading, study planners, and academic tools.</p>
                         <ul class="subcategory-list" data-subcategory>
                             <li>Grade trackers</li>
                             <li>Study planning</li>
@@ -270,13 +277,14 @@
                         </ul>
                     </a>
                     <a href="/calculators/bmi-calculator.html" class="category-card" data-title="Converters" data-description="Unit conversions for measurements, currencies, and formats.">
-                        <div class="category-icon bg-brand-red/10 text-brand-red">
+                        <!-- MODIFIED: Removed bg/text classes, style is in CSS now -->
+                        <div class="category-icon">
                             <i class="fa-solid fa-arrows-rotate"></i>
                         </div>
                         <!-- H3: 14px -->
-                        <h3 class="text-[14px]">Converters</h3>
+                        <h3 class="text-[13px]">Converters</h3>
                         <!-- Descriptive Text: 12px -->
-                        <p class="text-[12px]">Unit conversions for measurements, currencies, and formats.</p>
+                        <p class="text-[11px]">Unit conversions for measurements, currencies, and formats.</p>
                         <ul class="subcategory-list" data-subcategory>
                             <li>Units &amp; measures</li>
                             <li>Digital formats</li>
@@ -284,13 +292,14 @@
                         </ul>
                     </a>
                     <a href="/calculators/bmi-calculator.html" class="category-card" data-title="General Tools" data-description="Everyday quick calculators for household and lifestyle needs.">
-                        <div class="category-icon bg-brand-red/10 text-brand-red">
+                        <!-- MODIFIED: Removed bg/text classes, style is in CSS now -->
+                        <div class="category-icon">
                             <i class="fa-solid fa-screwdriver-wrench"></i>
                         </div>
                         <!-- H3: 14px -->
-                        <h3 class="text-[14px]">General Tools</h3>
+                        <h3 class="text-[13px]">General Tools</h3>
                         <!-- Descriptive Text: 12px -->
-                        <p class="text-[12px]">Everyday quick calculators for household and lifestyle needs.</p>
+                        <p class="text-[11px]">Everyday quick calculators for household and lifestyle needs.</p>
                         <ul class="subcategory-list" data-subcategory>
                             <li>Home &amp; DIY</li>
                             <li>Travel helpers</li>
@@ -298,13 +307,14 @@
                         </ul>
                     </a>
                     <a href="/calculators/bmi-calculator.html" class="category-card" data-title="AI-Based Calculators" data-description="Smart calculators leveraging AI for nuanced or predictive results.">
-                        <div class="category-icon bg-brand-red/10 text-brand-red">
+                        <!-- MODIFIED: Removed bg/text classes, style is in CSS now -->
+                        <div class="category-icon">
                             <i class="fa-solid fa-robot"></i>
                         </div>
                         <!-- H3: 14px -->
-                        <h3 class="text-[14px]">AI-Based Calculators</h3>
+                        <h3 class="text-[13px]">AI-Based Calculators</h3>
                         <!-- Descriptive Text: 12px -->
-                        <p class="text-[12px]">Smart calculators leveraging AI for nuanced or predictive results.</p>
+                        <p class="text-[11px]">Smart calculators leveraging AI for nuanced or predictive results.</p>
                         <ul class="subcategory-list" data-subcategory>
                             <li>Personalized advice</li>
                             <li>Scenario modeling</li>
@@ -317,34 +327,10 @@
                     <h3 class="text-lg font-semibold text-brand-dark">No calculators found</h3>
                     <p class="mt-2 text-sm">We couldn't find a calculator matching your search. Try a different term or browse the categories above.</p>
                 </div>
-            </div>
-        </section>
 
-        <!-- Newsletter Section -->
-        <section id="newsletter" class="bg-slate-50">
-            <div class="mx-auto max-w-[1050px] px-6 py-16">
-                <div class="rounded-3xl border border-slate-200 bg-white p-8 shadow-soft">
-                    <div class="grid gap-8 md:grid-cols-[1.1fr_0.9fr] md:items-center">
-                        <div>
-                            <!-- H2: 18px -->
-                            <h2 class="font-heading text-[18px] font-semibold text-brand-dark">Stay ahead of new calculators</h2>
-                            <!-- Descriptive Text: 12px -->
-                            <p class="mt-3 text-[12px] text-slate-600">Join the update list to hear when new tools launch, read in-depth guides, and access beta features.</p>
-                        </div>
-                        <form class="flex flex-col gap-3 md:flex-row" aria-label="Email signup form">
-                            <label class="sr-only" for="email">Email address</label>
-                            <input id="email" type="email" placeholder="you@example.com" class="w-full rounded-full border border-slate-200 px-4 py-3 text-sm text-brand-dark outline-none transition focus:border-brand-red focus:ring-2 focus:ring-brand-red/20" required>
-                            <button type="submit" class="inline-flex items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-dark">
-                                <i class="fa-regular fa-paper-plane"></i>
-                                Subscribe
-                            </button>
-                        </form>
-                    </div>
-                    <p class="mt-3 text-xs text-slate-500">No spam. Unsubscribe anytime. We respect your privacy.</p>
-                </div>
-            </div>
-        </section>
-    </main>
+            </div> <!-- END: New wrapper div -->
+        </div>
+    </section>
 
     <!-- 
       *** All Footer HTML has been REMOVED from here. ***
