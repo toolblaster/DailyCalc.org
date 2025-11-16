@@ -16,7 +16,8 @@ const headerHTML = `
     <!-- Header -->
     <header class="bg-gradient-to-r from-brand-dark to-brand-red shadow-md sticky top-0 z-40">
         <!-- Main header container -->
-        <div class="mx-auto max-w-[1050px] flex-col px-6 py-4">
+        <!-- MODIFIED: Reduced vertical padding (py-3 sm:py-4 -> py-2 sm:py-3) -->
+        <div class="mx-auto max-w-[1050px] flex-col px-6 py-2 sm:py-3">
             
             <!-- Top row: Logo, Desktop Search, Buttons -->
             <div class="flex w-full items-center justify-between gap-4">
@@ -24,13 +25,18 @@ const headerHTML = `
                 <!-- 1. Logo -->
                 <div class="flex-shrink-0">
                     <!-- Link to homepage -->
-                    <a href="/" class="flex items-center gap-3 text-white" aria-label="DailyCalc.org homepage">
-                        <div class="flex h-12 w-12 items-center justify-center rounded-full border-2 border-white text-white">
-                            <span class="text-xl font-semibold">DC</span>
+                    <!-- MODIFIED: Reduced gap on mobile (gap-3 -> gap-2 sm:gap-3) -->
+                    <a href="/" class="flex items-center gap-2 sm:gap-3 text-white" aria-label="DailyCalc.org homepage">
+                        <!-- MODIFIED: Reduced logo circle size on mobile (h-12 w-12 -> h-10 w-10 sm:h-12 sm:w-12) -->
+                        <div class="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full border-2 border-white text-white">
+                            <!-- MODIFIED: Reduced logo text size on mobile (text-xl -> text-lg sm:text-xl) -->
+                            <span class="text-lg sm:text-xl font-semibold">DC</span>
                         </div>
                         <div>
-                            <p class="font-heading text-[22px] font-semibold">DailyCalc.org</p> 
-                            <p class="text-[12px] text-slate-300">Daily calculators for everyone.</p>
+                            <!-- MODIFIED: Reduced title text size on mobile (text-[22px] -> text-[20px] sm:text-[22px]) -->
+                            <p class="font-heading text-[20px] sm:text-[22px] font-semibold">DailyCalc.org</p> 
+                            <!-- MODIFIED: Reduced subtitle text size on mobile (text-[12px] -> text-[11px] sm:text-[12px]) -->
+                            <p class="text-[11px] sm:text-[12px] text-slate-300">Daily calculators for everyone.</p>
                         </div>
                     </a>
                 </div>
@@ -83,7 +89,8 @@ const headerHTML = `
     <!-- *** NEW MOBILE MENU PANEL (Slide-in) *** -->
     <div id="mobileMenu" class="md:hidden fixed inset-0 z-50 hidden">
         <div id="mobileMenuOverlay" class="absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300 ease-in-out" aria-hidden="true"></div>
-        <div id="mobileMenuContent" class="relative flex flex-col bg-gradient-to-r from-brand-dark to-brand-red h-full w-1/2 max-w-sm shadow-xl transform -translate-x-full transition-transform duration-300 ease-in-out">
+        <!-- MODIFIED: Changed width from w-1/2 (50%) to w-2/3 (66.6%) -->
+        <div id="mobileMenuContent" class="relative flex flex-col bg-gradient-to-r from-brand-dark to-brand-red h-full w-2/3 max-w-sm shadow-xl transform -translate-x-full transition-transform duration-300 ease-in-out">
             
             <div class="flex justify-end p-2">
                  <button id="mobileMenuClose" class="rounded-lg p-2 text-white transition hover:bg-white/10" aria-label="Close menu">
@@ -184,7 +191,8 @@ const footerHTML = `
           REMOVED: Newsletter Section 
         -->
 
-        <div class="mx-auto max-w-[1050px] px-6 py-12">
+        <!-- MODIFIED: Reduced vertical padding (py-12 -> py-8) -->
+        <div class="mx-auto max-w-[1050px] px-6 py-8">
             <div class="flex flex-col items-center gap-10 text-center md:flex-row md:items-start md:justify-center md:gap-16">
                 
                 <div>
@@ -229,8 +237,9 @@ const searchModalHTML = `
         <!-- Overlay -->
         <div id="searchModalOverlay" class="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity" aria-hidden="true"></div>
 
-        <!-- Modal Content -->
-        <div class="relative flex min-h-full items-start justify-center p-4 pt-16 sm:p-6">
+        <!-- Modal Content Container -->
+        <!-- MODIFIED: Added id="searchModalContainer" -->
+        <div id="searchModalContainer" class="relative flex min-h-full items-start justify-center p-4 pt-16 sm:p-6">
             <div id="searchModalContent" class="relative w-full max-w-xl transform-gpu overflow-hidden rounded-lg bg-white shadow-2xl transition-all">
                 <!-- Search Input Group -->
                 <div class="relative">
@@ -470,6 +479,9 @@ function loadCommonLayout() {
     const closeSearchBtn = document.getElementById('closeSearchModalButton');
     const globalSearchInput = document.getElementById('globalSearchInput');
     
+    // MODIFIED: Added searchModalContainer
+    const searchModalContainer = document.getElementById('searchModalContainer');
+    
     // Result area elements
     const resultsWrapper = document.getElementById('searchResultsWrapper');
     const resultsContainer = document.getElementById('searchResultsContainer');
@@ -584,6 +596,18 @@ function loadCommonLayout() {
     if (searchModalOverlay) {
         searchModalOverlay.addEventListener('click', closeSearchModal);
     }
+
+    // MODIFIED: Added click listener to the container
+    if (searchModalContainer) {
+        searchModalContainer.addEventListener('click', (e) => {
+            // If the user clicks the container itself (the padding)
+            // and NOT the content box inside it, close the modal.
+            if (e.target === searchModalContainer) {
+                closeSearchModal();
+            }
+        });
+    }
+    
     if (globalSearchInput) {
         globalSearchInput.addEventListener('input', onSearchInput);
     }
