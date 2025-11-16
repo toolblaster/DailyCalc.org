@@ -133,7 +133,7 @@ const headerHTML = `
                     <span class="font-medium">Study & Education</span>
                 </a>
                 <a href="/#categories" class="flex flex-none items-center gap-2 text-sm text-slate-700 transition hover:text-brand-red" data-filter-link="Converters">
-                    <i class="fa-solid fa-arrows-rotate fa-fw w-4 text-center text-brand-red/7OF"></i>
+                    <i class="fa-solid fa-arrows-rotate fa-fw w-4 text-center text-brand-red/70"></i>
                     <span class="font-medium">Converters</span>
                 </a>
                 <a href="/#categories" class="flex flex-none items-center gap-2 text-sm text-slate-700 transition hover:text-brand-red" data-filter-link="General">
