@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DailyCalc.org | Daily calculators for everyone.</title>
+    <meta name="description" content="DailyCalc.org is a fast, trustworthy home for daily-use calculators across finance, health, productivity, education, and more.">
+    <meta name="keywords" content="daily calculators, finance calculator, health calculator, productivity tools, converters, math calculators">
+    <link rel="canonical" href="https://dailycalc.org/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Poppins', 'system-ui', 'sans-serif'],
+                        heading: ['Poppins', 'Inter', 'system-ui', 'sans-serif']
+                    },
+                    colors: {
+                        brand: {
+                            red: '#F1203D',
+                            dark: '#050505'
+                        }
+                    },
+                    boxShadow: {
+                        soft: '0 12px 40px rgba(15, 23, 42, 0.08)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        .category-card {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            padding: 1.5rem;
+            border-radius: 1.5rem;
+            border: 1px solid rgb(226 232 240);
+            background: rgba(248, 250, 252, 0.7);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        .category-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(241, 32, 61, 0.35);
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.1);
+        }
+        .category-card h3 {
+            font-family: 'Poppins', 'Inter', system-ui, sans-serif;
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #050505;
+        }
+        .category-card p {
+            font-size: 0.9375rem;
+            color: rgb(71 85 105);
+        }
+        .category-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.75rem;
+            height: 2.75rem;
+            border-radius: 9999px;
+            font-size: 1.125rem;
+        }
+        .subcategory-list {
+            display: none;
+            padding-left: 1.25rem;
+            margin-top: 0.5rem;
+            list-style: disc;
+            color: rgb(100 116 139);
+            font-size: 0.875rem;
+        }
+        .subcategory-list.is-visible {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased">
+    <div class="border-b border-slate-200 bg-white/90 backdrop-blur">
+        <div class="mx-auto flex max-w-[1050px] items-center justify-between px-6 py-3 text-sm">
+            <div class="flex items-center gap-2 text-slate-600">
+                <i class="fa-solid fa-shield-heart text-brand-red"></i>
+                <span>Trusted daily calculators for everyone.</span>
+            </div>
+            <a href="#newsletter" class="hidden text-brand-red transition hover:text-brand-dark sm:inline-flex">Get updates</a>
+        </div>
+    </div>
+
+    <header class="border-b border-slate-200 bg-white">
+        <div class="mx-auto flex max-w-[1050px] flex-wrap items-center justify-between gap-4 px-6 py-6">
+            <div>
+                <a href="#home" class="flex items-center gap-3 text-brand-dark" aria-label="DailyCalc.org homepage">
+                    <div class="flex h-12 w-12 items-center justify-center rounded-full border-2 border-brand-red text-brand-red">
+                        <span class="text-xl font-semibold">DC</span>
+                    </div>
+                    <div>
+                        <p class="font-heading text-2xl font-semibold">DailyCalc.org</p>
+                        <p class="text-sm text-slate-500">Daily calculators for everyone.</p>
+                    </div>
+                </a>
+            </div>
+            <nav aria-label="Primary" class="flex flex-wrap items-center gap-5 text-sm font-medium text-slate-600">
+                <a class="transition hover:text-brand-red" href="#categories">Categories</a>
+                <a class="transition hover:text-brand-red" href="#featured">Featured</a>
+                <a class="transition hover:text-brand-red" href="#roadmap">Roadmap</a>
+                <a class="transition hover:text-brand-red" href="#faq">FAQ</a>
+            </nav>
+            <div class="flex items-center gap-3">
+                <a href="#ad-spot" class="hidden rounded-full border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 transition hover:border-brand-red hover:text-brand-red sm:inline-flex">Ad space</a>
+                <a href="#newsletter" class="inline-flex items-center gap-2 rounded-full bg-brand-red px-4 py-2 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-dark">
+                    <i class="fa-regular fa-bell"></i>
+                    Stay notified
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main id="home">
+        <section class="bg-gradient-to-br from-white via-white to-slate-100">
+            <div class="mx-auto grid max-w-[1050px] gap-10 px-6 py-16 md:grid-cols-[1.1fr_0.9fr] md:items-center">
+                <div class="space-y-6">
+                    <span class="inline-flex items-center gap-2 rounded-full border border-brand-red/30 bg-white px-4 py-1 text-xs font-semibold uppercase tracking-widest text-brand-red">
+                        <i class="fa-solid fa-bolt"></i>
+                        Fast & Evergreen
+                    </span>
+                    <h1 class="font-heading text-4xl font-semibold leading-tight text-brand-dark md:text-5xl">
+                        Daily tools for life’s calculations — built for trust, speed, and clarity.
+                    </h1>
+                    <p class="text-lg text-slate-600">
+                        DailyCalc.org delivers a growing library of accurate, lightweight calculators across finance, health, productivity, and more. Designed for instant answers on any device, without distractions.
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                        <a href="#categories" class="inline-flex items-center gap-2 rounded-full bg-brand-red px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-dark">
+                            Explore categories
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <a href="#vision" class="inline-flex items-center gap-2 rounded-full border border-slate-200 px-5 py-3 text-sm font-semibold text-brand-dark transition hover:border-brand-red hover:text-brand-red">
+                            Read the vision
+                        </a>
+                    </div>
+                    <dl class="grid gap-6 text-sm text-slate-600 sm:grid-cols-3">
+                        <div>
+                            <dt class="font-semibold text-brand-dark">SEO-first architecture</dt>
+                            <dd>Structured data, semantic HTML, and blazing fast load times.</dd>
+                        </div>
+                        <div>
+                            <dt class="font-semibold text-brand-dark">Expandable design</dt>
+                            <dd>Launch calculators one-by-one without rebuilding the site.</dd>
+                        </div>
+                        <div>
+                            <dt class="font-semibold text-brand-dark">Trustworthy experience</dt>
+                            <dd>.org branding, neutral tone, and transparent roadmap.</dd>
+                        </div>
+                    </dl>
+                </div>
+                <aside class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
+                    <h2 class="font-heading text-xl font-semibold text-brand-dark">Today's top tools</h2>
+                    <p class="mt-2 text-sm text-slate-500">
+                        Launching with curated essentials. Expand effortlessly as new calculators go live.
+                    </p>
+                    <div class="mt-6 space-y-4" id="featured" data-featured-list>
+                        <article class="rounded-xl border border-slate-100 bg-slate-50/80 p-4">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h3 class="font-semibold text-brand-dark">Coming soon</h3>
+                                    <p class="text-xs uppercase tracking-wide text-slate-500">Finance · Mortgage affordability calculator</p>
+                                </div>
+                                <span class="inline-flex items-center gap-1 rounded-full bg-brand-red/10 px-2 py-1 text-[11px] font-semibold text-brand-red">
+                                    <i class="fa-solid fa-clock"></i>
+                                    In development
+                                </span>
+                            </div>
+                            <p class="mt-3 text-sm text-slate-600">Estimate monthly payments and compare lender scenarios with confidence.</p>
+                        </article>
+                        <article class="rounded-xl border border-slate-100 bg-slate-50/80 p-4">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h3 class="font-semibold text-brand-dark">Prioritised</h3>
+                                    <p class="text-xs uppercase tracking-wide text-slate-500">Health &amp; Fitness · Daily hydration tracker</p>
+                                </div>
+                                <span class="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-1 text-[11px] font-semibold text-emerald-600">
+                                    <i class="fa-solid fa-fire"></i>
+                                    High demand
+                                </span>
+                            </div>
+                            <p class="mt-3 text-sm text-slate-600">Quickly calculate optimal water intake tailored to lifestyle and climate.</p>
+                        </article>
+                        <article class="rounded-xl border border-slate-100 bg-slate-50/80 p-4">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h3 class="font-semibold text-brand-dark">Ideas welcome</h3>
+                                    <p class="text-xs uppercase tracking-wide text-slate-500">General Tools · Custom calculator requests</p>
+                                </div>
+                                <span class="inline-flex items-center gap-1 rounded-full bg-slate-200 px-2 py-1 text-[11px] font-semibold text-slate-700">
+                                    <i class="fa-regular fa-envelope"></i>
+                                    Suggest
+                                </span>
+                            </div>
+                            <p class="mt-3 text-sm text-slate-600">Tell us what to build next and we’ll slot it into the public roadmap.</p>
+                        </article>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <section id="vision" class="border-y border-slate-200 bg-white">
+            <div class="mx-auto max-w-[1050px] px-6 py-16">
+                <div class="grid gap-10 md:grid-cols-[1.2fr_0.8fr] md:items-center">
+                    <div class="space-y-5">
+                        <h2 class="font-heading text-3xl font-semibold text-brand-dark">A calculator platform built for trust and growth</h2>
+                        <p class="text-base text-slate-600">DailyCalc.org is designed as an evergreen, modular hub where calculators across every daily-life category can launch independently yet share a consistent brand experience.</p>
+                        <ul class="space-y-3 text-sm text-slate-600">
+                            <li class="flex items-start gap-3"><i class="fa-solid fa-circle-check mt-1 text-brand-red"></i><span>Clean, minimal interface with a consistent 1050px content width for easy reading.</span></li>
+                            <li class="flex items-start gap-3"><i class="fa-solid fa-circle-check mt-1 text-brand-red"></i><span>SEO-first structure with semantic HTML, descriptive headings, and rich snippets ready.</span></li>
+                            <li class="flex items-start gap-3"><i class="fa-solid fa-circle-check mt-1 text-brand-red"></i><span>Lightweight performance, using modern Tailwind CSS and vanilla JavaScript only as needed.</span></li>
+                            <li class="flex items-start gap-3"><i class="fa-solid fa-circle-check mt-1 text-brand-red"></i><span>Expandable category system prepared for sub-category navigation and future calculators.</span></li>
+                        </ul>
+                    </div>
+                    <div class="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-soft">
+                        <h3 class="font-heading text-xl font-semibold text-brand-dark">Platform checklist</h3>
+                        <dl class="mt-4 space-y-4 text-sm text-slate-600">
+                            <div class="flex items-center justify-between">
+                                <dt>SEO score potential</dt>
+                                <dd class="font-semibold text-brand-dark">90%+</dd>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <dt>Average page weight</dt>
+                                <dd class="font-semibold text-brand-dark">&lt; 100 KB</dd>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <dt>Mobile-first layout</dt>
+                                <dd class="font-semibold text-brand-dark">Responsive</dd>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <dt>Calculator launch cadence</dt>
+                                <dd class="font-semibold text-brand-dark">1 at a time</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="categories" class="bg-white">
+            <div class="mx-auto max-w-[1050px] px-6 py-16">
+                <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+                    <div>
+                        <h2 class="font-heading text-3xl font-semibold text-brand-dark">Primary calculator categories</h2>
+                        <p class="mt-3 max-w-xl text-sm text-slate-600">
+                            Clear navigation helps users find the right calculator fast. Each category expands into focused subsections as new tools launch.
+                        </p>
+                    </div>
+                    <button id="toggleSubcategories" class="inline-flex items-center gap-2 self-start rounded-full border border-slate-200 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-brand-dark transition hover:border-brand-red hover:text-brand-red">
+                        <i class="fa-solid fa-diagram-project"></i>
+                        Toggle subcategories preview
+                    </button>
+                </div>
+                <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    <article class="category-card">
+                        <div class="category-icon bg-brand-red/10 text-brand-red">
+                            <i class="fa-solid fa-sack-dollar"></i>
+                        </div>
+                        <h3>Finance</h3>
+                        <p>Budgeting, loans, investments, and personal wealth tools.</p>
+                        <ul class="subcategory-list" data-subcategory>
+                            <li>Mortgage &amp; loans</li>
+                            <li>Budget planners</li>
+                            <li>Savings growth</li>
+                        </ul>
+                    </article>
+                    <article class="category-card">
+                        <div class="category-icon bg-brand-red/10 text-brand-red">
+                            <i class="fa-solid fa-heart-pulse"></i>
+                        </div>
+                        <h3>Health &amp; Fitness</h3>
+                        <p>Track wellness goals, nutrition, and body metrics with ease.</p>
+                        <ul class="subcategory-list" data-subcategory>
+                            <li>Hydration &amp; nutrition</li>
+                            <li>Body metrics</li>
+                            <li>Training zones</li>
+                        </ul>
+                    </article>
+                    <article class="category-card">
+                        <div class="category-icon bg-brand-red/10 text-brand-red">
+                            <i class="fa-regular fa-calendar"></i>
+                        </div>
+                        <h3>Date &amp; Time</h3>
+                        <p>Countdowns, date math, time zone helpers, and scheduling.</p>
+                        <ul class="subcategory-list" data-subcategory>
+                            <li>Time tracking</li>
+                            <li>Event planning</li>
+                            <li>Workday math</li>
+                        </ul>
+                    </article>
+                    <article class="category-card">
+                        <div class="category-icon bg-brand-red/10 text-brand-red">
+                            <i class="fa-solid fa-square-root-variable"></i>
+                        </div>
+                        <h3>Math &amp; Numbers</h3>
+                        <p>Algebra, geometry, statistics, and quick number crunchers.</p>
+                        <ul class="subcategory-list" data-subcategory>
+                            <li>Algebra helpers</li>
+                            <li>Geometry solvers</li>
+                            <li>Statistics tools</li>
+                        </ul>
+                    </article>
+                    <article class="category-card">
+                        <div class="category-icon bg-brand-red/10 text-brand-red">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        <h3>Study &amp; Education</h3>
+                        <p>Learning aids, grading, study planners, and academic tools.</p>
+                        <ul class="subcategory-list" data-subcategory>
+                            <li>Grade trackers</li>
+                            <li>Study planning</li>
+                            <li>Language tools</li>
+                        </ul>
+                    </article>
+                    <article class="category-card">
+                        <div class="category-icon bg-brand-red/10 text-brand-red">
+                            <i class="fa-solid fa-briefcase"></i>
+                        </div>
+                        <h3>Business &amp; Productivity</h3>
+                        <p>Operations, KPIs, time management, and project calculators.</p>
+                        <ul class="subcategory-list" data-subcategory>
+                            <li>Project costing</li>
+                            <li>Productivity metrics</li>
+                            <li>Operational ratios</li>
+                        </ul>
+                    </article>
+                    <article class="category-card">
+                        <div class="category-icon bg-brand-red/10 text-brand-red">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                        </div>
+                        <h3>Converters</h3>
+                        <p>Unit conversions for measurements, currencies, and formats.</p>
+                        <ul class="subcategory-list" data-subcategory>
+                            <li>Units &amp; measures</li>
+                            <li>Digital formats</li>
+                            <li>Currency snapshots</li>
+                        </ul>
+                    </article>
+                    <article class="category-card">
+                        <div class="category-icon bg-brand-red/10 text-brand-red">
+                            <i class="fa-solid fa-screwdriver-wrench"></i>
+                        </div>
+                        <h3>General Tools</h3>
+                        <p>Everyday quick calculators for household and lifestyle needs.</p>
+                        <ul class="subcategory-list" data-subcategory>
+                            <li>Home &amp; DIY</li>
+                            <li>Travel helpers</li>
+                            <li>Event planning</li>
+                        </ul>
+                    </article>
+                    <article class="category-card">
+                        <div class="category-icon bg-brand-red/10 text-brand-red">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <h3>AI-Based Calculators</h3>
+                        <p>Smart calculators leveraging AI for nuanced or predictive results.</p>
+                        <ul class="subcategory-list" data-subcategory>
+                            <li>Personalized advice</li>
+                            <li>Scenario modeling</li>
+                            <li>Automation scripts</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="ad-spot" class="border-y border-slate-200 bg-slate-50">
+            <div class="mx-auto flex max-w-[1050px] flex-col gap-6 px-6 py-12 md:flex-row md:items-center md:justify-between">
+                <div class="max-w-xl">
+                    <h2 class="font-heading text-2xl font-semibold text-brand-dark">Ad-ready without the clutter</h2>
+                    <p class="mt-3 text-sm text-slate-600">Thoughtful placement ensures Google AdSense units feel native, relevant, and respectful. Reserve premium placements that maintain trust without sacrificing performance.</p>
+                </div>
+                <div class="w-full rounded-2xl border-2 border-dashed border-slate-300 bg-white/60 p-6 text-center text-sm text-slate-500 md:w-80">
+                    <p class="font-semibold text-brand-dark">728 × 90 Leaderboard</p>
+                    <p class="mt-2">AdSense placeholder — ready for deployment when the first calculator goes live.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="roadmap" class="bg-white">
+            <div class="mx-auto max-w-[1050px] px-6 py-16">
+                <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+                    <div>
+                        <h2 class="font-heading text-3xl font-semibold text-brand-dark">Launch roadmap</h2>
+                        <p class="mt-3 max-w-2xl text-sm text-slate-600">A transparent rollout keeps DailyCalc.org accountable to users. Each calculator is launched with dedicated landing pages, structured data, and internal linking updates.</p>
+                    </div>
+                    <a href="#newsletter" class="inline-flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-brand-dark transition hover:border-brand-red hover:text-brand-red">
+                        <i class="fa-solid fa-road"></i>
+                        Follow updates
+                    </a>
+                </div>
+                <div class="mt-12 grid gap-6 lg:grid-cols-2">
+                    <article class="rounded-3xl border border-slate-200 bg-slate-50/60 p-6 shadow-soft">
+                        <time class="text-xs font-semibold uppercase tracking-widest text-brand-red">Phase 1 · Foundation</time>
+                        <h3 class="mt-3 text-xl font-semibold text-brand-dark">Launch evergreen homepage</h3>
+                        <p class="mt-2 text-sm text-slate-600">Establish brand identity, SEO architecture, content framework, and analytics readiness. Prepare schema for individual calculator pages.</p>
+                    </article>
+                    <article class="rounded-3xl border border-slate-200 bg-slate-50/60 p-6 shadow-soft">
+                        <time class="text-xs font-semibold uppercase tracking-widest text-brand-red">Phase 2 · First calculators</time>
+                        <h3 class="mt-3 text-xl font-semibold text-brand-dark">Release core daily-use calculators</h3>
+                        <p class="mt-2 text-sm text-slate-600">Ship priority tools in Finance, Health, and Date &amp; Time. Introduce internal linking, calculator comparison modules, and category blog posts.</p>
+                    </article>
+                    <article class="rounded-3xl border border-slate-200 bg-slate-50/60 p-6 shadow-soft">
+                        <time class="text-xs font-semibold uppercase tracking-widest text-brand-red">Phase 3 · Scale</time>
+                        <h3 class="mt-3 text-xl font-semibold text-brand-dark">Grow library and partnerships</h3>
+                        <p class="mt-2 text-sm text-slate-600">Add AI-assisted calculators, publish expert guides, and explore collaborations with trusted brands and creators.</p>
+                    </article>
+                    <article class="rounded-3xl border border-slate-200 bg-slate-50/60 p-6 shadow-soft">
+                        <time class="text-xs font-semibold uppercase tracking-widest text-brand-red">Always-on</time>
+                        <h3 class="mt-3 text-xl font-semibold text-brand-dark">Monitor, iterate, and localise</h3>
+                        <p class="mt-2 text-sm text-slate-600">Track performance, improve UX, and localise calculators for global audiences while maintaining a unified voice.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="border-y border-slate-200 bg-white">
+            <div class="mx-auto max-w-[1050px] px-6 py-16">
+                <h2 class="font-heading text-3xl font-semibold text-brand-dark">Frequently asked questions</h2>
+                <div class="mt-8 space-y-6">
+                    <article class="rounded-2xl border border-slate-200 bg-slate-50/70 p-6">
+                        <h3 class="text-lg font-semibold text-brand-dark">How often will new calculators launch?</h3>
+                        <p class="mt-2 text-sm text-slate-600">We prioritise one calculator at a time to ensure accuracy and usability. Each release includes usability testing, SEO optimisation, and category-wide updates.</p>
+                    </article>
+                    <article class="rounded-2xl border border-slate-200 bg-slate-50/70 p-6">
+                        <h3 class="text-lg font-semibold text-brand-dark">Can I request a calculator?</h3>
+                        <p class="mt-2 text-sm text-slate-600">Absolutely. Submit a request via the contact form below and we will review it for inclusion in the public roadmap.</p>
+                    </article>
+                    <article class="rounded-2xl border border-slate-200 bg-slate-50/70 p-6">
+                        <h3 class="text-lg font-semibold text-brand-dark">Will the tools remain free?</h3>
+                        <p class="mt-2 text-sm text-slate-600">Yes. DailyCalc.org is committed to offering public, evergreen calculators. Advertising will balance sustainability with a clean experience.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="newsletter" class="bg-slate-50">
+            <div class="mx-auto max-w-[1050px] px-6 py-16">
+                <div class="rounded-3xl border border-slate-200 bg-white p-8 shadow-soft">
+                    <div class="grid gap-8 md:grid-cols-[1.1fr_0.9fr] md:items-center">
+                        <div>
+                            <h2 class="font-heading text-3xl font-semibold text-brand-dark">Stay ahead of new calculators</h2>
+                            <p class="mt-3 text-sm text-slate-600">Join the update list to hear when new tools launch, read in-depth guides, and access beta features.</p>
+                        </div>
+                        <form class="flex flex-col gap-3 md:flex-row" aria-label="Email signup form">
+                            <label class="sr-only" for="email">Email address</label>
+                            <input id="email" type="email" placeholder="you@example.com" class="w-full rounded-full border border-slate-200 px-4 py-3 text-sm text-brand-dark outline-none transition focus:border-brand-red focus:ring-2 focus:ring-brand-red/20" required>
+                            <button type="submit" class="inline-flex items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-dark">
+                                <i class="fa-regular fa-paper-plane"></i>
+                                Subscribe
+                            </button>
+                        </form>
+                    </div>
+                    <p class="mt-3 text-xs text-slate-500">No spam. Unsubscribe anytime. We respect your privacy.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-brand-dark text-slate-200">
+        <div class="mx-auto max-w-[1050px] px-6 py-12">
+            <div class="grid gap-10 md:grid-cols-3">
+                <div>
+                    <h2 class="font-heading text-2xl font-semibold text-white">DailyCalc.org</h2>
+                    <p class="mt-3 text-sm text-slate-400">Neutral, global, and helpful calculators for daily life. Built to grow one trusted tool at a time.</p>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold uppercase tracking-widest text-white">Explore</h3>
+                    <ul class="mt-4 space-y-2 text-sm text-slate-300">
+                        <li><a class="transition hover:text-white" href="#categories">Calculator categories</a></li>
+                        <li><a class="transition hover:text-white" href="#roadmap">Roadmap</a></li>
+                        <li><a class="transition hover:text-white" href="#faq">FAQ</a></li>
+                        <li><a class="transition hover:text-white" href="#newsletter">Newsletter</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold uppercase tracking-widest text-white">Contact</h3>
+                    <p class="mt-4 text-sm text-slate-300">Have a calculator request or partnership opportunity?</p>
+                    <a href="mailto:hello@dailycalc.org" class="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-white transition hover:text-brand-red">
+                        <i class="fa-regular fa-envelope"></i>
+                        hello@dailycalc.org
+                    </a>
+                </div>
+            </div>
+            <div class="mt-10 flex flex-col gap-4 border-t border-white/10 pt-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+                <p>&copy; <span id="currentYear"></span> DailyCalc.org. All rights reserved.</p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#" class="transition hover:text-white">Privacy</a>
+                    <a href="#" class="transition hover:text-white">Terms</a>
+                    <a href="#" class="transition hover:text-white">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "DailyCalc.org",
+        "url": "https://dailycalc.org/",
+        "description": "Daily calculators for everyone. Free, trustworthy, and fast tools across finance, health, productivity, education, and more.",
+        "foundingDate": "2024",
+        "sameAs": []
+    }
+    </script>
+    <script src="js/main.js" defer></script>
+</body>
+</html>
