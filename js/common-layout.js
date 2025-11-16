@@ -8,17 +8,9 @@
 // We use backticks (`) for template literals, which make multi-line HTML easy.
 
 const headerHTML = `
-    <!-- Top Bar -->
-    <div class="border-b border-slate-200 bg-white/90 backdrop-blur">
-        <div class="mx-auto flex max-w-[1050px] items-center justify-between px-6 py-3 text-[12px]"> <!-- Set to 12px -->
-            <div class="flex items-center gap-2 text-slate-600">
-                <i class="fa-solid fa-shield-heart text-brand-red"></i>
-                <span>Trusted daily calculators for everyone.</span>
-            </div>
-            <!-- Link to homepage newsletter section -->
-            <a href="/#footer-newsletter" class="hidden text-brand-red transition hover:text-brand-dark sm:inline-flex">Get updates</a>
-        </div>
-    </div>
+    <!-- 
+      REMOVED: Top Bar 
+    -->
 
     <!-- Header -->
     <header class="bg-gradient-to-r from-brand-dark to-brand-red shadow-md sticky top-0 z-40">
@@ -183,7 +175,7 @@ const headerHTML = `
                     <span class="font-medium">Math & Numbers</span>
                 </a>
                 <a href="/#categories" class="flex flex-none items-center gap-2 text-sm text-slate-700 transition hover:text-brand-red" data-filter-link="Study">
-                    <i class="fa-solid fa-graduation-cap fa-fw w-4 text-center text-brand-red/70"></i>
+                    <i class="fa-solid fa-graduation-cap fa-fw w-4 text-center text-brand-red/7U0"></i>
                     <span class="font-medium">Study & Education</span>
                 </a>
                 <a href="/#categories" class="flex flex-none items-center gap-2 text-sm text-slate-700 transition hover:text-brand-red" data-filter-link="Converters">
