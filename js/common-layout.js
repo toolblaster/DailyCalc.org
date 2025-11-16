@@ -175,7 +175,7 @@ const headerHTML = `
                     <span class="font-medium">Math & Numbers</span>
                 </a>
                 <a href="/#categories" class="flex flex-none items-center gap-2 text-sm text-slate-700 transition hover:text-brand-red" data-filter-link="Study">
-                    <i class="fa-solid fa-graduation-cap fa-fw w-4 text-center text-brand-red/7U0"></i>
+                    <i class="fa-solid fa-graduation-cap fa-fw w-4 text-center text-brand-red/70"></i>
                     <span class="font-medium">Study & Education</span>
                 </a>
                 <a href="/#categories" class="flex flex-none items-center gap-2 text-sm text-slate-700 transition hover:text-brand-red" data-filter-link="Converters">
