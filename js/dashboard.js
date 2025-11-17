@@ -75,7 +75,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Create a list to hold the history items
             const historyList = document.createElement('ul');
-            historyList.className = 'divide-y divide-slate-200 rounded-lg border border-slate-200';
+            // MODIFIED: Added gradient and shadow
+            historyList.className = 'divide-y divide-slate-200 rounded-lg border border-slate-200 bg-gradient-to-br from-white to-slate-50 shadow-md';
 
             history.forEach(item => {
                 const li = document.createElement('li');
@@ -127,11 +128,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Create a section for each calculator
                 const calcGroup = document.createElement('div');
-                calcGroup.className = 'rounded-lg border border-slate-200';
+                // MODIFIED: Added gradient, shadow, and overflow-hidden
+                calcGroup.className = 'rounded-lg border border-slate-200 bg-gradient-to-br from-white to-slate-50 shadow-md overflow-hidden';
                 
                 const header = document.createElement('h3');
-                // MODIFIED: Reduced padding, matched font size to H2s
-                header.className = 'border-b border-slate-200 bg-slate-50 px-3 py-2 text-lg font-semibold text-brand-dark';
+                // MODIFIED: Reduced padding, matched font size to H2s, removed bg-slate-50
+                header.className = 'border-b border-slate-200 px-3 py-2 text-lg font-semibold text-brand-dark';
                 header.textContent = calcName;
                 calcGroup.appendChild(header);
 
