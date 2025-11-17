@@ -92,7 +92,7 @@ const headerHTML = `
                             <i class="fa-solid fa-history"></i>
                             My Dashboard
                         </a>
-                        <!-- MODIFIED: Changed <a> to <button> and added id="suggestToolButton" -->
+                        <!-- MODIFIED: Changed <a> back to <button> and gave it an ID -->
                         <button id="suggestToolButton" class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-brand-red shadow-soft transition hover:bg-slate-200">
                             <i class="fa-solid fa-lightbulb"></i>
                             Suggest a Tool
@@ -319,6 +319,13 @@ const searchModalHTML = `
     </div>
 `;
 
+// *** NEW: TOAST NOTIFICATION HTML ***
+const toastHTML = `
+    <div id="clipboard-toast">
+        <!-- Message will be set by JS -->
+    </div>
+`;
+
 
 // *** NEW: MOCK DATABASE FOR SEARCH ***
 // This is what your "NeuralSearch" API would eventually return.
@@ -424,6 +431,15 @@ function loadCommonLayout() {
         document.body.appendChild(searchModalPlaceholder);
     }
     searchModalPlaceholder.innerHTML = searchModalHTML;
+
+    // *** NEW: Inject Toast Notification ***
+    let toastPlaceholder = document.getElementById('toast-placeholder');
+    if (!toastPlaceholder) {
+        toastPlaceholder = document.createElement('div');
+        toastPlaceholder.id = 'toast-placeholder';
+        document.body.appendChild(toastPlaceholder);
+    }
+    toastPlaceholder.innerHTML = toastHTML;
 
 
     // After injecting, we need to find elements *inside* the injected code
@@ -656,7 +672,9 @@ function loadCommonLayout() {
     
     // --- NEW: Clipboard Logic for Suggest a Tool Button ---
     const suggestButton = document.getElementById('suggestToolButton');
-    if (suggestButton) {
+    const toast = document.getElementById('clipboard-toast');
+    
+    if (suggestButton && toast) {
         const originalHtml = suggestButton.innerHTML;
         
         suggestButton.addEventListener('click', () => {
@@ -674,19 +692,26 @@ function loadCommonLayout() {
                 document.execCommand('copy');
                 document.body.removeChild(tempInput);
 
-                // Provide visual feedback
-                suggestButton.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
-                suggestButton.disabled = true;
+                // --- Show Toast Notification ---
+                // Set the message
+                toast.textContent = `Copied '${email}' to clipboard!`;
+                
+                // Show the toast
+                toast.classList.add('toast-visible');
 
                 // Revert button after 2 seconds
                 setTimeout(() => {
-                    suggestButton.innerHTML = originalHtml;
-                    suggestButton.disabled = false;
-                }, 2000);
+                    toast.classList.remove('toast-visible');
+                }, 3000); // Hide toast after 3 seconds
 
             } catch (err) {
                 console.error('Failed to copy to clipboard:', err);
-                // You could show an error message here if you wanted
+                // Show an error toast
+                toast.textContent = 'Failed to copy to clipboard.';
+                toast.classList.add('toast-visible');
+                setTimeout(() => {
+                    toast.classList.remove('toast-visible');
+                }, 3000);
             }
         });
     }
