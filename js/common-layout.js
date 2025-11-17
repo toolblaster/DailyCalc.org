@@ -25,18 +25,18 @@ const headerHTML = `
                 <!-- 1. Logo -->
                 <div class="flex-shrink-0">
                     <!-- Link to homepage -->
-                    <!-- MODIFIED: Reduced gap on mobile (gap-3 -> gap-2 sm:gap-3) -->
-                    <a href="/" class="flex items-center gap-2 sm:gap-3 text-white" aria-label="DailyCalc.org homepage">
-                        <!-- MODIFIED: Reduced logo circle size on mobile (h-12 w-12 -> h-10 w-10 sm:h-12 sm:w-12) -->
-                        <div class="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full border-2 border-white text-white">
-                            <!-- MODIFIED: Reduced logo text size on mobile (text-xl -> text-lg sm:text-xl) -->
-                            <span class="text-lg sm:text-xl font-semibold">DC</span>
+                    <!-- MODIFIED: Reduced gap on all sizes -->
+                    <a href="/" class="flex items-center gap-2 text-white" aria-label="DailyCalc.org homepage">
+                        <!-- MODIFIED: Reduced logo circle size on mobile (h-8 w-8) and desktop (sm:h-10 sm:w-10) -->
+                        <div class="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full border-2 border-white text-white">
+                            <!-- MODIFIED: Reduced logo text size on mobile (text-base) and desktop (sm:text-lg) -->
+                            <span class="text-base sm:text-lg font-semibold">DC</span>
                         </div>
                         <div>
-                            <!-- MODIFIED: Reduced title text size on mobile (text-[22px] -> text-[20px] sm:text-[22px]) -->
-                            <p class="font-heading text-[20px] sm:text-[22px] font-semibold">DailyCalc.org</p> 
-                            <!-- MODIFIED: Reduced subtitle text size on mobile (text-[12px] -> text-[11px] sm:text-[12px]) -->
-                            <p class="text-[11px] sm:text-[12px] text-slate-300">Daily calculators for everyone.</p>
+                            <!-- MODIFIED: Reduced title text size on mobile (text-lg) and desktop (sm:text-[20px]) -->
+                            <p class="font-heading text-lg sm:text-[20px] font-semibold">DailyCalc.org</p> 
+                            <!-- MODIFIED: Reduced subtitle text size on mobile (text-[10px]) and desktop (sm:text-[11px]) -->
+                            <p class="text-[10px] sm:text-[11px] text-slate-300">Daily calculators for everyone.</p>
                         </div>
                     </a>
                 </div>
@@ -61,14 +61,23 @@ const headerHTML = `
                         <button id="openMobileSearchModalButton" class="rounded-lg p-2 text-white transition hover:bg-white/10" aria-label="Open search panel">
                             <i class="fa-solid fa-search h-6 w-6"></i>
                         </button>
+                        <!-- NEW: Dashboard button for mobile header -->
+                        <a href="/dashboard.html" class="rounded-lg p-2 text-white transition hover:bg-white/10" aria-label="My Dashboard">
+                            <i class="fa-solid fa-history h-6 w-6"></i>
+                        </a>
                         <button id="mobileMenuToggle" class="rounded-lg p-2 text-white transition hover:bg-white/10" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu">
                             <i class="fa-solid fa-bars h-6 w-6" id="menuOpenIcon"></i>
                             <i class="fa-solid fa-xmark h-6 w-6 hidden" id="menuCloseIcon"></i>
                         </button>
                     </nav>
 
-                    <!-- Desktop "Stay Notified" Button -->
+                    <!-- Desktop Buttons -->
                     <div class="hidden items-center gap-3 md:flex">
+                        <!-- NEW: Dashboard Button -->
+                        <a href="/dashboard.html" class="inline-flex items-center justify-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white shadow-soft transition hover:bg-white/20">
+                            <i class="fa-solid fa-history"></i>
+                            My Dashboard
+                        </a>
                         <!-- Link to homepage newsletter section -->
                         <a href="/" class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-brand-red shadow-soft transition hover:bg-slate-200">
                             <i class="fa-regular fa-bell"></i>
@@ -89,7 +98,7 @@ const headerHTML = `
     <!-- *** NEW MOBILE MENU PANEL (Slide-in) *** -->
     <div id="mobileMenu" class="md:hidden fixed inset-0 z-50 hidden">
         <div id="mobileMenuOverlay" class="absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300 ease-in-out" aria-hidden="true"></div>
-        <!-- MODIFIED: Changed width from w-1/2 (50%) to w-2/3 (66.6%) -->
+        <!-- MODIFIED: Increased width from w-1/2 to w-2/3 -->
         <div id="mobileMenuContent" class="relative flex flex-col bg-gradient-to-r from-brand-dark to-brand-red h-full w-2/3 max-w-sm shadow-xl transform -translate-x-full transition-transform duration-300 ease-in-out">
             
             <div class="flex justify-end p-2">
@@ -99,6 +108,12 @@ const headerHTML = `
             </div>
             
             <nav class="flex-1 overflow-y-auto px-4 pb-4" aria-label="Mobile Navigation">
+                <!-- NEW: Dashboard Link -->
+                <a href="/dashboard.html" class="mobile-menu-link">
+                    <i class="fa-solid fa-history fa-fw"></i>
+                    <span>My Dashboard</span>
+                </a>
+
                 <!-- Links now point back to homepage categories -->
                 <a href="/#categories" class="mobile-menu-link" data-filter-link="Finance">
                     <i class="fa-solid fa-sack-dollar fa-fw"></i>
@@ -132,7 +147,7 @@ const headerHTML = `
                     <i class="fa-solid fa-robot fa-fw"></i>
                     <span>AI-Based</span>
                 </a>
-                <!-- MODIFIED: Changed padding (px-4 py-2 -> px-3 py-1.5) and text size (text-sm -> text-xs) -->
+                <!-- MODIFIED: Made button smaller -->
                 <a href="/#footer-newsletter" class="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-brand-red shadow-soft transition hover:bg-slate-200">
                     <i class="fa-regular fa-bell"></i>
                     Stay notified
@@ -147,35 +162,43 @@ const headerHTML = `
         <div class="px-6">
             <div class="hide-scrollbar flex items-center gap-6 overflow-x-auto whitespace-nowrap py-3 md:gap-8 lg:justify-center">
                 <!-- Links now point back to homepage categories -->
-                <a href="/#categories" class="flex flex-none items-center gap-2 text-sm text-slate-700 transition hover:text-brand-red" data-filter-link="Finance">
+                <!-- MODIFIED: Changed font size from text-sm to text-xs -->
+                <a href="/#categories" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red" data-filter-link="Finance">
                     <i class="fa-solid fa-sack-dollar fa-fw w-4 text-center text-brand-red/70"></i>
                     <span class="font-medium">Finance</span>
                 </a>
-                <a href="/#categories" class="flex flex-none items-center gap-2 text-sm text-slate-700 transition hover:text-brand-red" data-filter-link="Health">
+                <!-- MODIFIED: Changed font size from text-sm to text-xs -->
+                <a href="/#categories" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red" data-filter-link="Health">
                     <i class="fa-solid fa-heart-pulse fa-fw w-4 text-center text-brand-red/70"></i>
                     <span class="font-medium">Health & Fitness</span>
                 </a>
-                <a href="/#categories" class="flex flex-none items-center gap-2 text-sm text-slate-700 transition hover:text-brand-red" data-filter-link="Date">
+                <!-- MODIFIED: Changed font size from text-sm to text-xs -->
+                <a href="/#categories" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red" data-filter-link="Date">
                     <i class="fa-regular fa-calendar fa-fw w-4 text-center text-brand-red/70"></i>
                     <span class="font-medium">Date & Time</span>
                 </a>
-                <a href="/#categories" class="flex flex-none items-center gap-2 text-sm text-slate-700 transition hover:text-brand-red" data-filter-link="Math">
+                <!-- MODIFIED: Changed font size from text-sm to text-xs -->
+                <a href="/#categories" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red" data-filter-link="Math">
                     <i class="fa-solid fa-square-root-variable fa-fw w-4 text-center text-brand-red/70"></i>
                     <span class="font-medium">Math & Numbers</span>
                 </a>
-                <a href="/#categories" class="flex flex-none items-center gap-2 text-sm text-slate-700 transition hover:text-brand-red" data-filter-link="Study">
+                <!-- MODIFIED: Changed font size from text-sm to text-xs -->
+                <a href="/#categories" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red" data-filter-link="Study">
                     <i class="fa-solid fa-graduation-cap fa-fw w-4 text-center text-brand-red/70"></i>
                     <span class="font-medium">Study & Education</span>
                 </a>
-                <a href="/#categories" class="flex flex-none items-center gap-2 text-sm text-slate-700 transition hover:text-brand-red" data-filter-link="Converters">
+                <!-- MODIFIED: Changed font size from text-sm to text-xs -->
+                <a href="/#categories" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red" data-filter-link="Converters">
                     <i class="fa-solid fa-arrows-rotate fa-fw w-4 text-center text-brand-red/70"></i>
                     <span class="font-medium">Converters</span>
                 </a>
-                <a href="/#categories" class="flex flex-none items-center gap-2 text-sm text-slate-700 transition hover:text-brand-red" data-filter-link="General">
+                <!-- MODIFIED: Changed font size from text-sm to text-xs -->
+                <a href="/#categories" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red" data-filter-link="General">
                     <i class="fa-solid fa-screwdriver-wrench fa-fw w-4 text-center text-brand-red/70"></i>
                     <span class="font-medium">General Tools</span>
                 </a>
-                <a href="/#categories" class="flex flex-none items-center gap-2 text-sm text-slate-700 transition hover:text-brand-red" data-filter-link="AI">
+                <!-- MODIFIED: Changed font size from text-sm to text-xs -->
+                <a href="/#categories" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red" data-filter-link="AI">
                     <i class="fa-solid fa-robot fa-fw w-4 text-center text-brand-red/70"></i>
                     <span class="font-medium">AI-Based</span>
                 </a>
