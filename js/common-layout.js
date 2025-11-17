@@ -127,36 +127,36 @@ const headerHTML = `
                 <!-- REMOVED: Dashboard Link -->
                 
 
-                <!-- Links now point back to homepage categories -->
-                <a href="/#categories" class="mobile-menu-link" data-filter-link="Finance">
+                <!-- Links now point to category pages -->
+                <a href="/finance/" class="mobile-menu-link">
                     <i class="fa-solid fa-sack-dollar fa-fw"></i>
                     <span>Finance</span>
                 </a>
-                <a href="/#categories" class="mobile-menu-link" data-filter-link="Health">
+                <a href="/health-fitness/" class="mobile-menu-link">
                     <i class="fa-solid fa-heart-pulse fa-fw"></i>
                     <span>Health & Fitness</span>
                 </a>
-                <a href="/#categories" class="mobile-menu-link" data-filter-link="Date">
+                <a href="/date-time/" class="mobile-menu-link">
                     <i class="fa-regular fa-calendar fa-fw"></i>
                     <span>Date & Time</span>
                 </a>
-                <a href="/#categories" class="mobile-menu-link" data-filter-link="Math">
+                <a href="/math-numbers/" class="mobile-menu-link">
                     <i class="fa-solid fa-square-root-variable fa-fw"></i>
                     <span>Math & Numbers</span>
                 </a>
-                <a href="/#categories" class="mobile-menu-link" data-filter-link="Study">
+                <a href="/study-education/" class="mobile-menu-link">
                     <i class="fa-solid fa-graduation-cap fa-fw"></i>
                     <span>Study & Education</span>
                 </a>
-                <a href="/#categories" class="mobile-menu-link" data-filter-link="Converters">
+                <a href="/converters/" class="mobile-menu-link">
                     <i class="fa-solid fa-arrows-rotate fa-fw"></i>
                     <span>Converters</span>
                 </a>
-                <a href="/#categories" class="mobile-menu-link" data-filter-link="General">
+                <a href="/general-tools/" class="mobile-menu-link">
                     <i class="fa-solid fa-screwdriver-wrench fa-fw"></i>
                     <span>General Tools</span>
                 </a>
-                <a href="/#categories" class="mobile-menu-link" data-filter-link="AI">
+                <a href="/ai-based/" class="mobile-menu-link">
                     <i class="fa-solid fa-robot fa-fw"></i>
                     <span>AI-Based</span>
                 </a>
@@ -170,44 +170,44 @@ const headerHTML = `
     <nav class="border-b border-slate-200 bg-white hidden md:block" aria-label="Calculator Categories">
         <div class="px-6">
             <div class="hide-scrollbar flex items-center gap-6 overflow-x-auto whitespace-nowrap py-3 md:gap-8 lg:justify-center">
-                <!-- Links now point back to homepage categories -->
+                <!-- Links now point to category pages -->
                 <!-- MODIFIED: Changed font size from text-sm to text-xs -->
-                <a href="/#categories" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red" data-filter-link="Finance">
+                <a href="/finance/" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red">
                     <i class="fa-solid fa-sack-dollar fa-fw w-4 text-center text-brand-red/70"></i>
                     <span class="font-medium">Finance</span>
                 </a>
                 <!-- MODIFIED: Changed font size from text-sm to text-xs -->
-                <a href="/#categories" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red" data-filter-link="Health">
+                <a href="/health-fitness/" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red">
                     <i class="fa-solid fa-heart-pulse fa-fw w-4 text-center text-brand-red/70"></i>
                     <span class="font-medium">Health & Fitness</span>
                 </a>
                 <!-- MODIFIED: Changed font size from text-sm to text-xs -->
-                <a href="/#categories" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red" data-filter-link="Date">
+                <a href="/date-time/" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red">
                     <i class="fa-regular fa-calendar fa-fw w-4 text-center text-brand-red/70"></i>
                     <span class="font-medium">Date & Time</span>
                 </a>
                 <!-- MODIFIED: Changed font size from text-sm to text-xs -->
-                <a href="/#categories" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red" data-filter-link="Math">
+                <a href="/math-numbers/" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red">
                     <i class="fa-solid fa-square-root-variable fa-fw w-4 text-center text-brand-red/70"></i>
                     <span class="font-medium">Math & Numbers</span>
                 </a>
                 <!-- MODIFIED: Changed font size from text-sm to text-xs -->
-                <a href="/#categories" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red" data-filter-link="Study">
+                <a href="/study-education/" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red">
                     <i class="fa-solid fa-graduation-cap fa-fw w-4 text-center text-brand-red/70"></i>
                     <span class="font-medium">Study & Education</span>
                 </a>
                 <!-- MODIFIED: Changed font size from text-sm to text-xs -->
-                <a href="/#categories" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red" data-filter-link="Converters">
+                <a href="/converters/" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red">
                     <i class="fa-solid fa-arrows-rotate fa-fw w-4 text-center text-brand-red/70"></i>
                     <span class="font-medium">Converters</span>
                 </a>
                 <!-- MODIFIED: Changed font size from text-sm to text-xs -->
-                <a href="/#categories" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red" data-filter-link="General">
+                <a href="/general-tools/" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red">
                     <i class="fa-solid fa-screwdriver-wrench fa-fw w-4 text-center text-brand-red/70"></i>
                     <span class="font-medium">General Tools</span>
                 </a>
                 <!-- MODIFIED: Changed font size from text-sm to text-xs -->
-                <a href="/#categories" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red" data-filter-link="AI">
+                <a href="/ai-based/" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red">
                     <i class="fa-solid fa-robot fa-fw w-4 text-center text-brand-red/70"></i>
                     <span class="font-medium">AI-Based</span>
                 </a>
@@ -334,49 +334,49 @@ const MOCK_CALCULATOR_DB = [
     {
         title: "Finance",
         description: "Budgeting, loans, investments, and personal wealth tools.",
-        url: "/calculators/bmi-calculator.html", // Placeholder URL
+        url: "/finance/", // UPDATED
         keywords: "mortgage budget savings"
     },
     {
         title: "Health & Fitness",
         description: "Track wellness goals, nutrition, and body metrics with ease.",
-        url: "/calculators/bmi-calculator.html", // Placeholder URL
+        url: "/health-fitness/", // UPDATED
         keywords: "bmi hydration nutrition training"
     },
     {
         title: "Date & Time",
         description: "Countdowns, date math, time zone helpers, and scheduling.",
-        url: "/calculators/bmi-calculator.html", // Placeholder URL
+        url: "/date-time/", // UPDATED
         keywords: "countdown timezone workday"
     },
     {
         title: "Math & Numbers",
         description: "Algebra, geometry, statistics, and quick number crunchers.",
-        url: "/calculators/bmi-calculator.html", // Placeholder URL
+        url: "/math-numbers/", // UPDATED
         keywords: "algebra geometry statistics"
     },
     {
         title: "Study & Education",
         description: "Learning aids, grading, study planners, and academic tools.",
-        url: "/calculators/bmi-calculator.html", // Placeholder URL
+        url: "/study-education/", // UPDATED
         keywords: "grade gpa study planner"
     },
     {
         title: "Converters",
         description: "Unit conversions for measurements, currencies, and formats.",
-        url: "/calculators/bmi-calculator.html", // Placeholder URL
+        url: "/converters/", // UPDATED
         keywords: "units currency measurements"
     },
     {
         title: "General Tools",
         description: "Everyday quick calculators for household and lifestyle needs.",
-        url: "/calculators/bmi-calculator.html", // Placeholder URL
+        url: "/general-tools/", // UPDATED
         keywords: "diy home travel"
     },
     {
         title: "AI-Based Calculators",
         description: "Smart calculators leveraging AI for nuanced or predictive results.",
-        url: "/calculators/bmi-calculator.html", // Placeholder URL
+        url: "/ai-based/", // UPDATED
         keywords: "artificial intelligence scenario"
     }
 ];
@@ -507,9 +507,10 @@ function loadCommonLayout() {
     if (mobileMenuOverlay) mobileMenuOverlay.addEventListener('click', closeMenu);
 
     // Close menu when any link is clicked
-    mobileMenuLinks.forEach(link => {
-        link.addEventListener('click', closeMenu);
-    });
+    // UPDATED: No longer closing menu on filter link click
+    // mobileMenuLinks.forEach(link => {
+    //     link.addEventListener('click', closeMenu);
+    // });
 
     // --- Category Quick Bar Logic ---
     // (No changes needed here)
@@ -581,6 +582,10 @@ function loadCommonLayout() {
             if (result.title.includes('Health')) iconClass = 'fa-solid fa-heart-pulse';
             if (result.title.includes('Date')) iconClass = 'fa-regular fa-calendar';
             if (result.title.includes('Math')) iconClass = 'fa-solid fa-square-root-variable';
+            if (result.title.includes('Study')) iconClass = 'fa-solid fa-graduation-cap';
+            if (result.title.includes('Converters')) iconClass = 'fa-solid fa-arrows-rotate';
+            if (result.title.includes('General')) iconClass = 'fa-solid fa-screwdriver-wrench';
+            if (result.title.includes('AI')) iconClass = 'fa-solid fa-robot';
 
             resultLink.innerHTML = `
                 <div class="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-slate-100 text-slate-500">
