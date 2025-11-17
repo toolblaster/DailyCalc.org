@@ -223,13 +223,19 @@ const footerHTML = `
           REMOVED: Newsletter Section 
         -->
 
-        <!-- MODIFIED: Reduced vertical padding (py-12 -> py-8) -->
-        <div class="mx-auto max-w-[1050px] px-6 py-8">
-            <div class="flex flex-col items-center gap-10 text-center md:flex-row md:items-start md:justify-center md:gap-16">
-                
+        <!-- MODIFIED: Reduced vertical padding (py-8 -> py-6) -->
+        <div class="mx-auto max-w-[1050px] px-6 py-6">
+            <!-- 
+              REMOVED: Old logo wrapper div.
+              The logo is now moved down into the copyright section.
+            -->
+            
+            <!-- 1. Logo Section (Back in its own div) -->
+            <div class="flex flex-col items-center text-center">
                 <div>
                     <!-- Link to homepage -->
-                    <a href="/" class="flex items-center justify-center gap-3 text-white" aria-label="DailyCalc.org homepage (footer)">
+                    <!-- MODIFIED: Reduced gap (gap-2 -> gap-1) -->
+                    <a href="/" class="flex flex-col items-center justify-center gap-1 text-white" aria-label="DailyCalc.org homepage (footer)">
                         <div class="flex h-10 w-10 flex-none items-center justify-center rounded-full border-2 border-white text-white">
                             <span class="text-lg font-semibold">DC</span>
                         </div>
@@ -237,20 +243,14 @@ const footerHTML = `
                             <p class="font-heading text-[18px] font-semibold">DailyCalc.org</p>
                         </div>
                     </a>
-                    <p class="mt-4 max-w-sm text-[12px] text-slate-400">Neutral, global, and helpful calculators for daily life. Built to grow one trusted tool at a time.</p>
-                </div>
-
-                <div>
-                    <h3 class="text-[14px] font-semibold uppercase tracking-widest text-white">Contact</h3>
-                    <p class="mt-4 text-[12px] text-slate-300">Have a calculator request or partnership opportunity?</p>
-                    <a href="mailto:hello@dailycalc.org" class="mt-3 inline-flex items-center justify-center gap-2 text-sm font-semibold text-white transition hover:text-brand-red">
-                        <i class="fa-regular fa-envelope"></i>
-                        hello@dailycalc.org
-                    </a>
+                    <!-- MODIFIED: Reduced top margin (mt-3 -> mt-2) -->
+                    <p class="mt-2 max-w-sm text-[12px] text-slate-400">Neutral, global, and helpful calculators for daily life. Built to grow one trusted tool at a time.</p>
                 </div>
             </div>
             
-            <div class="mt-10 flex flex-col items-center gap-4 border-t border-white/10 pt-6 text-xs text-slate-500 sm:flex-row sm:justify-center sm:gap-6">
+            <!-- 2. Copyright Section (with the line above it) -->
+            <!-- MODIFIED: Reduced margin-top (mt-8 -> mt-6) and padding-top (pt-8 -> pt-6) -->
+            <div class="mt-6 flex flex-col items-center gap-4 border-t border-white/10 pt-6 text-xs text-slate-500 sm:flex-row sm:justify-center sm:gap-6">
                 <p class="text-center sm:text-left">&copy; <span id="currentYear"></span> DailyCalc.org. All rights reserved.</p>
                 <div class="flex flex-wrap justify-center gap-4 sm:justify-start">
                     <!-- These should link to real pages eventually -->
