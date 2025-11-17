@@ -57,6 +57,10 @@ const headerHTML = `
                 <div class="flex-shrink-0">
                     <!-- Mobile Menu Toggle Button -->
                     <nav aria-label="Primary" class="flex flex-wrap items-center gap-2 text-sm font-medium text-slate-600 md:hidden">
+                        <!-- NEW: Home button for mobile header -->
+                        <a href="/" class="rounded-lg p-2 text-white transition hover:bg-white/10" aria-label="Homepage">
+                            <i class="fa-solid fa-house h-6 w-6"></i>
+                        </a>
                         <!-- MODIFIED: This button now opens the global search modal -->
                         <button id="openMobileSearchModalButton" class="rounded-lg p-2 text-white transition hover:bg-white/10" aria-label="Open search panel">
                             <i class="fa-solid fa-search h-6 w-6"></i>
@@ -78,10 +82,10 @@ const headerHTML = `
                             <i class="fa-solid fa-history"></i>
                             My Dashboard
                         </a>
-                        <!-- Link to homepage newsletter section -->
-                        <a href="/" class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-brand-red shadow-soft transition hover:bg-slate-200">
-                            <i class="fa-regular fa-bell"></i>
-                            Stay notified
+                        <!-- MODIFIED: "Stay Notified" changed to "Suggest a Tool" -->
+                        <a href="mailto:hello@dailycalc.org?subject=Calculator%20Request" class="inline-flex items-center justify-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white shadow-soft transition hover:bg-white/20">
+                            <i class="fa-solid fa-lightbulb"></i>
+                            Suggest a Tool
                         </a>
                     </div>
                 </div>
@@ -147,10 +151,10 @@ const headerHTML = `
                     <i class="fa-solid fa-robot fa-fw"></i>
                     <span>AI-Based</span>
                 </a>
-                <!-- MODIFIED: Made button smaller -->
-                <a href="/#footer-newsletter" class="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-brand-red shadow-soft transition hover:bg-slate-200">
-                    <i class="fa-regular fa-bell"></i>
-                    Stay notified
+                <!-- MODIFIED: "Stay Notified" changed to "Suggest a Tool" -->
+                <a href="mailto:hello@dailycalc.org?subject=Calculator%20Request" class="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-brand-red shadow-soft transition hover:bg-slate-200">
+                    <i class="fa-solid fa-lightbulb"></i>
+                    Suggest a Tool
                 </a>
             </nav>
         </div>
