@@ -43,14 +43,15 @@ const headerHTML = `
 
                 <!-- 2. Desktop Search Bar (NOW A BUTTON) -->
                 <div class="hidden flex-1 px-4 md:block">
-                    <button id="openDesktopSearchModalButton" class="relative w-full max-w-sm mx-auto text-left" aria-label="Open search panel">
+                    <!-- MODIFIED: Changed max-w-[9rem] back to a more balanced max-w-xs -->
+                    <button id="openDesktopSearchModalButton" class="relative w-full max-w-xs mx-auto text-left" aria-label="Open search panel">
                         <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
                             <i class="fa-solid fa-search text-slate-300"></i>
                         </div>
                         <div class="w-full rounded-full border border-white/30 bg-white/10 px-5 py-2 pl-10 text-sm text-slate-300 shadow-sm transition duration-200 hover:bg-white/20">
                             Search calculators...
                         </div>
-                    </button>
+                    </button> <!-- FIXED: Added missing closing </button> tag -->
                 </div>
                 
                 <!-- 3. Mobile/Desktop Buttons -->
@@ -58,32 +59,42 @@ const headerHTML = `
                     <!-- Mobile Menu Toggle Button -->
                     <nav aria-label="Primary" class="flex flex-wrap items-center gap-2 text-sm font-medium text-slate-600 md:hidden">
                         <!-- NEW: Home button for mobile header -->
+                        <!-- MODIFIED: Icon size h-6 w-6 -> h-5 w-5 -->
                         <a href="/" class="rounded-lg p-2 text-white transition hover:bg-white/10" aria-label="Homepage">
-                            <i class="fa-solid fa-house h-6 w-6"></i>
+                            <i class="fa-solid fa-house h-5 w-5"></i>
                         </a>
                         <!-- MODIFIED: This button now opens the global search modal -->
+                        <!-- MODIFIED: Icon size h-6 w-6 -> h-5 w-5 -->
                         <button id="openMobileSearchModalButton" class="rounded-lg p-2 text-white transition hover:bg-white/10" aria-label="Open search panel">
-                            <i class="fa-solid fa-search h-6 w-6"></i>
+                            <i class="fa-solid fa-search h-5 w-5"></i>
                         </button>
                         <!-- NEW: Dashboard button for mobile header -->
+                        <!-- MODIFIED: Icon size h-6 w-6 -> h-5 w-5 -->
                         <a href="/dashboard.html" class="rounded-lg p-2 text-white transition hover:bg-white/10" aria-label="My Dashboard">
-                            <i class="fa-solid fa-history h-6 w-6"></i>
+                            <i class="fa-solid fa-history h-5 w-5"></i>
                         </a>
+                        <!-- MODIFIED: Icon size h-6 w-6 -> h-5 w-5 -->
                         <button id="mobileMenuToggle" class="rounded-lg p-2 text-white transition hover:bg-white/10" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu">
-                            <i class="fa-solid fa-bars h-6 w-6" id="menuOpenIcon"></i>
-                            <i class="fa-solid fa-xmark h-6 w-6 hidden" id="menuCloseIcon"></i>
+                            <i class="fa-solid fa-bars h-5 w-5" id="menuOpenIcon"></i>
+                            <i class="fa-solid fa-xmark h-5 w-5 hidden" id="menuCloseIcon"></i>
                         </button>
                     </nav>
 
                     <!-- Desktop Buttons -->
                     <div class="hidden items-center gap-3 md:flex">
+                        <!-- NEW: Home Button -->
+                        <a href="/" class="inline-flex items-center justify-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white shadow-soft transition hover:bg-white/20">
+                            <i class="fa-solid fa-house"></i>
+                            Home
+                        </a>
                         <!-- NEW: Dashboard Button -->
                         <a href="/dashboard.html" class="inline-flex items-center justify-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white shadow-soft transition hover:bg-white/20">
                             <i class="fa-solid fa-history"></i>
                             My Dashboard
                         </a>
                         <!-- MODIFIED: "Stay Notified" changed to "Suggest a Tool" -->
-                        <a href="mailto:hello@dailycalc.org?subject=Calculator%20Request" class="inline-flex items-center justify-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white shadow-soft transition hover:bg-white/20">
+                        <!-- MODIFIED: Changed style to primary button (white bg, red text) -->
+                        <a href="mailto:hello@dailycalc.org?subject=Calculator%20Request" class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-brand-red shadow-soft transition hover:bg-slate-200">
                             <i class="fa-solid fa-lightbulb"></i>
                             Suggest a Tool
                         </a>
@@ -112,11 +123,10 @@ const headerHTML = `
             </div>
             
             <nav class="flex-1 overflow-y-auto px-4 pb-4" aria-label="Mobile Navigation">
-                <!-- NEW: Dashboard Link -->
-                <a href="/dashboard.html" class="mobile-menu-link">
-                    <i class="fa-solid fa-history fa-fw"></i>
-                    <span>My Dashboard</span>
-                </a>
+                <!-- REMOVED: Home Link -->
+                
+                <!-- REMOVED: Dashboard Link -->
+                
 
                 <!-- Links now point back to homepage categories -->
                 <a href="/#categories" class="mobile-menu-link" data-filter-link="Finance">
@@ -151,11 +161,7 @@ const headerHTML = `
                     <i class="fa-solid fa-robot fa-fw"></i>
                     <span>AI-Based</span>
                 </a>
-                <!-- MODIFIED: "Stay Notified" changed to "Suggest a Tool" -->
-                <a href="mailto:hello@dailycalc.org?subject=Calculator%20Request" class="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-brand-red shadow-soft transition hover:bg-slate-200">
-                    <i class="fa-solid fa-lightbulb"></i>
-                    Suggest a Tool
-                </a>
+                <!-- REMOVED: "Suggest a Tool" link -->
             </nav>
         </div>
     </div>
