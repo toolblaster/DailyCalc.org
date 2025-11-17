@@ -92,12 +92,11 @@ const headerHTML = `
                             <i class="fa-solid fa-history"></i>
                             My Dashboard
                         </a>
-                        <!-- MODIFIED: "Stay Notified" changed to "Suggest a Tool" -->
-                        <!-- MODIFIED: Changed style to primary button (white bg, red text) -->
-                        <a href="mailto:hello@dailycalc.org?subject=Calculator%20Request" class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-brand-red shadow-soft transition hover:bg-slate-200">
+                        <!-- MODIFIED: Changed <a> to <button> and added id="suggestToolButton" -->
+                        <button id="suggestToolButton" class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-brand-red shadow-soft transition hover:bg-slate-200">
                             <i class="fa-solid fa-lightbulb"></i>
                             Suggest a Tool
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -654,9 +653,43 @@ function loadCommonLayout() {
 
     // --- REMOVED: Mobile Search Toggle Logic ---
     // (This is now handled by the modal logic above)
+    
+    // --- NEW: Clipboard Logic for Suggest a Tool Button ---
+    const suggestButton = document.getElementById('suggestToolButton');
+    if (suggestButton) {
+        const originalHtml = suggestButton.innerHTML;
+        
+        suggestButton.addEventListener('click', () => {
+            const email = 'hello@dailycalc.org';
+            
+            // Use the fallback clipboard method (document.execCommand)
+            // as it's more reliable in sandboxed iframes.
+            try {
+                const tempInput = document.createElement('textarea');
+                tempInput.value = email;
+                tempInput.style.position = 'absolute';
+                tempInput.style.left = '-9999px';
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
 
-    // --- REMOVED: Global Search Redirect Logic ---
-    // (This is also handled by the modal logic)
+                // Provide visual feedback
+                suggestButton.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+                suggestButton.disabled = true;
+
+                // Revert button after 2 seconds
+                setTimeout(() => {
+                    suggestButton.innerHTML = originalHtml;
+                    suggestButton.disabled = false;
+                }, 2000);
+
+            } catch (err) {
+                console.error('Failed to copy to clipboard:', err);
+                // You could show an error message here if you wanted
+            }
+        });
+    }
 }
 
 // 3. Add the event listener to run our function
