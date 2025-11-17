@@ -144,3 +144,11 @@ body.overflow-hidden {
     opacity: 1;
     transform: translateX(-50%) translateY(0); /* Slide up */
 }
+
+/* --- NEW: Centralized Page Widths --- */
+.main-container {
+    max-width: 1050px;
+}
+.category-container {
+    max-width: 1000px;
+}
