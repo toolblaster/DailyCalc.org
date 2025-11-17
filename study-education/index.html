@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Meta Title (60 Chars Max) -->
+    <title>Study & Education Calculators | DailyCalc.org</title>
+    <!-- Meta Description (160 Chars Max) -->
+    <meta name="description" content="Learning aids, grading calculators, study planners, and other free academic tools from DailyCalc.org.">
+    <meta name="keywords" content="study calculators, education calculators, dailycalc, gpa, grade, academic">
+    <link rel="canonical" href="https://dailycalc.org/study-education/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css">
+    
+    <!-- Link to our global stylesheet -->
+    <link rel="stylesheet" href="../css/global.css"> <!-- Path is now relative (../) -->
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Poppins', 'system-ui', 'sans-serif'],
+                        heading: ['Poppins', 'Inter', 'system-ui', 'sans-serif']
+                    },
+                    colors: {
+                        brand: {
+                            red: '#F1203D',
+                            dark: '#050505'
+                        }
+                    },
+                    boxShadow: {
+                        soft: '0 12px 40px rgba(15, 23, 42, 0.08)'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Global Script -->
+    <script src="../js/global.js" defer></script> <!-- Path is now relative (../) -->
+    
+    <!-- Layout Script -->
+    <script src="../js/common-layout.js" defer></script> <!-- Path is now relative (../) -->
+
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased">
+    
+    <!-- Placeholder 1: Header -->
+    <div id="header-placeholder"></div>
+
+    <main id="category-page" class="bg-slate-50">
+        <div class="mx-auto category-container px-4 py-8">
+            
+            <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-soft sm:p-10">
+                <!-- Breadcrumbs -->
+                <nav class="mb-4 text-xs text-slate-500" aria-label="Breadcrumb">
+                    <ol class="flex items-center gap-1">
+                        <li><a href="/" class="hover:text-brand-red">Home</a></li>
+                        <li><span class="text-slate-400">/</span></li>
+                        <li><span class="font-medium text-slate-700">Study & Education</span></li>
+                    </ol>
+                </nav>
+
+                <!-- Category Header -->
+                <div class="flex items-center gap-4">
+                    <div class="category-icon !h-12 !w-12 !text-2xl"> <!-- Re-using category icon style -->
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-heading text-2xl font-semibold text-brand-dark">
+                            Study & Education Calculators
+                        </h1>
+                        <p class="mt-1 text-sm text-slate-600">Learning aids, grading, study planners, and academic tools.</p>
+                    </div>
+                </div>
+
+                <!-- Calculator List (Placeholder) -->
+                <div class="mt-10">
+                    <h2 class="font-heading text-xl font-semibold text-brand-dark">Calculators in this category</h2>
+                    <div class="mt-6 rounded-lg border border-slate-200 bg-slate-50 p-10 text-center">
+                        <i class="fa-solid fa-person-digging fa-2x text-slate-400"></i>
+                        <p class="mt-4 font-semibold text-brand-dark">Coming Soon!</p>
+                        <p class="mt-1 text-sm text-slate-600">
+                            We're busy building calculators for this category. Check back soon!
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Placeholder 2: Footer -->
+    <div id="footer-placeholder"></div>
+</body>
+</html>
