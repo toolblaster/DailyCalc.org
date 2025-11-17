@@ -36,7 +36,8 @@
                         }
                     },
                     boxShadow: {
-                        soft: '0 12px 40px rgba(15, 23, 42, 0.08)'
+                        /* MODIFIED: Changed to a layered, red-tinted shadow for a "gradient shadow" effect */
+                        soft: '0 12px 40px -8px rgba(241, 32, 61, 0.15), 0 4px 6px -1px rgba(241, 32, 61, 0.08)'
                     }
                 }
             }
@@ -69,11 +70,11 @@
         <!-- MODIFIED: Reduced vertical padding -->
         <div class="mx-auto max-w-[1050px] px-4 py-8">
             
-            <!-- MODIFIED: Reduced padding -->
-            <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white p-4 shadow-soft sm:p-6">
+            <!-- MODIFIED: Reduced padding, added gradient background and updated shadow (via shadow-soft) -->
+            <div class="overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-4 shadow-soft sm:p-6">
                 <!-- MODIFIED: Smaller heading -->
                 <h1 class="font-heading text-xl font-semibold text-brand-dark">
-                    My DailyCalc Dashboard
+                    My <span class="bg-gradient-to-r from-brand-red to-orange-500 bg-clip-text text-transparent">DailyCalc Dashboard</span>
                 </h1>
                 <!-- MODIFIED: Reduced margin -->
                 <p class="mt-1 text-sm text-slate-600">
