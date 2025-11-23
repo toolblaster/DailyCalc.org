@@ -15,83 +15,36 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css">
     
-    <!-- NEW: Link to our global stylesheet -->
+    <!-- Link to our global stylesheet -->
     <link rel="stylesheet" href="css/global.css">
     
+    <!-- 1. Load Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'Poppins', 'system-ui', 'sans-serif'],
-                        heading: ['Poppins', 'Inter', 'system-ui', 'sans-serif']
-                    },
-                    colors: {
-                        brand: {
-                            red: '#F1203D',
-                            dark: '#050505'
-                        }
-                    },
-                    boxShadow: {
-                        soft: '0 12px 40px rgba(15, 23, 42, 0.08)'
-                    }
-                }
-            }
-        }
-    </script>
     
-    <!-- REMOVED: The <style> block has been moved to css/global.css -->
-
-    <!-- 
-      *** OUR NEW GLOBAL SCRIPT ***
-      This script will load global utilities.
-    -->
+    <!-- 2. Load Centralized Tailwind Config -->
+    <script src="js/tailwind-config.js"></script>
+    
+    <!-- Global Script -->
     <script src="js/global.js" defer></script>
     
-    <!-- 
-      *** OUR LAYOUT SCRIPT ***
-      This script will load the header and footer.
-      The 'defer' attribute is important.
-      Path is relative to the root.
-    -->
+    <!-- Layout Script -->
     <script src="js/common-layout.js" defer></script>
 
 </head>
 <body class="bg-slate-50 text-slate-900 font-sans antialiased">
     
-    <!-- 
-      *** PLACEHOLDER 1: HEADER ***
-      The common-layout.js script will find this div and inject the header HTML.
-    -->
+    <!-- Header Placeholder -->
     <div id="header-placeholder"></div>
 
-    <!-- 
-      *** All Header, Nav, and Mobile Menu HTML has been REMOVED from here. ***
-    -->
-
-
     <main id="home">
-        <!-- 
-          MODIFIED: 
-          Removed the entire Hero Section.
-        -->
-
         <!-- *** CATEGORIES SECTION *** -->
-        <!-- MODIFIED: Changed background -->
         <section id="categories" class="bg-slate-50">
-            <!-- MODIFIED: Reduced horizontal padding -->
-            <!-- MODIFIED: Reduced top padding to pt-4 sm:pt-6 -->
-            <!-- MODIFIED: Reduced bottom padding to pb-4 sm:pb-6 to bring sections closer -->
             <div class="mx-auto main-container px-4 pt-4 pb-4 sm:pt-6 sm:pb-6">
                 
-                <!-- NEW: Wrapper div for border and shadow -->
+                <!-- Wrapper div -->
                 <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-soft sm:p-10">
 
-                    <!-- MODIFIED: Added a centered H1 and description from the old hero -->
                     <div class="mx-auto max-w-2xl text-center">
-                        <!-- MODIFIED: Applied gradient text to "Daily Calculator" only -->
-                        <!-- MODIFIED: Set h1 to 24px -->
                         <h1 class="font-heading text-2xl font-semibold leading-tight text-brand-dark">
                             Find the <span class="bg-gradient-to-r from-brand-red to-brand-dark bg-clip-text text-transparent">Daily Calculator</span> you need
                         </h1>
@@ -99,238 +52,162 @@
                             Browse our growing library of accurate, lightweight calculators across finance, health, productivity, and more. Designed for instant answers on any device.
                         </p>
                     </div>
-
-                <!-- 
-                  REMOVED: "Toggle subcategories preview" button and its container div.
-                -->
                 
-                <!-- Updated grid to 2-col mobile, 4-col tablet+ -->
-                <!-- MODIFIED: Adjusted margin-top to mt-10 since the button div was removed -->
-                <div id="categoryGrid" class="mt-8 grid grid-cols-2 gap-4 sm:mt-10 sm:grid-cols-4 sm:gap-6">
-                    <!-- 
-                      IMPORTANT: 
-                      These links now MUST point to the actual calculator pages.
-                      Example: <a href="/calculators/mortgage-calculator.html" class="category-card" ...>
-                    -->
-                    <a href="/finance/" class="category-card" data-title="Finance" data-description="Budgeting, loans, investments, and personal wealth tools.">
-                        <!-- MODIFIED: Removed bg/text classes, style is in CSS now -->
-                        <div class="category-icon">
-                            <i class="fa-solid fa-sack-dollar"></i>
-                        </div>
-                        <!-- H3: 14px -->
-                        <h3 class="text-sm">Finance</h3>
-                        <!-- Descriptive Text: 12px -->
-                        <p class="text-xs">Budgeting, loans, investments, and personal wealth tools.</p>
-                        <ul class="subcategory-list" data-subcategory>
-                            <li>Mortgage &amp; loans</li>
-                            <li>Budget planners</li>
-                            <li>Savings growth</li>
-                        </ul>
-                    </a>
-                    
-                    <a href="/health-fitness/" class="category-card" data-title="Health & Fitness" data-description="Track wellness goals, nutrition, and body metrics with ease.">
-                        <!-- MODIFIED: Removed bg/text classes, style is in CSS now -->
-                        <div class="category-icon">
-                            <i class="fa-solid fa-heart-pulse"></i>
-                        </div>
-                        <!-- H3: 14px -->
-                        <h3 class="text-sm">Health &amp; Fitness</h3>
-                        <!-- Descriptive Text: 12px -->
-                        <p class="text-xs">Track wellness goals, nutrition, and body metrics with ease.</p>
-                        <ul class="subcategory-list" data-subcategory>
-                            <li>Hydration &amp; nutrition</li>
-                            <li>Body metrics</li>
-                            <li>Training zones</li>
-                        </ul>
-                    </a>
-                    
-                    <a href="/date-time/" class="category-card" data-title="Date & Time" data-description="Countdowns, date math, time zone helpers, and scheduling.">
-                        <!-- MODIFIED: Removed bg/text classes, style is in CSS now -->
-                        <div class="category-icon">
-                            <i class="fa-regular fa-calendar"></i>
-                        </div>
-                        <!-- H3: 14px -->
-                        <h3 class="text-sm">Date &amp; Time</h3>
-                        <!-- Descriptive Text: 12px -->
-                        <p class="text-xs">Countdowns, date math, time zone helpers, and scheduling.</p>
-                        <ul class="subcategory-list" data-subcategory>
-                            <li>Time tracking</li>
-                            <li>Event planning</li>
-                            <li>Workday math</li>
-                        </ul>
-                    </a>
-                    
-                    <a href="/math-numbers/" class="category-card" data-title="Math & Numbers" data-description="Algebra, geometry, statistics, and quick number crunchers.">
-                        <!-- MODIFIED: Removed bg/text classes, style is in CSS now -->
-                        <div class="category-icon">
-                            <i class="fa-solid fa-square-root-variable"></i>
-                        </div>
-                        <!-- H3: 14px -->
-                        <h3 class="text-sm">Math &amp; Numbers</h3>
-                        <!-- Descriptive Text: 12px -->
-                        <p class="text-xs">Algebra, geometry, statistics, and quick number crunchers.</p>
-                        <ul class="subcategory-list" data-subcategory>
-                            <li>Algebra helpers</li>
-                            <li>Geometry solvers</li>
-                            <li>Statistics tools</li>
-                        </ul>
-                    </a>
-                    
-                    <a href="/study-education/" class="category-card" data-title="Study & Education" data-description="Learning aids, grading, study planners, and academic tools.">
-                        <!-- MODIFIED: Removed bg/text classes, style is in CSS now -->
-                        <div class="category-icon">
-                            <i class="fa-solid fa-graduation-cap"></i>
-                        </div>
-                        <!-- H3: 14px -->
-                        <h3 class="text-sm">Study &amp; Education</h3>
-                        <!-- Descriptive Text: 12px -->
-                        <p class="text-xs">Learning aids, grading, study planners, and academic tools.</p>
-                        <ul class="subcategory-list" data-subcategory>
-                            <li>Grade trackers</li>
-                            <li>Study planning</li>
-                            <li>Language tools</li>
-                        </ul>
-                    </a>
-                    <a href="/converters/" class="category-card" data-title="Converters" data-description="Unit conversions for measurements, currencies, and formats.">
-                        <!-- MODIFIED: Removed bg/text classes, style is in CSS now -->
-                        <div class="category-icon">
-                            <i class="fa-solid fa-arrows-rotate"></i>
-                        </div>
-                        <!-- H3: 14px -->
-                        <h3 class="text-sm">Converters</h3>
-                        <!-- Descriptive Text: 12px -->
-                        <p class="text-xs">Unit conversions for measurements, currencies, and formats.</p>
-                        <ul class="subcategory-list" data-subcategory>
-                            <li>Units &amp; measures</li>
-                            <li>Digital formats</li>
-                            <li>Currency snapshots</li>
-                        </ul>
-                    </a>
-                    <a href="/general-tools/" class="category-card" data-title="General Tools" data-description="Everyday quick calculators for household and lifestyle needs.">
-                        <!-- MODIFIED: Removed bg/text classes, style is in CSS now -->
-                        <div class="category-icon">
-                            <i class="fa-solid fa-screwdriver-wrench"></i>
-                        </div>
-                        <!-- H3: 14px -->
-                        <h3 class="text-sm">General Tools</h3>
-                        <!-- Descriptive Text: 12px -->
-                        <p class="text-xs">Everyday quick calculators for household and lifestyle needs.</p>
-                        <ul class="subcategory-list" data-subcategory>
-                            <li>Home &amp; DIY</li>
-                            <li>Travel helpers</li>
-                            <li>Event planning</li>
-                        </ul>
-                    </a>
-                    <a href="/ai-based/" class="category-card" data-title="AI-Based Calculators" data-description="Smart calculators leveraging AI for nuanced or predictive results.">
-                        <!-- MODIFIED: Removed bg/text classes, style is in CSS now -->
-                        <div class="category-icon">
-                            <i class="fa-solid fa-robot"></i>
-                        </div>
-                        <!-- H3: 14px -->
-                        <h3 class="text-sm">AI-Based Calculators</h3>
-                        <!-- Descriptive Text: 12px -->
-                        <p class="text-xs">Smart calculators leveraging AI for nuanced or predictive results.</p>
-                        <ul class="subcategory-list" data-subcategory>
-                            <li>Personalized advice</li>
-                            <li>Scenario modeling</li>
-                            <li>Automation scripts</li>
-                        </ul>
-                    </a>
+                    <!-- Category Grid -->
+                    <div id="categoryGrid" class="mt-8 grid grid-cols-2 gap-4 sm:mt-10 sm:grid-cols-4 sm:gap-6">
+                        <a href="/finance/" class="category-card" data-title="Finance" data-description="Budgeting, loans, investments, and personal wealth tools.">
+                            <div class="category-icon">
+                                <i class="fa-solid fa-sack-dollar"></i>
+                            </div>
+                            <h3 class="text-sm">Finance</h3>
+                            <p class="text-xs">Budgeting, loans, investments, and personal wealth tools.</p>
+                            <ul class="subcategory-list" data-subcategory>
+                                <li>Mortgage &amp; loans</li>
+                                <li>Budget planners</li>
+                                <li>Savings growth</li>
+                            </ul>
+                        </a>
+                        
+                        <a href="/health-fitness/" class="category-card" data-title="Health & Fitness" data-description="Track wellness goals, nutrition, and body metrics with ease.">
+                            <div class="category-icon">
+                                <i class="fa-solid fa-heart-pulse"></i>
+                            </div>
+                            <h3 class="text-sm">Health &amp; Fitness</h3>
+                            <p class="text-xs">Track wellness goals, nutrition, and body metrics with ease.</p>
+                            <ul class="subcategory-list" data-subcategory>
+                                <li>Hydration &amp; nutrition</li>
+                                <li>Body metrics</li>
+                                <li>Training zones</li>
+                            </ul>
+                        </a>
+                        
+                        <a href="/date-time/" class="category-card" data-title="Date & Time" data-description="Countdowns, date math, time zone helpers, and scheduling.">
+                            <div class="category-icon">
+                                <i class="fa-regular fa-calendar"></i>
+                            </div>
+                            <h3 class="text-sm">Date &amp; Time</h3>
+                            <p class="text-xs">Countdowns, date math, time zone helpers, and scheduling.</p>
+                            <ul class="subcategory-list" data-subcategory>
+                                <li>Time tracking</li>
+                                <li>Event planning</li>
+                                <li>Workday math</li>
+                            </ul>
+                        </a>
+                        
+                        <a href="/math-numbers/" class="category-card" data-title="Math & Numbers" data-description="Algebra, geometry, statistics, and quick number crunchers.">
+                            <div class="category-icon">
+                                <i class="fa-solid fa-square-root-variable"></i>
+                            </div>
+                            <h3 class="text-sm">Math &amp; Numbers</h3>
+                            <p class="text-xs">Algebra, geometry, statistics, and quick number crunchers.</p>
+                            <ul class="subcategory-list" data-subcategory>
+                                <li>Algebra helpers</li>
+                                <li>Geometry solvers</li>
+                                <li>Statistics tools</li>
+                            </ul>
+                        </a>
+                        
+                        <a href="/study-education/" class="category-card" data-title="Study & Education" data-description="Learning aids, grading, study planners, and academic tools.">
+                            <div class="category-icon">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                            </div>
+                            <h3 class="text-sm">Study &amp; Education</h3>
+                            <p class="text-xs">Learning aids, grading, study planners, and academic tools.</p>
+                            <ul class="subcategory-list" data-subcategory>
+                                <li>Grade trackers</li>
+                                <li>Study planning</li>
+                                <li>Language tools</li>
+                            </ul>
+                        </a>
+                        <a href="/converters/" class="category-card" data-title="Converters" data-description="Unit conversions for measurements, currencies, and formats.">
+                            <div class="category-icon">
+                                <i class="fa-solid fa-arrows-rotate"></i>
+                            </div>
+                            <h3 class="text-sm">Converters</h3>
+                            <p class="text-xs">Unit conversions for measurements, currencies, and formats.</p>
+                            <ul class="subcategory-list" data-subcategory>
+                                <li>Units &amp; measures</li>
+                                <li>Digital formats</li>
+                                <li>Currency snapshots</li>
+                            </ul>
+                        </a>
+                        <a href="/general-tools/" class="category-card" data-title="General Tools" data-description="Everyday quick calculators for household and lifestyle needs.">
+                            <div class="category-icon">
+                                <i class="fa-solid fa-screwdriver-wrench"></i>
+                            </div>
+                            <h3 class="text-sm">General Tools</h3>
+                            <p class="text-xs">Everyday quick calculators for household and lifestyle needs.</p>
+                            <ul class="subcategory-list" data-subcategory>
+                                <li>Home &amp; DIY</li>
+                                <li>Travel helpers</li>
+                                <li>Event planning</li>
+                            </ul>
+                        </a>
+                        <a href="/ai-based/" class="category-card" data-title="AI-Based Calculators" data-description="Smart calculators leveraging AI for nuanced or predictive results.">
+                            <div class="category-icon">
+                                <i class="fa-solid fa-robot"></i>
+                            </div>
+                            <h3 class="text-sm">AI-Based Calculators</h3>
+                            <p class="text-xs">Smart calculators leveraging AI for nuanced or predictive results.</p>
+                            <ul class="subcategory-list" data-subcategory>
+                                <li>Personalized advice</li>
+                                <li>Scenario modeling</li>
+                                <li>Automation scripts</li>
+                            </ul>
+                        </a>
+                    </div>
+                    <!-- 'No results' message -->
+                    <div id="noResultsMessage" class="mt-10 hidden rounded-lg border border-slate-200 bg-slate-50 p-6 text-center text-slate-600">
+                        <h3 class="text-lg font-semibold text-brand-dark">No calculators found</h3>
+                        <p class="mt-2 text-sm">We couldn't find a calculator matching your search. Try a different term or browse the categories above.</p>
+                    </div>
+
                 </div>
-                <!-- 'No results' message for search -->
-                <div id="noResultsMessage" class="mt-10 hidden rounded-lg border border-slate-200 bg-slate-50 p-6 text-center text-slate-600">
-                    <h3 class="text-lg font-semibold text-brand-dark">No calculators found</h3>
-                    <p class="mt-2 text-sm">We couldn't find a calculator matching your search. Try a different term or browse the categories above.</p>
-                </div>
+            </div>
+        </section>
 
-            </div> <!-- END: New wrapper div -->
-        </div>
-    </section>
-
-    <!-- *** NEW SEO CONTENT SECTION *** -->
-    <section id="about" class="bg-slate-50">
-        <!-- This outer div provides the same max-width and padding as the section above -->
-        <!-- MODIFIED: Reduced top padding to py-0, bottom to py-8 sm:py-12 -->
-        <div class="mx-auto main-container px-4 py-0 pb-8 sm:pb-12">
-            
-            <!-- This inner div provides the card styling -->
-            <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-soft sm:p-10">
-
-                <div class="mx-auto max-w-2xl text-center">
-                    <!-- MODIFIED: Set h2 to 20px and applied gradient -->
-                    <h2 class="font-heading text-xl font-semibold leading-tight text-brand-dark">
-                        Trustworthy Tools, <span class="bg-gradient-to-r from-brand-red to-brand-dark bg-clip-text text-transparent">Built for You</span>
-                    </h2>
-                    <p class="mt-3 text-xs text-slate-600">
-                        Our mission is simple: to provide neutral, helpful, and globally-accessible calculators for everyone. We're building DailyCalc.org one trusted tool at a time, focusing on accuracy, speed, and a clean, professional user experience.
-                    </p>
-                </div>
-
-                <!-- MODIFIED: Grid now matches category grid styling -->
-                <div class="mt-8 grid grid-cols-1 gap-4 sm:mt-10 sm:grid-cols-3 sm:gap-6">
-                    <!-- MODIFIED: Applied 'category-card' class -->
-                    <div class="category-card">
-                        <!-- MODIFIED: Applied 'category-icon' class -->
-                        <div class="category-icon">
-                            <i class="fa-solid fa-shield-halved"></i>
-                        </div>
-                        <!-- MODIFIED: Applied 'category-card' h3 style -->
-                        <h3 class="text-sm">
-                            Clarity & Trust
-                        </h3>
-                        <!-- MODIFIED: Applied 'category-card' p style -->
-                        <p class="text-xs">
-                            No clutter, no confusing jargon. Just straightforward calculators that give you the right answer, every time.
+        <!-- *** SEO CONTENT SECTION *** -->
+        <section id="about" class="bg-slate-50">
+            <div class="mx-auto main-container px-4 py-0 pb-8 sm:pb-12">
+                <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-soft sm:p-10">
+                    <div class="mx-auto max-w-2xl text-center">
+                        <h2 class="font-heading text-xl font-semibold leading-tight text-brand-dark">
+                            Trustworthy Tools, <span class="bg-gradient-to-r from-brand-red to-brand-dark bg-clip-text text-transparent">Built for You</span>
+                        </h2>
+                        <p class="mt-3 text-xs text-slate-600">
+                            Our mission is simple: to provide neutral, helpful, and globally-accessible calculators for everyone. We're building DailyCalc.org one trusted tool at a time, focusing on accuracy, speed, and a clean, professional user experience.
                         </p>
                     </div>
-                    <!-- MODIFIED: Applied 'category-card' class -->
-                    <div class="category-card">
-                        <!-- MODIFIED: Applied 'category-icon' class -->
-                        <div class="category-icon">
-                            <i class="fa-solid fa-bolt"></i>
+
+                    <div class="mt-8 grid grid-cols-1 gap-4 sm:mt-10 sm:grid-cols-3 sm:gap-6">
+                        <div class="category-card">
+                            <div class="category-icon">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <h3 class="text-sm">Clarity & Trust</h3>
+                            <p class="text-xs">No clutter, no confusing jargon. Just straightforward calculators that give you the right answer, every time.</p>
                         </div>
-                        <!-- MODIFIED: Applied 'category-card' h3 style -->
-                        <h3 class="text-sm">
-                            Fast & Lightweight
-                        </h3>
-                        <!-- MODIFIED: Applied 'category-card' p style -->
-                        <p class="text-xs">
-                            Our site is optimized for speed, ensuring you get your calculation instantly, even on a slow connection.
-                        </p>
-                    </div>
-                    <!-- MODIFIED: Applied 'category-card' class -->
-                    <div class="category-card">
-                        <!-- MODIFIED: Applied 'category-icon' class -->
-                        <div class="category-icon">
-                            <i class="fa-solid fa-user-pen"></i>
+                        <div class="category-card">
+                            <div class="category-icon">
+                                <i class="fa-solid fa-bolt"></i>
+                            </div>
+                            <h3 class="text-sm">Fast & Lightweight</h3>
+                            <p class="text-xs">Our site is optimized for speed, ensuring you get your calculation instantly, even on a slow connection.</p>
                         </div>
-                        <!-- MODIFIED: Applied 'category-card' h3 style -->
-                        <h3 class="text-sm">
-                            Community-Driven
-                        </h3>
-                        <!-- MODIFIED: Applied 'category-card' p style -->
-                        <p class="text-xs">
-                            Our roadmap is guided by you. Suggest a tool, and we'll do our best to build it for our growing community.
-                        </p>
+                        <div class="category-card">
+                            <div class="category-icon">
+                                <i class="fa-solid fa-user-pen"></i>
+                            </div>
+                            <h3 class="text-sm">Community-Driven</h3>
+                            <p class="text-xs">Our roadmap is guided by you. Suggest a tool, and we'll do our best to build it for our growing community.</p>
+                        </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-            </div> <!-- END: Card wrapper div -->
-        </div>
-    </section>
-    <!-- *** END NEW SECTION *** -->
-
-
-    <!-- 
-      *** All Footer HTML has been REMOVED from here. ***
-    -->
-
-    <!-- 
-      *** PLACEHOLDER 2: FOOTER ***
-      The common-layout.js script will find this div and inject the footer HTML.
-    -->
+    <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
-
 
     <!-- Schema.org -->
     <script type="application/ld+json">
@@ -345,10 +222,7 @@
     }
     </script>
     
-    <!-- 
-      *** UPDATED Merged JavaScript ***
-      MODIFIED: Moved all homepage-specific JS to 'js/homepage.js'
-    -->
+    <!-- Homepage JS -->
     <script src="js/homepage.js" defer></script>
 </body>
 </html>
