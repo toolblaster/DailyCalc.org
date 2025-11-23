@@ -2,7 +2,7 @@
   DailyCalc.org Centralized Tailwind Configuration
   
   This file contains the configuration for Tailwind CSS used across the entire site.
-  It now includes CUSTOM COMPONENTS (.calc-grid-5, .calc-card-compact, .calc-header) 
+  It now includes CUSTOM COMPONENTS (.calc-grid-5, .calc-card-compact, .calc-header, .calc-subcat-title) 
   so you don't have to repeat code on every page.
 */
 
@@ -33,7 +33,7 @@ tailwind.config = {
                     display: 'grid',
                     gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
                     gap: theme('spacing.3'), // gap-3
-                    marginTop: theme('spacing.8'),
+                    // marginTop removed here so it can be controlled by the section
                     '@media (min-width: 640px)': { gridTemplateColumns: 'repeat(3, minmax(0, 1fr))' },
                     '@media (min-width: 768px)': { gridTemplateColumns: 'repeat(4, minmax(0, 1fr))' },
                     '@media (min-width: 1024px)': { gridTemplateColumns: 'repeat(5, minmax(0, 1fr))' },
@@ -98,23 +98,21 @@ tailwind.config = {
                     }
                 },
 
-                /* 3. CENTRALIZED PAGE HEADER STYLE 
-                   - Handles the layout of the large icon + title section.
-                */
+                /* 3. CENTRALIZED PAGE HEADER STYLE */
                 '.calc-header': {
                     display: 'flex',
                     alignItems: 'center',
                     gap: theme('spacing.4'),
+                    marginBottom: theme('spacing.8'),
                 },
 
                 '.calc-icon': {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    height: theme('spacing.12'), // h-12
-                    width: theme('spacing.12'),  // w-12
+                    height: theme('spacing.12'), 
+                    width: theme('spacing.12'),
                     borderRadius: '9999px',
-                    // Orange to Red Gradient
                     backgroundImage: `linear-gradient(135deg, #f97316, ${theme('colors.brand.red')})`, 
                     color: '#ffffff',
                     fontSize: theme('fontSize.2xl'),
@@ -128,7 +126,6 @@ tailwind.config = {
                     color: theme('colors.brand.dark'),
                     lineHeight: '1.2',
                     
-                    // Gradient Text logic for the <span> inside
                     'span': {
                         backgroundImage: `linear-gradient(to right, ${theme('colors.brand.red')}, ${theme('colors.brand.dark')})`,
                         backgroundClip: 'text',
@@ -141,6 +138,27 @@ tailwind.config = {
                     marginTop: theme('spacing.1'),
                     fontSize: theme('fontSize.sm'),
                     color: theme('colors.slate.600'),
+                },
+
+                /* 4. SUBCATEGORY TITLE STYLE */
+                '.calc-subcat-title': {
+                    fontFamily: theme('fontFamily.heading'),
+                    fontSize: theme('fontSize.lg'),
+                    fontWeight: '600',
+                    color: theme('colors.brand.dark'),
+                    marginBottom: theme('spacing.4'),
+                    marginTop: theme('spacing.8'),
+                    paddingBottom: theme('spacing.2'),
+                    borderBottomWidth: '1px',
+                    borderBottomColor: theme('colors.slate.200'),
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: theme('spacing.2'),
+                    
+                    'i': {
+                        color: theme('colors.brand.red'),
+                        fontSize: theme('fontSize.base'),
+                    }
                 }
             })
         }
