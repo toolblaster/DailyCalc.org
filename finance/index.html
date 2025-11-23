@@ -16,41 +16,24 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css">
     
     <!-- Link to our global stylesheet -->
-    <link rel="stylesheet" href="../css/global.css"> <!-- Path is now relative (../) -->
+    <link rel="stylesheet" href="../css/global.css">
     
+    <!-- 1. Load Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'Poppins', 'system-ui', 'sans-serif'],
-                        heading: ['Poppins', 'Inter', 'system-ui', 'sans-serif']
-                    },
-                    colors: {
-                        brand: {
-                            red: '#F1203D',
-                            dark: '#050505'
-                        }
-                    },
-                    boxShadow: {
-                        soft: '0 12px 40px rgba(15, 23, 42, 0.08)'
-                    }
-                }
-            }
-        }
-    </script>
+    
+    <!-- 2. Load Centralized Tailwind Config (Note the ../ path) -->
+    <script src="../js/tailwind-config.js"></script>
     
     <!-- Global Script -->
-    <script src="../js/global.js" defer></script> <!-- Path is now relative (../) -->
+    <script src="../js/global.js" defer></script>
     
     <!-- Layout Script -->
-    <script src="../js/common-layout.js" defer></script> <!-- Path is now relative (../) -->
+    <script src="../js/common-layout.js" defer></script>
 
 </head>
 <body class="bg-slate-50 text-slate-900 font-sans antialiased">
     
-    <!-- Placeholder 1: Header -->
+    <!-- Header Placeholder -->
     <div id="header-placeholder"></div>
 
     <main id="category-page" class="bg-slate-50">
@@ -68,7 +51,7 @@
 
                 <!-- Category Header -->
                 <div class="flex items-center gap-4">
-                    <div class="category-icon !h-12 !w-12 !text-2xl"> <!-- Re-using category icon style -->
+                    <div class="category-icon !h-12 !w-12 !text-2xl">
                         <i class="fa-solid fa-sack-dollar"></i>
                     </div>
                     <div>
@@ -81,9 +64,6 @@
 
                 <!-- Calculator List -->
                 <div class="mt-10">
-                    <!-- REMOVED: "Coming Soon" placeholder -->
-                    
-                    <!-- NEW: Actual Grid of Finance Calculators -->
                     <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
                         
                         <!-- Calculator 1 -->
@@ -138,7 +118,7 @@
         </div>
     </main>
 
-    <!-- Placeholder 2: Footer -->
+    <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
 </body>
 </html>
