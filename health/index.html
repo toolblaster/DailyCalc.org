@@ -34,26 +34,46 @@
                     </ol>
                 </nav>
 
-                <div class="flex items-center gap-4">
-                    <div class="category-icon !h-12 !w-12 !text-2xl">
+                <!-- HEADER -->
+                <div class="calc-header">
+                    <div class="calc-icon">
                         <i class="fa-solid fa-heart-pulse"></i>
                     </div>
                     <div>
-                        <h1 class="font-heading text-2xl font-semibold text-brand-dark">
-                            <span class="bg-gradient-to-r from-brand-red to-brand-dark bg-clip-text text-transparent">Health Calculators</span>
+                        <h1 class="calc-title">
+                            <span>Health Calculators</span>
                         </h1>
-                        <p class="mt-1 text-sm text-slate-600">Track wellness goals, nutrition, and body metrics with ease.</p>
+                        <p class="calc-desc">Track wellness goals, nutrition, and body metrics with ease.</p>
                     </div>
                 </div>
 
-                <!-- CENTRALIZED GRID -->
+                <!-- SUBCATEGORY 1: Body Metrics -->
+                <h2 class="calc-subcat-title">
+                    <i class="fa-solid fa-person"></i> Body Metrics
+                </h2>
                 <div class="calc-grid-5">
                     <a href="/health/bmi-calculator.html" class="calc-card-compact">
                         <div><i class="fa-solid fa-weight-scale"></i></div>
                         <h3>BMI Calculator</h3>
                         <p>Body Mass Index check</p>
                     </a>
-                    <!-- Placeholders for demonstration -->
+                    <a href="/health/body-fat.html" class="calc-card-compact">
+                        <div><i class="fa-solid fa-ruler-vertical"></i></div>
+                        <h3>Body Fat</h3>
+                        <p>Estimate body fat %</p>
+                    </a>
+                    <a href="/health/ideal-weight.html" class="calc-card-compact">
+                        <div><i class="fa-solid fa-child-reaching"></i></div>
+                        <h3>Ideal Weight</h3>
+                        <p>Healthy weight range</p>
+                    </a>
+                </div>
+
+                <!-- SUBCATEGORY 2: Nutrition & Diet -->
+                <h2 class="calc-subcat-title">
+                    <i class="fa-solid fa-apple-whole"></i> Nutrition & Diet
+                </h2>
+                <div class="calc-grid-5">
                     <a href="/health/calorie-calculator.html" class="calc-card-compact">
                         <div><i class="fa-solid fa-utensils"></i></div>
                         <h3>Calorie Intake</h3>
@@ -64,7 +84,13 @@
                         <h3>Water Intake</h3>
                         <p>Hydration goals</p>
                     </a>
+                    <a href="/health/macro-calculator.html" class="calc-card-compact">
+                        <div><i class="fa-solid fa-plate-wheat"></i></div>
+                        <h3>Macro Calc</h3>
+                        <p>Protein, carbs, fats</p>
+                    </a>
                 </div>
+
             </div>
 
         </div>
