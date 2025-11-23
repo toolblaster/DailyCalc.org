@@ -157,27 +157,28 @@ const headerHTML = `
         <div class="px-6">
             <div class="hide-scrollbar flex items-center gap-6 overflow-x-auto whitespace-nowrap py-3 md:gap-8 lg:justify-center">
                 <!-- Links now point to category pages -->
-                <!-- MODIFIED: Changed font size from text-sm to text-xs -->
+                <!-- MODIFIED: Reverted to text-xs, kept font-bold -->
+                
                 <a href="/finance/" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red">
                     <i class="fa-solid fa-sack-dollar fa-fw w-4 text-center text-brand-red"></i>
                     <span class="font-bold">Finance</span>
                 </a>
-                <!-- MODIFIED: Changed font size from text-sm to text-xs -->
+                
                 <a href="/health/" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red">
                     <i class="fa-solid fa-heart-pulse fa-fw w-4 text-center text-brand-red"></i>
                     <span class="font-bold">Health</span>
                 </a>
-                <!-- MODIFIED: Changed font size from text-sm to text-xs -->
-                <!-- MODIFIED: Updated HREF to /everyday-life/ -->
+                
                 <a href="/everyday-life/" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red">
                     <i class="fa-solid fa-sun fa-fw w-4 text-center text-brand-red"></i>
                     <span class="font-bold">Everyday Life</span>
                 </a>
-                <!-- MODIFIED: Changed font size from text-sm to text-xs -->
+                
                 <a href="/converters/" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red">
                     <i class="fa-solid fa-arrows-rotate fa-fw w-4 text-center text-brand-red"></i>
                     <span class="font-bold">Converters</span>
                 </a>
+                
                 <!-- REMOVED: Math, Study, General, AI links -->
             </div>
         </div>
