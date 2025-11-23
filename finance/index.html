@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Meta Title (60 Chars Max) -->
     <title>Finance Calculators | DailyCalc.org</title>
-    <!-- Meta Description (160 Chars Max) -->
     <meta name="description" content="Find free and easy-to-use finance calculators for loans, investments, budgeting, and personal wealth goals on DailyCalc.org.">
     <meta name="keywords" content="finance calculators, dailycalc, mortgage, loan, investment, budget">
     <link rel="canonical" href="https://dailycalc.org/finance/">
@@ -15,32 +13,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css">
     
-    <!-- Link to our global stylesheet -->
     <link rel="stylesheet" href="../css/global.css">
-    
-    <!-- 1. Load Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- 2. Load Centralized Tailwind Config (Note the ../ path) -->
     <script src="../js/tailwind-config.js"></script>
-    
-    <!-- Global Script -->
     <script src="../js/global.js" defer></script>
-    
-    <!-- Layout Script -->
     <script src="../js/common-layout.js" defer></script>
-
 </head>
 <body class="bg-slate-50 text-slate-900 font-sans antialiased">
     
-    <!-- Header Placeholder -->
     <div id="header-placeholder"></div>
 
     <main id="category-page" class="bg-slate-50">
         <div class="mx-auto category-container px-4 py-8">
             
             <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-soft sm:p-10">
-                <!-- Breadcrumbs -->
                 <nav class="mb-4 text-xs text-slate-500" aria-label="Breadcrumb">
                     <ol class="flex items-center gap-1">
                         <li><a href="/" class="hover:text-brand-red">Home</a></li>
@@ -49,7 +35,6 @@
                     </ol>
                 </nav>
 
-                <!-- Category Header -->
                 <div class="flex items-center gap-4">
                     <div class="category-icon !h-12 !w-12 !text-2xl">
                         <i class="fa-solid fa-sack-dollar"></i>
@@ -62,63 +47,49 @@
                     </div>
                 </div>
 
-                <!-- Calculator List -->
-                <div class="mt-10">
-                    <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
-                        
-                        <!-- Calculator 1 -->
-                        <a href="/finance/mortgage-calculator.html" class="category-card group">
-                            <div class="category-icon group-hover:scale-110 transition-transform duration-300">
-                                <i class="fa-solid fa-house-chimney"></i>
-                            </div>
-                            <h3 class="text-sm">Mortgage Calc</h3>
-                            <p class="text-xs">Monthly payments & interest.</p>
-                        </a>
+                <!-- 
+                   THE NEW CENTRALIZED GRID 
+                   Notice how clean the HTML is now. We use 'calc-grid-5' for the container
+                   and 'calc-card-compact' for the items. No extra classes needed.
+                -->
+                <div class="calc-grid-5">
+                    
+                    <a href="/finance/mortgage-calculator.html" class="calc-card-compact">
+                        <div><i class="fa-solid fa-house-chimney"></i></div>
+                        <h3>Mortgage Calc</h3>
+                        <p>Monthly payments & interest</p>
+                    </a>
 
-                        <!-- Calculator 2 -->
-                        <a href="/finance/loan-calculator.html" class="category-card group">
-                            <div class="category-icon group-hover:scale-110 transition-transform duration-300">
-                                <i class="fa-solid fa-hand-holding-dollar"></i>
-                            </div>
-                            <h3 class="text-sm">Loan Calculator</h3>
-                            <p class="text-xs">Amortization for any loan.</p>
-                        </a>
+                    <a href="/finance/loan-calculator.html" class="calc-card-compact">
+                        <div><i class="fa-solid fa-hand-holding-dollar"></i></div>
+                        <h3>Loan Calculator</h3>
+                        <p>Amortization for any loan</p>
+                    </a>
 
-                        <!-- Calculator 3 -->
-                        <a href="/finance/auto-loan-calculator.html" class="category-card group">
-                            <div class="category-icon group-hover:scale-110 transition-transform duration-300">
-                                <i class="fa-solid fa-car"></i>
-                            </div>
-                            <h3 class="text-sm">Auto Loan</h3>
-                            <p class="text-xs">Estimate car payments.</p>
-                        </a>
+                    <a href="/finance/auto-loan-calculator.html" class="calc-card-compact">
+                        <div><i class="fa-solid fa-car"></i></div>
+                        <h3>Auto Loan</h3>
+                        <p>Estimate car payments</p>
+                    </a>
 
-                        <!-- Calculator 4 -->
-                        <a href="/finance/savings-calculator.html" class="category-card group">
-                            <div class="category-icon group-hover:scale-110 transition-transform duration-300">
-                                <i class="fa-solid fa-piggy-bank"></i>
-                            </div>
-                            <h3 class="text-sm">Savings Goal</h3>
-                            <p class="text-xs">Plan your wealth growth.</p>
-                        </a>
-                        
-                         <!-- Calculator 5 -->
-                        <a href="/finance/roi-calculator.html" class="category-card group">
-                            <div class="category-icon group-hover:scale-110 transition-transform duration-300">
-                                <i class="fa-solid fa-chart-line"></i>
-                            </div>
-                            <h3 class="text-sm">ROI Calculator</h3>
-                            <p class="text-xs">Return on Investment.</p>
-                        </a>
+                    <a href="/finance/savings-calculator.html" class="calc-card-compact">
+                        <div><i class="fa-solid fa-piggy-bank"></i></div>
+                        <h3>Savings Goal</h3>
+                        <p>Plan your wealth growth</p>
+                    </a>
+                    
+                    <a href="/finance/roi-calculator.html" class="calc-card-compact">
+                        <div><i class="fa-solid fa-chart-line"></i></div>
+                        <h3>ROI Calculator</h3>
+                        <p>Return on Investment</p>
+                    </a>
 
-                    </div>
                 </div>
             </div>
 
         </div>
     </main>
 
-    <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
 </body>
 </html>
