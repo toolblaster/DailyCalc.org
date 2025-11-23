@@ -20,90 +20,54 @@
     <!-- Link to our global stylesheet -->
     <link rel="stylesheet" href="css/global.css">
     
+    <!-- 1. Load Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'Poppins', 'system-ui', 'sans-serif'],
-                        heading: ['Poppins', 'Inter', 'system-ui', 'sans-serif']
-                    },
-                    colors: {
-                        brand: {
-                            red: '#F1203D',
-                            dark: '#050505'
-                        }
-                    },
-                    boxShadow: {
-                        /* MODIFIED: Changed to a layered, red-tinted shadow for a "gradient shadow" effect */
-                        soft: '0 12px 40px -8px rgba(241, 32, 61, 0.15), 0 4px 6px -1px rgba(241, 32, 61, 0.08)'
-                    }
-                }
-            }
-        }
-    </script>
     
-    <!-- 
-      *** OUR NEW GLOBAL SCRIPT ***
-      This script will load global utilities.
-    -->
+    <!-- 2. Load Centralized Tailwind Config -->
+    <script src="js/tailwind-config.js"></script>
+    
+    <!-- Global Script -->
     <script src="js/global.js" defer></script>
     
-    <!-- 
-      *** OUR LAYOUT SCRIPT ***
-      This script will load the header and footer.
-    -->
+    <!-- Layout Script -->
     <script src="js/common-layout.js" defer></script>
 
 </head>
 <body class="bg-slate-50 text-slate-900 font-sans antialiased">
     
-    <!-- 
-      *** PLACEHOLDER 1: HEADER ***
-      The common-layout.js script will find this div and inject the header HTML.
-    -->
+    <!-- Header Placeholder -->
     <div id="header-placeholder"></div>
 
-
     <main id="dashboard-page" class="bg-slate-50">
-        <!-- MODIFIED: Reduced vertical padding -->
         <div class="mx-auto main-container px-4 py-8">
             
-            <!-- MODIFIED: Reduced padding, added gradient background and updated shadow (via shadow-soft) -->
-            <div class="overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-4 shadow-soft sm:p-6">
-                <!-- MODIFIED: Smaller heading -->
+            <!-- MODIFIED: Updated shadow class to shadow-soft-glow to match the centralized config -->
+            <div class="overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-4 shadow-soft-glow sm:p-6">
                 <h1 class="font-heading text-xl font-semibold text-brand-dark">
                     <span class="bg-gradient-to-r from-brand-red to-brand-dark bg-clip-text text-transparent">My DailyCalc Dashboard</span>
                 </h1>
-                <!-- MODIFIED: Reduced margin -->
                 <p class="mt-1 text-sm text-slate-600">
                     Your recent calculation history and saved presets are stored locally in this browser.
                 </p>
 
                 <!-- Section: My Calculation History -->
-                <!-- MODIFIED: Reduced margin -->
                 <section id="history-section" class="mt-6">
                     <div class="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between">
-                        <!-- MODIFIED: Smaller heading -->
                         <h2 class="text-lg font-semibold text-brand-dark">
                             Calculation History
                         </h2>
-                        <!-- MODIFIED: Smaller button -->
                         <button id="clearHistoryButton" class="inline-flex items-center justify-center gap-2 rounded-lg bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700 transition hover:bg-slate-200">
                             <i class="fa-solid fa-trash-can"></i>
                             Clear History
                         </button>
                     </div>
 
-                    <!-- History Container: Populated by JS -->
-                    <!-- MODIFIED: Reduced margin -->
+                    <!-- History Container -->
                     <div id="historyContainer" class="mt-4 flow-root">
                         <!-- JS will inject content here -->
                     </div>
 
-                    <!-- History Empty State: Shown/hidden by JS -->
-                    <!-- MODIFIED: Reduced margin and padding, added gradient and shadow -->
+                    <!-- History Empty State -->
                     <div id="historyEmptyState" class="mt-4 hidden rounded-lg border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-6 text-center shadow-md">
                         <i class="fa-solid fa-clock-rotate-left fa-2x text-slate-400"></i>
                         <p class="mt-4 font-semibold text-brand-dark">No history yet</p>
@@ -114,21 +78,17 @@
                 </section>
 
                 <!-- Section: My Saved Presets -->
-                <!-- MODIFIED: Reduced margin and padding -->
                 <section id="presets-section" class="mt-8 border-t border-slate-200 pt-6">
-                    <!-- MODIFIED: Smaller heading -->
                     <h2 class="text-lg font-semibold text-brand-dark">
                         Saved Presets
                     </h2>
 
-                    <!-- Presets Container: Populated by JS -->
-                    <!-- MODIFIED: Reduced margin -->
+                    <!-- Presets Container -->
                     <div id="presetsContainer" class="mt-4 flow-root">
                         <!-- JS will inject content here -->
                     </div>
 
-                    <!-- Presets Empty State: Shown/hidden by JS -->
-                    <!-- MODIFIED: Reduced margin and padding, added gradient and shadow -->
+                    <!-- Presets Empty State -->
                     <div id="presetsEmptyState" class="mt-4 hidden rounded-lg border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-6 text-center shadow-md">
                         <i class="fa-solid fa-star fa-2x text-slate-400"></i>
                         <p class="mt-4 font-semibold text-brand-dark">No presets saved</p>
@@ -142,16 +102,10 @@
         </div>
     </main>
 
-    <!-- 
-      *** PLACEHOLDER 2: FOOTER ***
-      The common-layout.js script will find this div and inject the footer HTML.
-    -->
+    <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
     
-    <!-- 
-      *** NEW: DASHBOARD SCRIPT ***
-      This script will load and display the data for this page.
-    -->
+    <!-- Dashboard Script -->
     <script src="js/dashboard.js" defer></script>
 </body>
 </html>
