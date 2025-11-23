@@ -1,62 +1,177 @@
-# DailyCalc.org
+DailyCalc.org
 
-DailyCalc.org is an evergreen, SEO-first platform designed to host daily-use calculators across every major life category. The initial release focuses on establishing a trustworthy .org brand presence, a clean expandable homepage, and a high-performance foundation that can grow one calculator at a time.
+DailyCalc.org is an evergreen, SEO-first platform designed to host daily-use calculators across major life categories. It prioritizes speed, lightweight code, and a centralized design system using Tailwind CSS.
 
-## 🎯 Project Goals
-- Communicate trust, clarity, and professionalism from the first visit
-- Deliver a lightweight, fast-loading homepage optimised for Google and users alike
-- Provide a scalable navigation and content model for future calculators and subcategories
-- Reserve unobtrusive, AdSense-ready placements without compromising UX
+🎯 Project Goals
 
-## ✅ Current Features
-- **Brand-forward hero section** with tagline, calls to action, and key brand pillars
-- **Primary category grid** covering nine life segments with expandable subcategory previews
-- **Featured calculators panel** highlighting roadmap priorities and user suggestions
-- **Vision & roadmap sections** that communicate the platform’s mission and phased rollout
-- **AdSense-ready placeholder** with messaging on non-intrusive advertising strategy
-- **FAQ and newsletter signup** to support SEO, email capture, and community feedback loops
-- **Responsive, centered layout** capped at 1050px width for consistent readability
-- **Tailwind + vanilla JS enhancements** (subcategory toggle, dynamic year, inline feedback)
-- **Schema.org Organization markup** to support search visibility and rich results
+Speed & Performance: Deliver a lightweight, fast-loading experience optimized for all devices.
 
-## 🌐 Entry Points
-| Path | Description |
-| --- | --- |
-| `/` | Homepage showcasing DailyCalc.org vision, categories, roadmap, and newsletter signup |
+Trust & Clarity: Maintain a clean, neutral, and professional aesthetic.
 
-## 🧱 Architecture & Technology
-- **HTML5 + semantic structure** for accessibility and SEO strength
-- **Tailwind CSS (CDN)** with custom fonts (Inter, Poppins) and brand colour tokens
-- **Vanilla JavaScript (`js/main.js`)** for lightweight interactivity
-- **Font Awesome (CDN)** for consistent, recognisable category icons
+Scalability: A modular architecture that allows for easy addition of new calculators and categories.
 
-## 📊 Data Models & Storage
-No persistent data models are in use yet. The current build is static and does not connect to external APIs or tables. Future calculators can leverage the provided RESTful Table API when interactive data storage is required.
+Maintainability: Centralized configuration for styles and layout to minimize repetitive code.
 
-## 🚧 Features Not Yet Implemented
-- Individual calculator landing pages and computation logic
-- Calculator detail templates (SEO-rich with FAQs, breadcrumbs, structured data)
-- Blog/insights content to support category SEO
-- Multi-language/localisation support
-- User analytics, feedback forms, or integrations beyond the static newsletter UI
+🧱 Architecture & Technology
 
-## 🔜 Recommended Next Steps
-1. **Ship the first calculator** (e.g., Mortgage Affordability) with a dedicated page template
-2. **Stand-up calculator schema** via the RESTful Table API for storing roadmap requests or contacts
-3. **Integrate privacy-friendly analytics** to track usage and prioritise future tools
-4. **Refine newsletter flow** (connect to email service, add confirmation handling)
-5. **Develop content guidelines** for calculator copy, metadata, and accessibility checks
-6. **Test AdSense placements** once traffic is validated to ensure minimal UX impact
+Core Stack
 
-## 📣 Brand & Content Guidelines
-- Voice: Neutral, helpful, global, trustworthy
-- Colours: Black (#050505) and red accent (#F1203D) with high-contrast neutrals
-- Typography: Inter for body text, Poppins for headings
-- Layout: Max width 1050px, centered, generous whitespace, minimal clutter
-- Imagery: Clean iconography, no distracting backgrounds or heavy media
+HTML5: Semantic structure for accessibility and SEO.
 
-## 🚀 Deployment
-To deploy your website and make it live, please go to the **Publish** tab where you can publish your project with one click. The Publish tab will handle all deployment processes automatically and provide you with the live website URL.
+Tailwind CSS (CDN): Utility-first CSS framework.
 
-## 📬 Contact
-For requests, partnerships, or feedback, reach out via `hello@dailycalc.org` as featured in the footer.
+Vanilla JavaScript: Lightweight interactivity without heavy frameworks.
+
+Font Awesome (CDN): Consistent iconography.
+
+Google Fonts: Inter and Poppins.
+
+File Structure & Key Components
+
+The project uses a specific file structure to separate concerns and ensure maintainability.
+
+1. Configuration & Styles
+
+js/tailwind-config.js: CRITICAL. This is the single source of truth for the website's design system. It defines:
+
+Brand colors (brand-red, brand-dark)
+
+Font families (sans, heading)
+
+Custom shadows (soft, soft-glow)
+
+Usage: Must be loaded after the Tailwind CDN script in every HTML file.
+
+css/global.css: Contains custom CSS rules that cannot be easily handled by Tailwind utilities alone (e.g., specific scrollbar hiding, custom animations).
+
+2. JavaScript Modules
+
+js/common-layout.js:
+
+Responsibility: Injects the global Header (navigation, search) and Footer into placeholder <div> elements (#header-placeholder, #footer-placeholder).
+
+Features: Handles the mobile menu toggle, the global search modal logic, and the "Suggest a Tool" clipboard functionality.
+
+js/global.js:
+
+Responsibility: Site-wide utilities that run on every page (e.g., scrollbar hiding logic).
+
+js/homepage.js:
+
+Responsibility: Logic specific to the homepage (index.html), such as the category filter/search functionality.
+
+js/dashboard.js:
+
+Responsibility: Manages the localStorage logic for the user dashboard (saving/loading history and presets).
+
+3. HTML Pages & Directories
+
+/ (Root): index.html (Homepage), dashboard.html (User Dashboard).
+
+Categories: organized into folders (e.g., finance/, health/, everyday-life/).
+
+Each folder contains an index.html acting as the category landing page.
+
+Note: Links usually point to the folder (e.g., /finance/) which resolves to the index.html.
+
+🎨 Design System (Centralized)
+
+Do not hardcode colors or fonts in individual HTML files. Always use the tokens defined in js/tailwind-config.js.
+
+Token
+
+Value / Description
+
+Usage Class
+
+Primary Color
+
+#F1203D (Red)
+
+text-brand-red, bg-brand-red
+
+Dark Color
+
+#050505 (Black)
+
+text-brand-dark, bg-brand-dark
+
+Body Font
+
+Inter
+
+font-sans
+
+Heading Font
+
+Poppins
+
+font-heading
+
+Shadow (Default)
+
+Soft gray/blue
+
+shadow-soft
+
+Shadow (Glow)
+
+Red-tinted glow
+
+shadow-soft-glow
+
+🌐 Navigation & Categories
+
+The site navigation is centrally managed in js/common-layout.js.
+
+Current Active Categories:
+
+Finance: Mortgage, loans, budgeting.
+
+Health: BMI, nutrition, body metrics.
+
+Everyday Life: Time, scheduling, countdowns (formerly "Date & Time").
+
+Converters: Units, measurements, digital formats.
+
+Removed/Hidden Categories:
+
+Math & Numbers
+
+Study & Education
+
+General Tools
+
+AI-Based Calculators
+
+🛠️ Development Workflow
+
+New Page Creation:
+
+Copy an existing category page (e.g., finance/index.html) to maintain structure.
+
+Ensure <script src="../js/tailwind-config.js"></script> points to the correct relative path.
+
+Ensure <div id="header-placeholder"></div> and <div id="footer-placeholder"></div> exist.
+
+Load global.js and common-layout.js with defer.
+
+Updating Navigation:
+
+Edit js/common-layout.js. Update the headerHTML string to add/remove links in both the Desktop buttons area and the Mobile Menu section.
+
+Global Style Changes:
+
+Edit js/tailwind-config.js to change fonts, colors, or shadows site-wide.
+
+📊 Data Storage
+
+Local Storage: The dashboard.html uses the browser's localStorage to save calculation history and user presets. No server-side database is currently connected.
+
+🚀 Deployment
+
+The site is static HTML/JS/CSS. It can be deployed to any static host (Netlify, Vercel, GitHub Pages, etc.).
+
+📬 Contact
+
+For requests, partnerships, or feedback, reach out via hello@dailycalc.org.
