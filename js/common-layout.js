@@ -132,13 +132,14 @@ const headerHTML = `
                     <i class="fa-solid fa-sack-dollar fa-fw"></i>
                     <span>Finance</span>
                 </a>
-                <a href="/health-fitness/" class="mobile-menu-link">
+                <a href="/health/" class="mobile-menu-link">
                     <i class="fa-solid fa-heart-pulse fa-fw"></i>
-                    <span>Health & Fitness</span>
+                    <span>Health</span>
                 </a>
-                <a href="/date-time/" class="mobile-menu-link">
-                    <i class="fa-regular fa-calendar fa-fw"></i>
-                    <span>Date & Time</span>
+                <!-- MODIFIED: Updated HREF to /everyday-life/ -->
+                <a href="/everyday-life/" class="mobile-menu-link">
+                    <i class="fa-solid fa-sun fa-fw"></i>
+                    <span>Everyday Life</span>
                 </a>
                 <a href="/converters/" class="mobile-menu-link">
                     <i class="fa-solid fa-arrows-rotate fa-fw"></i>
@@ -158,23 +159,24 @@ const headerHTML = `
                 <!-- Links now point to category pages -->
                 <!-- MODIFIED: Changed font size from text-sm to text-xs -->
                 <a href="/finance/" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red">
-                    <i class="fa-solid fa-sack-dollar fa-fw w-4 text-center text-brand-red/70"></i>
-                    <span class="font-medium">Finance</span>
+                    <i class="fa-solid fa-sack-dollar fa-fw w-4 text-center text-brand-red"></i>
+                    <span class="font-bold">Finance</span>
                 </a>
                 <!-- MODIFIED: Changed font size from text-sm to text-xs -->
-                <a href="/health-fitness/" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red">
-                    <i class="fa-solid fa-heart-pulse fa-fw w-4 text-center text-brand-red/70"></i>
-                    <span class="font-medium">Health & Fitness</span>
+                <a href="/health/" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red">
+                    <i class="fa-solid fa-heart-pulse fa-fw w-4 text-center text-brand-red"></i>
+                    <span class="font-bold">Health</span>
                 </a>
                 <!-- MODIFIED: Changed font size from text-sm to text-xs -->
-                <a href="/date-time/" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red">
-                    <i class="fa-regular fa-calendar fa-fw w-4 text-center text-brand-red/70"></i>
-                    <span class="font-medium">Date & Time</span>
+                <!-- MODIFIED: Updated HREF to /everyday-life/ -->
+                <a href="/everyday-life/" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red">
+                    <i class="fa-solid fa-sun fa-fw w-4 text-center text-brand-red"></i>
+                    <span class="font-bold">Everyday Life</span>
                 </a>
                 <!-- MODIFIED: Changed font size from text-sm to text-xs -->
                 <a href="/converters/" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red">
-                    <i class="fa-solid fa-arrows-rotate fa-fw w-4 text-center text-brand-red/70"></i>
-                    <span class="font-medium">Converters</span>
+                    <i class="fa-solid fa-arrows-rotate fa-fw w-4 text-center text-brand-red"></i>
+                    <span class="font-bold">Converters</span>
                 </a>
                 <!-- REMOVED: Math, Study, General, AI links -->
             </div>
@@ -304,16 +306,16 @@ const MOCK_CALCULATOR_DB = [
         keywords: "mortgage budget savings"
     },
     {
-        title: "Health & Fitness",
+        title: "Health",
         description: "Track wellness goals, nutrition, and body metrics with ease.",
-        url: "/health-fitness/", // UPDATED
+        url: "/health/", // UPDATED
         keywords: "bmi hydration nutrition training"
     },
     {
-        title: "Date & Time",
+        title: "Everyday Life",
         description: "Countdowns, date math, time zone helpers, and scheduling.",
-        url: "/date-time/", // UPDATED
-        keywords: "countdown timezone workday"
+        url: "/everyday-life/", // UPDATED
+        keywords: "countdown timezone workday life"
     },
     {
         title: "Math & Numbers",
@@ -546,7 +548,7 @@ function loadCommonLayout() {
             let iconClass = 'fa-solid fa-calculator';
             if (result.title.includes('Finance')) iconClass = 'fa-solid fa-sack-dollar';
             if (result.title.includes('Health')) iconClass = 'fa-solid fa-heart-pulse';
-            if (result.title.includes('Date')) iconClass = 'fa-regular fa-calendar';
+            if (result.title.includes('Everyday Life')) iconClass = 'fa-solid fa-sun'; // MODIFIED
             if (result.title.includes('Math')) iconClass = 'fa-solid fa-square-root-variable';
             if (result.title.includes('Study')) iconClass = 'fa-solid fa-graduation-cap';
             if (result.title.includes('Converters')) iconClass = 'fa-solid fa-arrows-rotate';
