@@ -2,8 +2,8 @@
   DailyCalc.org Centralized Tailwind Configuration
   
   This file contains the configuration for Tailwind CSS used across the entire site.
-  It now includes CUSTOM COMPONENTS (.calc-grid-5, .calc-card-compact) so you don't 
-  have to repeat code on every page.
+  It now includes CUSTOM COMPONENTS (.calc-grid-5, .calc-card-compact, .calc-header) 
+  so you don't have to repeat code on every page.
 */
 
 tailwind.config = {
@@ -28,11 +28,7 @@ tailwind.config = {
     plugins: [
         function({ addComponents, theme }) {
             addComponents({
-                /* 1. CENTRALIZED GRID LAYOUT 
-                   - 2 cols on mobile
-                   - 5 cols on large screens
-                   - Consistent gap
-                */
+                /* 1. CENTRALIZED GRID LAYOUT */
                 '.calc-grid-5': {
                     display: 'grid',
                     gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
@@ -43,10 +39,7 @@ tailwind.config = {
                     '@media (min-width: 1024px)': { gridTemplateColumns: 'repeat(5, minmax(0, 1fr))' },
                 },
 
-                /* 2. CENTRALIZED CARD STYLE 
-                   - Handles hover effects, colors, and typography automatically.
-                   - You don't need to add classes to children (h3, p, div) anymore.
-                */
+                /* 2. CENTRALIZED CARD STYLE */
                 '.calc-card-compact': {
                     position: 'relative',
                     display: 'flex',
@@ -60,9 +53,8 @@ tailwind.config = {
                     padding: theme('spacing.3'),
                     textAlign: 'center',
                     transition: 'all 0.2s ease',
-                    textDecoration: 'none', // Reset link style
+                    textDecoration: 'none',
                     
-                    // Icon Container (div)
                     '> div': {
                         marginBottom: theme('spacing.2'),
                         display: 'flex',
@@ -78,7 +70,6 @@ tailwind.config = {
                         transition: 'transform 0.2s ease',
                     },
 
-                    // Title (h3)
                     'h3': {
                         fontFamily: theme('fontFamily.heading'),
                         fontSize: theme('fontSize.xs'),
@@ -87,15 +78,13 @@ tailwind.config = {
                         transition: 'color 0.2s ease',
                     },
 
-                    // Description (p)
                     'p': {
-                        marginTop: '0.125rem', // 2px
+                        marginTop: '0.125rem',
                         fontSize: '10px',
                         lineHeight: '1.25',
                         color: theme('colors.slate.500'),
                     },
 
-                    // Hover State
                     '&:hover': {
                         borderColor: 'rgba(241, 32, 61, 0.3)',
                         backgroundColor: '#ffffff',
@@ -107,6 +96,51 @@ tailwind.config = {
                     '&:hover h3': {
                         color: theme('colors.brand.red'),
                     }
+                },
+
+                /* 3. CENTRALIZED PAGE HEADER STYLE 
+                   - Handles the layout of the large icon + title section.
+                */
+                '.calc-header': {
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: theme('spacing.4'),
+                },
+
+                '.calc-icon': {
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: theme('spacing.12'), // h-12
+                    width: theme('spacing.12'),  // w-12
+                    borderRadius: '9999px',
+                    // Orange to Red Gradient
+                    backgroundImage: `linear-gradient(135deg, #f97316, ${theme('colors.brand.red')})`, 
+                    color: '#ffffff',
+                    fontSize: theme('fontSize.2xl'),
+                    flexShrink: 0,
+                },
+
+                '.calc-title': {
+                    fontFamily: theme('fontFamily.heading'),
+                    fontSize: theme('fontSize.2xl'),
+                    fontWeight: '600',
+                    color: theme('colors.brand.dark'),
+                    lineHeight: '1.2',
+                    
+                    // Gradient Text logic for the <span> inside
+                    'span': {
+                        backgroundImage: `linear-gradient(to right, ${theme('colors.brand.red')}, ${theme('colors.brand.dark')})`,
+                        backgroundClip: 'text',
+                        '-webkit-background-clip': 'text',
+                        color: 'transparent',
+                    }
+                },
+
+                '.calc-desc': {
+                    marginTop: theme('spacing.1'),
+                    fontSize: theme('fontSize.sm'),
+                    color: theme('colors.slate.600'),
                 }
             })
         }
