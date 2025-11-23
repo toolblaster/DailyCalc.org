@@ -140,27 +140,12 @@ const headerHTML = `
                     <i class="fa-regular fa-calendar fa-fw"></i>
                     <span>Date & Time</span>
                 </a>
-                <a href="/math-numbers/" class="mobile-menu-link">
-                    <i class="fa-solid fa-square-root-variable fa-fw"></i>
-                    <span>Math & Numbers</span>
-                </a>
-                <a href="/study-education/" class="mobile-menu-link">
-                    <i class="fa-solid fa-graduation-cap fa-fw"></i>
-                    <span>Study & Education</span>
-                </a>
                 <a href="/converters/" class="mobile-menu-link">
                     <i class="fa-solid fa-arrows-rotate fa-fw"></i>
                     <span>Converters</span>
                 </a>
-                <a href="/general-tools/" class="mobile-menu-link">
-                    <i class="fa-solid fa-screwdriver-wrench fa-fw"></i>
-                    <span>General Tools</span>
-                </a>
-                <a href="/ai-based/" class="mobile-menu-link">
-                    <i class="fa-solid fa-robot fa-fw"></i>
-                    <span>AI-Based</span>
-                </a>
-                <!-- REMOVED: "Suggest a Tool" link -->
+                <!-- REMOVED: Math, Study, General, AI links -->
+                
             </nav>
         </div>
     </div>
@@ -187,30 +172,11 @@ const headerHTML = `
                     <span class="font-medium">Date & Time</span>
                 </a>
                 <!-- MODIFIED: Changed font size from text-sm to text-xs -->
-                <a href="/math-numbers/" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red">
-                    <i class="fa-solid fa-square-root-variable fa-fw w-4 text-center text-brand-red/70"></i>
-                    <span class="font-medium">Math & Numbers</span>
-                </a>
-                <!-- MODIFIED: Changed font size from text-sm to text-xs -->
-                <a href="/study-education/" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red">
-                    <i class="fa-solid fa-graduation-cap fa-fw w-4 text-center text-brand-red/70"></i>
-                    <span class="font-medium">Study & Education</span>
-                </a>
-                <!-- MODIFIED: Changed font size from text-sm to text-xs -->
                 <a href="/converters/" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red">
                     <i class="fa-solid fa-arrows-rotate fa-fw w-4 text-center text-brand-red/70"></i>
                     <span class="font-medium">Converters</span>
                 </a>
-                <!-- MODIFIED: Changed font size from text-sm to text-xs -->
-                <a href="/general-tools/" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red">
-                    <i class="fa-solid fa-screwdriver-wrench fa-fw w-4 text-center text-brand-red/70"></i>
-                    <span class="font-medium">General Tools</span>
-                </a>
-                <!-- MODIFIED: Changed font size from text-sm to text-xs -->
-                <a href="/ai-based/" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red">
-                    <i class="fa-solid fa-robot fa-fw w-4 text-center text-brand-red/70"></i>
-                    <span class="font-medium">AI-Based</span>
-                </a>
+                <!-- REMOVED: Math, Study, General, AI links -->
             </div>
         </div>
     </nav>
