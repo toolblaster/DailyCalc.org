@@ -39,9 +39,210 @@ const CALCULATOR_REGISTRY = {
     ]
 };
 
+// --- GLOBAL SEARCH MODULE ---
+const GlobalSearch = {
+    // HTML Template for the Search Modal
+    // MODIFIED: Made compact (max-w-lg, p-3 header, reduced heights)
+    modalHTML: `
+        <div id="searchModal" class="fixed inset-0 z-[100] hidden" aria-labelledby="searchModalTitle" role="dialog" aria-modal="true">
+            <!-- Overlay -->
+            <div id="searchModalOverlay" class="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity opacity-0"></div>
+
+            <!-- Modal Content Container -->
+            <div id="searchModalContainer" class="relative flex min-h-full items-start justify-center p-4 pt-10 sm:p-4 pointer-events-none">
+                <div id="searchModalContent" class="pointer-events-auto relative w-full max-w-lg transform-gpu overflow-hidden rounded-xl bg-white shadow-2xl transition-all scale-95 opacity-0">
+                    
+                    <!-- Search Input Header -->
+                    <div class="relative border-b border-slate-100 bg-white p-3">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-magnifying-glass text-slate-400 text-base ml-2"></i>
+                            <input
+                                type="search"
+                                id="globalSearchInput"
+                                placeholder="Search calculators..."
+                                class="flex-1 bg-transparent text-base text-slate-800 placeholder:text-slate-400 focus:outline-none"
+                                autocomplete="off"
+                            />
+                            <button id="closeSearchModalButton" class="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-brand-red transition">
+                                <span class="sr-only">Close</span>
+                                <i class="fa-solid fa-xmark text-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Search Results Area -->
+                    <div id="searchResultsWrapper" class="max-h-[50vh] overflow-y-auto bg-slate-50/50 p-2">
+                        <!-- Initial State -->
+                        <div id="searchInitialState" class="py-8 text-center text-slate-400">
+                            <i class="fa-regular fa-keyboard text-2xl mb-2 opacity-50"></i>
+                            <p class="text-xs">Type to search...</p>
+                        </div>
+
+                        <!-- No Results State -->
+                        <div id="searchNoResultsState" class="hidden py-8 text-center text-slate-400">
+                            <i class="fa-regular fa-face-frown-open text-2xl mb-2 opacity-50"></i>
+                            <p class="text-xs">No results for "<span id="searchNoResultsQuery" class="font-medium text-slate-600"></span>"</p>
+                        </div>
+                        
+                        <!-- Results Container -->
+                        <div id="searchResultsContainer" class="space-y-1">
+                            <!-- Results injected here -->
+                        </div>
+                    </div>
+                    
+                    <!-- Footer Hint -->
+                    <div class="bg-slate-50 px-3 py-1.5 text-right border-t border-slate-100">
+                        <span class="text-[9px] text-slate-400 font-medium tracking-wide uppercase">Esc to close</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `,
+
+    searchIndex: [],
+
+    init() {
+        this.buildIndex();
+        const modalContainer = document.createElement('div');
+        modalContainer.innerHTML = this.modalHTML;
+        document.body.appendChild(modalContainer.firstElementChild);
+
+        this.modal = document.getElementById('searchModal');
+        this.overlay = document.getElementById('searchModalOverlay');
+        this.content = document.getElementById('searchModalContent');
+        this.input = document.getElementById('globalSearchInput');
+        this.resultsContainer = document.getElementById('searchResultsContainer');
+        this.initialState = document.getElementById('searchInitialState');
+        this.noResultsState = document.getElementById('searchNoResultsState');
+        this.noResultsQuery = document.getElementById('searchNoResultsQuery');
+        this.closeBtn = document.getElementById('closeSearchModalButton');
+
+        this.bindEvents();
+    },
+
+    buildIndex() {
+        this.searchIndex = [];
+        for (const [category, tools] of Object.entries(CALCULATOR_REGISTRY)) {
+            tools.forEach(tool => {
+                this.searchIndex.push({
+                    ...tool,
+                    category: category,
+                    searchText: `${tool.name} ${category}`.toLowerCase()
+                });
+            });
+        }
+    },
+
+    bindEvents() {
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.js-open-search')) {
+                e.preventDefault();
+                this.open();
+            }
+        });
+
+        this.closeBtn.addEventListener('click', () => this.close());
+        this.overlay.addEventListener('click', () => this.close());
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !this.modal.classList.contains('hidden')) {
+                this.close();
+            }
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                this.open();
+            }
+        });
+
+        this.input.addEventListener('input', (e) => this.handleInput(e.target.value));
+    },
+
+    open() {
+        this.modal.classList.remove('hidden');
+        requestAnimationFrame(() => {
+            this.overlay.classList.remove('opacity-0');
+            this.content.classList.remove('scale-95', 'opacity-0');
+            this.content.classList.add('scale-100', 'opacity-100');
+        });
+        setTimeout(() => this.input.focus(), 100);
+        document.body.classList.add('overflow-hidden');
+    },
+
+    close() {
+        this.overlay.classList.add('opacity-0');
+        this.content.classList.remove('scale-100', 'opacity-100');
+        this.content.classList.add('scale-95', 'opacity-0');
+        
+        setTimeout(() => {
+            this.modal.classList.add('hidden');
+            this.input.value = '';
+            this.resetResults();
+            document.body.classList.remove('overflow-hidden');
+        }, 200);
+    },
+
+    handleInput(query) {
+        const cleanQuery = query.trim().toLowerCase();
+        
+        if (cleanQuery.length === 0) {
+            this.resetResults();
+            return;
+        }
+
+        this.initialState.classList.add('hidden');
+        
+        const results = this.searchIndex.filter(item => 
+            item.searchText.includes(cleanQuery)
+        );
+
+        this.renderResults(results, query);
+    },
+
+    resetResults() {
+        this.resultsContainer.innerHTML = '';
+        this.initialState.classList.remove('hidden');
+        this.noResultsState.classList.add('hidden');
+    },
+
+    renderResults(results, query) {
+        this.resultsContainer.innerHTML = '';
+
+        if (results.length === 0) {
+            this.noResultsQuery.textContent = query;
+            this.noResultsState.classList.remove('hidden');
+            return;
+        }
+
+        this.noResultsState.classList.add('hidden');
+
+        results.forEach(item => {
+            const link = document.createElement('a');
+            link.href = item.url;
+            // MODIFIED: More compact result items
+            link.className = 'group flex items-center gap-3 p-2 rounded-lg hover:bg-slate-100 transition-colors duration-200';
+            
+            const nameHTML = item.name.replace(new RegExp(query, 'gi'), match => `<span class="text-brand-red font-semibold">${match}</span>`);
+
+            link.innerHTML = `
+                <div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white border border-slate-200 text-slate-400 shadow-sm group-hover:border-brand-red/30 group-hover:text-brand-red transition-colors">
+                    <i class="fa-solid ${item.icon} text-[10px]"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xs font-medium text-slate-700 group-hover:text-slate-900">${nameHTML}</span>
+                    <span class="text-[9px] font-semibold uppercase tracking-wider text-slate-400 group-hover:text-brand-red/70">${item.category}</span>
+                </div>
+                <div class="ml-auto text-slate-300 group-hover:text-brand-red group-hover:translate-x-1 transition-all">
+                    <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                </div>
+            `;
+            this.resultsContainer.appendChild(link);
+        });
+    }
+};
+
+
 document.addEventListener('DOMContentLoaded', () => {
     
-    // --- Utility: Hide Scrollbar Class ---
     const addScrollbarHideStyle = () => {
         const style = document.createElement('style');
         style.textContent = `
@@ -52,8 +253,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     addScrollbarHideStyle();
 
-    // --- DYNAMIC WIDGET LOADER ---
-    // Looks for elements with data-widget="related-tools" and populates them.
+    GlobalSearch.init();
+
     const loadSidebarWidget = () => {
         const widgets = document.querySelectorAll('[data-widget="related-tools"]');
         
@@ -61,31 +262,21 @@ document.addEventListener('DOMContentLoaded', () => {
             const category = widget.dataset.category;
             const links = CALCULATOR_REGISTRY[category];
 
-            if (!links) {
-                console.warn(`No links found for category: ${category}`);
-                return;
-            }
+            if (!links) return;
 
-            // 1. Create Header
             const header = document.createElement('div');
             header.className = 'bg-gradient-to-r from-brand-dark to-brand-red px-4 py-2';
             header.innerHTML = `<h3 class="text-sm font-bold text-white text-center">${category} Calculators</h3>`;
             
-            // 2. Create List Container
             const listContainer = document.createElement('div');
             listContainer.className = 'p-4';
-            
             const ul = document.createElement('ul');
             ul.className = 'space-y-2';
 
-            // 3. Generate Links
-            // Get current path to highlight active link or remove it
             const currentPath = window.location.pathname;
 
             links.forEach(link => {
                 const li = document.createElement('li');
-                
-                // Check if this is the active page
                 const isActive = currentPath.includes(link.url);
                 const activeClass = isActive ? 'font-bold text-brand-red' : '';
                 const iconColor = isActive ? 'text-brand-red' : 'text-slate-400';
@@ -100,9 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             listContainer.appendChild(ul);
-            
-            // 4. Append to Widget
-            widget.innerHTML = ''; // Clear any placeholder
+            widget.innerHTML = ''; 
             widget.appendChild(header);
             widget.appendChild(listContainer);
         });
