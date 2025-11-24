@@ -1,177 +1,103 @@
-DailyCalc.org
+DailyCalc.org - Your Essential Daily Calculator Suite
 
-DailyCalc.org is an evergreen, SEO-first platform designed to host daily-use calculators across major life categories. It prioritizes speed, lightweight code, and a centralized design system using Tailwind CSS.
+DailyCalc.org is a comprehensive, user-friendly suite of online calculators designed for everyday needs. Built with a "mobile-first" philosophy, it offers a clean, distraction-free interface for finance, health, everyday life, and unit conversions.
 
-🎯 Project Goals
+🚀 Key Features
 
-Speed & Performance: Deliver a lightweight, fast-loading experience optimized for all devices.
+Universal Design: Consistent, high-quality UI across all tools using a centralized Tailwind configuration.
 
-Trust & Clarity: Maintain a clean, neutral, and professional aesthetic.
+Mobile-First: Fully responsive layouts that look great on phones, tablets, and desktops.
 
-Scalability: A modular architecture that allows for easy addition of new calculators and categories.
+Smart Functionality: Tools remember your inputs (via local storage) and offer advanced features like sharing and printing.
 
-Maintainability: Centralized configuration for styles and layout to minimize repetitive code.
+Zero Clutter: Ad placements are strategic and non-intrusive, prioritizing user experience.
 
-🧱 Architecture & Technology
+SEO Optimized: Each page includes rich, educational content and semantic HTML.
 
-Core Stack
+📂 Directory Structure
 
-HTML5: Semantic structure for accessibility and SEO.
+dailycalc.org/
+├── index.html              # Homepage (Dashboard & Categories)
+├── dashboard.html          # User Dashboard (Saved Calculations & History)
+├── css/
+│   └── global.css          # Global styles & Tailwind directives
+├── js/
+│   ├── tailwind-config.js  # Centralized Tailwind config & custom components
+│   ├── common-layout.js    # Shared Header/Footer injection
+│   ├── global.js           # Utility functions (theme, storage)
+│   ├── homepage.js         # Homepage specific logic
+│   └── dashboard.js        # Dashboard logic (presets, history)
+│
+├── finance/                # Financial Calculators
+│   ├── index.html          # Finance Category Page
+│   └── mortgage-calculator.html  # Advanced Mortgage Calculator 🆕
+│
+├── health/                 # Health Calculators
+│   └── index.html          # Health Category Page
+│
+├── everyday-life/          # Lifestyle Calculators
+│   └── index.html          # Everyday Life Category Page
+│
+└── converters/             # Unit Converters
+    └── index.html          # Converters Category Page
 
-Tailwind CSS (CDN): Utility-first CSS framework.
 
-Vanilla JavaScript: Lightweight interactivity without heavy frameworks.
+🛠️ Calculator Modules
 
-Font Awesome (CDN): Consistent iconography.
+1. Finance 💰
 
-Google Fonts: Inter and Poppins.
+Mortgage Calculator (New!): * Features: Ultra-compact layout, monthly PITI breakdown, interactive donut chart, amortization schedule, and advanced options for extra payments & annual cost increases.
 
-File Structure & Key Components
+Tools: Save to dashboard, shareable links with pre-filled data, and optimized print reports.
 
-The project uses a specific file structure to separate concerns and ensure maintainability.
+2. Health ❤️
 
-1. Configuration & Styles
+(Coming Soon) BMI Calculator, Calorie Counter, Water Intake.
 
-js/tailwind-config.js: CRITICAL. This is the single source of truth for the website's design system. It defines:
+3. Everyday Life 📅
 
-Brand colors (brand-red, brand-dark)
+(Coming Soon) Age Calculator, Date Difference, Discount Calculator.
 
-Font families (sans, heading)
+4. Converters 🔄
 
-Custom shadows (soft, soft-glow)
+(Coming Soon) Length, Weight, Temperature, Currency.
 
-Usage: Must be loaded after the Tailwind CDN script in every HTML file.
+🎨 Design System
 
-css/global.css: Contains custom CSS rules that cannot be easily handled by Tailwind utilities alone (e.g., specific scrollbar hiding, custom animations).
+The project uses a centralized design system defined in js/tailwind-config.js. This ensures consistency across all pages.
 
-2. JavaScript Modules
+Brand Colors: * Red: #F1203D (Primary Action)
 
-js/common-layout.js:
+Dark: #050505 (Text & Headers)
 
-Responsibility: Injects the global Header (navigation, search) and Footer into placeholder <div> elements (#header-placeholder, #footer-placeholder).
+Green: #166534 (Financial Success/Results)
 
-Features: Handles the mobile menu toggle, the global search modal logic, and the "Suggest a Tool" clipboard functionality.
+Typography: Poppins for headings, Inter for body text.
 
-js/global.js:
+Components:
 
-Responsibility: Site-wide utilities that run on every page (e.g., scrollbar hiding logic).
+.compact-input: Standardized, high-density input fields.
 
-js/homepage.js:
+.calc-tool-header: Unified header bar for all calculator tools.
 
-Responsibility: Logic specific to the homepage (index.html), such as the category filter/search functionality.
+.chart-segment: Interactive SVG chart elements.
 
-js/dashboard.js:
+💻 How to Run
 
-Responsibility: Manages the localStorage logic for the user dashboard (saving/loading history and presets).
+Clone the repository.
 
-3. HTML Pages & Directories
+Open index.html in your browser (or serve via a local server like Live Server for best results).
 
-/ (Root): index.html (Homepage), dashboard.html (User Dashboard).
+No Build Step Required: The project uses the Tailwind CSS CDN script with a custom config file for rapid development and easy deployment.
 
-Categories: organized into folders (e.g., finance/, health/, everyday-life/).
+📝 To-Do List
 
-Each folder contains an index.html acting as the category landing page.
+[ ] Add Auto Loan Calculator
 
-Note: Links usually point to the folder (e.g., /finance/) which resolves to the index.html.
+[ ] Add BMI Calculator
 
-🎨 Design System (Centralized)
+[ ] Implement "Dark Mode" toggle
 
-Do not hardcode colors or fonts in individual HTML files. Always use the tokens defined in js/tailwind-config.js.
+[ ] Add Currency Converter with API integration
 
-Token
-
-Value / Description
-
-Usage Class
-
-Primary Color
-
-#F1203D (Red)
-
-text-brand-red, bg-brand-red
-
-Dark Color
-
-#050505 (Black)
-
-text-brand-dark, bg-brand-dark
-
-Body Font
-
-Inter
-
-font-sans
-
-Heading Font
-
-Poppins
-
-font-heading
-
-Shadow (Default)
-
-Soft gray/blue
-
-shadow-soft
-
-Shadow (Glow)
-
-Red-tinted glow
-
-shadow-soft-glow
-
-🌐 Navigation & Categories
-
-The site navigation is centrally managed in js/common-layout.js.
-
-Current Active Categories:
-
-Finance: Mortgage, loans, budgeting.
-
-Health: BMI, nutrition, body metrics.
-
-Everyday Life: Time, scheduling, countdowns (formerly "Date & Time").
-
-Converters: Units, measurements, digital formats.
-
-Removed/Hidden Categories:
-
-Math & Numbers
-
-Study & Education
-
-General Tools
-
-AI-Based Calculators
-
-🛠️ Development Workflow
-
-New Page Creation:
-
-Copy an existing category page (e.g., finance/index.html) to maintain structure.
-
-Ensure <script src="../js/tailwind-config.js"></script> points to the correct relative path.
-
-Ensure <div id="header-placeholder"></div> and <div id="footer-placeholder"></div> exist.
-
-Load global.js and common-layout.js with defer.
-
-Updating Navigation:
-
-Edit js/common-layout.js. Update the headerHTML string to add/remove links in both the Desktop buttons area and the Mobile Menu section.
-
-Global Style Changes:
-
-Edit js/tailwind-config.js to change fonts, colors, or shadows site-wide.
-
-📊 Data Storage
-
-Local Storage: The dashboard.html uses the browser's localStorage to save calculation history and user presets. No server-side database is currently connected.
-
-🚀 Deployment
-
-The site is static HTML/JS/CSS. It can be deployed to any static host (Netlify, Vercel, GitHub Pages, etc.).
-
-📬 Contact
-
-For requests, partnerships, or feedback, reach out via hello@dailycalc.org.
+Built for simplicity and utility.
