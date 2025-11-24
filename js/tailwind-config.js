@@ -83,7 +83,7 @@ tailwind.config = {
 
                 /* --- Charts & Visuals --- */
                 '.chart-segment': {
-                    transition: 'stroke-dasharray 0.6s ease-out, opacity 0.2s ease, stroke-width 0.2s ease',
+                    transition: 'stroke-dasharray 0.6s ease-out, opacity 0.2s ease, stroke-width 0.2s ease, filter 0.2s ease',
                     cursor: 'pointer',
                     transformOrigin: 'center',
                     '&:hover': {
