@@ -182,11 +182,12 @@ tailwind.config = {
             addComponents({
                 '.calc-grid-5': {
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-                    gap: theme('spacing.3'),
-                    '@media (min-width: 640px)': { gridTemplateColumns: 'repeat(3, minmax(0, 1fr))' },
-                    '@media (min-width: 768px)': { gridTemplateColumns: 'repeat(4, minmax(0, 1fr))' },
-                    '@media (min-width: 1024px)': { gridTemplateColumns: 'repeat(5, minmax(0, 1fr))' },
+                    /* MODIFIED: High density grid, starts at 3 cols, scales to 8 */
+                    gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+                    gap: theme('spacing.2'), /* Reduced gap from 3 to 2 */
+                    '@media (min-width: 640px)': { gridTemplateColumns: 'repeat(4, minmax(0, 1fr))' },
+                    '@media (min-width: 768px)': { gridTemplateColumns: 'repeat(6, minmax(0, 1fr))' },
+                    '@media (min-width: 1024px)': { gridTemplateColumns: 'repeat(8, minmax(0, 1fr))' }, /* Target 8 columns */
                 },
                 '.calc-card-compact': {
                     position: 'relative',
@@ -194,45 +195,48 @@ tailwind.config = {
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    borderRadius: theme('borderRadius.lg'),
+                    borderRadius: theme('borderRadius.md'), /* MODIFIED: slightly tighter radius */
                     borderWidth: '1px',
                     borderColor: theme('colors.slate.100'),
                     backgroundColor: theme('colors.slate.50'),
-                    padding: theme('spacing.3'),
+                    padding: theme('spacing.1.5'), /* MODIFIED: Ultra tight padding (was 3) */
                     textAlign: 'center',
                     transition: 'all 0.2s ease',
                     textDecoration: 'none',
                     '> div': {
-                        marginBottom: theme('spacing.2'),
+                        marginBottom: theme('spacing.1'), /* MODIFIED: Reduced margin */
                         display: 'flex',
-                        height: theme('spacing.10'),
-                        width: theme('spacing.10'),
+                        height: theme('spacing.7'), /* MODIFIED: Reduced icon size (was 10) */
+                        width: theme('spacing.7'),  /* MODIFIED: Reduced icon size */
                         alignItems: 'center',
                         justifyContent: 'center',
                         borderRadius: '9999px',
                         backgroundColor: '#ffffff',
-                        fontSize: theme('fontSize.xl'),
+                        fontSize: theme('fontSize.sm'), /* MODIFIED: Reduced icon font size */
                         color: theme('colors.brand.red'),
                         boxShadow: theme('boxShadow.sm'),
                         transition: 'transform 0.2s ease',
                     },
                     'h3': {
                         fontFamily: theme('fontFamily.heading'),
-                        fontSize: theme('fontSize.xs'),
+                        fontSize: '11px', /* MODIFIED: Smaller font size */
                         fontWeight: '600',
+                        lineHeight: '1.1',
                         color: theme('colors.slate.900'),
                         transition: 'color 0.2s ease',
                     },
                     'p': {
-                        marginTop: '0.125rem',
-                        fontSize: '10px',
-                        lineHeight: '1.25',
+                        marginTop: '0',
+                        fontSize: '9px', /* MODIFIED: Tiny description */
+                        lineHeight: '1.1',
                         color: theme('colors.slate.500'),
+                        display: 'block', /* Ensure it shows, but small */
                     },
                     '&:hover': {
                         borderColor: 'rgba(241, 32, 61, 0.3)',
                         backgroundColor: '#ffffff',
-                        boxShadow: '0 10px 15px -3px rgba(241, 32, 61, 0.05), 0 4px 6px -2px rgba(241, 32, 61, 0.05)',
+                        boxShadow: '0 4px 6px -1px rgba(241, 32, 61, 0.05)',
+                        zIndex: '10',
                     },
                     '&:hover > div': { transform: 'scale(1.1)' },
                     '&:hover h3': { color: theme('colors.brand.red') }
@@ -241,23 +245,23 @@ tailwind.config = {
                     display: 'flex',
                     alignItems: 'center',
                     gap: theme('spacing.4'),
-                    marginBottom: theme('spacing.8'),
+                    marginBottom: theme('spacing.6'), /* MODIFIED: Reduced margin */
                 },
                 '.calc-icon': {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    height: theme('spacing.12'), 
-                    width: theme('spacing.12'),
+                    height: theme('spacing.10'), /* MODIFIED: Reduced header icon */
+                    width: theme('spacing.10'),  /* MODIFIED: Reduced header icon */
                     borderRadius: '9999px',
                     backgroundImage: `linear-gradient(135deg, #f97316, ${theme('colors.brand.red')})`, 
                     color: '#ffffff',
-                    fontSize: theme('fontSize.2xl'),
+                    fontSize: theme('fontSize.xl'),
                     flexShrink: 0,
                 },
                 '.calc-title': {
                     fontFamily: theme('fontFamily.heading'),
-                    fontSize: theme('fontSize.2xl'),
+                    fontSize: theme('fontSize.xl'), /* MODIFIED: Slightly smaller */
                     fontWeight: '600',
                     color: theme('colors.brand.dark'),
                     lineHeight: '1.2',
@@ -269,18 +273,18 @@ tailwind.config = {
                     }
                 },
                 '.calc-desc': {
-                    marginTop: theme('spacing.1'),
-                    fontSize: theme('fontSize.sm'),
+                    marginTop: '0',
+                    fontSize: theme('fontSize.xs'),
                     color: theme('colors.slate.600'),
                 },
                 '.calc-subcat-title': {
                     fontFamily: theme('fontFamily.heading'),
-                    fontSize: theme('fontSize.lg'),
+                    fontSize: theme('fontSize.sm'), /* MODIFIED: Smaller subcat title */
                     fontWeight: '600',
                     color: theme('colors.brand.dark'),
-                    marginBottom: theme('spacing.4'),
-                    marginTop: theme('spacing.8'),
-                    paddingBottom: theme('spacing.2'),
+                    marginBottom: theme('spacing.2'), /* MODIFIED: Reduced spacing */
+                    marginTop: theme('spacing.6'),    /* MODIFIED: Reduced spacing */
+                    paddingBottom: theme('spacing.1'),
                     borderBottomWidth: '1px',
                     borderBottomColor: theme('colors.slate.200'),
                     display: 'flex',
@@ -288,7 +292,7 @@ tailwind.config = {
                     gap: theme('spacing.2'),
                     'i': {
                         color: theme('colors.brand.red'),
-                        fontSize: theme('fontSize.base'),
+                        fontSize: theme('fontSize.xs'),
                     }
                 }
             })
