@@ -95,45 +95,185 @@
                     <div class="flex flex-col gap-4 border-x border-b border-slate-300 bg-white p-3 shadow-sm rounded-b-md md:flex-row md:items-start">
                         
                         <!-- COLUMN 1: INPUTS -->
-                        <div class="w-full shrink-0 bg-slate-100 p-3 rounded border border-slate-300 md:w-[280px] print-break-inside-avoid shadow-inner">
+                        <!-- MODIFIED: Changed bg to #EEEEEE (light gray) and updated text/borders for dark-on-light contrast -->
+                        <div class="w-full shrink-0 bg-[#EEEEEE] p-4 rounded border border-slate-300 md:w-[280px] print-break-inside-avoid shadow-lg text-slate-900">
                             <form id="mortgageForm">
                                 <!-- Inputs -->
-                                <div class="input-row"><label for="homePrice" class="input-label w-[35%]">Home Price</label><div class="relative w-[65%]"><span class="absolute left-2 top-1 text-xs text-slate-500">$</span><input type="number" id="homePrice" value="400000" class="compact-input pl-5"></div></div>
-                                <div class="input-row"><label class="input-label w-[35%]">Down Payment</label><div class="flex w-[65%] gap-1"><div class="relative w-[55%]"><span class="absolute left-2 top-1 text-xs text-slate-500">$</span><input type="number" id="downPaymentAmount" value="80000" class="compact-input pl-5"></div><div class="relative w-[45%]"><input type="number" id="downPaymentPercent" value="20" class="compact-input pr-5"><span class="absolute right-1.5 top-1 text-xs text-slate-500">%</span></div></div></div>
-                                <div class="input-row"><label for="loanTerm" class="input-label w-[35%]">Loan Term</label><div class="w-[65%] flex items-center gap-1"><input type="number" id="loanTermInput" value="30" class="compact-input w-2/3"><span class="text-xs text-slate-600">yrs</span></div></div>
-                                <div class="input-row"><label for="interestRate" class="input-label w-[35%]">Interest Rate</label><div class="relative w-[65%]"><input type="number" id="interestRate" value="6.5" step="0.01" class="compact-input pr-5"><span class="absolute right-1.5 top-1 text-xs text-slate-500">%</span></div></div>
-                                <div class="input-row"><label class="input-label w-[35%]">Start Date</label><div class="flex w-[65%] gap-1"><select id="startMonth" class="compact-select w-[50%]"><option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option><option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option><option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option></select><input type="number" id="startYear" class="compact-input w-[50%]" placeholder="Year"></div></div>
-                                
-                                <!-- Standard Costs -->
-                                <div class="input-row"><label for="propertyTax" class="input-label w-[35%] text-slate-500">Property Tax</label><div class="flex w-[65%] gap-1"><div class="relative w-1/2"><span class="absolute left-2 top-1 text-xs text-slate-400">$</span><input type="number" id="propertyTax" value="4800" class="compact-input pl-5 bg-white"></div><span class="text-[10px] self-center text-slate-400">/yr</span></div></div>
-                                <div class="input-row"><label for="homeInsurance" class="input-label w-[35%] text-slate-500">Home Ins.</label><div class="flex w-[65%] gap-1"><div class="relative w-1/2"><span class="absolute left-2 top-1 text-xs text-slate-400">$</span><input type="number" id="homeInsurance" value="1500" class="compact-input pl-5 bg-white"></div><span class="text-[10px] self-center text-slate-400">/yr</span></div></div>
-                                <div class="input-row"><label for="pmi" class="input-label w-[35%] text-slate-500">PMI</label><div class="flex w-[65%] gap-1"><div class="relative w-1/2"><span class="absolute left-2 top-1 text-xs text-slate-400">$</span><input type="number" id="pmi" value="0" class="compact-input pl-5 bg-white"></div><span class="text-[10px] self-center text-slate-400">/yr</span></div></div>
-                                <div class="input-row"><label for="hoaFees" class="input-label w-[35%] text-slate-500">HOA Fees</label><div class="flex w-[65%] gap-1"><div class="relative w-1/2"><span class="absolute left-2 top-1 text-xs text-slate-400">$</span><input type="number" id="hoaFees" value="0" class="compact-input pl-5 bg-white"></div><span class="text-[10px] self-center text-slate-400">/mo</span></div></div>
-
-                                <!-- More Options Toggle -->
-                                <div class="mt-3 mb-1 text-center no-print"><button type="button" id="toggleMoreOptions" class="text-xs font-bold text-[#166534] hover:underline">+ More Options (Increases & Extra Pay)</button></div>
-                                
-                                <!-- Hidden Advanced Container -->
-                                <div id="moreOptionsContainer" class="hidden border-t border-slate-200 pt-2 mt-2 space-y-3">
-                                    <!-- Annual Increases -->
-                                    <!-- MODIFIED: Applied .calc-option-group -->
-                                    <div class="calc-option-group">
-                                        <h3 class="text-[11px] font-bold text-slate-700 mb-1">Annual Tax & Cost Increase</h3>
-                                        <div class="input-row"><label class="input-label w-[50%] text-slate-500">Property Tax</label><div class="relative w-[50%]"><input type="number" id="taxIncrease" value="0" class="compact-input pr-5 bg-white"><span class="absolute right-1.5 top-1 text-xs text-slate-400">%</span></div></div>
-                                        <div class="input-row"><label class="input-label w-[50%] text-slate-500">Home Ins.</label><div class="relative w-[50%]"><input type="number" id="insIncrease" value="0" class="compact-input pr-5 bg-white"><span class="absolute right-1.5 top-1 text-xs text-slate-400">%</span></div></div>
-                                        <div class="input-row"><label class="input-label w-[50%] text-slate-500">HOA Fee</label><div class="relative w-[50%]"><input type="number" id="hoaIncrease" value="0" class="compact-input pr-5 bg-white"><span class="absolute right-1.5 top-1 text-xs text-slate-400">%</span></div></div>
-                                        <div class="input-row"><label class="input-label w-[50%] text-slate-500">Other Costs</label><div class="relative w-[50%]"><input type="number" id="otherIncrease" value="0" class="compact-input pr-5 bg-white"><span class="absolute right-1.5 top-1 text-xs text-slate-400">%</span></div></div>
-                                    </div>
-                                    <!-- Extra Payments -->
-                                    <!-- MODIFIED: Applied .calc-option-group -->
-                                    <div class="calc-option-group">
-                                        <h3 class="text-[11px] font-bold text-slate-700 mb-1">Extra Payments</h3>
-                                        <div class="mb-2"><div class="flex items-center gap-1 mb-1"><label class="text-[10px] font-medium text-slate-500">Extra Monthly Pay</label></div><div class="flex gap-1"><div class="relative w-[40%]"><span class="absolute left-1.5 top-1 text-[10px] text-slate-400">$</span><input type="number" id="extraMonthly" value="0" class="compact-input pl-4 bg-white"></div><span class="text-[10px] self-center text-slate-400">from</span><select id="extraMonthlyMonth" class="compact-select w-[40%]"><option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option><option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option><option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option></select></div></div>
-                                        <div class="mb-2"><div class="flex items-center gap-1 mb-1"><label class="text-[10px] font-medium text-slate-500">Extra Yearly Pay</label></div><div class="flex gap-1"><div class="relative w-[40%]"><span class="absolute left-1.5 top-1 text-[10px] text-slate-400">$</span><input type="number" id="extraYearly" value="0" class="compact-input pl-4 bg-white"></div><span class="text-[10px] self-center text-slate-400">in</span><select id="extraYearlyMonth" class="compact-select w-[40%]"><option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option><option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option><option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option></select></div></div>
-                                        <div><div class="flex items-center justify-between gap-1 mb-1"><label class="text-[10px] font-medium text-slate-500">Extra One-time Pay</label></div><div id="oneTimePaymentsContainer" class="space-y-2 mb-2"><div class="one-time-payment-row"><div class="flex gap-1 mb-1"><div class="relative w-full"><span class="absolute left-1.5 top-1 text-[10px] text-slate-400">$</span><input type="number" class="compact-input pl-4 bg-white otp-amount" value="0"></div></div><div class="flex gap-1"><span class="text-[10px] self-center text-slate-400">in</span><select class="compact-select w-[45%] otp-month"><option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option><option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option><option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option></select><input type="number" class="compact-input w-[35%] otp-year" placeholder="Year"></div></div></div><button type="button" id="addOneTimePaymentBtn" class="text-[10px] font-semibold text-[#166534] hover:underline">+ Additional One-Time Payment</button></div>
+                                <div class="input-row mb-3">
+                                    <label for="homePrice" class="input-label w-[35%] text-slate-700 font-bold">Home Price</label>
+                                    <div class="relative w-[65%]">
+                                        <span class="absolute left-2 top-1.5 text-xs text-slate-500 z-10">$</span>
+                                        <input type="number" id="homePrice" value="400000" class="compact-input pl-6 bg-white text-slate-900 font-bold border-slate-300 focus:border-brand-red focus:ring-1 focus:ring-brand-red rounded shadow-sm h-8">
                                     </div>
                                 </div>
-                                <div class="mt-3 flex gap-2 no-print"><button type="button" id="calcButton" class="w-full rounded bg-[#166534] py-1.5 text-xs font-bold text-white shadow hover:bg-green-900 focus:outline-none focus:ring-1 focus:ring-green-700">CALCULATE</button><button type="button" id="clearButton" class="rounded border border-slate-300 bg-white px-3 py-1.5 text-xs text-slate-600 hover:bg-slate-50">Clear</button></div>
+                                
+                                <!-- Down Payment -->
+                                <div class="input-row mb-3">
+                                    <label for="downPaymentInput" class="input-label w-[35%] text-slate-700 font-bold">Down Payment</label>
+                                    <div class="flex w-[65%] gap-1">
+                                        <div class="relative flex-1">
+                                            <input type="number" id="downPaymentInput" value="20" class="compact-input bg-white text-slate-900 font-bold border-slate-300 focus:border-brand-red focus:ring-1 focus:ring-brand-red rounded shadow-sm h-8 w-full">
+                                        </div>
+                                        <select id="downPaymentType" class="compact-select w-16 px-1 text-center bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-8 focus:border-brand-red focus:ring-1 focus:ring-brand-red">
+                                            <option value="%">%</option>
+                                            <option value="$">$</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="input-row mb-3">
+                                    <label for="loanTerm" class="input-label w-[35%] text-slate-700 font-bold">Loan Term</label>
+                                    <div class="w-[65%] flex items-center gap-2">
+                                        <input type="number" id="loanTermInput" value="30" class="compact-input w-full bg-white text-slate-900 font-bold border-slate-300 focus:border-brand-red focus:ring-1 focus:ring-brand-red rounded shadow-sm h-8">
+                                        <span class="text-xs text-slate-600 whitespace-nowrap font-medium">years</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="input-row mb-3">
+                                    <label for="interestRate" class="input-label w-[35%] text-slate-700 font-bold">Interest Rate</label>
+                                    <div class="relative w-[65%]">
+                                        <input type="number" id="interestRate" value="6.5" step="0.01" class="compact-input pr-6 bg-white text-slate-900 font-bold border-slate-300 focus:border-brand-red focus:ring-1 focus:ring-brand-red rounded shadow-sm h-8">
+                                        <span class="absolute right-2 top-1.5 text-xs text-slate-500">%</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="input-row mb-4">
+                                    <label class="input-label w-[35%] text-slate-700 font-bold">Start Date</label>
+                                    <div class="flex w-[65%] gap-1">
+                                        <select id="startMonth" class="compact-select w-[50%] bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-8 focus:border-brand-red focus:ring-1 focus:ring-brand-red">
+                                            <option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option><option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option><option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option>
+                                        </select>
+                                        <input type="number" id="startYear" class="compact-input w-[50%] bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-8 focus:border-brand-red focus:ring-1 focus:ring-brand-red" placeholder="Year">
+                                    </div>
+                                </div>
+                                
+                                <!-- Checkbox -->
+                                <div class="mt-2 mb-3 flex items-center justify-end gap-2 border-t border-slate-300 pt-3">
+                                    <label for="includeTaxesCosts" class="text-xs font-bold text-slate-800 select-none cursor-pointer hover:text-brand-red transition-colors">Include Taxes & Costs Below</label>
+                                    <input type="checkbox" id="includeTaxesCosts" checked class="accent-brand-red h-4 w-4 cursor-pointer rounded border-slate-300 bg-white focus:ring-brand-red">
+                                </div>
+
+                                <!-- Standard Costs (Dynamic Inputs) -->
+                                <div id="dynamicCostsContainer" class="transition-all duration-300 ease-in-out overflow-hidden">
+                                    <!-- Property Tax -->
+                                    <div class="input-row mb-2">
+                                        <label for="propertyTax" class="input-label w-[35%] text-slate-600 font-semibold">Property Tax</label>
+                                        <div class="flex w-[65%] gap-1">
+                                            <div class="relative flex-1">
+                                                <input type="number" id="propertyTax" value="4800" class="compact-input bg-white w-full text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red">
+                                            </div>
+                                            <select id="propertyTaxType" class="compact-select w-16 px-1 text-center bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red">
+                                                <option value="$">$</option>
+                                                <option value="%">%</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Home Insurance -->
+                                    <div class="input-row mb-2">
+                                        <label for="homeInsurance" class="input-label w-[35%] text-slate-600 font-semibold">Home Ins.</label>
+                                        <div class="flex w-[65%] gap-1">
+                                            <div class="relative flex-1">
+                                                <input type="number" id="homeInsurance" value="1500" class="compact-input bg-white w-full text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red">
+                                            </div>
+                                            <select id="homeInsuranceType" class="compact-select w-16 px-1 text-center bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red">
+                                                <option value="$">$</option>
+                                                <option value="%">%</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- PMI -->
+                                    <div class="input-row mb-2">
+                                        <label for="pmi" class="input-label w-[35%] text-slate-600 font-semibold">PMI</label>
+                                        <div class="flex w-[65%] gap-1">
+                                            <div class="relative flex-1">
+                                                <input type="number" id="pmi" value="0.5" class="compact-input bg-white w-full text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red">
+                                            </div>
+                                            <select id="pmiType" class="compact-select w-16 px-1 text-center bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red">
+                                                <option value="%">%</option>
+                                                <option value="$">$</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- HOA Fees -->
+                                    <div class="input-row mb-2">
+                                        <label for="hoaFees" class="input-label w-[35%] text-slate-600 font-semibold">HOA Fee</label>
+                                        <div class="flex w-[65%] gap-1">
+                                            <div class="relative flex-1">
+                                                <input type="number" id="hoaFees" value="0" class="compact-input bg-white w-full text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red">
+                                            </div>
+                                            <select id="hoaFeesType" class="compact-select w-16 px-1 text-center bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red">
+                                                <option value="$">$</option>
+                                                <option value="%">%</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Other Costs -->
+                                    <div class="input-row mb-2">
+                                        <label for="otherCosts" class="input-label w-[35%] text-slate-600 font-semibold">Other Costs</label>
+                                        <div class="flex w-[65%] gap-1">
+                                            <div class="relative flex-1">
+                                                <input type="number" id="otherCosts" value="0" class="compact-input bg-white w-full text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red">
+                                            </div>
+                                            <select id="otherCostsType" class="compact-select w-16 px-1 text-center bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red">
+                                                <option value="$">$</option>
+                                                <option value="%">%</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- More Options Toggle -->
+                                <div class="mt-3 mb-1 text-center no-print">
+                                    <button type="button" id="toggleMoreOptions" class="text-xs font-bold text-brand-red hover:text-red-700 hover:underline transition-colors">+ More Options (Increases & Extra Pay)</button>
+                                </div>
+                                
+                                <!-- Hidden Advanced Container -->
+                                <div id="moreOptionsContainer" class="hidden border-t border-slate-300 pt-3 mt-2 space-y-3">
+                                    <!-- Annual Increases -->
+                                    <!-- MODIFIED: Adjusted inner panel for light mode compatibility -->
+                                    <div class="calc-option-group !bg-white !border-slate-300 !rounded-md !p-3 !shadow-sm">
+                                        <h3 class="text-[11px] font-bold text-slate-800 mb-2 uppercase tracking-wide">Annual Tax & Cost Increase</h3>
+                                        <div class="input-row mb-2"><label class="input-label w-[50%] text-slate-600 font-semibold">Property Tax</label><div class="relative w-[50%]"><input type="number" id="taxIncrease" value="0" class="compact-input pr-6 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red"><span class="absolute right-2 top-1 text-xs text-slate-500">%</span></div></div>
+                                        <div class="input-row mb-2"><label class="input-label w-[50%] text-slate-600 font-semibold">Home Ins.</label><div class="relative w-[50%]"><input type="number" id="insIncrease" value="0" class="compact-input pr-6 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red"><span class="absolute right-2 top-1 text-xs text-slate-500">%</span></div></div>
+                                        <div class="input-row mb-2"><label class="input-label w-[50%] text-slate-600 font-semibold">HOA Fee</label><div class="relative w-[50%]"><input type="number" id="hoaIncrease" value="0" class="compact-input pr-6 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red"><span class="absolute right-2 top-1 text-xs text-slate-500">%</span></div></div>
+                                        <div class="input-row mb-2"><label class="input-label w-[50%] text-slate-600 font-semibold">Other Costs</label><div class="relative w-[50%]"><input type="number" id="otherIncrease" value="0" class="compact-input pr-6 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red"><span class="absolute right-2 top-1 text-xs text-slate-500">%</span></div></div>
+                                    </div>
+                                    <!-- Extra Payments -->
+                                    <div class="calc-option-group !bg-white !border-slate-300 !rounded-md !p-3 !shadow-sm">
+                                        <h3 class="text-[11px] font-bold text-slate-800 mb-2 uppercase tracking-wide">Extra Payments</h3>
+                                        <div class="mb-3"><div class="flex items-center gap-1 mb-1"><label class="text-[10px] font-bold text-slate-600">Extra Monthly Pay</label></div><div class="flex gap-1"><div class="relative w-[40%]"><span class="absolute left-1.5 top-1 text-[10px] text-slate-500">$</span><input type="number" id="extraMonthly" value="0" class="compact-input pl-4 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red"></div><span class="text-[10px] self-center text-slate-500 font-semibold">from</span><select id="extraMonthlyMonth" class="compact-select w-[40%] bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red"><option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option><option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option><option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option></select></div></div>
+                                        <div class="mb-3"><div class="flex items-center gap-1 mb-1"><label class="text-[10px] font-bold text-slate-600">Extra Yearly Pay</label></div><div class="flex gap-1"><div class="relative w-[40%]"><span class="absolute left-1.5 top-1 text-[10px] text-slate-500">$</span><input type="number" id="extraYearly" value="0" class="compact-input pl-4 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red"></div><span class="text-[10px] self-center text-slate-500 font-semibold">in</span><select id="extraYearlyMonth" class="compact-select w-[40%] bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red"><option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option><option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option><option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option></select></div></div>
+                                        <div>
+                                            <div class="flex items-center justify-between gap-1 mb-1"><label class="text-[10px] font-bold text-slate-600">Extra One-time Pay</label></div>
+                                            <div id="oneTimePaymentsContainer" class="space-y-2 mb-2">
+                                                <div class="one-time-payment-row">
+                                                    <div class="flex gap-1 mb-1">
+                                                        <div class="relative w-full">
+                                                            <span class="absolute left-1.5 top-1 text-[10px] text-slate-500">$</span>
+                                                            <input type="number" class="compact-input pl-4 bg-white otp-amount text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red" value="0">
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex gap-1">
+                                                        <span class="text-[10px] self-center text-slate-500 font-semibold">in</span>
+                                                        <select class="compact-select w-[45%] otp-month bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red">
+                                                            <option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option><option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option><option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option>
+                                                        </select>
+                                                        <input type="number" class="compact-input w-[35%] otp-year bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red" placeholder="Year">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button type="button" id="addOneTimePaymentBtn" class="text-[10px] font-semibold text-brand-red hover:text-red-700 hover:underline transition-colors">+ Additional One-Time Payment</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-5 flex gap-2 no-print">
+                                    <button type="button" id="calcButton" class="w-full rounded bg-[#166534] py-2 text-sm font-bold text-white shadow-lg hover:bg-green-700 hover:shadow-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-[#166534]">CALCULATE</button>
+                                    <button type="button" id="clearButton" class="rounded border border-slate-400 bg-white px-4 py-2 text-sm text-slate-700 hover:bg-slate-100 hover:text-brand-red font-bold transition-all shadow-sm">Clear</button>
+                                </div>
                             </form>
                         </div>
 
@@ -143,10 +283,30 @@
                                 <div class="mb-2 flex items-center justify-between rounded bg-[#166534] px-3 py-2 text-white shadow-sm"><span class="text-sm font-medium opacity-90">Monthly Pay:</span><span class="text-xl font-bold tracking-tight" id="monthlyPaymentDisplay">$0.00</span></div>
                                 <div class="mb-2 flex justify-end gap-3 text-[10px] font-medium text-slate-500 no-print"><button id="printBtn" class="hover:text-[#166534] flex items-center gap-1 transition"><i class="fa-solid fa-print"></i> Print</button><button id="shareBtn" class="hover:text-[#166534] flex items-center gap-1 transition"><i class="fa-solid fa-share-nodes"></i> Share</button><button id="saveBtn" class="hover:text-[#166534] flex items-center gap-1 transition"><i class="fa-regular fa-bookmark"></i> Save</button><input type="text" id="shareUrlInput" class="hidden"></div>
                                 <div class="flex flex-row gap-3 items-start">
-                                    <div class="flex-1 text-[11px]"><table class="w-full" id="resultTable"><tbody><tr class="border-b border-slate-100 legend-row" data-legend-for="principal"><td class="py-1 text-slate-600">Principal & Interest</td><td class="py-1 text-right font-medium text-slate-900" id="breakdownPI">$0.00</td></tr><tr class="border-b border-slate-100 legend-row" data-legend-for="tax"><td class="py-1 text-slate-600">Property Tax</td><td class="py-1 text-right font-medium text-slate-900" id="breakdownTax">$0.00</td></tr><tr class="border-b border-slate-100 legend-row" data-legend-for="ins"><td class="py-1 text-slate-600">Home Insurance</td><td class="py-1 text-right font-medium text-slate-900" id="breakdownIns">$0.00</td></tr><tr class="border-b border-slate-100 legend-row" data-legend-for="pmi"><td class="py-1 text-slate-600">PMI Insurance</td><td class="py-1 text-right font-medium text-slate-900" id="breakdownPMI">$0.00</td></tr><tr class="border-b border-slate-100 legend-row" data-legend-for="hoa"><td class="py-1 text-slate-600">HOA/Other Costs</td><td class="py-1 text-right font-medium text-slate-900" id="breakdownHOA">$0.00</td></tr><tr class="bg-slate-50 border-t border-slate-200"><td class="py-1.5 font-bold text-slate-800 pl-1">Total Out-of-Pocket</td><td class="py-1.5 text-right font-bold text-slate-900 pr-1" id="breakdownTotal">$0.00</td></tr></tbody></table></div>
-                                    <div class="flex flex-col items-center w-[100px] shrink-0 gap-1"><div class="relative h-[90px] w-[90px] shrink-0"><svg viewBox="0 0 36 36" class="block h-full w-full rotate-[-90deg]"><path class="text-slate-100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="8" /><path id="chartRingPrincipal" data-id="principal" class="chart-segment text-[#166534]" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="8"></path><path id="chartRingTax" data-id="tax" class="chart-segment text-orange-400" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="8"></path><path id="chartRingIns" data-id="ins" class="chart-segment text-blue-400" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="8"></path><path id="chartRingPMI" data-id="pmi" class="chart-segment text-red-400" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="8"></path><path id="chartRingHOA" data-id="hoa" class="chart-segment text-purple-400" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="8"></path></svg><div id="chartCenterText" class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none text-center"><div class="text-[9px] text-slate-400 leading-tight">Monthly</div><div class="font-bold text-slate-700 text-[10px] leading-tight" id="centerTotalValue">-</div></div></div></div>
+                                    <div class="flex-1 text-[11px]"><table class="w-full" id="resultTable"><tbody><tr class="border-b border-slate-100 legend-row" data-legend-for="principal"><td class="py-1 text-slate-600">Principal & Interest</td><td class="py-1 text-right font-medium text-slate-900" id="breakdownPI">$0.00</td></tr><tr class="border-b border-slate-100 legend-row" data-legend-for="tax"><td class="py-1 text-slate-600">Property Tax</td><td class="py-1 text-right font-medium text-slate-900" id="breakdownTax">$0.00</td></tr><tr class="border-b border-slate-100 legend-row" data-legend-for="ins"><td class="py-1 text-slate-600">Home Insurance</td><td class="py-1 text-right font-medium text-slate-900" id="breakdownIns">$0.00</td></tr><tr class="border-b border-slate-100 legend-row" data-legend-for="pmi"><td class="py-1 text-slate-600">PMI Insurance</td><td class="py-1 text-right font-medium text-slate-900" id="breakdownPMI">$0.00</td></tr><tr class="border-b border-slate-100 legend-row" data-legend-for="hoa"><td class="py-1 text-slate-600">HOA / Other</td><td class="py-1 text-right font-medium text-slate-900" id="breakdownHOA">$0.00</td></tr><tr class="bg-slate-700 border-t border-slate-600"><td class="py-2 font-bold text-white pl-2 rounded-l-sm">Total Out-of-Pocket</td><td class="py-2 text-right font-bold text-white pr-2 rounded-r-sm" id="breakdownTotal">$0.00</td></tr></tbody></table></div>
+                                    <div class="flex flex-col items-center w-[100px] shrink-0 gap-1">
+                                        <div class="relative h-[100px] w-[100px] shrink-0">
+                                            <svg viewBox="0 0 36 36" class="block h-full w-full rotate-[-90deg]">
+                                                <path class="text-slate-100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="10" />
+                                                <!-- MODIFIED: Updated colors to match the reference image -->
+                                                <!-- Principal: Blue #428bca -->
+                                                <path id="chartRingPrincipal" data-id="principal" class="chart-segment text-[#428bca]" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="10"></path>
+                                                <!-- Tax: Green #96c03b -->
+                                                <path id="chartRingTax" data-id="tax" class="chart-segment text-[#96c03b]" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="10"></path>
+                                                <!-- Insurance: Dark Red #a90000 -->
+                                                <path id="chartRingIns" data-id="ins" class="chart-segment text-[#a90000]" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="10"></path>
+                                                <!-- PMI: Lighter Red/Pink (Keeping distinct) #d9534f -->
+                                                <path id="chartRingPMI" data-id="pmi" class="chart-segment text-[#d9534f]" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="10"></path>
+                                                <!-- Other: Cyan #30add1 -->
+                                                <path id="chartRingHOA" data-id="hoa" class="chart-segment text-[#30add1]" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="10"></path>
+                                            </svg>
+                                            <div id="chartCenterText" class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none text-center z-10 m-4 bg-white/90 backdrop-blur-sm rounded-full shadow-sm">
+                                                <div class="text-[9px] text-slate-400 leading-tight">Monthly</div>
+                                                <div class="font-bold text-slate-700 text-[10px] leading-tight" id="centerTotalValue">-</div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <!-- MODIFIED: Applied .calc-results-summary -->
                                 <div class="calc-results-summary"><table class="w-full text-xs"><tr><td class="py-0.5 text-slate-500">House Price</td><td class="py-0.5 text-right font-medium text-slate-800" id="summaryHousePrice">$0</td></tr><tr><td class="py-0.5 text-slate-500">Loan Amount</td><td class="py-0.5 text-right font-medium text-slate-800" id="summaryLoanAmount">$0</td></tr><tr><td class="py-0.5 text-slate-500">Down Payment</td><td class="py-0.5 text-right font-medium text-slate-800" id="summaryDownPayment">$0</td></tr><tr class="border-t border-slate-200/50"><td class="py-0.5 text-slate-500 pt-1" id="summaryTotalLabel">Total of 360 Mortgage Payments</td><td class="py-0.5 text-right font-semibold text-slate-800 pt-1" id="summaryTotalPayments">$0</td></tr><tr><td class="py-0.5 text-slate-500">Total Interest</td><td class="py-0.5 text-right font-semibold text-slate-800" id="summaryTotalInterest">$0</td></tr><tr><td class="py-0.5 text-slate-500">Mortgage Payoff Date</td><td class="py-0.5 text-right font-bold text-[#166534]" id="summaryPayoffDate">-</td></tr></table></div>
                                 <div class="mt-2 no-print"><button type="button" id="toggleTableBtn" class="w-full rounded border border-slate-300 bg-white py-1.5 text-xs font-semibold text-slate-700 shadow-sm hover:bg-slate-50 transition">View Schedule <i class="fa-solid fa-chevron-down ml-1"></i></button></div>
                             </div>
@@ -165,7 +325,7 @@
                             </div>
                             <div class="p-5 text-xs text-slate-600 leading-relaxed grid grid-cols-1 gap-6">
                                 
-                                <!-- Introduction Section (What is a Mortgage?) -->
+                                <!-- Introduction Section -->
                                 <section class="info-card">
                                     <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
                                         <i class="fa-solid fa-house-chimney text-[#166534]"></i> What is a Mortgage?
@@ -377,7 +537,6 @@
                 </div>
 
                 <!-- RIGHT SIDEBAR (Sticky) -->
-                <!-- MODIFIED: Applied .ad-box -->
                 <div class="w-full shrink-0 space-y-4 lg:w-[300px] no-print">
                     <div class="ad-box"><span class="text-xs font-semibold text-slate-400">ADVERTISEMENT<br>300x250</span></div>
                     
@@ -429,16 +588,29 @@
         document.addEventListener('DOMContentLoaded', () => {
             const inputs = {
                 homePrice: document.getElementById('homePrice'),
-                downPaymentAmt: document.getElementById('downPaymentAmount'),
-                downPaymentPct: document.getElementById('downPaymentPercent'),
+                // ... existing inputs ...
+                downPaymentInput: document.getElementById('downPaymentInput'),
+                downPaymentType: document.getElementById('downPaymentType'),
+                
                 loanTerm: document.getElementById('loanTermInput'),
                 interestRate: document.getElementById('interestRate'),
                 startMonth: document.getElementById('startMonth'),
                 startYear: document.getElementById('startYear'),
+                
+                // MODIFIED: New Checkbox
+                includeTaxesCosts: document.getElementById('includeTaxesCosts'),
+                dynamicCostsContainer: document.getElementById('dynamicCostsContainer'),
+
                 propertyTax: document.getElementById('propertyTax'),
+                propertyTaxType: document.getElementById('propertyTaxType'),
                 homeInsurance: document.getElementById('homeInsurance'),
+                homeInsuranceType: document.getElementById('homeInsuranceType'),
                 pmi: document.getElementById('pmi'),
+                pmiType: document.getElementById('pmiType'),
                 hoaFees: document.getElementById('hoaFees'),
+                hoaFeesType: document.getElementById('hoaFeesType'),
+                otherCosts: document.getElementById('otherCosts'),
+                otherCostsType: document.getElementById('otherCostsType'),
                 toggleMoreOptions: document.getElementById('toggleMoreOptions'),
                 moreOptionsContainer: document.getElementById('moreOptionsContainer'),
                 taxIncrease: document.getElementById('taxIncrease'),
@@ -452,6 +624,7 @@
                 oneTimeContainer: document.getElementById('oneTimePaymentsContainer'),
                 addOneTimeBtn: document.getElementById('addOneTimePaymentBtn'),
             };
+            // ... existing display and chartRings objects ...
             const display = {
                 monthlyTotal: document.getElementById('monthlyPaymentDisplay'),
                 breakdownPI: document.getElementById('breakdownPI'),
@@ -482,6 +655,18 @@
             inputs.startMonth.value = d.getMonth();
             document.querySelector('.otp-year').value = d.getFullYear() + 1;
 
+            // MODIFIED: Toggle Logic for Taxes & Costs
+            inputs.includeTaxesCosts.addEventListener('change', () => {
+                if (inputs.includeTaxesCosts.checked) {
+                    inputs.dynamicCostsContainer.classList.remove('h-0', 'opacity-0', 'mb-0');
+                    inputs.dynamicCostsContainer.classList.add('mb-2');
+                } else {
+                    inputs.dynamicCostsContainer.classList.add('h-0', 'opacity-0', 'mb-0');
+                    inputs.dynamicCostsContainer.classList.remove('mb-2');
+                }
+                calculate();
+            });
+
             inputs.toggleMoreOptions.addEventListener('click', () => {
                 inputs.moreOptionsContainer.classList.toggle('hidden');
                 const isHidden = inputs.moreOptionsContainer.classList.contains('hidden');
@@ -497,22 +682,37 @@
                 newRow.querySelector('.remove-otp').addEventListener('click', () => { newRow.remove(); calculate(); });
             });
 
-            const syncDownPayment = (source) => {
+            // MODIFIED: Logic to handle Down Payment Type Switch
+            // When switching type, convert the value so the math stays consistent
+            inputs.downPaymentType.addEventListener('change', () => {
                 const price = parseFloat(inputs.homePrice.value) || 0;
-                if (source === 'amount') {
-                    const amt = parseFloat(inputs.downPaymentAmt.value) || 0;
-                    const pct = price > 0 ? (amt / price) * 100 : 0;
-                    inputs.downPaymentPct.value = pct.toFixed(2);
+                const currentVal = parseFloat(inputs.downPaymentInput.value) || 0;
+                const newType = inputs.downPaymentType.value;
+
+                if (newType === '$') {
+                    // Was %, convert to $
+                    const dollarAmount = (currentVal / 100) * price;
+                    inputs.downPaymentInput.value = Math.round(dollarAmount);
                 } else {
-                    const pct = parseFloat(inputs.downPaymentPct.value) || 0;
-                    const amt = (pct / 100) * price;
-                    inputs.downPaymentAmt.value = amt.toFixed(0);
+                    // Was $, convert to %
+                    const percent = price > 0 ? (currentVal / price) * 100 : 0;
+                    inputs.downPaymentInput.value = percent.toFixed(2);
                 }
-            };
+                calculate();
+            });
 
             const calculate = () => {
                 const homePrice = parseFloat(inputs.homePrice.value) || 0;
-                const downPayment = parseFloat(inputs.downPaymentAmt.value) || 0;
+                
+                // MODIFIED: Get Down Payment based on dropdown
+                let downPayment = 0;
+                let dpValue = parseFloat(inputs.downPaymentInput.value) || 0;
+                if (inputs.downPaymentType.value === '%') {
+                    downPayment = (dpValue / 100) * homePrice;
+                } else {
+                    downPayment = dpValue;
+                }
+
                 const loanAmount = Math.max(0, homePrice - downPayment);
                 const termYears = parseFloat(inputs.loanTerm.value) || 30;
                 const annualRate = parseFloat(inputs.interestRate.value) || 0;
@@ -521,10 +721,43 @@
                 const startM = parseInt(inputs.startMonth.value);
                 const startY = parseInt(inputs.startYear.value) || new Date().getFullYear();
                 const startDate = new Date(startY, startM);
-                let taxYear = parseFloat(inputs.propertyTax.value) || 0;
-                let insYear = parseFloat(inputs.homeInsurance.value) || 0;
-                let pmiYear = parseFloat(inputs.pmi.value) || 0;
-                let hoaMonth = parseFloat(inputs.hoaFees.value) || 0;
+
+                // --- DYNAMIC COSTS LOGIC ---
+                // Check if costs are included
+                const includeCosts = inputs.includeTaxesCosts.checked;
+
+                let taxYear = 0, insYear = 0, pmiYear = 0, hoaMonth = 0, otherMonth = 0;
+
+                if (includeCosts) {
+                    // 1. Property Tax (Annual)
+                    let taxValue = parseFloat(inputs.propertyTax.value) || 0;
+                    let taxType = inputs.propertyTaxType.value; // $ or %
+                    taxYear = (taxType === '%') ? (taxValue / 100) * homePrice : taxValue;
+
+                    // 2. Home Insurance (Annual)
+                    let insValue = parseFloat(inputs.homeInsurance.value) || 0;
+                    let insType = inputs.homeInsuranceType.value;
+                    insYear = (insType === '%') ? (insValue / 100) * homePrice : insValue;
+
+                    // 3. PMI (Annual)
+                    let pmiValue = parseFloat(inputs.pmi.value) || 0;
+                    let pmiType = inputs.pmiType.value;
+                    pmiYear = (pmiType === '%') ? (pmiValue / 100) * loanAmount : pmiValue;
+
+                    // 4. HOA Fees (Monthly)
+                    let hoaValue = parseFloat(inputs.hoaFees.value) || 0;
+                    let hoaType = inputs.hoaFeesType.value;
+                    hoaMonth = (hoaType === '%') ? (hoaValue / 100) * homePrice : hoaValue;
+
+                    // 5. Other Costs (Monthly)
+                    let otherValue = parseFloat(inputs.otherCosts.value) || 0;
+                    let otherType = inputs.otherCostsType.value;
+                    otherMonth = (otherType === '%') ? (otherValue / 100) * homePrice : otherValue;
+                }
+
+                // Combine HOA & Other for display
+                let totalOtherMonth = hoaMonth + otherMonth;
+
                 const taxIncPct = (parseFloat(inputs.taxIncrease.value) || 0) / 100;
                 const insIncPct = (parseFloat(inputs.insIncrease.value) || 0) / 100;
                 const hoaIncPct = (parseFloat(inputs.hoaIncrease.value) || 0) / 100;
@@ -559,9 +792,13 @@
                 while (balance > 0.01 && monthCount < 720) {
                     monthCount++;
                     if (monthCount > 1 && (monthCount - 1) % 12 === 0) {
-                        taxYear *= (1 + taxIncPct);
-                        insYear *= (1 + insIncPct);
-                        hoaMonth *= (1 + hoaIncPct); 
+                        // Only increase if we started with a base cost
+                        if (includeCosts) {
+                            taxYear *= (1 + taxIncPct);
+                            insYear *= (1 + insIncPct);
+                            hoaMonth *= (1 + hoaIncPct); 
+                            otherMonth *= (1 + otherIncPct);
+                        }
                     }
                     const interestPayment = balance * monthlyRate;
                     accInterest += interestPayment;
@@ -584,11 +821,11 @@
                 const initTax = taxYear / 12;
                 const initIns = insYear / 12;
                 const initPMI = pmiYear / 12;
-                const initTotal = basePI + initTax + initIns + initPMI + hoaMonth;
+                const initTotal = basePI + initTax + initIns + initPMI + hoaMonth + otherMonth;
                 const totalPaid = loanAmount + accInterest;
 
-                updateDisplay(basePI, initTax, initIns, initPMI, hoaMonth, initTotal, homePrice, downPayment, loanAmount, totalPaid, accInterest, finalPayoffDate, totalMonths);
-                updateChart(basePI, initTax, initIns, initPMI, hoaMonth, initTotal);
+                updateDisplay(basePI, initTax, initIns, initPMI, hoaMonth + otherMonth, initTotal, homePrice, downPayment, loanAmount, totalPaid, accInterest, finalPayoffDate, totalMonths);
+                updateChart(basePI, initTax, initIns, initPMI, hoaMonth + otherMonth, initTotal);
                 updateAmortizationTable(schedule, loanAmount); 
                 saveToHistory(homePrice, annualRate, initTotal);
             };
@@ -654,7 +891,7 @@
                 }
             };
             const resetHighlight = () => {
-                Object.values(chartRings).forEach(s => { s.style.opacity = '1'; s.style.strokeWidth = '8'; });
+                Object.values(chartRings).forEach(s => { s.style.opacity = '1'; s.style.strokeWidth = '10'; });
                 document.querySelectorAll('#resultTable tr[data-legend-for]').forEach(r => r.classList.remove('bg-yellow-50'));
                 const totalVal = document.getElementById('monthlyPaymentDisplay').textContent;
                 const centerContainer = document.getElementById('chartCenterText');
@@ -745,7 +982,11 @@
             document.getElementById('shareBtn').addEventListener('click', () => {
                 const params = new URLSearchParams();
                 params.set('price', inputs.homePrice.value);
-                params.set('dp_amt', inputs.downPaymentAmt.value);
+                // MODIFIED: Share URL builder logic might need to handle 'dp_amt' vs 'dp_pct' if we wanted robust URL state, 
+                // but standard 'dp_amt' works fine as calculation derives from inputs.
+                params.set('dp_amt', inputs.downPaymentInput.value); // Using the unified input
+                params.set('dp_type', inputs.downPaymentType.value); // Saving type
+                
                 params.set('term', inputs.loanTerm.value);
                 params.set('rate', inputs.interestRate.value);
                 params.set('tax', inputs.propertyTax.value);
@@ -753,8 +994,6 @@
                 params.set('pmi', inputs.pmi.value);
                 params.set('hoa', inputs.hoaFees.value);
                 if (inputs.extraMonthly.value > 0) params.set('em', inputs.extraMonthly.value);
-                // Fix for share: Add loading logic for extra monthly/yearly payments too if needed, 
-                // but for simplicity we focus on main inputs as before.
                 const shareUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
                 if (navigator.clipboard && navigator.clipboard.writeText) {
                     navigator.clipboard.writeText(shareUrl).then(() => { showCopySuccess(); }).catch(() => { fallbackCopy(shareUrl); });
@@ -775,10 +1014,15 @@
                 setTimeout(() => btn.innerHTML = originalHtml, 2000);
             }
             document.getElementById('printBtn').addEventListener('click', () => window.print());
+            
+            // MODIFIED: URL Params Logic for Unified Down Payment
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.has('price')) {
                 inputs.homePrice.value = urlParams.get('price');
-                if (urlParams.has('dp_amt')) inputs.downPaymentAmt.value = urlParams.get('dp_amt');
+                
+                if (urlParams.has('dp_amt')) inputs.downPaymentInput.value = urlParams.get('dp_amt');
+                if (urlParams.has('dp_type')) inputs.downPaymentType.value = urlParams.get('dp_type');
+                
                 if (urlParams.has('term')) inputs.loanTerm.value = urlParams.get('term');
                 if (urlParams.has('rate')) inputs.interestRate.value = urlParams.get('rate');
                 if (urlParams.has('tax')) inputs.propertyTax.value = urlParams.get('tax');
@@ -787,17 +1031,22 @@
                 if (urlParams.has('hoa')) inputs.hoaFees.value = urlParams.get('hoa');
                 if (urlParams.has('em')) {
                     inputs.extraMonthly.value = urlParams.get('em');
-                    // Auto-open advanced options if extra payment exists
                     inputs.moreOptionsContainer.classList.remove('hidden');
                     inputs.toggleMoreOptions.textContent = '- Less Options';
                 }
-                syncDownPayment('amount'); 
             }
-            inputs.homePrice.addEventListener('input', () => { syncDownPayment('percent'); calculate(); });
-            inputs.downPaymentAmt.addEventListener('input', () => { syncDownPayment('amount'); calculate(); });
-            inputs.downPaymentPct.addEventListener('input', () => { syncDownPayment('percent'); calculate(); });
+            
+            // Re-attach listeners for the new unified inputs
+            inputs.homePrice.addEventListener('input', calculate);
+            inputs.downPaymentInput.addEventListener('input', calculate);
+            inputs.includeTaxesCosts.addEventListener('change', calculate);
+            
             const allInputs = document.querySelectorAll('input, select');
-            allInputs.forEach(el => { if(el.id !== 'homePrice' && el.id !== 'downPaymentAmount' && el.id !== 'downPaymentPercent') { el.addEventListener('input', calculate); } });
+            allInputs.forEach(el => { 
+                if(el.id !== 'homePrice' && el.id !== 'downPaymentInput' && el.id !== 'downPaymentType' && el.id !== 'includeTaxesCosts') { 
+                    el.addEventListener('input', calculate); 
+                } 
+            });
             document.getElementById('calcButton').addEventListener('click', calculate);
             document.getElementById('clearButton').addEventListener('click', () => { window.location.href = window.location.pathname; });
             document.getElementById('toggleTableBtn').addEventListener('click', () => { document.getElementById('amortizationContainer').classList.toggle('hidden'); });
