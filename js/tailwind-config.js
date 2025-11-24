@@ -38,6 +38,7 @@ tailwind.config = {
                     borderColor: theme('colors.slate.300'), // #cbd5e1
                     borderRadius: '3px',
                     textAlign: 'right',
+                    backgroundColor: '#ffffff', /* MODIFIED: Added white bg for contrast */
                     transition: 'border-color 0.15s ease-in-out',
                     height: '28px',
                     '&:focus': {
@@ -129,6 +130,27 @@ tailwind.config = {
                     paddingBottom: theme('spacing.2'),
                     color: 'white',
                     boxShadow: theme('boxShadow.sm'),
+                },
+
+                /* --- NEW: Universal Section Styles --- */
+                '.content-section': {
+                    backgroundColor: '#ffffff',
+                    borderWidth: '1px',
+                    borderColor: theme('colors.slate.300'), // Unified darker border
+                    borderRadius: theme('borderRadius.lg'),
+                    boxShadow: theme('boxShadow.sm'),
+                    overflow: 'hidden',
+                },
+                
+                /* --- NEW: Inner Info Cards (for grouping text) --- */
+                '.info-card': {
+                    backgroundColor: theme('colors.slate.50'),
+                    borderWidth: '1px',
+                    borderColor: theme('colors.slate.200'),
+                    borderRadius: theme('borderRadius.md'),
+                    padding: theme('spacing.4'),
+                    marginBottom: theme('spacing.4'),
+                    height: '100%', /* Ensure equal height in grids */
                 }
             });
 
