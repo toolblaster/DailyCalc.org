@@ -1,220 +1,219 @@
 /*
   DailyCalc.org Dashboard Logic
   This script loads and displays data from localStorage for the dashboard page.
+  UPDATED: Reverted to Horizontal/Compact layout for Mobile based on user feedback.
 */
 
 document.addEventListener('DOMContentLoaded', () => {
-
-    // --- Helper Functions to Get Data ---
-    // In a real app, these would be in global.js, but for this page
-    // we can define them here.
-
-    /**
-     * Gets the calculation history from localStorage.
-     * @returns {Array} An array of history objects, newest first.
-     */
-    function getHistory() {
-        try {
-            const history = JSON.parse(localStorage.getItem('dailyCalcHistory')) || [];
-            return history.reverse(); // Show newest first
-        } catch (e) {
-            console.error("Error reading history from localStorage", e);
-            return [];
-        }
-    }
-
-    /**
-     * Gets the saved presets from localStorage.
-     * @returns {Object} An object with calculator names as keys.
-     */
-    function getPresets() {
-        try {
-            return JSON.parse(localStorage.getItem('dailyCalcPresets')) || {};
-        } catch (e) {
-            console.error("Error reading presets from localStorage", e);
-            return {};
-        }
-    }
-
-    /**
-     * Clears all calculation history.
-     */
-    function clearHistory() {
-        try {
-            localStorage.removeItem('dailyCalcHistory');
-            // We could also just set it to []
-            // localStorage.setItem('dailyCalcHistory', JSON.stringify([]));
-        } catch (e) {
-            console.error("Error clearing history in localStorage", e);
-        }
-    }
 
     // --- DOM Elements ---
     const historyContainer = document.getElementById('historyContainer');
     const historyEmptyState = document.getElementById('historyEmptyState');
     const clearHistoryButton = document.getElementById('clearHistoryButton');
+    const historyCountBadge = document.getElementById('historyCount');
     
     const presetsContainer = document.getElementById('presetsContainer');
     const presetsEmptyState = document.getElementById('presetsEmptyState');
+    const clearPresetsButton = document.getElementById('clearPresetsButton');
+    const presetsCountBadge = document.getElementById('presetsCount');
+
+    // --- Helper: Time Ago ---
+    function timeAgo(dateString) {
+        const date = new Date(dateString);
+        const now = new Date();
+        const seconds = Math.floor((now - date) / 1000);
+        
+        let interval = seconds / 31536000;
+        if (interval > 1) return Math.floor(interval) + "y";
+        interval = seconds / 2592000;
+        if (interval > 1) return Math.floor(interval) + "mo";
+        interval = seconds / 86400;
+        if (interval > 1) return Math.floor(interval) + "d";
+        interval = seconds / 3600;
+        if (interval > 1) return Math.floor(interval) + "h";
+        interval = seconds / 60;
+        if (interval > 1) return Math.floor(interval) + "m";
+        return "now";
+    }
+
+    // --- Helper: Get Icon for Calculator ---
+    function getIconForCalc(name) {
+        const lowerName = name.toLowerCase();
+        if (lowerName.includes('mortgage') || lowerName.includes('loan')) return 'fa-house-chimney';
+        if (lowerName.includes('bmi') || lowerName.includes('health')) return 'fa-heart-pulse';
+        if (lowerName.includes('age') || lowerName.includes('date')) return 'fa-calendar-days';
+        if (lowerName.includes('converter')) return 'fa-arrows-rotate';
+        return 'fa-calculator';
+    }
 
     // --- Logic to Load History ---
     function loadHistory() {
-        const history = getHistory();
+        let history = [];
+        try {
+            history = JSON.parse(localStorage.getItem('dailyCalcHistory')) || [];
+            history.reverse(); 
+        } catch (e) {
+            console.error("Error reading history", e);
+        }
         
-        // Clear previous content
         historyContainer.innerHTML = ''; 
+        if (historyCountBadge) historyCountBadge.textContent = history.length;
 
         if (history.length === 0) {
             historyEmptyState.classList.remove('hidden');
             historyContainer.classList.add('hidden');
-            clearHistoryButton.classList.add('hidden'); // Hide clear button if no history
+            if (clearHistoryButton) clearHistoryButton.classList.add('hidden');
         } else {
             historyEmptyState.classList.add('hidden');
             historyContainer.classList.remove('hidden');
-            clearHistoryButton.classList.remove('hidden');
+            if (clearHistoryButton) clearHistoryButton.classList.remove('hidden');
 
-            // Create a list to hold the history items
-            const historyList = document.createElement('ul');
-            // MODIFIED: Added gradient and shadow
-            historyList.className = 'divide-y divide-slate-200 rounded-lg border border-slate-200 bg-gradient-to-br from-white to-slate-50 shadow-md';
+            const ul = document.createElement('ul');
+            ul.className = 'divide-y divide-slate-100'; 
 
             history.forEach(item => {
                 const li = document.createElement('li');
-                // MODIFIED: Reduced padding
-                li.className = 'flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 p-3';
+                li.className = 'group hover:bg-slate-50 transition-colors duration-150';
                 
-                const itemDetails = `
-                    <div>
-                        <a href="${item.url || '#'}" class="font-semibold text-brand-red hover:underline">${item.calculator}</a>
-                        <!-- MODIFIED: Smaller text -->
-                        <p class="text-xs text-slate-600">${item.inputs}</p>
-                        <!-- MODIFIED: Smaller margin -->
-                        <p class="mt-0.5 text-sm text-slate-900 font-medium">${item.result}</p>
-                    </div>
-                    <div class="flex-shrink-0">
-                        <!-- MODIFIED: Smaller text -->
-                        <p class="text-[11px] text-slate-500">${new Date(item.timestamp).toLocaleString()}</p>
-                    </div>
+                // COMPACT HORIZONTAL LAYOUT (Mobile & Desktop)
+                li.innerHTML = `
+                    <a href="${item.url || '#'}" class="flex items-center gap-3 p-2.5 text-decoration-none block">
+                        
+                        <!-- Icon (Fixed Size) -->
+                        <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-slate-200 bg-white text-slate-400 shadow-sm group-hover:border-brand-red/30 group-hover:text-brand-red transition-colors">
+                            <i class="fa-solid ${getIconForCalc(item.calculator)} text-xs"></i>
+                        </div>
+                        
+                        <!-- Middle: Info (Flexible) -->
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-baseline justify-between mb-0.5">
+                                <span class="text-xs font-bold text-slate-700 truncate pr-2 group-hover:text-brand-red transition-colors">${item.calculator}</span>
+                                <span class="text-[9px] text-slate-400 shrink-0">${timeAgo(item.timestamp)}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <p class="text-[10px] text-slate-500 truncate flex-1" title="${item.inputs}">${item.inputs}</p>
+                            </div>
+                        </div>
+
+                        <!-- Right: Result Badge (Fixed/Shrink) -->
+                        <div class="ml-1 shrink-0">
+                            <span class="inline-block max-w-[80px] sm:max-w-[120px] truncate rounded bg-green-50 px-2 py-1 text-[10px] font-bold text-green-700 border border-green-100 text-center">
+                                ${item.result}
+                            </span>
+                        </div>
+                    </a>
                 `;
-                li.innerHTML = itemDetails;
-                historyList.appendChild(li);
+                ul.appendChild(li);
             });
-            historyContainer.appendChild(historyList);
+            historyContainer.appendChild(ul);
         }
     }
 
     // --- Logic to Load Presets ---
     function loadPresets() {
-        const presets = getPresets();
+        let presets = {};
+        try {
+            presets = JSON.parse(localStorage.getItem('dailyCalcPresets')) || {};
+        } catch (e) {
+            console.error("Error reading presets", e);
+        }
+
         const calculatorNames = Object.keys(presets);
-
-        // Clear previous content
+        let totalPresets = 0;
+        calculatorNames.forEach(name => totalPresets += presets[name].length);
+        
         presetsContainer.innerHTML = '';
+        if (presetsCountBadge) presetsCountBadge.textContent = totalPresets;
 
-        if (calculatorNames.length === 0) {
+        if (totalPresets === 0) {
             presetsEmptyState.classList.remove('hidden');
             presetsContainer.classList.add('hidden');
+            if (clearPresetsButton) clearPresetsButton.classList.add('hidden');
         } else {
             presetsEmptyState.classList.add('hidden');
             presetsContainer.classList.remove('hidden');
+            if (clearPresetsButton) clearPresetsButton.classList.remove('hidden');
 
-            // Create a wrapper for the preset groups
-            const presetsWrapper = document.createElement('div');
-            // MODIFIED: Reduced spacing
-            presetsWrapper.className = 'space-y-4';
+            const ul = document.createElement('ul');
+            ul.className = 'divide-y divide-slate-100';
 
             calculatorNames.forEach(calcName => {
-                const presetsForCalc = presets[calcName];
+                const calcPresets = presets[calcName];
                 
-                // Create a section for each calculator
-                const calcGroup = document.createElement('div');
-                // MODIFIED: Added gradient, shadow, and overflow-hidden
-                calcGroup.className = 'rounded-lg border border-slate-200 bg-gradient-to-br from-white to-slate-50 shadow-md overflow-hidden';
-                
-                const header = document.createElement('h3');
-                // MODIFIED: Reduced padding, matched font size to H2s, removed bg-slate-50
-                header.className = 'border-b border-slate-200 px-3 py-2 text-lg font-semibold text-brand-dark';
-                header.textContent = calcName;
-                calcGroup.appendChild(header);
-
-                const presetList = document.createElement('ul');
-                presetList.className = 'divide-y divide-slate-200';
-
-                presetsForCalc.forEach(preset => {
+                calcPresets.forEach(preset => {
                     const li = document.createElement('li');
-                    // MODIFIED: Reduced padding
-                    li.className = 'flex items-center justify-between gap-4 p-3';
+                    li.className = 'group flex items-center gap-3 p-2.5 hover:bg-slate-50 transition-colors duration-150 relative';
+                    
+                    // COMPACT HORIZONTAL LAYOUT
                     li.innerHTML = `
-                        <div>
-                            <p class="font-medium text-slate-900">${preset.name}</p>
-                            <!-- MODIFIED: Smaller text -->
-                            <p class="text-[11px] text-slate-500">${preset.inputs}</p>
+                        <!-- Icon -->
+                        <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-slate-200 bg-white text-slate-400 shadow-sm">
+                            <i class="fa-solid fa-star text-xs text-yellow-400"></i>
                         </div>
-                        <!-- MODIFIED: Smaller text -->
-                        <button class="flex-shrink-0 text-[11px] text-slate-500 hover:text-brand-red" data-calc="${calcName}" data-preset-name="${preset.name}" aria-label="Delete preset ${preset.name}">
-                            <i class="fa-solid fa-trash-can"></i> Delete
-                        </button>
+
+                        <!-- Text Content -->
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-2">
+                                <h3 class="text-xs font-bold text-slate-700 truncate">${preset.name}</h3>
+                                <span class="hidden sm:inline text-[9px] text-slate-300">•</span>
+                                <span class="hidden sm:inline text-[9px] text-slate-400 truncate">${calcName}</span>
+                            </div>
+                            <p class="text-[10px] text-slate-500 truncate mt-0.5" title="${preset.inputs}">${preset.inputs}</p>
+                        </div>
+
+                        <!-- Actions (Always visible on mobile row to save click) -->
+                        <div class="flex items-center gap-1.5 pl-2">
+                            <a href="${preset.url}" class="flex h-7 w-7 items-center justify-center rounded bg-blue-50 text-blue-600 hover:bg-blue-100 hover:shadow-sm transition-all" title="Load Preset">
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                            <button class="flex h-7 w-7 items-center justify-center rounded bg-red-50 text-red-600 hover:bg-red-100 hover:shadow-sm transition-all" data-delete-preset data-calc="${calcName}" data-name="${preset.name}" title="Delete Preset">
+                                <i class="fa-solid fa-trash-can text-[10px]"></i>
+                            </button>
+                        </div>
                     `;
-                    presetList.appendChild(li);
+                    ul.appendChild(li);
                 });
-
-                calcGroup.appendChild(presetList);
-                presetsWrapper.appendChild(calcGroup);
             });
-
-            presetsContainer.appendChild(presetsWrapper);
+            presetsContainer.appendChild(ul);
         }
     }
 
     // --- Event Listeners ---
 
-    // Clear History Button
     if (clearHistoryButton) {
         clearHistoryButton.addEventListener('click', () => {
-            // Using a custom modal for this would be better in the long run
-            // but confirm() is okay for localStorage features.
-            if (confirm("Are you sure you want to clear all your calculation history? This cannot be undone.")) {
-                clearHistory();
-                loadHistory(); // Re-load the (now empty) history section
+            if (confirm("Are you sure you want to clear your entire calculation history?")) {
+                localStorage.removeItem('dailyCalcHistory');
+                loadHistory();
             }
         });
     }
 
-    // Delete Preset Button (Event Delegation)
-    if (presetsContainer) {
-        presetsContainer.addEventListener('click', (e) => {
-            const deleteButton = e.target.closest('button[data-preset-name]');
-            
-            if (deleteButton) {
-                const calcName = deleteButton.dataset.calc;
-                const presetName = deleteButton.dataset.presetName;
+    if (clearPresetsButton) {
+        clearPresetsButton.addEventListener('click', () => {
+            if (confirm("Are you sure you want to delete ALL saved presets?")) {
+                localStorage.removeItem('dailyCalcPresets');
+                loadPresets();
+            }
+        });
+    }
 
-                if (confirm(`Are you sure you want to delete the preset "${presetName}"?`)) {
-                    // Get all presets
-                    const allPresets = getPresets();
-                    
-                    // Filter out the one to delete
-                    allPresets[calcName] = allPresets[calcName].filter(p => p.name !== presetName);
-
-                    // If no presets left for this calc, remove the calc key
-                    if (allPresets[calcName].length === 0) {
-                        delete allPresets[calcName];
-                    }
-
-                    // Save the updated presets object back to localStorage
-                    try {
-                        localStorage.setItem('dailyCalcPresets', JSON.stringify(allPresets));
-                    } catch (e) {
-                        console.error("Error saving updated presets", e);
-                    }
-                    
-                    // Reload the presets section
+    presetsContainer.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-delete-preset]');
+        if (btn) {
+            const calc = btn.dataset.calc;
+            const name = btn.dataset.name;
+            if (confirm(`Delete preset "${name}"?`)) {
+                const allPresets = JSON.parse(localStorage.getItem('dailyCalcPresets')) || {};
+                if (allPresets[calc]) {
+                    allPresets[calc] = allPresets[calc].filter(p => p.name !== name);
+                    if (allPresets[calc].length === 0) delete allPresets[calc];
+                    localStorage.setItem('dailyCalcPresets', JSON.stringify(allPresets));
                     loadPresets();
                 }
             }
-        });
-    }
-
+        }
+    });
 
     // --- Initial Load ---
     loadHistory();
