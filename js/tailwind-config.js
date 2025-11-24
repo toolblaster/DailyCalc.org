@@ -171,6 +171,34 @@ tailwind.config = {
                     height: '100%',
                 },
 
+                /* --- NEW: Component Classes (Extracted from Calculator Page) --- */
+                '.ad-box': {
+                    display: 'flex',
+                    height: '250px',
+                    width: '100%',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: theme('borderRadius.md'), // "rounded" defaults to 0.25rem, but using md for consistency
+                    borderWidth: '1px',
+                    borderColor: theme('colors.slate.200'),
+                    backgroundColor: theme('colors.slate.50'),
+                },
+                '.calc-option-group': {
+                    borderWidth: '1px',
+                    borderColor: theme('colors.slate.200'),
+                    padding: theme('spacing.2'),
+                    borderRadius: theme('borderRadius.DEFAULT'),
+                    backgroundColor: 'rgba(255, 255, 255, 0.5)', // bg-white/50
+                },
+                '.calc-results-summary': {
+                    marginTop: theme('spacing.3'),
+                    borderRadius: theme('borderRadius.DEFAULT'),
+                    backgroundColor: theme('colors.slate.100'),
+                    padding: theme('spacing.2'),
+                    borderWidth: '1px',
+                    borderColor: theme('colors.slate.200'),
+                },
+
                 /* --- Sidebar Widget Link Style --- */
                 '.sidebar-nav-link': {
                     display: 'flex',
