@@ -96,6 +96,7 @@
                     <div class="flex flex-col gap-4 border-x border-b border-slate-300 bg-white p-3 shadow-sm rounded-b-md md:flex-row md:items-start">
                         
                         <!-- COLUMN 1: INPUTS -->
+                        <!-- MODIFIED: Darker bg (slate-100) and border (slate-300) for higher contrast -->
                         <div class="w-full shrink-0 bg-slate-100 p-3 rounded border border-slate-300 md:w-[280px] print-break-inside-avoid shadow-inner">
                             <form id="mortgageForm">
                                 <!-- Inputs -->
@@ -163,16 +164,16 @@
                             </div>
                             <div class="p-5 text-xs text-slate-600 leading-relaxed grid grid-cols-1 gap-6">
                                 
-                                <!-- Introduction Section -->
+                                <!-- Introduction Section (What is a Mortgage?) -->
                                 <section class="info-card">
                                     <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
-                                        <i class="fa-solid fa-house-chimney text-[#166534]"></i> Understanding Your Monthly Housing Costs
+                                        <i class="fa-solid fa-house-chimney text-[#166534]"></i> What is a Mortgage?
                                     </h3>
                                     <p class="mb-3">
-                                        Buying a home is likely the biggest purchase of your life. Our free <strong>Mortgage Calculator</strong> helps you estimate your total monthly payment, not just the loan repayment. By factoring in property taxes, homeowners insurance, and PMI, you get a realistic picture of your true housing costs.
+                                        A mortgage is a loan specifically designed for purchasing a home or other real estate. The property itself serves as collateral for the loan. Buying a home is likely the biggest purchase of your life, and our free <strong>Mortgage Calculator</strong> helps you estimate your total monthly payment, not just the loan repayment.
                                     </p>
                                     <p>
-                                        Use this tool to compare different loan scenarios, see how a larger down payment affects your wallet, and plan for a financially secure future.
+                                        By factoring in property taxes, homeowners insurance, and PMI, you get a realistic picture of your true housing costs. Use this tool to compare different loan scenarios, see how a larger down payment affects your wallet, and plan for a financially secure future.
                                     </p>
                                 </section>
 
@@ -305,6 +306,69 @@
                                     </div>
                                 </section>
 
+                                <!-- NEW SECTION: How to Lower Payment -->
+                                <section class="info-card">
+                                    <h3 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
+                                        <i class="fa-solid fa-arrow-trend-down text-[#166534]"></i> How to Lower Your Mortgage Payment
+                                    </h3>
+                                    <p class="mb-4">Struggling with a high monthly estimate? Here are proven strategies to bring that number down:</p>
+                                    <ul class="space-y-3">
+                                        <li class="flex gap-3 items-start">
+                                            <div class="mt-1 text-green-600"><i class="fa-solid fa-circle-check"></i></div>
+                                            <div>
+                                                <strong class="text-slate-700 block">Increase Your Down Payment</strong>
+                                                <span class="text-slate-500">Every dollar you put down reduces the principal you need to borrow, directly lowering your monthly P&I.</span>
+                                            </div>
+                                        </li>
+                                        <li class="flex gap-3 items-start">
+                                            <div class="mt-1 text-green-600"><i class="fa-solid fa-circle-check"></i></div>
+                                            <div>
+                                                <strong class="text-slate-700 block">Eliminate PMI</strong>
+                                                <span class="text-slate-500">If you can hit 20% equity, you can request to remove Private Mortgage Insurance, saving hundreds per month.</span>
+                                            </div>
+                                        </li>
+                                        <li class="flex gap-3 items-start">
+                                            <div class="mt-1 text-green-600"><i class="fa-solid fa-circle-check"></i></div>
+                                            <div>
+                                                <strong class="text-slate-700 block">Shop for Insurance</strong>
+                                                <span class="text-slate-500">Homeowners insurance rates vary wildly. Get quotes from multiple providers annually to ensure you aren't overpaying.</span>
+                                            </div>
+                                        </li>
+                                        <li class="flex gap-3 items-start">
+                                            <div class="mt-1 text-green-600"><i class="fa-solid fa-circle-check"></i></div>
+                                            <div>
+                                                <strong class="text-slate-700 block">Recast Your Mortgage</strong>
+                                                <span class="text-slate-500">If you come into a lump sum later, ask your lender to "recast" your loan. They re-calculate your payments based on the new lower balance without refinancing.</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </section>
+
+                                <!-- NEW SECTION: Common Terms -->
+                                <section class="info-card">
+                                    <h3 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
+                                        <i class="fa-solid fa-book-open text-[#166534]"></i> Common Mortgage Terms Explained
+                                    </h3>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div class="bg-white p-3 rounded border border-slate-200">
+                                            <strong class="text-brand-dark block mb-1">LTV (Loan-to-Value)</strong>
+                                            <p class="text-slate-500">The ratio of your loan amount to the home's value. Lenders use this to determine risk. 80% LTV is the magic number to avoid PMI.</p>
+                                        </div>
+                                        <div class="bg-white p-3 rounded border border-slate-200">
+                                            <strong class="text-brand-dark block mb-1">DTI (Debt-to-Income)</strong>
+                                            <p class="text-slate-500">The percentage of your gross monthly income that goes to paying debts. Most lenders prefer a DTI under 36%.</p>
+                                        </div>
+                                        <div class="bg-white p-3 rounded border border-slate-200">
+                                            <strong class="text-brand-dark block mb-1">Escrow Account</strong>
+                                            <p class="text-slate-500">A savings account managed by your lender. A portion of your monthly payment goes here to pay your property taxes and insurance when they are due.</p>
+                                        </div>
+                                        <div class="bg-white p-3 rounded border border-slate-200">
+                                            <strong class="text-brand-dark block mb-1">Fixed vs. Adjustable Rate</strong>
+                                            <p class="text-slate-500"><strong>Fixed:</strong> Rate stays the same forever. <br><strong>Adjustable (ARM):</strong> Rate changes after a set period based on market conditions.</p>
+                                        </div>
+                                    </div>
+                                </section>
+
                             </div>
                         </div>
                     </div>
@@ -343,9 +407,13 @@
                         </div>
                     </div>
 
-                    <div class="content-section sticky top-4">
-                        <div class="bg-gradient-to-r from-brand-dark to-brand-red px-4 py-2"><h3 class="text-sm font-bold text-white text-center">Financial Calculators</h3></div>
-                        <div class="p-4"><ul class="space-y-2 text-xs"><li><a href="/finance/loan-calculator.html" class="text-blue-600 hover:text-brand-red hover:underline flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i> Loan Calculator</a></li><li><a href="/finance/auto-loan-calculator.html" class="text-blue-600 hover:text-brand-red hover:underline flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i> Auto Loan Calculator</a></li><li><a href="/finance/interest-calculator.html" class="text-blue-600 hover:text-brand-red hover:underline flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i> Interest Calculator</a></li><li><a href="/finance/payment-calculator.html" class="text-blue-600 hover:text-brand-red hover:underline flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i> Payment Calculator</a></li><li><a href="/finance/retirement-calculator.html" class="text-blue-600 hover:text-brand-red hover:underline flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i> Retirement Calculator</a></li><li><a href="/finance/amortization-calculator.html" class="text-blue-600 hover:text-brand-red hover:underline flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i> Amortization Calculator</a></li><li><a href="/finance/investment-calculator.html" class="text-blue-600 hover:text-brand-red hover:underline flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i> Investment Calculator</a></li><li><a href="/finance/inflation-calculator.html" class="text-blue-600 hover:text-brand-red hover:underline flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i> Inflation Calculator</a></li><li><a href="/finance/finance-calculator.html" class="text-blue-600 hover:text-brand-red hover:underline flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i> Finance Calculator</a></li></ul></div>
+                    <!-- DYNAMIC SIDEBAR WIDGET -->
+                    <!-- The content inside this div is now populated by js/global.js based on the data-category -->
+                    <div class="content-section sticky top-4" data-widget="related-tools" data-category="Finance">
+                        <!-- Loading State (replaced immediately by JS) -->
+                        <div class="p-4 text-center text-slate-400 text-xs">
+                            <i class="fa-solid fa-spinner fa-spin mb-2"></i><br>Loading tools...
+                        </div>
                     </div>
                 </div>
 
