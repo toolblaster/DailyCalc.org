@@ -150,5 +150,5 @@ body.overflow-hidden {
     max-width: 1050px;
 }
 .category-container {
-    max-width: 1000px;
+    max-width: 1050px; /* MODIFIED: Increased from 1000px */
 }
