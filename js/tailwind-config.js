@@ -132,7 +132,7 @@ tailwind.config = {
                     boxShadow: theme('boxShadow.sm'),
                 },
 
-                /* --- NEW: Universal Section Styles --- */
+                /* --- Universal Section Styles --- */
                 '.content-section': {
                     backgroundColor: '#ffffff',
                     borderWidth: '1px',
@@ -142,7 +142,7 @@ tailwind.config = {
                     overflow: 'hidden',
                 },
                 
-                /* --- NEW: Inner Info Cards (for grouping text) --- */
+                /* --- Inner Info Cards --- */
                 '.info-card': {
                     backgroundColor: theme('colors.slate.50'),
                     borderWidth: '1px',
@@ -150,11 +150,37 @@ tailwind.config = {
                     borderRadius: theme('borderRadius.md'),
                     padding: theme('spacing.4'),
                     marginBottom: theme('spacing.4'),
-                    height: '100%', /* Ensure equal height in grids */
+                    height: '100%',
+                },
+
+                /* --- NEW: Sidebar Widget Link Style --- */
+                '.sidebar-nav-link': {
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: theme('spacing.2'),
+                    fontSize: theme('fontSize.xs'),
+                    color: theme('colors.blue.600'),
+                    paddingTop: '0.1rem',
+                    paddingBottom: '0.1rem',
+                    transition: 'all 0.2s ease',
+                    '&:hover': {
+                        color: theme('colors.brand.red'),
+                        textDecoration: 'underline',
+                    },
+                    'i': {
+                        fontSize: '10px',
+                        color: theme('colors.slate.400'),
+                        width: '14px', 
+                        textAlign: 'center',
+                        transition: 'color 0.2s ease',
+                    },
+                    '&:hover i': {
+                        color: theme('colors.brand.red'),
+                    }
                 }
             });
 
-            /* 2. PRINT STYLES (Global Overrides) */
+            /* 2. PRINT STYLES */
             addBase({
                 '@media print': {
                     'body': { 
@@ -177,7 +203,6 @@ tailwind.config = {
                     '.print-break-inside-avoid': { 
                         breakInside: 'avoid' 
                     },
-                    /* Force 2-column layout for inputs on print */
                     '.lg\\:flex-row': { 
                         flexDirection: 'row !important', 
                         display: 'flex !important' 
@@ -185,11 +210,9 @@ tailwind.config = {
                     '.lg\\:w-\\[280px\\]': { 
                         width: '40% !important' 
                     },
-                    /* Hide Sidebar on print */
                     '.lg\\:w-\\[300px\\]': { 
                         display: 'none !important' 
                     },
-                    /* Always show amortization table on print */
                     '#amortizationContainer': { 
                         display: 'block !important' 
                     },
@@ -200,16 +223,15 @@ tailwind.config = {
                 }
             });
 
-            /* 3. EXISTING COMPONENTS (Grids, Cards, etc.) */
+            /* 3. EXISTING COMPONENTS */
             addComponents({
                 '.calc-grid-5': {
                     display: 'grid',
-                    /* MODIFIED: High density grid, starts at 3 cols, scales to 8 */
                     gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
-                    gap: theme('spacing.2'), /* Reduced gap from 3 to 2 */
+                    gap: theme('spacing.2'), 
                     '@media (min-width: 640px)': { gridTemplateColumns: 'repeat(4, minmax(0, 1fr))' },
                     '@media (min-width: 768px)': { gridTemplateColumns: 'repeat(6, minmax(0, 1fr))' },
-                    '@media (min-width: 1024px)': { gridTemplateColumns: 'repeat(8, minmax(0, 1fr))' }, /* Target 8 columns */
+                    '@media (min-width: 1024px)': { gridTemplateColumns: 'repeat(8, minmax(0, 1fr))' }, 
                 },
                 '.calc-card-compact': {
                     position: 'relative',
@@ -217,31 +239,31 @@ tailwind.config = {
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    borderRadius: theme('borderRadius.md'), /* MODIFIED: slightly tighter radius */
+                    borderRadius: theme('borderRadius.md'), 
                     borderWidth: '1px',
                     borderColor: theme('colors.slate.100'),
                     backgroundColor: theme('colors.slate.50'),
-                    padding: theme('spacing.1.5'), /* MODIFIED: Ultra tight padding (was 3) */
+                    padding: theme('spacing.1.5'), 
                     textAlign: 'center',
                     transition: 'all 0.2s ease',
                     textDecoration: 'none',
                     '> div': {
-                        marginBottom: theme('spacing.1'), /* MODIFIED: Reduced margin */
+                        marginBottom: theme('spacing.1'), 
                         display: 'flex',
-                        height: theme('spacing.7'), /* MODIFIED: Reduced icon size (was 10) */
-                        width: theme('spacing.7'),  /* MODIFIED: Reduced icon size */
+                        height: theme('spacing.7'), 
+                        width: theme('spacing.7'),  
                         alignItems: 'center',
                         justifyContent: 'center',
                         borderRadius: '9999px',
                         backgroundColor: '#ffffff',
-                        fontSize: theme('fontSize.sm'), /* MODIFIED: Reduced icon font size */
+                        fontSize: theme('fontSize.sm'), 
                         color: theme('colors.brand.red'),
                         boxShadow: theme('boxShadow.sm'),
                         transition: 'transform 0.2s ease',
                     },
                     'h3': {
                         fontFamily: theme('fontFamily.heading'),
-                        fontSize: '11px', /* MODIFIED: Smaller font size */
+                        fontSize: '11px', 
                         fontWeight: '600',
                         lineHeight: '1.1',
                         color: theme('colors.slate.900'),
@@ -249,10 +271,10 @@ tailwind.config = {
                     },
                     'p': {
                         marginTop: '0',
-                        fontSize: '9px', /* MODIFIED: Tiny description */
+                        fontSize: '9px', 
                         lineHeight: '1.1',
                         color: theme('colors.slate.500'),
-                        display: 'block', /* Ensure it shows, but small */
+                        display: 'block', 
                     },
                     '&:hover': {
                         borderColor: 'rgba(241, 32, 61, 0.3)',
@@ -267,14 +289,14 @@ tailwind.config = {
                     display: 'flex',
                     alignItems: 'center',
                     gap: theme('spacing.4'),
-                    marginBottom: theme('spacing.6'), /* MODIFIED: Reduced margin */
+                    marginBottom: theme('spacing.6'), 
                 },
                 '.calc-icon': {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    height: theme('spacing.10'), /* MODIFIED: Reduced header icon */
-                    width: theme('spacing.10'),  /* MODIFIED: Reduced header icon */
+                    height: theme('spacing.10'), 
+                    width: theme('spacing.10'),  
                     borderRadius: '9999px',
                     backgroundImage: `linear-gradient(135deg, #f97316, ${theme('colors.brand.red')})`, 
                     color: '#ffffff',
@@ -283,7 +305,7 @@ tailwind.config = {
                 },
                 '.calc-title': {
                     fontFamily: theme('fontFamily.heading'),
-                    fontSize: theme('fontSize.xl'), /* MODIFIED: Slightly smaller */
+                    fontSize: theme('fontSize.xl'), 
                     fontWeight: '600',
                     color: theme('colors.brand.dark'),
                     lineHeight: '1.2',
@@ -301,11 +323,11 @@ tailwind.config = {
                 },
                 '.calc-subcat-title': {
                     fontFamily: theme('fontFamily.heading'),
-                    fontSize: theme('fontSize.sm'), /* MODIFIED: Smaller subcat title */
+                    fontSize: theme('fontSize.sm'), 
                     fontWeight: '600',
                     color: theme('colors.brand.dark'),
-                    marginBottom: theme('spacing.2'), /* MODIFIED: Reduced spacing */
-                    marginTop: theme('spacing.6'),    /* MODIFIED: Reduced spacing */
+                    marginBottom: theme('spacing.2'), 
+                    marginTop: theme('spacing.6'),    
                     paddingBottom: theme('spacing.1'),
                     borderBottomWidth: '1px',
                     borderBottomColor: theme('colors.slate.200'),
