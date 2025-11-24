@@ -39,62 +39,72 @@
     <div id="header-placeholder"></div>
 
     <main id="dashboard-page" class="bg-slate-50">
-        <div class="mx-auto main-container px-4 py-8">
+        <div class="mx-auto main-container px-2 py-4 sm:px-4">
             
-            <!-- MODIFIED: Updated shadow class to shadow-soft-glow to match the centralized config -->
-            <div class="overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-4 shadow-soft-glow sm:p-6">
-                <h1 class="font-heading text-xl font-semibold text-brand-dark">
-                    <span class="bg-gradient-to-r from-brand-red to-brand-dark bg-clip-text text-transparent">My DailyCalc Dashboard</span>
+            <!-- Header Row -->
+            <div class="mb-4">
+                <h1 class="font-heading text-lg font-bold text-brand-dark flex items-center gap-2">
+                    <i class="fa-solid fa-gauge-high text-brand-red"></i> Dashboard
                 </h1>
-                <p class="mt-1 text-sm text-slate-600">
-                    Your recent calculation history and saved presets are stored locally in this browser.
-                </p>
+                <p class="text-xs text-slate-500">Local history & saved presets.</p>
+            </div>
+
+            <!-- High Density 2-Column Grid -->
+            <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 items-start">
 
                 <!-- Section: My Calculation History -->
-                <section id="history-section" class="mt-6">
-                    <div class="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between">
-                        <h2 class="text-lg font-semibold text-brand-dark">
-                            Calculation History
-                        </h2>
-                        <button id="clearHistoryButton" class="inline-flex items-center justify-center gap-2 rounded-lg bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700 transition hover:bg-slate-200">
-                            <i class="fa-solid fa-trash-can"></i>
-                            Clear History
+                <section id="history-section" class="content-section h-full min-h-[300px]">
+                    <div class="bg-gradient-to-r from-brand-dark to-brand-red px-3 py-2 flex justify-between items-center border-b border-white/10">
+                        <div class="flex items-center gap-2">
+                            <h2 class="text-sm font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-clock-rotate-left text-white/80"></i> Recent History
+                            </h2>
+                            <span id="historyCount" class="text-[10px] font-medium text-white/80 bg-white/10 px-2 py-0.5 rounded-full">0</span>
+                        </div>
+                        <!-- Specific Clear Button -->
+                        <button id="clearHistoryButton" class="hidden text-[10px] font-semibold text-white/70 hover:text-white hover:bg-white/10 px-2 py-1 rounded transition">
+                            <i class="fa-solid fa-trash-can mr-1"></i> Clear History
                         </button>
                     </div>
 
                     <!-- History Container -->
-                    <div id="historyContainer" class="mt-4 flow-root">
-                        <!-- JS will inject content here -->
+                    <div id="historyContainer" class="max-h-[600px] overflow-y-auto slim-scroll">
+                        <!-- JS will inject rows here -->
                     </div>
 
                     <!-- History Empty State -->
-                    <div id="historyEmptyState" class="mt-4 hidden rounded-lg border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-6 text-center shadow-md">
-                        <i class="fa-solid fa-clock-rotate-left fa-2x text-slate-400"></i>
-                        <p class="mt-4 font-semibold text-brand-dark">No history yet</p>
-                        <p class="mt-1 text-sm text-slate-600">
-                            Your recent calculations will appear here automatically.
-                        </p>
+                    <div id="historyEmptyState" class="hidden flex flex-col items-center justify-center py-12 text-center text-slate-400">
+                        <i class="fa-solid fa-clock-rotate-left text-3xl mb-2 opacity-20"></i>
+                        <p class="text-xs font-medium text-slate-500">No history yet</p>
+                        <p class="text-[10px]">Calculations appear here automatically.</p>
                     </div>
                 </section>
 
                 <!-- Section: My Saved Presets -->
-                <section id="presets-section" class="mt-8 border-t border-slate-200 pt-6">
-                    <h2 class="text-lg font-semibold text-brand-dark">
-                        Saved Presets
-                    </h2>
+                <section id="presets-section" class="content-section h-full min-h-[300px]">
+                    <div class="bg-gradient-to-r from-brand-dark to-brand-red px-3 py-2 flex justify-between items-center border-b border-white/10">
+                        <div class="flex items-center gap-2">
+                            <h2 class="text-sm font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-bookmark text-white/80"></i> Saved Presets
+                            </h2>
+                            <span id="presetsCount" class="text-[10px] font-medium text-white/80 bg-white/10 px-2 py-0.5 rounded-full">0</span>
+                        </div>
+                        <!-- Specific Clear Button -->
+                        <button id="clearPresetsButton" class="hidden text-[10px] font-semibold text-white/70 hover:text-white hover:bg-white/10 px-2 py-1 rounded transition">
+                            <i class="fa-solid fa-trash-can mr-1"></i> Clear Presets
+                        </button>
+                    </div>
 
                     <!-- Presets Container -->
-                    <div id="presetsContainer" class="mt-4 flow-root">
-                        <!-- JS will inject content here -->
+                    <div id="presetsContainer" class="max-h-[600px] overflow-y-auto slim-scroll">
+                        <!-- JS will inject rows here -->
                     </div>
 
                     <!-- Presets Empty State -->
-                    <div id="presetsEmptyState" class="mt-4 hidden rounded-lg border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-6 text-center shadow-md">
-                        <i class="fa-solid fa-star fa-2x text-slate-400"></i>
-                        <p class="mt-4 font-semibold text-brand-dark">No presets saved</p>
-                        <p class="mt-1 text-sm text-slate-600">
-                            You can save your inputs on any calculator by clicking the "Save Preset" button.
-                        </p>
+                    <div id="presetsEmptyState" class="hidden flex flex-col items-center justify-center py-12 text-center text-slate-400">
+                        <i class="fa-solid fa-star text-3xl mb-2 opacity-20"></i>
+                        <p class="text-xs font-medium text-slate-500">No presets saved</p>
+                        <p class="text-[10px]">Save calculations to view them here.</p>
                     </div>
                 </section>
             </div>
