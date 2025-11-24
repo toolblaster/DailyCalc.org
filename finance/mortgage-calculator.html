@@ -697,17 +697,51 @@
                     setTimeout(() => btn.innerHTML = originalHtml, 2000);
                 }
             });
+
+            // --- SMART HISTORY SAVER ---
             let historyDebounce;
             function saveToHistory(price, rate, monthly) {
                 clearTimeout(historyDebounce);
+                
+                // Increased delay to 4000ms (4s) to ensure user has finished typing
                 historyDebounce = setTimeout(() => {
-                    const historyItem = { calculator: 'Mortgage Calculator', inputs: `$${price.toLocaleString()} @ ${rate}%`, result: `$${monthly.toLocaleString(undefined, {maximumFractionDigits: 2})}/mo`, timestamp: new Date().toISOString(), url: window.location.href };
-                    let history = JSON.parse(localStorage.getItem('dailyCalcHistory')) || [];
+                    
+                    // 1. Filter Junk: Don't save if price is unrealistically low (e.g. user is mid-typing "100")
+                    if (price < 1000 || monthly <= 0) return;
+
+                    const historyItem = { 
+                        calculator: 'Mortgage Calculator', 
+                        inputs: `$${price.toLocaleString()} @ ${rate}%`, 
+                        result: `$${monthly.toLocaleString(undefined, {maximumFractionDigits: 2})}/mo`, 
+                        timestamp: new Date().toISOString(), 
+                        url: window.location.href 
+                    };
+
+                    let history = [];
+                    try {
+                        history = JSON.parse(localStorage.getItem('dailyCalcHistory')) || [];
+                    } catch(e) {
+                        history = [];
+                    }
+
+                    // 2. Filter Duplicates: Check if this entry is identical to the very last one
+                    if (history.length > 0) {
+                        const lastItem = history[0];
+                        // If inputs and result are the same, skip saving (prevents duplicate spam)
+                        if (lastItem.inputs === historyItem.inputs && lastItem.result === historyItem.result) {
+                            return; 
+                        }
+                    }
+
                     history.unshift(historyItem);
+                    
+                    // Keep history clean (max 50 items)
                     if (history.length > 50) history.pop(); 
+                    
                     localStorage.setItem('dailyCalcHistory', JSON.stringify(history));
-                }, 2000); 
+                }, 4000); 
             }
+
             document.getElementById('shareBtn').addEventListener('click', () => {
                 const params = new URLSearchParams();
                 params.set('price', inputs.homePrice.value);
