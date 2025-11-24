@@ -27,6 +27,24 @@ tailwind.config = {
     plugins: [
         function({ addComponents, addBase, theme }) {
             
+            /* 0. GLOBAL TYPOGRAPHY (Centralized H2/H3) */
+            addBase({
+                'h2': { 
+                    fontSize: '18px', 
+                    fontWeight: '600', 
+                    lineHeight: '1.3',
+                    fontFamily: theme('fontFamily.heading'),
+                    color: theme('colors.brand.dark')
+                },
+                'h3': { 
+                    fontSize: '14px', 
+                    fontWeight: '600', 
+                    lineHeight: '1.4',
+                    fontFamily: theme('fontFamily.heading'),
+                    color: theme('colors.slate.800')
+                },
+            });
+
             /* 1. UNIVERSAL CALCULATOR UI COMPONENTS */
             addComponents({
                 /* --- Compact Inputs --- */
@@ -153,12 +171,12 @@ tailwind.config = {
                     height: '100%',
                 },
 
-                /* --- NEW: Sidebar Widget Link Style --- */
+                /* --- Sidebar Widget Link Style --- */
                 '.sidebar-nav-link': {
                     display: 'flex',
                     alignItems: 'center',
                     gap: theme('spacing.2'),
-                    fontSize: theme('fontSize.xs'),
+                    fontSize: '13px', /* Kept specific for nav legibility */
                     color: theme('colors.blue.600'),
                     paddingTop: '0.1rem',
                     paddingBottom: '0.1rem',
@@ -231,7 +249,8 @@ tailwind.config = {
                     gap: theme('spacing.2'), 
                     '@media (min-width: 640px)': { gridTemplateColumns: 'repeat(4, minmax(0, 1fr))' },
                     '@media (min-width: 768px)': { gridTemplateColumns: 'repeat(6, minmax(0, 1fr))' },
-                    '@media (min-width: 1024px)': { gridTemplateColumns: 'repeat(8, minmax(0, 1fr))' }, 
+                    /* MODIFIED: Changed from 8 to 7 columns max */
+                    '@media (min-width: 1024px)': { gridTemplateColumns: 'repeat(7, minmax(0, 1fr))' }, 
                 },
                 '.calc-card-compact': {
                     position: 'relative',
@@ -263,7 +282,7 @@ tailwind.config = {
                     },
                     'h3': {
                         fontFamily: theme('fontFamily.heading'),
-                        fontSize: '11px', 
+                        fontSize: '14px', 
                         fontWeight: '600',
                         lineHeight: '1.1',
                         color: theme('colors.slate.900'),
@@ -323,7 +342,7 @@ tailwind.config = {
                 },
                 '.calc-subcat-title': {
                     fontFamily: theme('fontFamily.heading'),
-                    fontSize: theme('fontSize.sm'), 
+                    fontSize: '18px', 
                     fontWeight: '600',
                     color: theme('colors.brand.dark'),
                     marginBottom: theme('spacing.2'), 
@@ -338,6 +357,11 @@ tailwind.config = {
                         color: theme('colors.brand.red'),
                         fontSize: theme('fontSize.xs'),
                     }
+                },
+
+                /* --- Category Page Specific Overrides --- */
+                '#category-page .calc-card-compact h3': {
+                    fontSize: '11px',
                 }
             })
         }
