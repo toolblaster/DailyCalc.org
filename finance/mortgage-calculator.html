@@ -80,7 +80,6 @@
             </h1>
 
             <!-- TOP ROW: CALCULATOR + SIDEBAR -->
-            <!-- MODIFIED: Removed lg:items-start to allow sidebar column to stretch to full height -->
             <div class="flex flex-col gap-4 lg:flex-row mb-8">
                 
                 <!-- LEFT: CALCULATOR CONTAINER (Inputs + Results) -->
@@ -96,7 +95,6 @@
                     <div class="flex flex-col gap-4 border-x border-b border-slate-300 bg-white p-3 shadow-sm rounded-b-md md:flex-row md:items-start">
                         
                         <!-- COLUMN 1: INPUTS -->
-                        <!-- MODIFIED: Darker bg (slate-100) and border (slate-300) for higher contrast -->
                         <div class="w-full shrink-0 bg-slate-100 p-3 rounded border border-slate-300 md:w-[280px] print-break-inside-avoid shadow-inner">
                             <form id="mortgageForm">
                                 <!-- Inputs -->
@@ -118,7 +116,8 @@
                                 <!-- Hidden Advanced Container -->
                                 <div id="moreOptionsContainer" class="hidden border-t border-slate-200 pt-2 mt-2 space-y-3">
                                     <!-- Annual Increases -->
-                                    <div class="border border-slate-200 p-2 rounded bg-white/50">
+                                    <!-- MODIFIED: Applied .calc-option-group -->
+                                    <div class="calc-option-group">
                                         <h3 class="text-[11px] font-bold text-slate-700 mb-1">Annual Tax & Cost Increase</h3>
                                         <div class="input-row"><label class="input-label w-[50%] text-slate-500">Property Tax</label><div class="relative w-[50%]"><input type="number" id="taxIncrease" value="0" class="compact-input pr-5 bg-white"><span class="absolute right-1.5 top-1 text-xs text-slate-400">%</span></div></div>
                                         <div class="input-row"><label class="input-label w-[50%] text-slate-500">Home Ins.</label><div class="relative w-[50%]"><input type="number" id="insIncrease" value="0" class="compact-input pr-5 bg-white"><span class="absolute right-1.5 top-1 text-xs text-slate-400">%</span></div></div>
@@ -126,7 +125,8 @@
                                         <div class="input-row"><label class="input-label w-[50%] text-slate-500">Other Costs</label><div class="relative w-[50%]"><input type="number" id="otherIncrease" value="0" class="compact-input pr-5 bg-white"><span class="absolute right-1.5 top-1 text-xs text-slate-400">%</span></div></div>
                                     </div>
                                     <!-- Extra Payments -->
-                                    <div class="border border-slate-200 p-2 rounded bg-white/50">
+                                    <!-- MODIFIED: Applied .calc-option-group -->
+                                    <div class="calc-option-group">
                                         <h3 class="text-[11px] font-bold text-slate-700 mb-1">Extra Payments</h3>
                                         <div class="mb-2"><div class="flex items-center gap-1 mb-1"><label class="text-[10px] font-medium text-slate-500">Extra Monthly Pay</label></div><div class="flex gap-1"><div class="relative w-[40%]"><span class="absolute left-1.5 top-1 text-[10px] text-slate-400">$</span><input type="number" id="extraMonthly" value="0" class="compact-input pl-4 bg-white"></div><span class="text-[10px] self-center text-slate-400">from</span><select id="extraMonthlyMonth" class="compact-select w-[40%]"><option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option><option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option><option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option></select></div></div>
                                         <div class="mb-2"><div class="flex items-center gap-1 mb-1"><label class="text-[10px] font-medium text-slate-500">Extra Yearly Pay</label></div><div class="flex gap-1"><div class="relative w-[40%]"><span class="absolute left-1.5 top-1 text-[10px] text-slate-400">$</span><input type="number" id="extraYearly" value="0" class="compact-input pl-4 bg-white"></div><span class="text-[10px] self-center text-slate-400">in</span><select id="extraYearlyMonth" class="compact-select w-[40%]"><option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option><option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option><option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option></select></div></div>
@@ -146,7 +146,8 @@
                                     <div class="flex-1 text-[11px]"><table class="w-full" id="resultTable"><tbody><tr class="border-b border-slate-100 legend-row" data-legend-for="principal"><td class="py-1 text-slate-600">Principal & Interest</td><td class="py-1 text-right font-medium text-slate-900" id="breakdownPI">$0.00</td></tr><tr class="border-b border-slate-100 legend-row" data-legend-for="tax"><td class="py-1 text-slate-600">Property Tax</td><td class="py-1 text-right font-medium text-slate-900" id="breakdownTax">$0.00</td></tr><tr class="border-b border-slate-100 legend-row" data-legend-for="ins"><td class="py-1 text-slate-600">Home Insurance</td><td class="py-1 text-right font-medium text-slate-900" id="breakdownIns">$0.00</td></tr><tr class="border-b border-slate-100 legend-row" data-legend-for="pmi"><td class="py-1 text-slate-600">PMI Insurance</td><td class="py-1 text-right font-medium text-slate-900" id="breakdownPMI">$0.00</td></tr><tr class="border-b border-slate-100 legend-row" data-legend-for="hoa"><td class="py-1 text-slate-600">HOA/Other Costs</td><td class="py-1 text-right font-medium text-slate-900" id="breakdownHOA">$0.00</td></tr><tr class="bg-slate-50 border-t border-slate-200"><td class="py-1.5 font-bold text-slate-800 pl-1">Total Out-of-Pocket</td><td class="py-1.5 text-right font-bold text-slate-900 pr-1" id="breakdownTotal">$0.00</td></tr></tbody></table></div>
                                     <div class="flex flex-col items-center w-[100px] shrink-0 gap-1"><div class="relative h-[90px] w-[90px] shrink-0"><svg viewBox="0 0 36 36" class="block h-full w-full rotate-[-90deg]"><path class="text-slate-100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="8" /><path id="chartRingPrincipal" data-id="principal" class="chart-segment text-[#166534]" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="8"></path><path id="chartRingTax" data-id="tax" class="chart-segment text-orange-400" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="8"></path><path id="chartRingIns" data-id="ins" class="chart-segment text-blue-400" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="8"></path><path id="chartRingPMI" data-id="pmi" class="chart-segment text-red-400" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="8"></path><path id="chartRingHOA" data-id="hoa" class="chart-segment text-purple-400" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="8"></path></svg><div id="chartCenterText" class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none text-center"><div class="text-[9px] text-slate-400 leading-tight">Monthly</div><div class="font-bold text-slate-700 text-[10px] leading-tight" id="centerTotalValue">-</div></div></div></div>
                                 </div>
-                                <div class="mt-3 rounded bg-slate-100 p-2 border border-slate-200"><table class="w-full text-xs"><tr><td class="py-0.5 text-slate-500">House Price</td><td class="py-0.5 text-right font-medium text-slate-800" id="summaryHousePrice">$0</td></tr><tr><td class="py-0.5 text-slate-500">Loan Amount</td><td class="py-0.5 text-right font-medium text-slate-800" id="summaryLoanAmount">$0</td></tr><tr><td class="py-0.5 text-slate-500">Down Payment</td><td class="py-0.5 text-right font-medium text-slate-800" id="summaryDownPayment">$0</td></tr><tr class="border-t border-slate-200/50"><td class="py-0.5 text-slate-500 pt-1" id="summaryTotalLabel">Total of 360 Mortgage Payments</td><td class="py-0.5 text-right font-semibold text-slate-800 pt-1" id="summaryTotalPayments">$0</td></tr><tr><td class="py-0.5 text-slate-500">Total Interest</td><td class="py-0.5 text-right font-semibold text-slate-800" id="summaryTotalInterest">$0</td></tr><tr><td class="py-0.5 text-slate-500">Mortgage Payoff Date</td><td class="py-0.5 text-right font-bold text-[#166534]" id="summaryPayoffDate">-</td></tr></table></div>
+                                <!-- MODIFIED: Applied .calc-results-summary -->
+                                <div class="calc-results-summary"><table class="w-full text-xs"><tr><td class="py-0.5 text-slate-500">House Price</td><td class="py-0.5 text-right font-medium text-slate-800" id="summaryHousePrice">$0</td></tr><tr><td class="py-0.5 text-slate-500">Loan Amount</td><td class="py-0.5 text-right font-medium text-slate-800" id="summaryLoanAmount">$0</td></tr><tr><td class="py-0.5 text-slate-500">Down Payment</td><td class="py-0.5 text-right font-medium text-slate-800" id="summaryDownPayment">$0</td></tr><tr class="border-t border-slate-200/50"><td class="py-0.5 text-slate-500 pt-1" id="summaryTotalLabel">Total of 360 Mortgage Payments</td><td class="py-0.5 text-right font-semibold text-slate-800 pt-1" id="summaryTotalPayments">$0</td></tr><tr><td class="py-0.5 text-slate-500">Total Interest</td><td class="py-0.5 text-right font-semibold text-slate-800" id="summaryTotalInterest">$0</td></tr><tr><td class="py-0.5 text-slate-500">Mortgage Payoff Date</td><td class="py-0.5 text-right font-bold text-[#166534]" id="summaryPayoffDate">-</td></tr></table></div>
                                 <div class="mt-2 no-print"><button type="button" id="toggleTableBtn" class="w-full rounded border border-slate-300 bg-white py-1.5 text-xs font-semibold text-slate-700 shadow-sm hover:bg-slate-50 transition">View Schedule <i class="fa-solid fa-chevron-down ml-1"></i></button></div>
                             </div>
                             <div id="amortizationContainer" class="mt-4 hidden rounded border border-slate-200 bg-white p-4 shadow-sm"><h3 class="mb-2 text-sm font-bold text-slate-700">Amortization Schedule</h3><div class="overflow-x-auto slim-scroll max-h-80"><table class="w-full min-w-[400px] text-left text-xs text-slate-600"><thead class="bg-slate-100 font-semibold text-slate-700 sticky top-0 shadow-sm"><tr><th class="px-2 py-1.5">Date</th><th class="px-2 py-1.5">Interest</th><th class="px-2 py-1.5">Principal</th><th class="px-2 py-1.5 text-right">Balance</th></tr></thead><tbody id="amortizationBody" class="divide-y divide-slate-100"></tbody></table></div></div>
@@ -160,14 +161,12 @@
                     <div class="w-full max-w-[702px] no-print">
                         <div class="content-section">
                             <div class="bg-gradient-to-r from-brand-dark to-brand-red px-4 py-3 border-b border-white/10">
-                                <!-- MODIFIED: Removed 'text-sm' so it inherits global H2 (18px) -->
                                 <h2 class="font-bold text-white">Mortgage Calculation Guide</h2>
                             </div>
                             <div class="p-5 text-xs text-slate-600 leading-relaxed grid grid-cols-1 gap-6">
                                 
                                 <!-- Introduction Section (What is a Mortgage?) -->
                                 <section class="info-card">
-                                    <!-- MODIFIED: Removed text-sm/etc if present, H3 inherits global (14px) -->
                                     <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
                                         <i class="fa-solid fa-house-chimney text-[#166534]"></i> What is a Mortgage?
                                     </h3>
@@ -378,13 +377,13 @@
                 </div>
 
                 <!-- RIGHT SIDEBAR (Sticky) -->
+                <!-- MODIFIED: Applied .ad-box -->
                 <div class="w-full shrink-0 space-y-4 lg:w-[300px] no-print">
-                    <div class="flex h-[250px] w-full items-center justify-center rounded border border-slate-200 bg-slate-50"><span class="text-xs font-semibold text-slate-400">ADVERTISEMENT<br>300x250</span></div>
+                    <div class="ad-box"><span class="text-xs font-semibold text-slate-400">ADVERTISEMENT<br>300x250</span></div>
                     
                     <!-- NEW SECTION: Mortgage Checklist -->
                     <div class="content-section">
                         <div class="bg-gradient-to-r from-brand-dark to-brand-red px-4 py-2">
-                            <!-- MODIFIED: Removed text-sm, inherits global H3 (14px) -->
                             <h3 class="font-bold text-white text-center">Mortgage Readiness Checklist</h3>
                         </div>
                         <div class="p-4 text-xs text-slate-600">
