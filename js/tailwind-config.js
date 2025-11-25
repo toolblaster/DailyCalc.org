@@ -2,7 +2,15 @@
   DailyCalc.org Centralized Tailwind Configuration
   
   This file contains the configuration for Tailwind CSS used across the entire site.
-  It includes CUSTOM COMPONENTS for the universal calculator style (inputs, charts, print).
+  It defines the UNIVERSAL DESIGN SYSTEM for all calculators (Finance, Health, Life, Converters).
+  
+  Key Components:
+  - Colors: Brand Red (#F1203D), Dark (#050505), Success Green (#518428)
+  - .compact-input: Standardized input fields
+  - .calc-tool-header: Input section header (Red/Dark Gradient)
+  - .result-header: Output section header (Green Gradient)
+  - .stat-card: Summary result boxes with colored accents
+  - .feature-card: Dense info cards for tips/costs
 */
 
 tailwind.config = {
@@ -15,7 +23,9 @@ tailwind.config = {
             colors: {
                 brand: {
                     red: '#F1203D',
-                    dark: '#050505'
+                    dark: '#050505',
+                    green: '#518428',      // Universal Success/Result Color
+                    'green-dark': '#3e651e' // Darker shade for gradients
                 }
             },
             boxShadow: {
@@ -27,7 +37,7 @@ tailwind.config = {
     plugins: [
         function({ addComponents, addBase, theme }) {
             
-            /* 0. GLOBAL TYPOGRAPHY (Centralized H2/H3) */
+            /* 0. GLOBAL TYPOGRAPHY */
             addBase({
                 'h2': { 
                     fontSize: '18px', 
@@ -47,24 +57,23 @@ tailwind.config = {
 
             /* 1. UNIVERSAL CALCULATOR UI COMPONENTS */
             addComponents({
-                /* --- Compact Inputs --- */
+                /* --- Compact Inputs (Standard for ALL tools) --- */
                 '.compact-input': {
                     width: '100%',
                     padding: '2px 6px',
                     fontSize: '13px',
                     borderWidth: '1px',
-                    borderColor: theme('colors.slate.300'), // #cbd5e1
+                    borderColor: theme('colors.slate.300'),
                     borderRadius: '3px',
                     textAlign: 'right',
-                    backgroundColor: '#ffffff', /* MODIFIED: Added white bg for contrast */
+                    backgroundColor: '#ffffff',
                     transition: 'border-color 0.15s ease-in-out',
                     height: '28px',
                     '&:focus': {
                         outline: 'none',
-                        borderColor: '#166534', // Green-800
-                        boxShadow: '0 0 0 1px #166534',
+                        borderColor: theme('colors.brand.green'),
+                        boxShadow: `0 0 0 1px ${theme('colors.brand.green')}`,
                     },
-                    /* Remove spinners */
                     '&::-webkit-inner-spin-button, &::-webkit-outer-spin-button': {
                         '-webkit-appearance': 'none',
                         margin: '0',
@@ -81,6 +90,11 @@ tailwind.config = {
                     backgroundColor: 'white',
                     color: theme('colors.slate.900'),
                     height: '28px',
+                    '&:focus': {
+                        outline: 'none',
+                        borderColor: theme('colors.brand.green'),
+                        boxShadow: `0 0 0 1px ${theme('colors.brand.green')}`,
+                    },
                 },
 
                 /* --- Input Layout Rows --- */
@@ -95,45 +109,12 @@ tailwind.config = {
                 '.input-label': {
                     fontSize: '12px',
                     fontWeight: '500',
-                    color: theme('colors.slate.700'), // #334155
+                    color: theme('colors.slate.700'),
                     textAlign: 'right',
                     whiteSpace: 'nowrap',
                 },
 
-                /* --- Charts & Visuals --- */
-                '.chart-segment': {
-                    transition: 'stroke-dasharray 0.6s ease-out, opacity 0.2s ease, stroke-width 0.2s ease, filter 0.2s ease',
-                    cursor: 'pointer',
-                    transformOrigin: 'center',
-                    '&:hover': {
-                        opacity: '1 !important',
-                        strokeWidth: '12 !important',
-                        filter: 'drop-shadow(0px 0px 2px rgba(0,0,0,0.2))',
-                    }
-                },
-
-                '.legend-row': {
-                    transition: 'background-color 0.2s ease',
-                    borderRadius: '2px',
-                    '&.highlight': {
-                        backgroundColor: theme('colors.slate.100'), // #f1f5f9
-                        fontWeight: '600',
-                    }
-                },
-
-                /* --- Utilities --- */
-                '.slim-scroll': {
-                    '&::-webkit-scrollbar': {
-                        height: '6px',
-                        width: '6px',
-                    },
-                    '&::-webkit-scrollbar-thumb': {
-                        backgroundColor: theme('colors.slate.300'),
-                        borderRadius: '3px',
-                    }
-                },
-                
-                /* --- Calculator Header Bar --- */
+                /* --- Calculator Header (Input Side - Red/Dark) --- */
                 '.calc-tool-header': {
                     display: 'flex',
                     alignItems: 'center',
@@ -142,72 +123,86 @@ tailwind.config = {
                     borderTopLeftRadius: theme('borderRadius.md'),
                     borderTopRightRadius: theme('borderRadius.md'),
                     backgroundImage: `linear-gradient(to right, ${theme('colors.brand.dark')}, ${theme('colors.brand.red')})`,
-                    paddingLeft: theme('spacing.4'),
-                    paddingRight: theme('spacing.4'),
-                    paddingTop: theme('spacing.2'),
-                    paddingBottom: theme('spacing.2'),
+                    padding: `${theme('spacing.2')} ${theme('spacing.4')}`,
                     color: 'white',
                     boxShadow: theme('boxShadow.sm'),
                 },
 
-                /* --- Universal Section Styles --- */
+                /* --- Result Header (Output Side - Green Gradient) --- */
+                '.result-header': {
+                    backgroundImage: `linear-gradient(to right, ${theme('colors.brand.green')}, ${theme('colors.brand.green-dark')})`,
+                    padding: `${theme('spacing.3')} ${theme('spacing.4')}`,
+                    color: 'white',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    position: 'relative',
+                    zIndex: '10',
+                },
+
+                /* --- Universal Section Containers --- */
                 '.content-section': {
                     backgroundColor: '#ffffff',
                     borderWidth: '1px',
-                    borderColor: theme('colors.slate.300'), // Unified darker border
+                    borderColor: theme('colors.slate.400'), // Sharper contrast
                     borderRadius: theme('borderRadius.lg'),
                     boxShadow: theme('boxShadow.sm'),
                     overflow: 'hidden',
                 },
                 
-                /* --- Inner Info Cards --- */
+                /* --- Inner Info Cards (Standard Text) --- */
                 '.info-card': {
                     backgroundColor: theme('colors.slate.50'),
                     borderWidth: '1px',
-                    borderColor: theme('colors.slate.200'),
+                    borderColor: theme('colors.slate.400'), // Sharper contrast
                     borderRadius: theme('borderRadius.md'),
                     padding: theme('spacing.4'),
                     marginBottom: theme('spacing.4'),
                     height: '100%',
                 },
 
-                /* --- NEW: Component Classes (Extracted from Calculator Page) --- */
-                '.ad-box': {
+                /* --- Feature Card (Dense Info Grid - e.g. Costs/Tips) --- */
+                '.feature-card': {
                     display: 'flex',
-                    height: '250px',
-                    width: '100%',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: theme('borderRadius.md'), // "rounded" defaults to 0.25rem, but using md for consistency
-                    borderWidth: '1px',
-                    borderColor: theme('colors.slate.200'),
-                    backgroundColor: theme('colors.slate.50'),
-                },
-                '.calc-option-group': {
-                    borderWidth: '1px',
-                    borderColor: theme('colors.slate.200'),
+                    gap: theme('spacing.2'),
+                    alignItems: 'flex-start',
                     padding: theme('spacing.2'),
                     borderRadius: theme('borderRadius.DEFAULT'),
-                    backgroundColor: 'rgba(255, 255, 255, 0.5)', // bg-white/50
-                },
-                '.calc-results-summary': {
-                    marginTop: theme('spacing.3'),
-                    borderRadius: theme('borderRadius.DEFAULT'),
-                    backgroundColor: theme('colors.slate.100'),
-                    padding: theme('spacing.2'),
                     borderWidth: '1px',
-                    borderColor: theme('colors.slate.200'),
+                    borderColor: theme('colors.slate.100'),
+                    backgroundColor: '#ffffff',
+                    transition: 'all 0.2s ease',
+                    boxShadow: theme('boxShadow.sm'),
+                    '&:hover': {
+                        borderColor: theme('colors.slate.300'),
+                        transform: 'translateY(-1px)',
+                        boxShadow: theme('boxShadow.md'),
+                    }
                 },
 
-                /* --- Sidebar Widget Link Style --- */
+                /* --- Stat Card (Summary Result Grid) --- */
+                '.stat-card': {
+                    backgroundColor: '#ffffff',
+                    padding: theme('spacing.3'),
+                    borderRadius: theme('borderRadius.DEFAULT'),
+                    borderWidth: '1px',
+                    borderColor: theme('colors.slate.200'),
+                    borderLeftWidth: '4px', // Distinct accent color
+                    boxShadow: theme('boxShadow.sm'),
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    height: '100%',
+                },
+
+                /* --- Sidebar Widget Link --- */
                 '.sidebar-nav-link': {
                     display: 'flex',
                     alignItems: 'center',
                     gap: theme('spacing.2'),
-                    fontSize: '13px', /* Kept specific for nav legibility */
+                    fontSize: '13px', 
                     color: theme('colors.blue.600'),
-                    paddingTop: '0.1rem',
-                    paddingBottom: '0.1rem',
+                    padding: '0.1rem 0',
                     transition: 'all 0.2s ease',
                     '&:hover': {
                         color: theme('colors.brand.red'),
@@ -223,61 +218,59 @@ tailwind.config = {
                     '&:hover i': {
                         color: theme('colors.brand.red'),
                     }
-                }
-            });
+                },
 
-            /* 2. PRINT STYLES */
-            addBase({
-                '@media print': {
-                    'body': { 
-                        backgroundColor: 'white', 
-                        color: 'black' 
-                    },
-                    '#header-placeholder, #footer-placeholder, .no-print, nav[aria-label="Breadcrumb"]': { 
-                        display: 'none !important' 
-                    },
-                    '.main-container': { 
-                        padding: '0', 
-                        maxWidth: '100%', 
-                        margin: '0' 
-                    },
-                    '.print-full-width': { 
-                        width: '100% !important', 
-                        maxWidth: 'none !important', 
-                        flex: 'none !important' 
-                    },
-                    '.print-break-inside-avoid': { 
-                        breakInside: 'avoid' 
-                    },
-                    '.lg\\:flex-row': { 
-                        flexDirection: 'row !important', 
-                        display: 'flex !important' 
-                    },
-                    '.lg\\:w-\\[280px\\]': { 
-                        width: '40% !important' 
-                    },
-                    '.lg\\:w-\\[300px\\]': { 
-                        display: 'none !important' 
-                    },
-                    '#amortizationContainer': { 
-                        display: 'block !important' 
-                    },
-                    '.overflow-x-auto': { 
-                        overflow: 'visible !important', 
-                        maxHeight: 'none !important' 
+                /* --- Charts & Visuals --- */
+                '.chart-segment': {
+                    transition: 'stroke-dasharray 0.6s ease-out, opacity 0.2s ease, stroke-width 0.2s ease, filter 0.2s ease',
+                    cursor: 'pointer',
+                    transformOrigin: 'center',
+                    '&:hover': {
+                        opacity: '1 !important',
+                        strokeWidth: '12 !important',
+                        filter: 'drop-shadow(0px 0px 2px rgba(0,0,0,0.2))',
                     }
-                }
-            });
+                },
+                '.legend-row': {
+                    transition: 'background-color 0.2s ease',
+                    borderRadius: '2px',
+                    '&.highlight': {
+                        backgroundColor: theme('colors.slate.100'),
+                        fontWeight: '600',
+                    }
+                },
 
-            /* 3. EXISTING COMPONENTS */
-            addComponents({
+                /* --- Utilities --- */
+                '.slim-scroll': {
+                    '&::-webkit-scrollbar': { height: '6px', width: '6px' },
+                    '&::-webkit-scrollbar-thumb': { backgroundColor: theme('colors.slate.300'), borderRadius: '3px' }
+                },
+                '.ad-box': {
+                    display: 'flex',
+                    height: '250px',
+                    width: '100%',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: theme('borderRadius.md'),
+                    borderWidth: '1px',
+                    borderColor: theme('colors.slate.200'),
+                    backgroundColor: theme('colors.slate.50'),
+                },
+                '.calc-option-group': {
+                    borderWidth: '1px',
+                    borderColor: theme('colors.slate.200'),
+                    padding: theme('spacing.2'),
+                    borderRadius: theme('borderRadius.DEFAULT'),
+                    backgroundColor: 'rgba(255, 255, 255, 0.5)', 
+                },
+
+                /* --- Category Cards (Homepage) --- */
                 '.calc-grid-5': {
                     display: 'grid',
                     gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
                     gap: theme('spacing.2'), 
                     '@media (min-width: 640px)': { gridTemplateColumns: 'repeat(4, minmax(0, 1fr))' },
                     '@media (min-width: 768px)': { gridTemplateColumns: 'repeat(6, minmax(0, 1fr))' },
-                    /* MODIFIED: Changed from 8 to 7 columns max */
                     '@media (min-width: 1024px)': { gridTemplateColumns: 'repeat(7, minmax(0, 1fr))' }, 
                 },
                 '.calc-card-compact': {
@@ -386,8 +379,6 @@ tailwind.config = {
                         fontSize: theme('fontSize.xs'),
                     }
                 },
-
-                /* --- Category Page Specific Overrides --- */
                 '#category-page .calc-card-compact h3': {
                     fontSize: '11px',
                 }
