@@ -1,16 +1,6 @@
 /*
   DailyCalc.org Centralized Tailwind Configuration
-  
-  This file contains the configuration for Tailwind CSS used across the entire site.
-  It defines the UNIVERSAL DESIGN SYSTEM for all calculators (Finance, Health, Life, Converters).
-  
-  Key Components:
-  - Colors: Brand Red (#F1203D), Dark (#050505), Success Green (#518428)
-  - .compact-input: Standardized input fields
-  - .calc-tool-header: Input section header (Red/Dark Gradient)
-  - .result-header: Output section header (Green Gradient)
-  - .stat-card: Summary result boxes with colored accents
-  - .feature-card: Dense info cards for tips/costs
+  ... (Previous config preserved)
 */
 
 tailwind.config = {
@@ -24,8 +14,8 @@ tailwind.config = {
                 brand: {
                     red: '#F1203D',
                     dark: '#050505',
-                    green: '#518428',      // Universal Success/Result Color
-                    'green-dark': '#3e651e' // Darker shade for gradients
+                    green: '#518428',      
+                    'green-dark': '#3e651e' 
                 }
             },
             boxShadow: {
@@ -57,7 +47,7 @@ tailwind.config = {
 
             /* 1. UNIVERSAL CALCULATOR UI COMPONENTS */
             addComponents({
-                /* --- Compact Inputs (Standard for ALL tools) --- */
+                /* --- Compact Inputs --- */
                 '.compact-input': {
                     width: '100%',
                     padding: '2px 6px',
@@ -114,7 +104,7 @@ tailwind.config = {
                     whiteSpace: 'nowrap',
                 },
 
-                /* --- Calculator Header (Input Side - Red/Dark) --- */
+                /* --- Headers --- */
                 '.calc-tool-header': {
                     display: 'flex',
                     alignItems: 'center',
@@ -128,7 +118,6 @@ tailwind.config = {
                     boxShadow: theme('boxShadow.sm'),
                 },
 
-                /* --- Result Header (Output Side - Green Gradient) --- */
                 '.result-header': {
                     backgroundImage: `linear-gradient(to right, ${theme('colors.brand.green')}, ${theme('colors.brand.green-dark')})`,
                     padding: `${theme('spacing.3')} ${theme('spacing.4')}`,
@@ -140,28 +129,27 @@ tailwind.config = {
                     zIndex: '10',
                 },
 
-                /* --- Universal Section Containers --- */
+                /* --- Containers --- */
                 '.content-section': {
                     backgroundColor: '#ffffff',
                     borderWidth: '1px',
-                    borderColor: theme('colors.slate.400'), // Sharper contrast
+                    borderColor: theme('colors.slate.400'),
                     borderRadius: theme('borderRadius.lg'),
                     boxShadow: theme('boxShadow.sm'),
                     overflow: 'hidden',
                 },
                 
-                /* --- Inner Info Cards (Standard Text) --- */
                 '.info-card': {
                     backgroundColor: theme('colors.slate.50'),
                     borderWidth: '1px',
-                    borderColor: theme('colors.slate.400'), // Sharper contrast
+                    borderColor: theme('colors.slate.400'),
                     borderRadius: theme('borderRadius.md'),
                     padding: theme('spacing.4'),
                     marginBottom: theme('spacing.4'),
                     height: '100%',
                 },
 
-                /* --- Feature Card (Dense Info Grid - e.g. Costs/Tips) --- */
+                /* --- Feature & Stat Cards --- */
                 '.feature-card': {
                     display: 'flex',
                     gap: theme('spacing.2'),
@@ -180,14 +168,13 @@ tailwind.config = {
                     }
                 },
 
-                /* --- Stat Card (Summary Result Grid) --- */
                 '.stat-card': {
                     backgroundColor: '#ffffff',
                     padding: theme('spacing.3'),
                     borderRadius: theme('borderRadius.DEFAULT'),
                     borderWidth: '1px',
                     borderColor: theme('colors.slate.200'),
-                    borderLeftWidth: '4px', // Distinct accent color
+                    borderLeftWidth: '4px', 
                     boxShadow: theme('boxShadow.sm'),
                     display: 'flex',
                     flexDirection: 'column',
@@ -195,7 +182,34 @@ tailwind.config = {
                     height: '100%',
                 },
 
-                /* --- Sidebar Widget Link --- */
+                /* --- NEW: Widget Buttons (Sidebar Actions) --- */
+                '.widget-btn': {
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '32px',
+                    width: '100%',
+                    borderRadius: '6px',
+                    borderWidth: '1px',
+                    borderColor: theme('colors.slate.200'),
+                    backgroundColor: '#ffffff',
+                    color: theme('colors.slate.500'),
+                    fontSize: '13px',
+                    transition: 'all 0.15s ease',
+                    cursor: 'pointer',
+                    '&:hover': {
+                        borderColor: theme('colors.slate.300'),
+                        backgroundColor: theme('colors.slate.50'),
+                        color: theme('colors.brand.dark'),
+                    },
+                    '&.active': {
+                        borderColor: theme('colors.brand.green'),
+                        backgroundColor: '#f0fdf4', // green-50
+                        color: theme('colors.brand.green'),
+                    }
+                },
+
+                /* --- Legacy & Other --- */
                 '.sidebar-nav-link': {
                     display: 'flex',
                     alignItems: 'center',
@@ -219,8 +233,6 @@ tailwind.config = {
                         color: theme('colors.brand.red'),
                     }
                 },
-
-                /* --- Charts & Visuals --- */
                 '.chart-segment': {
                     transition: 'stroke-dasharray 0.6s ease-out, opacity 0.2s ease, stroke-width 0.2s ease, filter 0.2s ease',
                     cursor: 'pointer',
@@ -239,8 +251,6 @@ tailwind.config = {
                         fontWeight: '600',
                     }
                 },
-
-                /* --- Utilities --- */
                 '.slim-scroll': {
                     '&::-webkit-scrollbar': { height: '6px', width: '6px' },
                     '&::-webkit-scrollbar-thumb': { backgroundColor: theme('colors.slate.300'), borderRadius: '3px' }
@@ -263,8 +273,14 @@ tailwind.config = {
                     borderRadius: theme('borderRadius.DEFAULT'),
                     backgroundColor: 'rgba(255, 255, 255, 0.5)', 
                 },
-
-                /* --- Category Cards (Homepage) --- */
+                '.calc-results-summary': {
+                    marginTop: theme('spacing.3'),
+                    borderRadius: theme('borderRadius.DEFAULT'),
+                    backgroundColor: theme('colors.slate.100'),
+                    padding: theme('spacing.2'),
+                    borderWidth: '1px',
+                    borderColor: theme('colors.slate.200'),
+                },
                 '.calc-grid-5': {
                     display: 'grid',
                     gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
