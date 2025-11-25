@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mortgage Calculator | Monthly Payment & Interest</title>
-    <meta name="description" content="Free Mortgage Calculator. Estimate monthly payments, taxes, PMI & insurance. View amortization schedules and payoff strategies.">
+    <meta name="description" content="Free Mortgage Calculator. Estimate 2025 monthly payments, taxes, PMI & insurance. View amortization schedules and payoff strategies for US fixed-rate loans.">
     <meta name="keywords" content="mortgage calculator, home loan, pmi calculator, amortization schedule, interest rate, housing market">
     
     <link rel="canonical" href="https://dailycalc.org/finance/mortgage-calculator.html">
@@ -130,8 +130,8 @@
                                 </div>
                                 
                                 <div class="input-row mb-3">
-                                    <label for="interestRate" class="input-label w-[35%] text-slate-700 font-bold">Interest Rate <span class="font-normal text-[10px] text-slate-500">(Fixed)</span></label>
-                                    <div class="relative w-[65%]">
+                                    <label for="interestRate" class="input-label w-[40%] text-slate-700 font-bold whitespace-normal leading-tight">Interest Rate <span class="font-normal text-[10px] text-slate-500 block sm:inline">(Fixed)</span></label>
+                                    <div class="relative w-[60%]">
                                         <input type="number" id="interestRate" value="6.5" step="0.01" class="compact-input pr-6 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-8">
                                         <span class="absolute right-2 top-1.5 text-xs text-slate-500">%</span>
                                     </div>
@@ -289,10 +289,9 @@
                         <div class="flex-1 min-w-0 print-full-width flex flex-col gap-4">
 
                             <!-- UNIFIED DASHBOARD CARD -->
-                            <!-- MODIFIED: Changed border-slate-200 to border-slate-400 -->
                             <div class="rounded-lg border border-slate-400 bg-white shadow-lg overflow-hidden flex flex-col">
                                 
-                                <!-- 1. HEADER: Result & Actions (Using new class) -->
+                                <!-- 1. HEADER: Result & Actions -->
                                 <div class="result-header">
                                     <div>
                                         <div class="text-[10px] font-semibold uppercase tracking-wider text-green-100/80">Monthly Pay</div>
@@ -334,7 +333,7 @@
                                         </div>
                                     </div>
 
-                                    <!-- Table (Right) - Using Table element for perfect alignment -->
+                                    <!-- Table (Right) -->
                                     <div class="flex-1 w-full text-xs">
                                         <div id="resultTable" class="w-full">
                                             <!-- Principal -->
@@ -386,55 +385,65 @@
                                     </div>
                                 </div>
                                 
-                                <!-- 3. SUMMARY FOOTER (Using .stat-card) -->
-                                <div class="bg-slate-50 px-4 py-3 border-t border-slate-100">
-                                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-y-3 gap-x-3 text-xs">
+                                <!-- 3. SUMMARY FOOTER (Refined to 3 cols max, card style) -->
+                                <div class="bg-slate-50 px-4 py-4 border-t border-slate-100">
+                                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-xs">
                                         
+                                        <!-- Loan Amount -->
                                         <div class="stat-card border-l-[#428bca]">
                                             <span class="text-[9px] text-slate-400 font-medium uppercase tracking-wide mb-0.5">Loan Amount</span>
                                             <span class="font-bold text-slate-700 text-xs" id="summaryLoanAmount">$0</span>
                                         </div>
                                         
+                                        <!-- Down Payment -->
                                         <div class="stat-card border-l-slate-400">
                                             <span class="text-[9px] text-slate-400 font-medium uppercase tracking-wide mb-0.5">Down Payment</span>
                                             <span class="font-bold text-slate-700 text-xs" id="summaryDownPayment">$0</span>
                                         </div>
                                         
+                                        <!-- Total Interest -->
                                         <div class="stat-card border-l-[#428bca]">
                                             <span class="text-[9px] text-slate-400 font-medium uppercase tracking-wide mb-0.5">Total Interest</span>
                                             <span class="font-bold text-slate-700 text-xs" id="summaryTotalInterest">$0</span>
                                         </div>
                                         
+                                        <!-- Total Principal & Int. -->
                                         <div class="stat-card border-l-[#428bca]">
                                             <span class="text-[9px] text-slate-400 font-medium uppercase tracking-wide mb-0.5" id="summaryTotalLabel">Total Principal & Int.</span>
                                             <span class="font-bold text-slate-700 text-xs" id="summaryTotalPayments">$0</span>
                                         </div>
-
+                                        
+                                        <!-- Total Tax -->
                                         <div class="stat-card border-l-[#96c03b]">
                                             <span class="text-[9px] text-slate-400 font-medium uppercase tracking-wide mb-0.5">Total Tax</span>
                                             <span class="font-bold text-slate-700 text-xs" id="summaryTotalTax">$0</span>
                                         </div>
-                                        
+
+                                        <!-- Total Insurance -->
                                         <div class="stat-card border-l-[#a90000]">
                                             <span class="text-[9px] text-slate-400 font-medium uppercase tracking-wide mb-0.5">Total Insurance</span>
                                             <span class="font-bold text-slate-700 text-xs" id="summaryTotalIns">$0</span>
                                         </div>
 
+                                        <!-- Total PMI/Fees -->
                                         <div class="stat-card border-l-[#d9534f]">
                                             <span class="text-[9px] text-slate-400 font-medium uppercase tracking-wide mb-0.5">Total PMI / Fees</span>
                                             <span class="font-bold text-slate-700 text-xs"><span id="summaryTotalPMI">$0</span> / <span id="summaryTotalHOA">$0</span></span>
                                         </div>
                                         
+                                        <!-- All-in Cost -->
                                         <div class="stat-card border-l-slate-800">
-                                            <span class="text-[9px] text-slate-400 font-medium uppercase tracking-wide mb-0.5 text-[#518428]">Total All-in Cost</span>
+                                            <span class="text-[9px] text-slate-400 font-medium uppercase tracking-wide mb-0.5 text-green-600">Total All-in Cost</span>
                                             <span class="font-bold text-slate-900 text-xs" id="summaryTotalAllIn">$0</span>
                                         </div>
 
+                                        <!-- Payoff Date -->
                                         <div class="stat-card border-l-[#518428]">
                                             <span class="text-[9px] text-slate-400 font-medium uppercase tracking-wide mb-0.5">Payoff Date</span>
                                             <span class="font-bold text-[#518428] text-xs" id="summaryPayoffDate">-</span>
                                         </div>
 
+                                        <!-- Hidden House Price -->
                                         <span id="summaryHousePrice" class="hidden"></span>
                                     </div>
                                 </div>
@@ -472,6 +481,9 @@
                         </div>
                     </div>
 
+                    <!-- NEW: Mobile Widget Placeholder (Visible only on mobile) -->
+                    <div id="mobile-widget-placeholder" class="md:hidden mb-8"></div>
+
                     <!-- STRONG VISUAL SEPARATOR -->
                     <div class="w-full max-w-[702px] my-10 border-t-[6px] border-slate-400 rounded-full no-print"></div>
 
@@ -489,10 +501,10 @@
                                         <i class="fa-solid fa-house-chimney text-[#518428]"></i> What is a Mortgage?
                                     </h3>
                                     <p class="mb-3">
-                                        A mortgage is a loan specifically designed for purchasing a home or other real estate. The property itself serves as collateral for the loan. Buying a home is likely the biggest purchase of your life, and our free <strong>Mortgage Calculator</strong> helps you estimate your total monthly payment, not just the loan repayment.
+                                        A mortgage is a loan specifically designed for purchasing a home or other real estate. The property itself serves as collateral for the loan. Buying a home is likely the biggest purchase of your life, and our free <strong>Mortgage Calculator</strong> helps you estimate your total monthly payment for 2025 and beyond.
                                     </p>
                                     <p>
-                                        By factoring in property taxes, homeowners insurance, and PMI, you get a realistic picture of your true housing costs. Use this tool to compare different loan scenarios, see how a larger down payment affects your wallet, and plan for a financially secure future.
+                                        By factoring in property taxes, homeowners insurance, and PMI, you get a realistic picture of your true housing costs. <em>(Note: This tool is optimized for US fixed-rate loans.)</em> Use this tool to compare different loan scenarios, see how a larger down payment affects your wallet, and plan for a financially secure future. While primarily designed for US fixed-rate mortgages, the math works for any standard amortizing loan.
                                     </p>
                                 </section>
 
@@ -675,7 +687,7 @@
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div class="bg-white p-3 rounded border border-slate-200">
                                             <strong class="text-brand-dark block mb-1">LTV (Loan-to-Value)</strong>
-                                            <p class="text-slate-500">The ratio of your loan amount to the home's value. Lenders use this to determine risk. 80% LTV is the magic number to avoid PMI.</p>
+                                            <p class="text-slate-500">The ratio of your loan amount to the home's value. Lenders use this to determine risk. <strong>Tip:</strong> keeping LTV under 80% usually avoids PMI.</p>
                                         </div>
                                         <div class="bg-white p-3 rounded border border-slate-200">
                                             <strong class="text-brand-dark block mb-1">DTI (Debt-to-Income)</strong>
@@ -700,6 +712,12 @@
 
                 <!-- RIGHT SIDEBAR (Sticky) -->
                 <div class="w-full shrink-0 space-y-4 lg:w-[300px] no-print">
+                    
+                    <!-- NEW: Desktop Widget Placeholder (Hidden on mobile) -->
+                    <!-- Renamed from 'sidebar-widget-container' to be explicit, though I will update JS to handle both or fallback -->
+                    <div id="desktop-widget-placeholder" class="hidden md:block"></div>
+                    <!-- Kept old ID for safety if JS isn't fully updated yet, but intended to be replaced by logic -->
+                    
                     <div class="ad-box"><span class="text-xs font-semibold text-slate-400">ADVERTISEMENT<br>300x250</span></div>
                     
                     <!-- NEW SECTION: Mortgage Checklist -->
