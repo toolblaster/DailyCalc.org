@@ -66,9 +66,9 @@
             <!-- Breadcrumb -->
             <nav class="mb-3 text-xs text-slate-500 no-print" aria-label="Breadcrumb">
                 <ol class="flex items-center gap-1">
-                    <li><a href="/" class="hover:text-green-700">Home</a></li>
+                    <li><a href="/" class="hover:text-[#518428]">Home</a></li>
                     <li><span class="text-slate-400">/</span></li>
-                    <li><a href="/finance/" class="hover:text-green-700">Finance</a></li>
+                    <li><a href="/finance/" class="hover:text-[#518428]">Finance</a></li>
                     <li><span class="text-slate-400">/</span></li>
                     <li><span class="font-medium text-slate-700">Mortgage Calculator</span></li>
                 </ol>
@@ -77,6 +77,7 @@
             <!-- PAGE TITLE -->
             <h1 class="mb-6 font-heading text-2xl font-bold text-brand-dark">
                 <span class="bg-gradient-to-r from-brand-dark to-brand-red bg-clip-text text-transparent">Mortgage Calculator</span>
+                <span class="ml-2 inline-block rounded-full bg-slate-200/70 border border-slate-300 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-slate-600 align-middle">Fixed-Rate</span>
             </h1>
 
             <!-- TOP ROW: CALCULATOR + SIDEBAR -->
@@ -92,18 +93,17 @@
                     </div>
 
                     <!-- CALCULATOR CONTENT WRAPPER -->
-                    <div class="flex flex-col gap-4 border-x border-b border-slate-300 bg-white p-3 shadow-sm rounded-b-md md:flex-row md:items-start">
+                    <div class="flex flex-col gap-4 border-x border-b border-slate-400 bg-white p-3 shadow-sm rounded-b-md md:flex-row md:items-start">
                         
                         <!-- COLUMN 1: INPUTS -->
-                        <!-- MODIFIED: Changed bg to #EEEEEE (light gray) and updated text/borders for dark-on-light contrast -->
-                        <div class="w-full shrink-0 bg-[#EEEEEE] p-4 rounded border border-slate-300 md:w-[280px] print-break-inside-avoid shadow-lg text-slate-900">
+                        <div class="w-full shrink-0 bg-[#EEEEEE] p-4 rounded border border-slate-400 md:w-[280px] print-break-inside-avoid shadow-lg text-slate-900">
                             <form id="mortgageForm">
                                 <!-- Inputs -->
                                 <div class="input-row mb-3">
                                     <label for="homePrice" class="input-label w-[35%] text-slate-700 font-bold">Home Price</label>
                                     <div class="relative w-[65%]">
                                         <span class="absolute left-2 top-1.5 text-xs text-slate-500 z-10">$</span>
-                                        <input type="number" id="homePrice" value="400000" class="compact-input pl-6 bg-white text-slate-900 font-bold border-slate-300 focus:border-brand-red focus:ring-1 focus:ring-brand-red rounded shadow-sm h-8">
+                                        <input type="number" id="homePrice" value="400000" class="compact-input pl-6 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-8">
                                     </div>
                                 </div>
                                 
@@ -112,9 +112,9 @@
                                     <label for="downPaymentInput" class="input-label w-[35%] text-slate-700 font-bold">Down Payment</label>
                                     <div class="flex w-[65%] gap-1">
                                         <div class="relative flex-1">
-                                            <input type="number" id="downPaymentInput" value="20" class="compact-input bg-white text-slate-900 font-bold border-slate-300 focus:border-brand-red focus:ring-1 focus:ring-brand-red rounded shadow-sm h-8 w-full">
+                                            <input type="number" id="downPaymentInput" value="20" class="compact-input bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-8 w-full">
                                         </div>
-                                        <select id="downPaymentType" class="compact-select w-16 px-1 text-center bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-8 focus:border-brand-red focus:ring-1 focus:ring-brand-red">
+                                        <select id="downPaymentType" class="compact-select w-16 px-1 text-center bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-8">
                                             <option value="%">%</option>
                                             <option value="$">$</option>
                                         </select>
@@ -124,15 +124,15 @@
                                 <div class="input-row mb-3">
                                     <label for="loanTerm" class="input-label w-[35%] text-slate-700 font-bold">Loan Term</label>
                                     <div class="w-[65%] flex items-center gap-2">
-                                        <input type="number" id="loanTermInput" value="30" class="compact-input w-full bg-white text-slate-900 font-bold border-slate-300 focus:border-brand-red focus:ring-1 focus:ring-brand-red rounded shadow-sm h-8">
+                                        <input type="number" id="loanTermInput" value="30" class="compact-input w-full bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-8">
                                         <span class="text-xs text-slate-600 whitespace-nowrap font-medium">years</span>
                                     </div>
                                 </div>
                                 
                                 <div class="input-row mb-3">
-                                    <label for="interestRate" class="input-label w-[35%] text-slate-700 font-bold">Interest Rate</label>
+                                    <label for="interestRate" class="input-label w-[35%] text-slate-700 font-bold">Interest Rate <span class="font-normal text-[10px] text-slate-500">(Fixed)</span></label>
                                     <div class="relative w-[65%]">
-                                        <input type="number" id="interestRate" value="6.5" step="0.01" class="compact-input pr-6 bg-white text-slate-900 font-bold border-slate-300 focus:border-brand-red focus:ring-1 focus:ring-brand-red rounded shadow-sm h-8">
+                                        <input type="number" id="interestRate" value="6.5" step="0.01" class="compact-input pr-6 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-8">
                                         <span class="absolute right-2 top-1.5 text-xs text-slate-500">%</span>
                                     </div>
                                 </div>
@@ -140,10 +140,10 @@
                                 <div class="input-row mb-4">
                                     <label class="input-label w-[35%] text-slate-700 font-bold">Start Date</label>
                                     <div class="flex w-[65%] gap-1">
-                                        <select id="startMonth" class="compact-select w-[50%] bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-8 focus:border-brand-red focus:ring-1 focus:ring-brand-red">
+                                        <select id="startMonth" class="compact-select w-[50%] bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-8">
                                             <option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option><option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option><option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option>
                                         </select>
-                                        <input type="number" id="startYear" class="compact-input w-[50%] bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-8 focus:border-brand-red focus:ring-1 focus:ring-brand-red" placeholder="Year">
+                                        <input type="number" id="startYear" class="compact-input w-[50%] bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-8" placeholder="Year">
                                     </div>
                                 </div>
                                 
@@ -166,9 +166,9 @@
                                         <label for="propertyTax" class="input-label w-[35%] text-slate-600 font-semibold">Property Tax</label>
                                         <div class="flex w-[65%] gap-1">
                                             <div class="relative flex-1">
-                                                <input type="number" id="propertyTax" value="4800" class="compact-input bg-white w-full text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red">
+                                                <input type="number" id="propertyTax" value="4800" class="compact-input bg-white w-full text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7">
                                             </div>
-                                            <select id="propertyTaxType" class="compact-select w-16 px-1 text-center bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red">
+                                            <select id="propertyTaxType" class="compact-select w-16 px-1 text-center bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7">
                                                 <option value="$">$</option>
                                                 <option value="%">%</option>
                                             </select>
@@ -180,9 +180,9 @@
                                         <label for="homeInsurance" class="input-label w-[35%] text-slate-600 font-semibold">Home Ins.</label>
                                         <div class="flex w-[65%] gap-1">
                                             <div class="relative flex-1">
-                                                <input type="number" id="homeInsurance" value="1500" class="compact-input bg-white w-full text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red">
+                                                <input type="number" id="homeInsurance" value="1500" class="compact-input bg-white w-full text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7">
                                             </div>
-                                            <select id="homeInsuranceType" class="compact-select w-16 px-1 text-center bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red">
+                                            <select id="homeInsuranceType" class="compact-select w-16 px-1 text-center bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7">
                                                 <option value="$">$</option>
                                                 <option value="%">%</option>
                                             </select>
@@ -194,9 +194,9 @@
                                         <label for="pmi" class="input-label w-[35%] text-slate-600 font-semibold">PMI</label>
                                         <div class="flex w-[65%] gap-1">
                                             <div class="relative flex-1">
-                                                <input type="number" id="pmi" value="0.5" class="compact-input bg-white w-full text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red">
+                                                <input type="number" id="pmi" value="0.5" class="compact-input bg-white w-full text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7">
                                             </div>
-                                            <select id="pmiType" class="compact-select w-16 px-1 text-center bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red">
+                                            <select id="pmiType" class="compact-select w-16 px-1 text-center bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7">
                                                 <option value="%">%</option>
                                                 <option value="$">$</option>
                                             </select>
@@ -208,9 +208,9 @@
                                         <label for="hoaFees" class="input-label w-[35%] text-slate-600 font-semibold">HOA Fee</label>
                                         <div class="flex w-[65%] gap-1">
                                             <div class="relative flex-1">
-                                                <input type="number" id="hoaFees" value="0" class="compact-input bg-white w-full text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red">
+                                                <input type="number" id="hoaFees" value="0" class="compact-input bg-white w-full text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7">
                                             </div>
-                                            <select id="hoaFeesType" class="compact-select w-16 px-1 text-center bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red">
+                                            <select id="hoaFeesType" class="compact-select w-16 px-1 text-center bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7">
                                                 <option value="$">$</option>
                                                 <option value="%">%</option>
                                             </select>
@@ -222,9 +222,9 @@
                                         <label for="otherCosts" class="input-label w-[35%] text-slate-600 font-semibold">Other Costs</label>
                                         <div class="flex w-[65%] gap-1">
                                             <div class="relative flex-1">
-                                                <input type="number" id="otherCosts" value="0" class="compact-input bg-white w-full text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red">
+                                                <input type="number" id="otherCosts" value="0" class="compact-input bg-white w-full text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7">
                                             </div>
-                                            <select id="otherCostsType" class="compact-select w-16 px-1 text-center bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red">
+                                            <select id="otherCostsType" class="compact-select w-16 px-1 text-center bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7">
                                                 <option value="$">$</option>
                                                 <option value="%">%</option>
                                             </select>
@@ -240,19 +240,18 @@
                                 <!-- Hidden Advanced Container -->
                                 <div id="moreOptionsContainer" class="hidden border-t border-slate-300 pt-3 mt-2 space-y-3">
                                     <!-- Annual Increases -->
-                                    <!-- MODIFIED: Adjusted inner panel for light mode compatibility -->
                                     <div class="calc-option-group !bg-white !border-slate-300 !rounded-md !p-3 !shadow-sm">
                                         <h3 class="text-[11px] font-bold text-slate-800 mb-2 uppercase tracking-wide">Annual Tax & Cost Increase</h3>
-                                        <div class="input-row mb-2"><label class="input-label w-[50%] text-slate-600 font-semibold">Property Tax</label><div class="relative w-[50%]"><input type="number" id="taxIncrease" value="0" class="compact-input pr-6 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red"><span class="absolute right-2 top-1 text-xs text-slate-500">%</span></div></div>
-                                        <div class="input-row mb-2"><label class="input-label w-[50%] text-slate-600 font-semibold">Home Ins.</label><div class="relative w-[50%]"><input type="number" id="insIncrease" value="0" class="compact-input pr-6 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red"><span class="absolute right-2 top-1 text-xs text-slate-500">%</span></div></div>
-                                        <div class="input-row mb-2"><label class="input-label w-[50%] text-slate-600 font-semibold">HOA Fee</label><div class="relative w-[50%]"><input type="number" id="hoaIncrease" value="0" class="compact-input pr-6 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red"><span class="absolute right-2 top-1 text-xs text-slate-500">%</span></div></div>
-                                        <div class="input-row mb-2"><label class="input-label w-[50%] text-slate-600 font-semibold">Other Costs</label><div class="relative w-[50%]"><input type="number" id="otherIncrease" value="0" class="compact-input pr-6 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red"><span class="absolute right-2 top-1 text-xs text-slate-500">%</span></div></div>
+                                        <div class="input-row mb-2"><label class="input-label w-[50%] text-slate-600 font-semibold">Property Tax</label><div class="relative w-[50%]"><input type="number" id="taxIncrease" value="0" class="compact-input pr-6 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7"><span class="absolute right-2 top-1 text-xs text-slate-500">%</span></div></div>
+                                        <div class="input-row mb-2"><label class="input-label w-[50%] text-slate-600 font-semibold">Home Ins.</label><div class="relative w-[50%]"><input type="number" id="insIncrease" value="0" class="compact-input pr-6 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7"><span class="absolute right-2 top-1 text-xs text-slate-500">%</span></div></div>
+                                        <div class="input-row mb-2"><label class="input-label w-[50%] text-slate-600 font-semibold">HOA Fee</label><div class="relative w-[50%]"><input type="number" id="hoaIncrease" value="0" class="compact-input pr-6 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7"><span class="absolute right-2 top-1 text-xs text-slate-500">%</span></div></div>
+                                        <div class="input-row mb-2"><label class="input-label w-[50%] text-slate-600 font-semibold">Other Costs</label><div class="relative w-[50%]"><input type="number" id="otherIncrease" value="0" class="compact-input pr-6 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7"><span class="absolute right-2 top-1 text-xs text-slate-500">%</span></div></div>
                                     </div>
                                     <!-- Extra Payments -->
                                     <div class="calc-option-group !bg-white !border-slate-300 !rounded-md !p-3 !shadow-sm">
                                         <h3 class="text-[11px] font-bold text-slate-800 mb-2 uppercase tracking-wide">Extra Payments</h3>
-                                        <div class="mb-3"><div class="flex items-center gap-1 mb-1"><label class="text-[10px] font-bold text-slate-600">Extra Monthly Pay</label></div><div class="flex gap-1"><div class="relative w-[40%]"><span class="absolute left-1.5 top-1 text-[10px] text-slate-500">$</span><input type="number" id="extraMonthly" value="0" class="compact-input pl-4 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red"></div><span class="text-[10px] self-center text-slate-500 font-semibold">from</span><select id="extraMonthlyMonth" class="compact-select w-[40%] bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red"><option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option><option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option><option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option></select></div></div>
-                                        <div class="mb-3"><div class="flex items-center gap-1 mb-1"><label class="text-[10px] font-bold text-slate-600">Extra Yearly Pay</label></div><div class="flex gap-1"><div class="relative w-[40%]"><span class="absolute left-1.5 top-1 text-[10px] text-slate-500">$</span><input type="number" id="extraYearly" value="0" class="compact-input pl-4 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red"></div><span class="text-[10px] self-center text-slate-500 font-semibold">in</span><select id="extraYearlyMonth" class="compact-select w-[40%] bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red"><option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option><option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option><option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option></select></div></div>
+                                        <div class="mb-3"><div class="flex items-center gap-1 mb-1"><label class="text-[10px] font-bold text-slate-600">Extra Monthly Pay</label></div><div class="flex gap-1"><div class="relative w-[40%]"><span class="absolute left-1.5 top-1 text-[10px] text-slate-500">$</span><input type="number" id="extraMonthly" value="0" class="compact-input pl-4 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7"></div><span class="text-[10px] self-center text-slate-500 font-semibold">from</span><select id="extraMonthlyMonth" class="compact-select w-[40%] bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7"><option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option><option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option><option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option></select></div></div>
+                                        <div class="mb-3"><div class="flex items-center gap-1 mb-1"><label class="text-[10px] font-bold text-slate-600">Extra Yearly Pay</label></div><div class="flex gap-1"><div class="relative w-[40%]"><span class="absolute left-1.5 top-1 text-[10px] text-slate-500">$</span><input type="number" id="extraYearly" value="0" class="compact-input pl-4 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7"></div><span class="text-[10px] self-center text-slate-500 font-semibold">in</span><select id="extraYearlyMonth" class="compact-select w-[40%] bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7"><option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option><option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option><option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option></select></div></div>
                                         <div>
                                             <div class="flex items-center justify-between gap-1 mb-1"><label class="text-[10px] font-bold text-slate-600">Extra One-time Pay</label></div>
                                             <div id="oneTimePaymentsContainer" class="space-y-2 mb-2">
@@ -260,15 +259,15 @@
                                                     <div class="flex gap-1 mb-1">
                                                         <div class="relative w-full">
                                                             <span class="absolute left-1.5 top-1 text-[10px] text-slate-500">$</span>
-                                                            <input type="number" class="compact-input pl-4 bg-white otp-amount text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red" value="0">
+                                                            <input type="number" class="compact-input pl-4 bg-white otp-amount text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7" value="0">
                                                         </div>
                                                     </div>
                                                     <div class="flex gap-1">
                                                         <span class="text-[10px] self-center text-slate-500 font-semibold">in</span>
-                                                        <select class="compact-select w-[45%] otp-month bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red">
+                                                        <select class="compact-select w-[45%] otp-month bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7">
                                                             <option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option><option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option><option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option>
                                                         </select>
-                                                        <input type="number" class="compact-input w-[35%] otp-year bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 focus:border-brand-red focus:ring-1 focus:ring-brand-red" placeholder="Year">
+                                                        <input type="number" class="compact-input w-[35%] otp-year bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7" placeholder="Year">
                                                     </div>
                                                 </div>
                                             </div>
@@ -276,9 +275,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mt-5 flex gap-2 no-print">
-                                    <button type="button" id="calcButton" class="w-full rounded bg-[#166534] py-2 text-sm font-bold text-white shadow-lg hover:bg-green-700 hover:shadow-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-[#166534]">CALCULATE</button>
-                                    <button type="button" id="clearButton" class="rounded border border-slate-400 bg-white px-4 py-2 text-sm text-slate-700 hover:bg-slate-100 hover:text-brand-red font-bold transition-all shadow-sm">Clear</button>
+                                <div class="mt-5 flex flex-col gap-2 no-print">
+                                    <div class="flex gap-2">
+                                        <button type="button" id="calcButton" class="w-full rounded bg-[#518428] py-2 text-sm font-bold text-white shadow-lg hover:bg-green-700 hover:shadow-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-[#518428]">CALCULATE</button>
+                                        <button type="button" id="clearButton" class="rounded border border-slate-400 bg-white px-4 py-2 text-sm text-slate-700 hover:bg-slate-100 hover:text-brand-red font-bold transition-all shadow-sm">Clear</button>
+                                    </div>
+                                    <p class="text-[10px] text-slate-400 text-center italic">* Currently supports fixed-rate mortgages only.</p>
                                 </div>
                             </form>
                         </div>
@@ -287,10 +289,11 @@
                         <div class="flex-1 min-w-0 print-full-width flex flex-col gap-4">
 
                             <!-- UNIFIED DASHBOARD CARD -->
-                            <div class="rounded-lg border border-slate-200 bg-white shadow-lg overflow-hidden flex flex-col">
+                            <!-- MODIFIED: Changed border-slate-200 to border-slate-400 -->
+                            <div class="rounded-lg border border-slate-400 bg-white shadow-lg overflow-hidden flex flex-col">
                                 
-                                <!-- 1. HEADER: Result & Actions -->
-                                <div class="bg-gradient-to-r from-[#166534] to-[#15803d] px-4 py-3 text-white flex justify-between items-center shadow-sm relative z-10">
+                                <!-- 1. HEADER: Result & Actions (Using new class) -->
+                                <div class="result-header">
                                     <div>
                                         <div class="text-[10px] font-semibold uppercase tracking-wider text-green-100/80">Monthly Pay</div>
                                         <div class="text-2xl font-bold tracking-tight leading-none mt-0.5" id="monthlyPaymentDisplay">$0.00</div>
@@ -383,65 +386,55 @@
                                     </div>
                                 </div>
                                 
-                                <!-- 3. SUMMARY FOOTER (Refined to 3 cols max, card style) -->
-                                <div class="bg-slate-50 px-4 py-4 border-t border-slate-100">
-                                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-xs">
+                                <!-- 3. SUMMARY FOOTER (Using .stat-card) -->
+                                <div class="bg-slate-50 px-4 py-3 border-t border-slate-100">
+                                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-y-3 gap-x-3 text-xs">
                                         
-                                        <!-- Loan Amount -->
-                                        <div class="bg-white p-3 rounded border border-slate-200 border-l-4 border-l-[#428bca] shadow-sm flex flex-col justify-center h-full">
-                                            <span class="text-[10px] text-slate-400 font-medium uppercase tracking-wide mb-0.5">Loan Amount</span>
+                                        <div class="stat-card border-l-[#428bca]">
+                                            <span class="text-[9px] text-slate-400 font-medium uppercase tracking-wide mb-0.5">Loan Amount</span>
                                             <span class="font-bold text-slate-700 text-xs" id="summaryLoanAmount">$0</span>
                                         </div>
                                         
-                                        <!-- Down Payment -->
-                                        <div class="bg-white p-3 rounded border border-slate-200 border-l-4 border-l-slate-400 shadow-sm flex flex-col justify-center h-full">
-                                            <span class="text-[10px] text-slate-400 font-medium uppercase tracking-wide mb-0.5">Down Payment</span>
+                                        <div class="stat-card border-l-slate-400">
+                                            <span class="text-[9px] text-slate-400 font-medium uppercase tracking-wide mb-0.5">Down Payment</span>
                                             <span class="font-bold text-slate-700 text-xs" id="summaryDownPayment">$0</span>
                                         </div>
                                         
-                                        <!-- Total Interest -->
-                                        <div class="bg-white p-3 rounded border border-slate-200 border-l-4 border-l-[#428bca] shadow-sm flex flex-col justify-center h-full">
-                                            <span class="text-[10px] text-slate-400 font-medium uppercase tracking-wide mb-0.5">Total Interest</span>
+                                        <div class="stat-card border-l-[#428bca]">
+                                            <span class="text-[9px] text-slate-400 font-medium uppercase tracking-wide mb-0.5">Total Interest</span>
                                             <span class="font-bold text-slate-700 text-xs" id="summaryTotalInterest">$0</span>
                                         </div>
                                         
-                                        <!-- Total Principal & Int. -->
-                                        <div class="bg-white p-3 rounded border border-slate-200 border-l-4 border-l-[#428bca] shadow-sm flex flex-col justify-center h-full">
-                                            <span class="text-[10px] text-slate-400 font-medium uppercase tracking-wide mb-0.5" id="summaryTotalLabel">Total Principal & Int.</span>
+                                        <div class="stat-card border-l-[#428bca]">
+                                            <span class="text-[9px] text-slate-400 font-medium uppercase tracking-wide mb-0.5" id="summaryTotalLabel">Total Principal & Int.</span>
                                             <span class="font-bold text-slate-700 text-xs" id="summaryTotalPayments">$0</span>
                                         </div>
-                                        
-                                        <!-- Total Tax -->
-                                        <div class="bg-white p-3 rounded border border-slate-200 border-l-4 border-l-[#96c03b] shadow-sm flex flex-col justify-center h-full">
-                                            <span class="text-[10px] text-slate-400 font-medium uppercase tracking-wide mb-0.5">Total Tax</span>
+
+                                        <div class="stat-card border-l-[#96c03b]">
+                                            <span class="text-[9px] text-slate-400 font-medium uppercase tracking-wide mb-0.5">Total Tax</span>
                                             <span class="font-bold text-slate-700 text-xs" id="summaryTotalTax">$0</span>
                                         </div>
-
-                                        <!-- Total Insurance -->
-                                        <div class="bg-white p-3 rounded border border-slate-200 border-l-4 border-l-[#a90000] shadow-sm flex flex-col justify-center h-full">
-                                            <span class="text-[10px] text-slate-400 font-medium uppercase tracking-wide mb-0.5">Total Insurance</span>
+                                        
+                                        <div class="stat-card border-l-[#a90000]">
+                                            <span class="text-[9px] text-slate-400 font-medium uppercase tracking-wide mb-0.5">Total Insurance</span>
                                             <span class="font-bold text-slate-700 text-xs" id="summaryTotalIns">$0</span>
                                         </div>
 
-                                        <!-- Total PMI/Fees -->
-                                        <div class="bg-white p-3 rounded border border-slate-200 border-l-4 border-l-[#d9534f] shadow-sm flex flex-col justify-center h-full">
-                                            <span class="text-[10px] text-slate-400 font-medium uppercase tracking-wide mb-0.5">Total PMI / Fees</span>
+                                        <div class="stat-card border-l-[#d9534f]">
+                                            <span class="text-[9px] text-slate-400 font-medium uppercase tracking-wide mb-0.5">Total PMI / Fees</span>
                                             <span class="font-bold text-slate-700 text-xs"><span id="summaryTotalPMI">$0</span> / <span id="summaryTotalHOA">$0</span></span>
                                         </div>
-
-                                        <!-- Payoff Date -->
-                                        <div class="bg-white p-3 rounded border border-slate-200 border-l-4 border-l-green-600 shadow-sm flex flex-col justify-center h-full">
-                                            <span class="text-[10px] text-slate-400 font-medium uppercase tracking-wide mb-0.5">Payoff Date</span>
-                                            <span class="font-bold text-green-700 text-xs" id="summaryPayoffDate">-</span>
-                                        </div>
                                         
-                                        <!-- All-in Cost -->
-                                        <div class="bg-white p-3 rounded border border-slate-200 border-l-4 border-l-slate-800 shadow-sm flex flex-col justify-center h-full">
-                                            <span class="text-[10px] text-slate-400 font-medium uppercase tracking-wide mb-0.5 text-green-600">Total All-in Cost</span>
+                                        <div class="stat-card border-l-slate-800">
+                                            <span class="text-[9px] text-slate-400 font-medium uppercase tracking-wide mb-0.5 text-[#518428]">Total All-in Cost</span>
                                             <span class="font-bold text-slate-900 text-xs" id="summaryTotalAllIn">$0</span>
                                         </div>
 
-                                        <!-- Hidden House Price -->
+                                        <div class="stat-card border-l-[#518428]">
+                                            <span class="text-[9px] text-slate-400 font-medium uppercase tracking-wide mb-0.5">Payoff Date</span>
+                                            <span class="font-bold text-[#518428] text-xs" id="summaryPayoffDate">-</span>
+                                        </div>
+
                                         <span id="summaryHousePrice" class="hidden"></span>
                                     </div>
                                 </div>
@@ -493,7 +486,7 @@
                                 <!-- Introduction Section -->
                                 <section class="info-card">
                                     <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
-                                        <i class="fa-solid fa-house-chimney text-[#166534]"></i> What is a Mortgage?
+                                        <i class="fa-solid fa-house-chimney text-[#518428]"></i> What is a Mortgage?
                                     </h3>
                                     <p class="mb-3">
                                         A mortgage is a loan specifically designed for purchasing a home or other real estate. The property itself serves as collateral for the loan. Buying a home is likely the biggest purchase of your life, and our free <strong>Mortgage Calculator</strong> helps you estimate your total monthly payment, not just the loan repayment.
@@ -506,7 +499,7 @@
                                 <!-- FORMULA SECTION -->
                                 <section class="info-card">
                                     <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
-                                        <i class="fa-solid fa-calculator text-[#166534]"></i> The Math Behind Your Mortgage
+                                        <i class="fa-solid fa-calculator text-[#518428]"></i> The Math Behind Your Mortgage
                                     </h3>
                                     <p class="mb-3">Curious about the numbers? Lenders use a standard amortization formula to determine your fixed monthly payment ($M$). It balances your principal ($P$), monthly interest rate ($r$), and the total number of months in your loan ($n$).</p>
                                     
@@ -544,7 +537,7 @@
                                     <!-- Left: Understanding PITI -->
                                     <section class="info-card">
                                         <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
-                                            <i class="fa-solid fa-list-check text-[#166534]"></i> What is PITI?
+                                            <i class="fa-solid fa-list-check text-[#518428]"></i> What is PITI?
                                         </h3>
                                         <p class="mb-2">Lenders use the acronym <strong>PITI</strong> to describe the four main components of your monthly mortgage bill:</p>
                                         <ul class="space-y-3 mt-2">
@@ -571,14 +564,14 @@
                                     <section class="flex flex-col gap-6">
                                         <div class="info-card">
                                             <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
-                                                <i class="fa-solid fa-chart-line text-[#166534]"></i> The Amortization Schedule
+                                                <i class="fa-solid fa-chart-line text-[#518428]"></i> The Amortization Schedule
                                             </h3>
                                             <p class="mb-2">Your <strong>amortization schedule</strong> shows the journey to being debt-free. In the early years, most of your money goes toward interest. Over time, the scales tip, and you start paying off the house (principal) faster.</p>
                                             <p>Use the "View Schedule" button above to see exactly when you'll cross the break-even point.</p>
                                         </div>
 
                                         <div class="info-card bg-green-50/50 border-green-100">
-                                            <h3 class="font-bold text-[#166534] mb-1 flex items-center gap-2">
+                                            <h3 class="font-bold text-[#518428] mb-1 flex items-center gap-2">
                                                 <i class="fa-solid fa-lightbulb"></i> Smart Strategies
                                             </h3>
                                             <ul class="space-y-2 text-green-800 mt-2">
@@ -590,90 +583,94 @@
                                     </section>
                                 </div>
 
-                                <!-- NEW SECTION: Costs of Ownership -->
-                                <section class="info-card">
-                                    <h3 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
-                                        <i class="fa-solid fa-wallet text-[#166534]"></i> Costs of Ownership & Mortgages
-                                    </h3>
-                                    <p class="mb-4">Beyond the monthly payment calculated above, successful homeownership requires budgeting for these often-overlooked expenses:</p>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                        <!-- Closing Costs -->
-                                        <div class="flex gap-3 items-start p-2 rounded hover:bg-slate-100 transition">
-                                            <div class="mt-0.5 text-brand-red"><i class="fa-solid fa-file-signature"></i></div>
-                                            <div>
-                                                <strong class="text-slate-700 block mb-0.5">Closing Costs (Upfront)</strong>
-                                                <span class="text-slate-500">Typically 2-5% of the loan amount. Includes appraisal, title search, and origination fees.</span>
+                                <!-- NEW GRID: Costs (Left) & Lower Payment (Right) - DENSIFIED (Using .feature-card) -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    
+                                    <!-- Left: Costs of Ownership -->
+                                    <section class="info-card !px-4 !py-3">
+                                        <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2 text-sm">
+                                            <i class="fa-solid fa-wallet text-[#518428]"></i> Costs of Ownership
+                                        </h3>
+                                        <p class="mb-3 text-[11px] text-slate-500 leading-tight">Budget for these often-overlooked expenses:</p>
+                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                            <!-- Closing Costs -->
+                                            <div class="feature-card">
+                                                <div class="mt-0.5 text-brand-red"><i class="fa-solid fa-file-signature"></i></div>
+                                                <div>
+                                                    <strong class="text-slate-700 block mb-0.5 text-[11px]">Closing Costs</strong>
+                                                    <span class="text-slate-500 text-[10px] leading-snug block">Expect to pay <span class="font-semibold text-slate-700">2% - 5%</span> of purchase price upfront ($8k-$20k on $400k).</span>
+                                                </div>
+                                            </div>
+                                            <!-- Maintenance -->
+                                            <div class="feature-card">
+                                                <div class="mt-0.5 text-brand-red"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                                                <div>
+                                                    <strong class="text-slate-700 block mb-0.5 text-[11px]">Maintenance</strong>
+                                                    <span class="text-slate-500 text-[10px] leading-snug block">Save <span class="font-semibold text-slate-700">1% - 3%</span> of home value annually for repairs ($4k/yr on $400k).</span>
+                                                </div>
+                                            </div>
+                                            <!-- Utilities -->
+                                            <div class="feature-card">
+                                                <div class="mt-0.5 text-brand-red"><i class="fa-solid fa-faucet"></i></div>
+                                                <div>
+                                                    <strong class="text-slate-700 block mb-0.5 text-[11px]">Utilities</strong>
+                                                    <span class="text-slate-500 text-[10px] leading-snug block">Avg. <span class="font-semibold text-slate-700">$400/mo</span> for electric, gas, water, trash & internet.</span>
+                                                </div>
+                                            </div>
+                                            <!-- Furniture -->
+                                            <div class="feature-card">
+                                                <div class="mt-0.5 text-brand-red"><i class="fa-solid fa-couch"></i></div>
+                                                <div>
+                                                    <strong class="text-slate-700 block mb-0.5 text-[11px]">Furnishing</strong>
+                                                    <span class="text-slate-500 text-[10px] leading-snug block">New owners spend <span class="font-semibold text-slate-700">10% - 25%</span> of home value on decor & upgrades.</span>
+                                                </div>
                                             </div>
                                         </div>
-                                        <!-- Maintenance -->
-                                        <div class="flex gap-3 items-start p-2 rounded hover:bg-slate-100 transition">
-                                            <div class="mt-0.5 text-brand-red"><i class="fa-solid fa-screwdriver-wrench"></i></div>
-                                            <div>
-                                                <strong class="text-slate-700 block mb-0.5">Maintenance (Ongoing)</strong>
-                                                <span class="text-slate-500">The "1% Rule" suggests budgeting 1% of your home's value annually for repairs and upkeep.</span>
-                                            </div>
-                                        </div>
-                                        <!-- Utilities -->
-                                        <div class="flex gap-3 items-start p-2 rounded hover:bg-slate-100 transition">
-                                            <div class="mt-0.5 text-brand-red"><i class="fa-solid fa-faucet"></i></div>
-                                            <div>
-                                                <strong class="text-slate-700 block mb-0.5">Utilities</strong>
-                                                <span class="text-slate-500">Heating, cooling, water, and trash collection often cost significantly more than in rentals.</span>
-                                            </div>
-                                        </div>
-                                        <!-- Furniture -->
-                                        <div class="flex gap-3 items-start p-2 rounded hover:bg-slate-100 transition">
-                                            <div class="mt-0.5 text-brand-red"><i class="fa-solid fa-couch"></i></div>
-                                            <div>
-                                                <strong class="text-slate-700 block mb-0.5">Furnishing</strong>
-                                                <span class="text-slate-500">Filling a larger space requires a budget for furniture, appliances, and window treatments.</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
+                                    </section>
 
-                                <!-- NEW SECTION: How to Lower Payment -->
-                                <section class="info-card">
-                                    <h3 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
-                                        <i class="fa-solid fa-arrow-trend-down text-[#166534]"></i> How to Lower Your Mortgage Payment
-                                    </h3>
-                                    <p class="mb-4">Struggling with a high monthly estimate? Here are proven strategies to bring that number down:</p>
-                                    <ul class="space-y-3">
-                                        <li class="flex gap-3 items-start">
-                                            <div class="mt-1 text-green-600"><i class="fa-solid fa-circle-check"></i></div>
-                                            <div>
-                                                <strong class="text-slate-700 block">Increase Your Down Payment</strong>
-                                                <span class="text-slate-500">Every dollar you put down reduces the principal you need to borrow, directly lowering your monthly P&I.</span>
+                                    <!-- Right: How to Lower Payment -->
+                                    <section class="info-card !px-4 !py-3">
+                                        <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2 text-sm">
+                                            <i class="fa-solid fa-arrow-trend-down text-[#518428]"></i> Lower Your Payment
+                                        </h3>
+                                        <p class="mb-3 text-[11px] text-slate-500 leading-tight">Proven strategies to reduce monthly costs:</p>
+                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                            <div class="feature-card">
+                                                <div class="mt-0.5 text-green-600"><i class="fa-solid fa-circle-check"></i></div>
+                                                <div>
+                                                    <strong class="text-slate-700 block mb-0.5 text-[11px]">More Down Payment</strong>
+                                                    <span class="text-slate-500 text-[10px] leading-snug block">Every <span class="font-semibold text-slate-700">$10k</span> down saves ~$60/mo in interest & principle.</span>
+                                                </div>
                                             </div>
-                                        </li>
-                                        <li class="flex gap-3 items-start">
-                                            <div class="mt-1 text-green-600"><i class="fa-solid fa-circle-check"></i></div>
-                                            <div>
-                                                <strong class="text-slate-700 block">Eliminate PMI</strong>
-                                                <span class="text-slate-500">If you can hit 20% equity, you can request to remove Private Mortgage Insurance, saving hundreds per month.</span>
+                                            <div class="feature-card">
+                                                <div class="mt-0.5 text-green-600"><i class="fa-solid fa-circle-check"></i></div>
+                                                <div>
+                                                    <strong class="text-slate-700 block mb-0.5 text-[11px]">Eliminate PMI</strong>
+                                                    <span class="text-slate-500 text-[10px] leading-snug block">Reach <span class="font-semibold text-slate-700">20% equity</span> to drop insurance ($30-$70/mo per $100k).</span>
+                                                </div>
                                             </div>
-                                        </li>
-                                        <li class="flex gap-3 items-start">
-                                            <div class="mt-1 text-green-600"><i class="fa-solid fa-circle-check"></i></div>
-                                            <div>
-                                                <strong class="text-slate-700 block">Shop for Insurance</strong>
-                                                <span class="text-slate-500">Homeowners insurance rates vary wildly. Get quotes from multiple providers annually to ensure you aren't overpaying.</span>
+                                            <div class="feature-card">
+                                                <div class="mt-0.5 text-green-600"><i class="fa-solid fa-circle-check"></i></div>
+                                                <div>
+                                                    <strong class="text-slate-700 block mb-0.5 text-[11px]">Shop Insurance</strong>
+                                                    <span class="text-slate-500 text-[10px] leading-snug block">Rates vary by <span class="font-semibold text-slate-700">hundreds</span>. Compare quotes annually to save.</span>
+                                                </div>
                                             </div>
-                                        </li>
-                                        <li class="flex gap-3 items-start">
-                                            <div class="mt-1 text-green-600"><i class="fa-solid fa-circle-check"></i></div>
-                                            <div>
-                                                <strong class="text-slate-700 block">Recast Your Mortgage</strong>
-                                                <span class="text-slate-500">If you come into a lump sum later, ask your lender to "recast" your loan. They re-calculate your payments based on the new lower balance without refinancing.</span>
+                                            <div class="feature-card">
+                                                <div class="mt-0.5 text-green-600"><i class="fa-solid fa-circle-check"></i></div>
+                                                <div>
+                                                    <strong class="text-slate-700 block mb-0.5 text-[11px]">Recast Loan</strong>
+                                                    <span class="text-slate-500 text-[10px] leading-snug block">Pay lump sum <span class="font-semibold text-slate-700">($5k+)</span> to lower monthly bill without refi fees.</span>
+                                                </div>
                                             </div>
-                                        </li>
-                                    </ul>
-                                </section>
+                                        </div>
+                                    </section>
+                                </div>
 
                                 <!-- NEW SECTION: Common Terms -->
                                 <section class="info-card">
                                     <h3 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
-                                        <i class="fa-solid fa-book-open text-[#166534]"></i> Common Mortgage Terms Explained
+                                        <i class="fa-solid fa-book-open text-[#518428]"></i> Common Mortgage Terms Explained
                                     </h3>
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div class="bg-white p-3 rounded border border-slate-200">
