@@ -1,7 +1,7 @@
 /*
   DailyCalc.org Centralized Tailwind Configuration
-  [2025-11-07] Updated .calc-card-compact border to slate-400
-  [2025-11-27] Increased global text contrast for accessibility (Slate-500 -> Slate-600/700)
+  [2025-11-27] Added .calc-seo-content for standardized SEO guide layout
+  [2025-11-27] Added .calc-section-divider for universal high-contrast separators
 */
 
 tailwind.config = {
@@ -28,7 +28,6 @@ tailwind.config = {
     plugins: [
         function({ addComponents, addBase, theme }) {
             
-            /* 0. GLOBAL TYPOGRAPHY */
             addBase({
                 'h2': { 
                     fontSize: '18px', 
@@ -46,9 +45,72 @@ tailwind.config = {
                 },
             });
 
-            /* 1. UNIVERSAL CALCULATOR UI COMPONENTS */
             addComponents({
-                /* --- Compact Inputs --- */
+                /* --- UNIVERSAL CALCULATOR LAYOUT --- */
+                '.calc-body-wrapper': {
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: theme('spacing.4'),
+                    borderLeftWidth: '1px',
+                    borderRightWidth: '1px',
+                    borderBottomWidth: '1px',
+                    borderColor: theme('colors.slate.400'),
+                    backgroundColor: '#ffffff',
+                    padding: theme('spacing.3'),
+                    boxShadow: theme('boxShadow.sm'),
+                    borderBottomLeftRadius: theme('borderRadius.md'),
+                    borderBottomRightRadius: theme('borderRadius.md'),
+                    '@media (min-width: 768px)': { 
+                        flexDirection: 'row',
+                        alignItems: 'flex-start', 
+                    }
+                },
+
+                '.calc-input-section': {
+                    width: '100%',
+                    flexShrink: 0,
+                    backgroundColor: '#EEEEEE',
+                    padding: theme('spacing.4'),
+                    borderRadius: theme('borderRadius.DEFAULT'),
+                    borderWidth: '1px',
+                    borderColor: theme('colors.slate.400'),
+                    height: 'fit-content', 
+                    '@media (min-width: 768px)': { 
+                        width: '280px',
+                    }
+                },
+
+                '.calc-output-section': {
+                    flex: '1 1 0%',
+                    minWidth: '0',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: theme('spacing.3'),
+                },
+
+                /* --- NEW: Universal SEO Content Wrapper --- */
+                '.calc-seo-content': {
+                    padding: theme('spacing.5'),
+                    fontSize: theme('fontSize.xs'),
+                    color: theme('colors.slate.700'),
+                    lineHeight: theme('lineHeight.relaxed'),
+                    display: 'grid',
+                    gap: theme('spacing.6'), /* Consistent vertical spacing between cards */
+                },
+
+                /* --- NEW: Universal Section Divider --- */
+                '.calc-section-divider': {
+                    width: '100%',
+                    height: '0',
+                    margin: `${theme('spacing.8')} 0`,
+                    borderTopWidth: '6px',
+                    borderColor: theme('colors.slate.400'), /* High contrast to match Mortgage Calc */
+                    borderRadius: '9999px',
+                    opacity: '0.8',
+                    '@media print': { display: 'none' }
+                },
+
+                /* --- Components --- */
                 '.compact-input': {
                     width: '100%',
                     padding: '2px 6px',
@@ -60,19 +122,15 @@ tailwind.config = {
                     backgroundColor: '#ffffff',
                     transition: 'border-color 0.15s ease-in-out',
                     height: '28px',
-                    color: theme('colors.slate.900'), /* Forced High Contrast Input Text */
+                    color: theme('colors.slate.900'),
                     '&:focus': {
                         outline: 'none',
                         borderColor: theme('colors.brand.green'),
                         boxShadow: `0 0 0 1px ${theme('colors.brand.green')}`,
                     },
-                    '&::-webkit-inner-spin-button, &::-webkit-outer-spin-button': {
-                        '-webkit-appearance': 'none',
-                        margin: '0',
-                    },
+                    '&::-webkit-inner-spin-button, &::-webkit-outer-spin-button': { '-webkit-appearance': 'none', margin: '0' },
                     '-moz-appearance': 'textfield',
                 },
-
                 '.compact-select': {
                     padding: '2px 20px 2px 6px',
                     fontSize: '13px',
@@ -80,7 +138,7 @@ tailwind.config = {
                     borderColor: theme('colors.slate.300'),
                     borderRadius: '3px',
                     backgroundColor: 'white',
-                    color: theme('colors.slate.900'), /* Forced High Contrast */
+                    color: theme('colors.slate.900'),
                     height: '28px',
                     '&:focus': {
                         outline: 'none',
@@ -88,8 +146,6 @@ tailwind.config = {
                         boxShadow: `0 0 0 1px ${theme('colors.brand.green')}`,
                     },
                 },
-
-                /* --- Input Layout Rows --- */
                 '.input-row': {
                     display: 'flex',
                     alignItems: 'center',
@@ -97,16 +153,13 @@ tailwind.config = {
                     gap: '6px',
                     marginBottom: '5px',
                 },
-
                 '.input-label': {
                     fontSize: '12px',
-                    fontWeight: '600', /* Bolder */
-                    color: theme('colors.slate.800'), /* Darker (was 700) */
+                    fontWeight: '600',
+                    color: theme('colors.slate.800'),
                     textAlign: 'right',
                     whiteSpace: 'nowrap',
                 },
-
-                /* --- Headers --- */
                 '.calc-tool-header': {
                     display: 'flex',
                     alignItems: 'center',
@@ -119,7 +172,6 @@ tailwind.config = {
                     color: 'white',
                     boxShadow: theme('boxShadow.sm'),
                 },
-
                 '.result-header': {
                     backgroundImage: `linear-gradient(to right, ${theme('colors.brand.green')}, ${theme('colors.brand.green-dark')})`,
                     padding: `${theme('spacing.3')} ${theme('spacing.4')}`,
@@ -130,8 +182,53 @@ tailwind.config = {
                     position: 'relative',
                     zIndex: '10',
                 },
-
-                /* --- Containers --- */
+                '.result-label': {
+                    fontSize: '10px',
+                    fontWeight: '600',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
+                    color: 'rgba(255, 255, 255, 0.9)',
+                },
+                '.result-value': {
+                    fontSize: '24px', 
+                    fontWeight: '700',
+                    lineHeight: '1',
+                    marginTop: '2px',
+                    color: '#ffffff',
+                    '@media (min-width: 640px)': { fontSize: '30px' }, 
+                },
+                '.calc-action-group': {
+                    display: 'flex',
+                    gap: theme('spacing.1'),
+                    alignItems: 'center',
+                },
+                '.calc-action-btn': {
+                    height: theme('spacing.7'),
+                    width: theme('spacing.7'),
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: theme('borderRadius.DEFAULT'),
+                    transition: 'all 0.2s ease',
+                    cursor: 'pointer',
+                    fontSize: theme('fontSize.xs'),
+                    backgroundColor: '#ffffff',
+                    borderWidth: '1px',
+                    borderColor: theme('colors.slate.200'),
+                    color: theme('colors.slate.400'),
+                    '&:hover': {
+                        borderColor: theme('colors.brand.red'),
+                        color: theme('colors.brand.red'),
+                        backgroundColor: '#ffffff',
+                    },
+                    '&.dark': {
+                        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                        borderWidth: '0',
+                        color: '#ffffff',
+                        backdropFilter: 'blur(4px)',
+                        '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.2)' }
+                    }
+                },
                 '.content-section': {
                     backgroundColor: '#ffffff',
                     borderWidth: '1px',
@@ -139,21 +236,17 @@ tailwind.config = {
                     borderRadius: theme('borderRadius.lg'),
                     boxShadow: theme('boxShadow.sm'),
                     overflow: 'hidden',
-                    color: theme('colors.slate.700'), /* Base text color for content */
+                    color: theme('colors.slate.700'),
                 },
-                
                 '.info-card': {
                     backgroundColor: theme('colors.slate.50'),
                     borderWidth: '1px',
-                    borderColor: theme('colors.slate.400'),
+                    borderColor: theme('colors.slate.300'), // Slightly darker for visibility
                     borderRadius: theme('borderRadius.md'),
                     padding: theme('spacing.4'),
-                    marginBottom: theme('spacing.4'),
-                    height: '100%',
-                    color: theme('colors.slate.700'), /* Darker text for info cards */
+                    /* Removed height: 100% to allow natural flow in grid */
+                    color: theme('colors.slate.700'),
                 },
-
-                /* --- Feature & Stat Cards --- */
                 '.feature-card': {
                     display: 'flex',
                     gap: theme('spacing.2'),
@@ -161,7 +254,7 @@ tailwind.config = {
                     padding: theme('spacing.2'),
                     borderRadius: theme('borderRadius.DEFAULT'),
                     borderWidth: '1px',
-                    borderColor: theme('colors.slate.300'), /* Slightly darker border */
+                    borderColor: theme('colors.slate.300'),
                     backgroundColor: '#ffffff',
                     transition: 'all 0.2s ease',
                     boxShadow: theme('boxShadow.sm'),
@@ -171,7 +264,6 @@ tailwind.config = {
                         boxShadow: theme('boxShadow.md'),
                     }
                 },
-
                 '.stat-card': {
                     backgroundColor: '#ffffff',
                     padding: theme('spacing.3'),
@@ -185,8 +277,6 @@ tailwind.config = {
                     justifyContent: 'center',
                     height: '100%',
                 },
-
-                /* --- NEW: Widget Buttons (Sidebar Actions) --- */
                 '.widget-btn': {
                     display: 'flex',
                     alignItems: 'center',
@@ -197,7 +287,7 @@ tailwind.config = {
                     borderWidth: '1px',
                     borderColor: theme('colors.slate.200'),
                     backgroundColor: '#ffffff',
-                    color: theme('colors.slate.600'), /* Darker (was 500) */
+                    color: theme('colors.slate.600'),
                     fontSize: '13px',
                     transition: 'all 0.15s ease',
                     cursor: 'pointer',
@@ -208,18 +298,16 @@ tailwind.config = {
                     },
                     '&.active': {
                         borderColor: theme('colors.brand.green'),
-                        backgroundColor: '#f0fdf4', // green-50
+                        backgroundColor: '#f0fdf4',
                         color: theme('colors.brand.green'),
                     }
                 },
-
-                /* --- Legacy & Other --- */
                 '.sidebar-nav-link': {
                     display: 'flex',
                     alignItems: 'center',
                     gap: theme('spacing.2'),
                     fontSize: '13px', 
-                    color: theme('colors.slate.700'), /* Darker link color (was blue-600/slate) */
+                    color: theme('colors.slate.700'),
                     padding: '0.1rem 0',
                     transition: 'all 0.2s ease',
                     '&:hover': {
@@ -228,14 +316,12 @@ tailwind.config = {
                     },
                     'i': {
                         fontSize: '10px',
-                        color: theme('colors.slate.500'), /* Darker Icon (was 400) */
+                        color: theme('colors.slate.500'),
                         width: '14px', 
                         textAlign: 'center',
                         transition: 'color 0.2s ease',
                     },
-                    '&:hover i': {
-                        color: theme('colors.brand.red'),
-                    }
+                    '&:hover i': { color: theme('colors.brand.red') }
                 },
                 '.chart-segment': {
                     transition: 'stroke-dasharray 0.6s ease-out, opacity 0.2s ease, stroke-width 0.2s ease, filter 0.2s ease',
@@ -250,10 +336,7 @@ tailwind.config = {
                 '.legend-row': {
                     transition: 'background-color 0.2s ease',
                     borderRadius: '2px',
-                    '&.highlight': {
-                        backgroundColor: theme('colors.slate.100'),
-                        fontWeight: '600',
-                    }
+                    '&.highlight': { backgroundColor: theme('colors.slate.100'), fontWeight: '600' }
                 },
                 '.slim-scroll': {
                     '&::-webkit-scrollbar': { height: '6px', width: '6px' },
@@ -333,7 +416,7 @@ tailwind.config = {
                         marginTop: '0',
                         fontSize: '9px', 
                         lineHeight: '1.1',
-                        color: theme('colors.slate.600'), /* Darker description text (was 500) */
+                        color: theme('colors.slate.600'),
                         display: 'block', 
                     },
                     '&:hover': {
@@ -375,7 +458,6 @@ tailwind.config = {
                     color: theme('colors.brand.dark'),
                     lineHeight: '1.2',
                     marginBottom: theme('spacing.1'),
-                    
                     'span': {
                         backgroundImage: `linear-gradient(to right, ${theme('colors.brand.red')}, ${theme('colors.brand.dark')})`,
                         backgroundClip: 'text',
@@ -386,7 +468,7 @@ tailwind.config = {
                 '.calc-desc': {
                     marginTop: '0',
                     fontSize: theme('fontSize.xs'),
-                    color: theme('colors.slate.700'), /* Darker Header Description (was 600) */
+                    color: theme('colors.slate.700'),
                 },
                 '.calc-subcat-title': {
                     fontFamily: theme('fontFamily.heading'),
@@ -406,9 +488,7 @@ tailwind.config = {
                         fontSize: theme('fontSize.xs'),
                     }
                 },
-                '#category-page .calc-card-compact h3': {
-                    fontSize: '11px',
-                }
+                '#category-page .calc-card-compact h3': { fontSize: '11px' }
             })
         }
     ]
