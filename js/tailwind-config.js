@@ -2,6 +2,7 @@
   DailyCalc.org Centralized Tailwind Configuration
   [2025-11-27] Added .calc-seo-content for standardized SEO guide layout
   [2025-11-27] Added .calc-section-divider for universal high-contrast separators
+  [2025-11-27] Updated .calc-section-divider to be centered
 */
 
 tailwind.config = {
@@ -102,7 +103,7 @@ tailwind.config = {
                 '.calc-section-divider': {
                     width: '100%',
                     height: '0',
-                    margin: `${theme('spacing.8')} 0`,
+                    margin: `${theme('spacing.8')} auto`, /* Centered margin */
                     borderTopWidth: '6px',
                     borderColor: theme('colors.slate.400'), /* High contrast to match Mortgage Calc */
                     borderRadius: '9999px',
