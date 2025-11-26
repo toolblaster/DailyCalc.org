@@ -1,6 +1,6 @@
 /*
   DailyCalc.org Centralized Tailwind Configuration
-  ... (Previous config preserved)
+  [2025-11-07] Updated .calc-card-compact border to slate-400
 */
 
 tailwind.config = {
@@ -297,7 +297,7 @@ tailwind.config = {
                     justifyContent: 'center',
                     borderRadius: theme('borderRadius.md'), 
                     borderWidth: '1px',
-                    borderColor: theme('colors.slate.100'),
+                    borderColor: theme('colors.slate.400'), // MODIFIED: Fixed darker border (was slate-300)
                     backgroundColor: theme('colors.slate.50'),
                     padding: theme('spacing.1.5'), 
                     textAlign: 'center',
@@ -333,7 +333,7 @@ tailwind.config = {
                         display: 'block', 
                     },
                     '&:hover': {
-                        borderColor: 'rgba(241, 32, 61, 0.3)',
+                        borderColor: theme('colors.brand.red'),
                         backgroundColor: '#ffffff',
                         boxShadow: '0 4px 6px -1px rgba(241, 32, 61, 0.05)',
                         zIndex: '10',
@@ -345,7 +345,14 @@ tailwind.config = {
                     display: 'flex',
                     alignItems: 'center',
                     gap: theme('spacing.4'),
-                    marginBottom: theme('spacing.6'), 
+                    marginBottom: theme('spacing.6'),
+
+                    /* NEW: Box Styles moved here to group Icon + Title + Desc */
+                    backgroundColor: theme('colors.slate.100'),
+                    padding: theme('spacing.4'),
+                    borderRadius: theme('borderRadius.lg'),
+                    borderWidth: '1px',
+                    borderColor: theme('colors.slate.200'),
                 },
                 '.calc-icon': {
                     display: 'flex',
@@ -361,10 +368,14 @@ tailwind.config = {
                 },
                 '.calc-title': {
                     fontFamily: theme('fontFamily.heading'),
-                    fontSize: theme('fontSize.xl'), 
+                    fontSize: '24px', 
                     fontWeight: '600',
                     color: theme('colors.brand.dark'),
                     lineHeight: '1.2',
+                    marginBottom: theme('spacing.1'),
+                    
+                    /* REMOVED: Box Styles (moved to header) */
+                    
                     'span': {
                         backgroundImage: `linear-gradient(to right, ${theme('colors.brand.red')}, ${theme('colors.brand.dark')})`,
                         backgroundClip: 'text',
