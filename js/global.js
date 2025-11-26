@@ -4,6 +4,7 @@
   - Global Search
   - Sidebar Widget (Voting, Sharing, Tools)
   - Auto-Save / Drafts
+  - Dynamic SEO
 */
 
 // --- CENTRAL DATA: Calculator Registry ---
@@ -174,7 +175,7 @@ const GlobalSearch = {
 
 // --- SIDEBAR WIDGET MODULE ---
 const SidebarWidget = {
-    widgetElement: null, // Holds the widget DOM node
+    widgetElement: null,
 
     init() {
         const mobileContainer = document.getElementById('mobile-widget-placeholder');
@@ -238,13 +239,10 @@ const SidebarWidget = {
 
         const toolsHTML = `
             <div id="static-tools" class="grid grid-cols-2 gap-2">
-                <!-- Share (Click Trigger) -->
                 <div class="relative w-full">
                     <button class="widget-btn w-full gap-2" id="share-trigger">
                         <i class="fa-solid fa-share-nodes text-slate-400"></i> Share
                     </button>
-                    
-                    <!-- Horizontal Menu (Grid Layout) -->
                     <div id="share-menu" class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden grid-cols-4 gap-1 bg-white border border-slate-200 shadow-lg rounded-lg p-2 w-auto z-20 min-w-[160px]">
                         <a href="#" data-share="facebook" class="flex items-center justify-center h-8 w-8 rounded hover:bg-slate-100 text-slate-600 hover:text-[#1877F2]" title="Facebook">
                             <i class="fa-brands fa-facebook text-lg"></i>
@@ -260,8 +258,6 @@ const SidebarWidget = {
                         </a>
                     </div>
                 </div>
-
-                <!-- Cite Button -->
                 <button class="widget-btn w-full gap-2" id="cite-btn" title="Cite this page">
                     <i class="fa-solid fa-quote-right text-slate-400"></i> Cite
                 </button>
@@ -269,7 +265,6 @@ const SidebarWidget = {
         `;
 
         this.widgetElement.innerHTML = voteHTML + toolsHTML;
-
         this.attachShareListeners(this.widgetElement);
         
         this.widgetElement.querySelector('#cite-btn').addEventListener('click', () => {
@@ -279,12 +274,10 @@ const SidebarWidget = {
         if (!hasVoted) {
             const yesBtn = this.widgetElement.querySelector('#vote-yes');
             const noBtn = this.widgetElement.querySelector('#vote-no');
-            
             yesBtn.addEventListener('click', () => {
                 localStorage.setItem(pageKey, 'yes');
                 this.transitionToResult(this.widgetElement, serverBaseCount + 1, 'yes');
             });
-            
             noBtn.addEventListener('click', () => {
                 localStorage.setItem(pageKey, 'no');
                 this.transitionToResult(this.widgetElement, serverBaseCount, 'no');
@@ -295,7 +288,6 @@ const SidebarWidget = {
     getResultHTML(count, voteType) {
         const thumbClass = voteType === 'yes' ? 'text-brand-green' : 'text-slate-400';
         const iconClass = voteType === 'yes' ? 'fa-solid' : 'fa-regular';
-        
         return `
             <div id="vote-section" class="fade-in mb-4 border-b border-slate-100 pb-4 text-center">
                 <div class="flex items-center gap-2 justify-center mb-2">
@@ -317,7 +309,6 @@ const SidebarWidget = {
     attachShareListeners(wrapper) {
         const url = encodeURIComponent(window.location.href);
         const title = encodeURIComponent(document.title);
-        
         const shareTrigger = wrapper.querySelector('#share-trigger');
         const shareMenu = wrapper.querySelector('#share-menu');
 
@@ -325,10 +316,8 @@ const SidebarWidget = {
             shareTrigger.addEventListener('click', (e) => {
                 e.stopPropagation(); 
                 shareMenu.classList.toggle('hidden');
-                // Changed to grid for horizontal layout
                 shareMenu.classList.toggle('grid');
             });
-
             document.addEventListener('click', (e) => {
                 if (!shareMenu.contains(e.target) && e.target !== shareTrigger) {
                     shareMenu.classList.add('hidden');
@@ -340,17 +329,13 @@ const SidebarWidget = {
         wrapper.querySelectorAll('[data-share]').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
-                const platform = btn.dataset.share; // Correctly getting platform
+                const platform = btn.dataset.share; 
                 let shareUrl = '';
-                
-                // Platform-specific logic relies on 'platform' variable
                 if (platform === 'facebook') shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
                 if (platform === 'whatsapp') shareUrl = `https://api.whatsapp.com/send?text=${title}%20${url}`;
                 if (platform === 'twitter') shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
                 if (platform === 'telegram') shareUrl = `https://t.me/share/url?url=${url}&text=${title}`;
-                
                 if(shareUrl) window.open(shareUrl, '_blank', 'width=600,height=400');
-                
                 if(shareMenu) {
                     shareMenu.classList.add('hidden');
                     shareMenu.classList.remove('grid');
@@ -363,35 +348,70 @@ const SidebarWidget = {
 // --- AUTO-SAVE / DRAFTS MODULE ---
 const AutoSave = {
     init() {
-        // Namespace by page URL to avoid collisions between different calculators
         const pageId = window.location.pathname;
-        
-        // Select inputs and selects to ensure comprehensive state saving
-        // We include .compact-select to capture dropdowns (like Down Payment Type)
-        const elements = document.querySelectorAll('.compact-input, .compact-select');
-
+        const elements = document.querySelectorAll('input, select, textarea');
         elements.forEach(el => {
-            if (!el.id) return; // ID is required for the key
-
+            if (!el.id || ['submit', 'button', 'hidden', 'password', 'file', 'reset'].includes(el.type)) return;
             const storageKey = `draft_${pageId}_${el.id}`;
-
-            // 1. Restore State
             const savedValue = sessionStorage.getItem(storageKey);
             if (savedValue !== null) {
-                el.value = savedValue;
-                // Dispatch event to notify listeners (essential for calcs that react to input)
-                el.dispatchEvent(new Event('input', { bubbles: true }));
-                el.dispatchEvent(new Event('change', { bubbles: true }));
+                if (el.type === 'checkbox' || el.type === 'radio') {
+                    el.checked = (savedValue === 'true');
+                } else {
+                    el.value = savedValue;
+                }
+                try {
+                    el.dispatchEvent(new Event('input', { bubbles: true }));
+                    el.dispatchEvent(new Event('change', { bubbles: true }));
+                } catch (e) {
+                    console.warn('AutoSave dispatch failed for', el.id);
+                }
             }
-
-            // 2. Save State on Input/Change
             const saveHandler = (e) => {
-                sessionStorage.setItem(storageKey, e.target.value);
+                let valToSave;
+                if (el.type === 'checkbox' || el.type === 'radio') {
+                    valToSave = el.checked;
+                } else {
+                    valToSave = el.value;
+                }
+                sessionStorage.setItem(storageKey, valToSave);
             };
-
             el.addEventListener('input', saveHandler);
             el.addEventListener('change', saveHandler);
         });
+    }
+};
+
+// --- DYNAMIC SEO MODULE ---
+const DynamicSEO = {
+    init() {
+        const path = window.location.pathname;
+        const params = new URLSearchParams(window.location.search);
+        if (path.includes('mortgage-calculator.html') && params.has('price')) {
+            const price = parseFloat(params.get('price'));
+            if (!isNaN(price)) {
+                const formattedPrice = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(price);
+                const newTitle = `Mortgage Calculator - ${formattedPrice} Loan Estimate`;
+                document.title = newTitle;
+                const newDesc = `Estimate monthly payments, taxes, and PMI for a ${formattedPrice} home loan. Free, fast, and accurate mortgage calculator.`;
+                this.updateMeta('description', newDesc);
+                this.updateMeta('og:title', newTitle);
+                this.updateMeta('og:description', newDesc);
+            }
+        }
+    },
+    updateMeta(name, content) {
+        let element = document.querySelector(`meta[name="${name}"]`);
+        if (!element) element = document.querySelector(`meta[property="${name}"]`);
+        if (element) {
+            element.setAttribute('content', content);
+        } else {
+            const meta = document.createElement('meta');
+            if (name.startsWith('og:')) meta.setAttribute('property', name);
+            else meta.setAttribute('name', name);
+            meta.setAttribute('content', content);
+            document.head.appendChild(meta);
+        }
     }
 };
 
@@ -410,7 +430,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     GlobalSearch.init();
     SidebarWidget.init();
-    AutoSave.init(); // Initialize Auto-Save
+    AutoSave.init(); 
+    DynamicSEO.init();
 
     const loadSidebarWidget = () => {
         const widgets = document.querySelectorAll('[data-widget="related-tools"]');
