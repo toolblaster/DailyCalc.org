@@ -3,8 +3,7 @@
   This file contains the HTML for the site-wide header, navigation, and footer.
   It injects this HTML into placeholder elements.
   
-  NOTE: Search logic has been moved to js/global.js.
-  Buttons here use the 'js-open-search' class to trigger the global search modal.
+  [2025-11-07] Added CalculatorLayout engine for dynamic page skeletons.
 */
 
 const headerHTML = `
@@ -170,6 +169,181 @@ const toastHTML = `
         <!-- Message will be set by JS -->
     </div>
 `;
+
+// *** NEW: CALCULATOR COMPONENT LOADER ***
+const CalculatorLayout = {
+    render(config) {
+        // config = {
+        //   targetId: 'main-container' (default), 
+        //   toolId: 'tool-slot', 
+        //   seoId: 'seo-slot', 
+        //   sidebarId: 'sidebar-slot',
+        //   title: 'Page Title', 
+        //   badge: 'Badge Text', 
+        //   category: 'Category Name',
+        //   breadcrumbs: [] (optional)
+        // }
+
+        const target = document.getElementById(config.targetId || 'calculator-layout');
+        if (!target) return; // Need a target container (e.g., <main id="calculator-layout">)
+
+        // 1. Grab Content Elements (before we wipe the container)
+        const toolEl = document.getElementById(config.toolId);
+        const seoEl = document.getElementById(config.seoId);
+        const sidebarEl = document.getElementById(config.sidebarId); // Optional extra sidebar content
+
+        if (!toolEl) {
+            console.error('CalculatorLayout: Tool content element not found.');
+            return;
+        }
+
+        // 2. Generate Breadcrumbs
+        let breadcrumbHTML = '';
+        if (config.breadcrumbs) {
+             // Custom implementation if needed
+        } else {
+             // Default Breadcrumb Logic
+             const catSlug = config.category.toLowerCase().replace(/\s+/g, '-');
+             breadcrumbHTML = `
+                <nav class="mb-3 text-xs text-slate-500 no-print" aria-label="Breadcrumb">
+                    <ol class="flex items-center gap-1">
+                        <li><a href="/" class="hover:text-[#518428]">Home</a></li>
+                        <li><span class="text-slate-400">/</span></li>
+                        <li><a href="/${catSlug}/" class="hover:text-[#518428]">${config.category}</a></li>
+                        <li><span class="text-slate-400">/</span></li>
+                        <li><span class="font-medium text-slate-700">${config.title}</span></li>
+                    </ol>
+                </nav>
+             `;
+        }
+
+        // 3. Generate Title
+        const badgeHTML = config.badge 
+            ? `<span class="ml-2 inline-block rounded-full bg-slate-200/70 border border-slate-300 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-slate-600 align-middle">${config.badge}</span>` 
+            : '';
+        
+        const titleHTML = `
+            <h1 class="mb-6 font-heading text-2xl font-bold text-brand-dark">
+                <span class="bg-gradient-to-r from-brand-dark to-brand-red bg-clip-text text-transparent">${config.title}</span>
+                ${badgeHTML}
+            </h1>
+        `;
+
+        // 4. Construct the Skeleton Wrapper
+        const wrapper = document.createElement('div');
+        wrapper.className = "mx-auto main-container px-2 py-4 sm:px-4";
+
+        wrapper.innerHTML = `
+            ${breadcrumbHTML}
+            ${titleHTML}
+            <div class="flex flex-col gap-4 lg:flex-row mb-8">
+                
+                <!-- Left: Calculator Tool Container -->
+                <div class="flex-1 min-w-0" id="layout-tool-container">
+                    <!-- Tool injected here -->
+                </div>
+                
+                <!-- Right: Sidebar -->
+                <div class="w-full shrink-0 space-y-4 lg:w-[300px] no-print">
+                    
+                    <!-- Widgets -->
+                    <div id="desktop-widget-placeholder" class="hidden md:block"></div>
+                    
+                    <div class="ad-box"><span class="text-xs font-semibold text-slate-400">ADVERTISEMENT<br>300x250</span></div>
+                    
+                    <!-- Page Specific Sidebar Extras -->
+                    <div id="layout-sidebar-container"></div>
+
+                    <!-- Related Tools -->
+                    <div class="content-section sticky top-4" id="layout-related-tools" data-widget="related-tools" data-category="${config.category}">
+                        <div class="p-4 text-center text-slate-400 text-xs">
+                            <i class="fa-solid fa-spinner fa-spin mb-2"></i><br>Loading tools...
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- Mobile Widget -->
+            <div id="mobile-widget-placeholder" class="md:hidden mb-8"></div>
+
+            <!-- SEO Content -->
+            <div id="layout-seo-divider" class="w-full max-w-[702px] my-10 border-t-[6px] border-slate-400 rounded-full no-print hidden"></div>
+            <div id="layout-seo-container" class="w-full max-w-[702px] no-print"></div>
+        `;
+
+        // 5. Inject the Preserved Content
+        const toolContainer = wrapper.querySelector('#layout-tool-container');
+        toolContainer.appendChild(toolEl);
+        toolEl.classList.remove('hidden'); // Ensure it's visible
+
+        if (sidebarEl) {
+            const sidebarContainer = wrapper.querySelector('#layout-sidebar-container');
+            sidebarContainer.appendChild(sidebarEl);
+            sidebarEl.classList.remove('hidden');
+        }
+
+        if (seoEl) {
+            const seoContainer = wrapper.querySelector('#layout-seo-container');
+            const divider = wrapper.querySelector('#layout-seo-divider');
+            seoContainer.appendChild(seoEl);
+            seoEl.classList.remove('hidden');
+            divider.classList.remove('hidden');
+        }
+
+        // 6. Final Render
+        target.innerHTML = ''; // Clear the simplified skeleton
+        target.appendChild(wrapper);
+
+        // 7. Post-Render: Initialize Widgets
+        // Since we destroyed and recreated the DOM, we need to manually trigger widget init logic
+        
+        // Init Sidebar Widget (Vote/Share)
+        if (window.SidebarWidget && typeof window.SidebarWidget.init === 'function') {
+            window.SidebarWidget.init();
+        }
+
+        // Init Related Tools (Reuse logic from global.js or implement simple version here)
+        this.loadRelatedTools(config.category);
+    },
+
+    loadRelatedTools(category) {
+        // Simple implementation to ensure tools load even if global.js ran earlier
+        const container = document.getElementById('layout-related-tools');
+        if (!container || !window.CALCULATOR_REGISTRY) return;
+
+        const links = window.CALCULATOR_REGISTRY[category];
+        if (!links) return;
+
+        const header = document.createElement('div');
+        header.className = 'bg-gradient-to-r from-brand-dark to-brand-red px-4 py-2';
+        header.innerHTML = `<h3 class="text-sm font-bold text-white text-center">${category} Calculators</h3>`;
+        
+        const listContainer = document.createElement('div');
+        listContainer.className = 'p-4';
+        const ul = document.createElement('ul');
+        ul.className = 'space-y-2';
+        
+        const currentPath = window.location.pathname;
+        links.forEach(link => {
+            const li = document.createElement('li');
+            const isActive = currentPath.includes(link.url);
+            const activeClass = isActive ? 'font-bold text-brand-red' : '';
+            const iconColor = isActive ? 'text-brand-red' : 'text-slate-400';
+            li.innerHTML = `<a href="${link.url}" class="sidebar-nav-link ${activeClass}"><i class="fa-solid ${link.icon} ${iconColor}"></i> ${link.name}</a>`;
+            ul.appendChild(li);
+        });
+
+        listContainer.appendChild(ul);
+        container.innerHTML = '';
+        container.appendChild(header);
+        container.appendChild(listContainer);
+    }
+};
+
+// Expose globally
+window.CalculatorLayout = CalculatorLayout;
+
 
 function loadCommonLayout() {
     const headerPlaceholder = document.getElementById('header-placeholder');
