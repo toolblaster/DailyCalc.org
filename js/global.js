@@ -3,6 +3,7 @@
   - Calculator Registry
   - Global Search
   - Sidebar Widget (Voting, Sharing, Tools)
+  - Auto-Save / Drafts
 */
 
 // --- CENTRAL DATA: Calculator Registry ---
@@ -359,6 +360,41 @@ const SidebarWidget = {
     }
 };
 
+// --- AUTO-SAVE / DRAFTS MODULE ---
+const AutoSave = {
+    init() {
+        // Namespace by page URL to avoid collisions between different calculators
+        const pageId = window.location.pathname;
+        
+        // Select inputs and selects to ensure comprehensive state saving
+        // We include .compact-select to capture dropdowns (like Down Payment Type)
+        const elements = document.querySelectorAll('.compact-input, .compact-select');
+
+        elements.forEach(el => {
+            if (!el.id) return; // ID is required for the key
+
+            const storageKey = `draft_${pageId}_${el.id}`;
+
+            // 1. Restore State
+            const savedValue = sessionStorage.getItem(storageKey);
+            if (savedValue !== null) {
+                el.value = savedValue;
+                // Dispatch event to notify listeners (essential for calcs that react to input)
+                el.dispatchEvent(new Event('input', { bubbles: true }));
+                el.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+
+            // 2. Save State on Input/Change
+            const saveHandler = (e) => {
+                sessionStorage.setItem(storageKey, e.target.value);
+            };
+
+            el.addEventListener('input', saveHandler);
+            el.addEventListener('change', saveHandler);
+        });
+    }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     const addScrollbarHideStyle = () => {
         const style = document.createElement('style');
@@ -373,7 +409,8 @@ document.addEventListener('DOMContentLoaded', () => {
     addScrollbarHideStyle();
 
     GlobalSearch.init();
-    SidebarWidget.init(); 
+    SidebarWidget.init();
+    AutoSave.init(); // Initialize Auto-Save
 
     const loadSidebarWidget = () => {
         const widgets = document.querySelectorAll('[data-widget="related-tools"]');
