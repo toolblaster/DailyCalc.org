@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator & BMR | Healthy Weight & Calories | DailyCalc.org</title>
+    <meta name="description" content="Advanced BMI Calculator. Get your Body Mass Index, ideal weight range, and daily BMR calorie needs based on age, gender, and height.">
+    
+    <!-- Standard Imports -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="../css/global.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../js/tailwind-config.js"></script>
+    <script src="../js/global.js" defer></script>
+    <script src="../js/common-layout.js" defer></script>
+    
+    <style>
+        .bmi-gradient {
+            background: linear-gradient(90deg, 
+                #3b82f6 0%, #3b82f6 18.5%, 
+                #22c55e 18.5%, #22c55e 25%, 
+                #eab308 25%, #eab308 30%, 
+                #ef4444 30%, #ef4444 100%
+            );
+        }
+        .gauge-marker { transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased">
+    
+    <div id="header-placeholder"></div>
+    <main id="calculator-layout"></main>
+
+    <!-- TOOL INTERFACE -->
+    <div id="tool-slot" class="hidden">
+        
+        <div class="calc-tool-header">
+            <i class="fa-solid fa-heart-pulse"></i>
+            <span class="text-xs font-medium">BMI, Ideal Weight & Calorie Estimator</span>
+        </div>
+
+        <!-- UNIVERSAL LAYOUT WRAPPER -->
+        <div class="calc-body-wrapper">
+            
+            <!-- LEFT: INPUT SECTION -->
+            <div class="calc-input-section">
+                 
+                 <div>
+                    <!-- Unit Switcher -->
+                    <div class="flex justify-center mb-4">
+                        <div class="inline-flex bg-white rounded-md border border-slate-300 p-0.5 shadow-sm w-full">
+                            <label class="cursor-pointer flex-1 text-center py-1.5 rounded text-xs font-bold transition-colors text-brand-dark bg-slate-100 shadow-sm" id="label-imperial">
+                                <input type="radio" name="units" value="imperial" checked class="hidden"> US (lbs/ft)
+                            </label>
+                            <label class="cursor-pointer flex-1 text-center py-1.5 rounded text-xs font-medium transition-colors text-slate-500 hover:text-slate-700" id="label-metric">
+                                <input type="radio" name="units" value="metric" class="hidden"> Metric (kg/cm)
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Input Grid -->
+                    <div class="space-y-3">
+                        <!-- Gender -->
+                        <div class="flex items-center justify-between">
+                            <label class="text-xs font-bold text-slate-700">Gender</label>
+                            <div class="flex gap-2 w-32">
+                                <label class="flex-1 cursor-pointer">
+                                    <input type="radio" name="gender" value="male" class="peer hidden" checked>
+                                    <div class="text-[10px] font-bold text-center py-1.5 border border-slate-300 rounded bg-white text-slate-500 peer-checked:bg-blue-50 peer-checked:text-blue-600 peer-checked:border-blue-300 transition-all">Male</div>
+                                </label>
+                                <label class="flex-1 cursor-pointer">
+                                    <input type="radio" name="gender" value="female" class="peer hidden">
+                                    <div class="text-[10px] font-bold text-center py-1.5 border border-slate-300 rounded bg-white text-slate-500 peer-checked:bg-pink-50 peer-checked:text-pink-600 peer-checked:border-pink-300 transition-all">Fem</div>
+                                </label>
+                            </div>
+                        </div>
+                        <!-- Age -->
+                        <div class="flex items-center justify-between">
+                            <label class="text-xs font-bold text-slate-700">Age</label>
+                            <div class="relative w-32">
+                                <input type="number" id="age" value="30" class="compact-input pr-8 font-bold text-slate-900" placeholder="0">
+                                <span class="absolute right-2 top-1.5 text-[10px] text-slate-500 font-bold">yrs</span>
+                            </div>
+                        </div>
+                        <!-- Weight -->
+                        <div class="flex items-center justify-between">
+                            <label class="text-xs font-bold text-slate-700">Weight</label>
+                            <div class="relative w-32">
+                                <input type="number" id="weight" class="compact-input pr-8 font-bold text-slate-900" placeholder="0">
+                                <span id="weightUnit" class="absolute right-2 top-1.5 text-[10px] text-slate-500 font-bold">lbs</span>
+                            </div>
+                        </div>
+                        <!-- Height -->
+                        <div class="flex items-center justify-between">
+                            <label class="text-xs font-bold text-slate-700">Height</label>
+                            <div id="imperialHeight" class="flex gap-2 w-32">
+                                <div class="relative w-full">
+                                    <input type="number" id="heightFt" class="compact-input pr-5 font-bold text-slate-900" placeholder="0">
+                                    <span class="absolute right-1.5 top-1.5 text-[10px] text-slate-500 font-bold">ft</span>
+                                </div>
+                                <div class="relative w-full">
+                                    <input type="number" id="heightIn" class="compact-input pr-5 font-bold text-slate-900" placeholder="0">
+                                    <span class="absolute right-1.5 top-1.5 text-[10px] text-slate-500 font-bold">in</span>
+                                </div>
+                            </div>
+                            <div id="metricHeight" class="relative w-32 hidden">
+                                <input type="number" id="heightCm" class="compact-input pr-8 font-bold text-slate-900" placeholder="0">
+                                <span class="absolute right-2 top-1.5 text-[10px] text-slate-500 font-bold">cm</span>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+
+                 <!-- Actions -->
+                 <div class="mt-6 flex flex-col gap-2">
+                    <button type="button" id="calcButton" class="w-full rounded bg-[#518428] py-2.5 text-sm font-bold text-white shadow-md hover:bg-green-700 hover:shadow-lg transition-all focus:ring-2 focus:ring-[#518428] focus:ring-offset-1">CALCULATE</button>
+                    <button type="button" id="clearButton" class="text-[11px] text-slate-500 hover:text-brand-red font-semibold text-center underline decoration-slate-300 hover:decoration-brand-red transition-all">Clear & Reset</button>
+                 </div>
+            </div>
+
+            <!-- RIGHT: OUTPUT SECTION -->
+            <div class="calc-output-section">
+                 
+                 <!-- Top Card -->
+                 <div class="rounded-lg border border-slate-400 bg-white shadow-lg overflow-hidden flex flex-col">
+                    <div class="result-header">
+                        <div><div class="result-label">Your BMI</div><div class="result-value" id="resultDisplay">--.-</div></div>
+                        <div class="calc-action-group">
+                            <button id="saveBtn" class="calc-action-btn dark" title="Save to Dashboard"><i class="fa-regular fa-bookmark"></i></button>
+                            <button id="shareBtn" class="calc-action-btn dark" title="Copy Link"><i class="fa-solid fa-share-nodes"></i></button>
+                            <button id="printBtn" class="calc-action-btn dark" title="Print"><i class="fa-solid fa-print"></i></button>
+                            <input type="text" id="shareUrlInput" class="hidden">
+                        </div>
+                    </div>
+                    <div class="p-4 bg-white">
+                        <div id="resultCategory" class="text-sm font-bold text-slate-400 text-center mb-4">Enter Details</div>
+                        <div class="flex-1 w-full flex flex-col justify-center">
+                            <div class="relative h-4 w-full rounded-full bmi-gradient shadow-inner mb-6">
+                                <div id="gaugeMarker" class="gauge-marker absolute -top-2 left-0 -ml-2 h-0 w-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[8px] border-t-slate-800 hidden"></div>
+                                 <div id="gaugeLabel" class="gauge-marker absolute -top-8 left-0 -ml-6 w-12 text-center text-[10px] font-bold bg-slate-800 text-white rounded px-1 py-0.5 hidden">
+                                    <span id="gaugeValue">--</span>
+                                    <div class="absolute bottom-[-4px] left-1/2 -ml-1 h-0 w-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-t-[4px] border-t-slate-800"></div>
+                                 </div>
+                            </div>
+                            <div class="flex justify-between text-[9px] font-medium text-slate-500 px-1">
+                                <span class="text-blue-600">Under</span><span class="text-green-600 text-center pl-4">Normal</span><span class="text-yellow-600 text-center pr-4">Over</span><span class="text-red-600">Obese</span>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+
+                 <!-- Value-Add Grid -->
+                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                     <div class="bg-white border border-slate-200 rounded p-3 shadow-sm">
+                        <div class="flex items-center gap-2 mb-1"><div class="bg-green-100 text-green-600 w-6 h-6 rounded-full flex items-center justify-center text-[10px]"><i class="fa-solid fa-scale-balanced"></i></div><span class="text-xs font-bold text-slate-700">Healthy Weight</span></div>
+                        <div class="text-lg font-bold text-slate-900" id="idealWeightDisplay">-- - --</div>
+                        <p class="text-[10px] text-slate-500 leading-tight mt-1" id="weightAdvice">Enter height to see range.</p>
+                     </div>
+                     <div class="bg-white border border-slate-200 rounded p-3 shadow-sm">
+                        <div class="flex items-center gap-2 mb-1"><div class="bg-orange-100 text-orange-600 w-6 h-6 rounded-full flex items-center justify-center text-[10px]"><i class="fa-solid fa-fire"></i></div><span class="text-xs font-bold text-slate-700">Daily Burn (BMR)</span></div>
+                        <div class="text-lg font-bold text-slate-900" id="bmrDisplay">--</div>
+                        <p class="text-[10px] text-slate-500 leading-tight mt-1">Calories/day at rest.</p>
+                     </div>
+                 </div>
+
+                 <!-- Reference Table -->
+                 <div class="flex-1 border border-slate-200 rounded overflow-hidden">
+                     <div class="bg-slate-100 px-3 py-2 border-b border-slate-200"><h3 class="text-xs font-bold text-slate-700">Quick Reference</h3></div>
+                     <table class="w-full text-xs text-left">
+                         <tbody class="divide-y divide-slate-100">
+                             <tr id="row-under" class="transition-colors"><td class="px-3 py-2 text-slate-600 font-medium">Underweight</td><td class="px-3 py-2 text-slate-500 text-right">&lt; 18.5</td><td class="px-3 py-2 text-right"><span class="inline-block w-2 h-2 rounded-full bg-blue-500"></span></td></tr>
+                             <tr id="row-normal" class="transition-colors"><td class="px-3 py-2 text-slate-600 font-medium">Normal Weight</td><td class="px-3 py-2 text-slate-500 text-right">18.5 – 24.9</td><td class="px-3 py-2 text-right"><span class="inline-block w-2 h-2 rounded-full bg-green-500"></span></td></tr>
+                             <tr id="row-over" class="transition-colors"><td class="px-3 py-2 text-slate-600 font-medium">Overweight</td><td class="px-3 py-2 text-slate-500 text-right">25.0 – 29.9</td><td class="px-3 py-2 text-right"><span class="inline-block w-2 h-2 rounded-full bg-yellow-500"></span></td></tr>
+                             <tr id="row-obese" class="transition-colors"><td class="px-3 py-2 text-slate-600 font-medium">Obesity</td><td class="px-3 py-2 text-slate-500 text-right">&ge; 30.0</td><td class="px-3 py-2 text-right"><span class="inline-block w-2 h-2 rounded-full bg-red-500"></span></td></tr>
+                         </tbody>
+                     </table>
+                 </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- SEO & GUIDE -->
+    <div id="seo-slot" class="hidden">
+        <div class="content-section">
+            <div class="bg-gradient-to-r from-brand-dark to-brand-red px-4 py-3 border-b border-white/10">
+                <h2 class="font-bold text-white">BMI Guide & Charts</h2>
+            </div>
+            <!-- Using new Universal SEO Wrapper -->
+            <div class="calc-seo-content">
+                
+                <section class="info-card">
+                    <h3 class="font-bold text-sm text-brand-dark mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-info text-brand-red"></i> What is Body Mass Index (BMI)?
+                    </h3>
+                    <p class="mb-2">Body Mass Index (BMI) is a simple screening tool used by doctors and health professionals to estimate the amount of body fat a person has. It calculates a score based on your <strong>weight</strong> in relation to your <strong>height</strong>.</p>
+                    <p>While it doesn't measure body fat directly, BMI is widely used because it's a quick, non-invasive way to categorize weight and screen for potential health risks related to obesity or being underweight.</p>
+                </section>
+
+                <section class="info-card">
+                    <h3 class="font-bold text-sm text-brand-dark mb-3 flex items-center gap-2"><i class="fa-solid fa-table text-brand-red"></i> BMI Table for Adults</h3>
+                    <p class="mb-3">For most adults (ages 20+), BMI scores fall into standard weight categories established by the World Health Organization (WHO). Use this table to interpret your result:</p>
+                    <div class="overflow-x-auto border border-slate-200 rounded-lg shadow-sm bg-white">
+                        <table class="w-full text-left border-collapse">
+                            <thead><tr class="bg-slate-100 border-b border-slate-200 text-slate-700"><th class="p-3 font-bold">Category</th><th class="p-3 font-bold">BMI Range (kg/m²)</th><th class="p-3 font-bold">Health Risk Level</th></tr></thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr class="hover:bg-blue-50/50 transition-colors"><td class="p-3 font-medium text-blue-700"><span class="inline-block w-2 h-2 rounded-full bg-blue-500 mr-2"></span>Underweight</td><td class="p-3">Below 18.5</td><td class="p-3 text-slate-500">Minimal / Nutrition risk</td></tr>
+                                <tr class="hover:bg-green-50/50 transition-colors"><td class="p-3 font-medium text-green-700"><span class="inline-block w-2 h-2 rounded-full bg-green-500 mr-2"></span>Normal Weight</td><td class="p-3 font-bold text-slate-800">18.5 – 24.9</td><td class="p-3 text-slate-500">Low Risk</td></tr>
+                                <tr class="hover:bg-yellow-50/50 transition-colors"><td class="p-3 font-medium text-yellow-700"><span class="inline-block w-2 h-2 rounded-full bg-yellow-500 mr-2"></span>Overweight</td><td class="p-3">25.0 – 29.9</td><td class="p-3 text-slate-500">Increased Risk</td></tr>
+                                <tr class="hover:bg-red-50/50 transition-colors"><td class="p-3 font-medium text-red-600"><span class="inline-block w-2 h-2 rounded-full bg-red-500 mr-2"></span>Obesity Class I</td><td class="p-3">30.0 – 34.9</td><td class="p-3 text-slate-500">High Risk</td></tr>
+                                <tr class="hover:bg-red-50/50 transition-colors"><td class="p-3 font-medium text-red-700"><span class="inline-block w-2 h-2 rounded-full bg-red-700 mr-2"></span>Obesity Class II</td><td class="p-3">35.0 – 39.9</td><td class="p-3 text-slate-500">Very High Risk</td></tr>
+                                <tr class="hover:bg-red-50/50 transition-colors"><td class="p-3 font-medium text-red-900"><span class="inline-block w-2 h-2 rounded-full bg-red-900 mr-2"></span>Obesity Class III</td><td class="p-3">40.0 and above</td><td class="p-3 text-slate-500">Extremely High Risk</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="info-card">
+                    <h3 class="font-bold text-sm text-brand-dark mb-2">How to Read a BMI Chart</h3>
+                    <p class="mb-3">A typical BMI chart is a grid with <strong>Weight</strong> on the horizontal axis and <strong>Height</strong> on the vertical axis. To find your BMI manually:</p>
+                    <ol class="list-decimal pl-5 space-y-2 mb-4"><li>Find your height in the left-hand column.</li><li>Find your weight in the top row.</li><li>Follow the row and column until they meet. That number is your BMI.</li></ol>
+                    <div class="bg-blue-50 border border-blue-200 p-4 rounded-lg text-blue-900"><i class="fa-solid fa-circle-check mr-1"></i> <strong>Easier Method:</strong> Instead of squinting at a complex grid, simply enter your precise height and weight into the calculator above. It does the math instantly!</div>
+                </section>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <section class="info-card"><h3 class="font-bold text-sm text-brand-dark mb-2 flex items-center gap-2"><i class="fa-solid fa-arrow-trend-up text-red-500"></i> Risks of High BMI</h3><p class="mb-2">Being overweight puts extra strain on your body. Common risks include:</p><ul class="list-disc pl-5 space-y-1 text-slate-600"><li>High blood pressure (Hypertension)</li><li>Type 2 Diabetes</li><li>Heart disease and stroke</li><li>Joint problems (Osteoarthritis)</li><li>Sleep apnea</li></ul></section>
+                    <section class="info-card"><h3 class="font-bold text-sm text-brand-dark mb-2 flex items-center gap-2"><i class="fa-solid fa-arrow-trend-down text-blue-500"></i> Risks of Low BMI</h3><p class="mb-2">Being underweight can also be dangerous:</p><ul class="list-disc pl-5 space-y-1 text-slate-600"><li>Malnutrition and vitamin deficiencies</li><li>Weakened immune system</li><li>Osteoporosis (weak bones)</li><li>Fertility issues</li><li>Anemia</li></ul></section>
+                </div>
+
+                <section class="info-card bg-blue-50/50 border-blue-200">
+                    <h3 class="font-bold text-sm text-brand-dark mb-2 flex items-center gap-2"><i class="fa-solid fa-users-viewfinder text-brand-red"></i> Who is this calculator for?</h3>
+                    <p class="mb-4">This calculator is designed for <strong>adults (men and women) over age 20</strong>. It is not accurate for:</p>
+                    <div class="flex flex-wrap gap-3 mb-3"><span class="px-3 py-1 bg-white rounded-full text-slate-600 border border-slate-200 font-medium shadow-sm text-[11px]"><i class="fa-solid fa-child mr-1"></i> Children & Teens</span><span class="px-3 py-1 bg-white rounded-full text-slate-600 border border-slate-200 font-medium shadow-sm text-[11px]"><i class="fa-solid fa-person-pregnant mr-1"></i> Pregnant Women</span><span class="px-3 py-1 bg-white rounded-full text-slate-600 border border-slate-200 font-medium shadow-sm text-[11px]"><i class="fa-solid fa-dumbbell mr-1"></i> Professional Athletes</span></div>
+                    <p class="italic text-slate-500 text-[11px]">*Athletes often have high muscle mass, which weighs more than fat. They might have a "High" BMI but very low body fat.</p>
+                </section>
+            </div>
+        </div>
+    </div>
+    
+    <div id="footer-placeholder"></div>
+
+    <!-- LOGIC -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof CalculatorLayout !== 'undefined') {
+                CalculatorLayout.render({ title: "BMI Calculator", category: "Health", toolId: "tool-slot", seoId: "seo-slot" });
+            }
+            const els = {
+                radios: document.getElementsByName('units'),
+                labels: { imperial: document.getElementById('label-imperial'), metric: document.getElementById('label-metric') },
+                genderRadios: document.getElementsByName('gender'),
+                age: document.getElementById('age'),
+                weight: document.getElementById('weight'),
+                weightUnit: document.getElementById('weightUnit'),
+                heightFt: document.getElementById('heightFt'),
+                heightIn: document.getElementById('heightIn'),
+                heightCm: document.getElementById('heightCm'),
+                imperialHeight: document.getElementById('imperialHeight'),
+                metricHeight: document.getElementById('metricHeight'),
+                btn: document.getElementById('calcButton'),
+                clear: document.getElementById('clearButton'),
+                display: document.getElementById('resultDisplay'),
+                catText: document.getElementById('resultCategory'),
+                marker: document.getElementById('gaugeMarker'),
+                gaugeLabel: document.getElementById('gaugeLabel'),
+                gaugeValue: document.getElementById('gaugeValue'),
+                idealWeight: document.getElementById('idealWeightDisplay'),
+                weightAdvice: document.getElementById('weightAdvice'),
+                bmrDisplay: document.getElementById('bmrDisplay'),
+                rows: { under: document.getElementById('row-under'), normal: document.getElementById('row-normal'), over: document.getElementById('row-over'), obese: document.getElementById('row-obese') },
+                saveBtn: document.getElementById('saveBtn'),
+                shareBtn: document.getElementById('shareBtn'),
+                printBtn: document.getElementById('printBtn'),
+                shareInput: document.getElementById('shareUrlInput')
+            };
+
+            function toggleUnits() {
+                const isMetric = Array.from(els.radios).find(r => r.checked).value === 'metric';
+                if (isMetric) {
+                    els.labels.metric.classList.add('bg-slate-100', 'shadow-sm', 'text-brand-dark', 'font-bold'); els.labels.metric.classList.remove('text-slate-500', 'font-medium');
+                    els.labels.imperial.classList.remove('bg-slate-100', 'shadow-sm', 'text-brand-dark', 'font-bold'); els.labels.imperial.classList.add('text-slate-500', 'font-medium');
+                    els.weightUnit.textContent = 'kg'; els.imperialHeight.classList.add('hidden'); els.metricHeight.classList.remove('hidden');
+                } else {
+                    els.labels.imperial.classList.add('bg-slate-100', 'shadow-sm', 'text-brand-dark', 'font-bold'); els.labels.imperial.classList.remove('text-slate-500', 'font-medium');
+                    els.labels.metric.classList.remove('bg-slate-100', 'shadow-sm', 'text-brand-dark', 'font-bold'); els.labels.metric.classList.add('text-slate-500', 'font-medium');
+                    els.weightUnit.textContent = 'lbs'; els.imperialHeight.classList.remove('hidden'); els.metricHeight.classList.add('hidden');
+                }
+                calculate();
+            }
+            els.radios.forEach(r => r.addEventListener('change', toggleUnits));
+
+            function calculate() {
+                const isMetric = Array.from(els.radios).find(r => r.checked).value === 'metric';
+                const gender = Array.from(els.genderRadios).find(r => r.checked).value;
+                const age = parseFloat(els.age.value) || 0;
+                let weight = parseFloat(els.weight.value);
+                let heightM = 0; let heightCmVal = 0;
+
+                if (!weight || weight <= 0) { resetResult(); return; }
+
+                if (isMetric) {
+                    let cm = parseFloat(els.heightCm.value); if (!cm) { resetResult(); return; }
+                    heightCmVal = cm; heightM = cm / 100;
+                } else {
+                    let ft = parseFloat(els.heightFt.value) || 0; let inch = parseFloat(els.heightIn.value) || 0;
+                    if (ft === 0 && inch === 0) { resetResult(); return; }
+                    let totalInches = (ft * 12) + inch; heightCmVal = totalInches * 2.54; heightM = heightCmVal / 100;
+                }
+
+                let weightKg = isMetric ? weight : (weight * 0.453592);
+                let bmi = weightKg / (heightM * heightM);
+                displayBMI(bmi);
+
+                let minKg = 18.5 * (heightM * heightM); let maxKg = 24.9 * (heightM * heightM);
+                let rangeText = ""; let adviceText = "";
+
+                if (isMetric) {
+                    rangeText = `${minKg.toFixed(1)} - ${maxKg.toFixed(1)} kg`;
+                    if (weightKg < minKg) adviceText = `Gain ${(minKg - weightKg).toFixed(1)} kg`; else if (weightKg > maxKg) adviceText = `Lose ${(weightKg - maxKg).toFixed(1)} kg`; else adviceText = "You are in the healthy range!";
+                } else {
+                    let minLbs = minKg * 2.20462; let maxLbs = maxKg * 2.20462;
+                    rangeText = `${Math.round(minLbs)} - ${Math.round(maxLbs)} lbs`;
+                    if (weight < minLbs) adviceText = `Gain ${Math.round(minLbs - weight)} lbs`; else if (weight > maxLbs) adviceText = `Lose ${Math.round(weight - maxLbs)} lbs`; else adviceText = "You are in the healthy range!";
+                }
+                els.idealWeight.textContent = rangeText; els.weightAdvice.textContent = adviceText;
+
+                let bmr = (10 * weightKg) + (6.25 * heightCmVal) - (5 * age);
+                if (gender === 'male') bmr += 5; else bmr -= 161;
+                els.bmrDisplay.textContent = Math.round(bmr).toLocaleString();
+            }
+
+            function displayBMI(bmi) {
+                if (!isFinite(bmi) || isNaN(bmi) || bmi <= 0) { resetResult(); return; }
+                const val = bmi.toFixed(1);
+                els.display.textContent = val; els.gaugeValue.textContent = val;
+
+                let category = ""; let colorClass = ""; let activeRowId = ""; let percent = 0;
+                const minScale = 14; const maxScale = 35;
+                percent = ((bmi - minScale) / (maxScale - minScale)) * 100;
+                if (percent < 0) percent = 0; if (percent > 100) percent = 100;
+
+                if (bmi < 18.5) { category = "Underweight"; colorClass = "text-blue-600"; activeRowId = "under"; }
+                else if (bmi < 25) { category = "Normal Weight"; colorClass = "text-green-600"; activeRowId = "normal"; }
+                else if (bmi < 30) { category = "Overweight"; colorClass = "text-yellow-600"; activeRowId = "over"; }
+                else { category = "Obesity"; colorClass = "text-red-600"; activeRowId = "obese"; }
+
+                els.catText.textContent = category; els.catText.className = `text-sm font-bold mt-2 ${colorClass}`;
+                els.marker.classList.remove('hidden'); els.gaugeLabel.classList.remove('hidden');
+                els.marker.style.left = `${percent}%`; els.gaugeLabel.style.left = `${percent}%`;
+
+                Object.values(els.rows).forEach(r => { r.classList.remove('bg-brand-red/10', 'bg-blue-50', 'bg-green-50', 'bg-yellow-50', 'font-bold'); });
+                const row = els.rows[activeRowId];
+                if (row) {
+                    let bg = 'bg-slate-100'; if (activeRowId === 'under') bg = 'bg-blue-50'; if (activeRowId === 'normal') bg = 'bg-green-50'; if (activeRowId === 'over') bg = 'bg-yellow-50'; if (activeRowId === 'obese') bg = 'bg-red-50';
+                    row.classList.add(bg, 'font-bold');
+                }
+            }
+
+            function resetResult() {
+                els.display.textContent = "--.-"; els.catText.textContent = "Enter Details"; els.catText.className = "text-sm font-bold text-slate-400 mt-2";
+                els.marker.classList.add('hidden'); els.gaugeLabel.classList.add('hidden');
+                els.idealWeight.textContent = "-- - --"; els.weightAdvice.textContent = "Enter height to see range."; els.bmrDisplay.textContent = "--";
+                Object.values(els.rows).forEach(r => r.className = "transition-colors");
+            }
+
+            if(els.saveBtn) els.saveBtn.addEventListener('click', () => {
+                if (els.display.textContent === "--.-") return;
+                const presetName = prompt("Name this result (e.g., 'My Jan Checkup'):");
+                if (presetName) {
+                    const units = Array.from(els.radios).find(r => r.checked).value;
+                    let detail = units === 'metric' ? `${els.weight.value}kg, ${els.heightCm.value}cm` : `${els.weight.value}lbs, ${els.heightFt.value}'${els.heightIn.value}"`;
+                    const preset = { name: presetName, date: new Date().toISOString(), inputs: detail, calculator: 'BMI Calculator', result: `BMI ${els.display.textContent}`, url: window.location.href };
+                    let allPresets = JSON.parse(localStorage.getItem('dailyCalcPresets')) || {};
+                    if (!allPresets['Health']) allPresets['Health'] = [];
+                    allPresets['Health'].push(preset);
+                    localStorage.setItem('dailyCalcPresets', JSON.stringify(allPresets));
+                    const originalHtml = els.saveBtn.innerHTML; els.saveBtn.innerHTML = `<i class="fa-solid fa-check text-green-600"></i>`; setTimeout(() => els.saveBtn.innerHTML = originalHtml, 2000);
+                }
+            });
+
+            if(els.shareBtn) els.shareBtn.addEventListener('click', () => {
+                const params = new URLSearchParams();
+                params.set('w', els.weight.value); params.set('hf', els.heightFt.value); params.set('hi', els.heightIn.value); params.set('hc', els.heightCm.value); params.set('a', els.age.value); params.set('u', Array.from(els.radios).find(r => r.checked).value);
+                const shareUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+                if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(shareUrl).then(showShareSuccess); } else { els.shareInput.value = shareUrl; els.shareInput.classList.remove('hidden'); els.shareInput.select(); document.execCommand('copy'); els.shareInput.classList.add('hidden'); showShareSuccess(); }
+            });
+
+            if(els.printBtn) els.printBtn.addEventListener('click', () => {
+                window.print();
+            });
+
+            function showShareSuccess() { const originalHtml = els.shareBtn.innerHTML; els.shareBtn.innerHTML = `<i class="fa-solid fa-check text-green-600"></i>`; setTimeout(() => els.shareBtn.innerHTML = originalHtml, 2000); }
+
+            const urlParams = new URLSearchParams(window.location.search);
+            if(urlParams.has('w')) {
+                els.weight.value = urlParams.get('w'); if(urlParams.get('a')) els.age.value = urlParams.get('a');
+                if(urlParams.get('u') === 'metric') { els.radios[1].checked = true; toggleUnits(); if(urlParams.get('hc')) els.heightCm.value = urlParams.get('hc'); } else { if(urlParams.get('hf')) els.heightFt.value = urlParams.get('hf'); if(urlParams.get('hi')) els.heightIn.value = urlParams.get('hi'); }
+                calculate();
+            }
+
+            if(els.btn) els.btn.addEventListener('click', calculate);
+            if(els.clear) els.clear.addEventListener('click', () => { els.weight.value = ''; els.heightFt.value = ''; els.heightIn.value = ''; els.heightCm.value = ''; resetResult(); });
+            [els.weight, els.heightFt, els.heightIn, els.heightCm, els.age].forEach(i => { if(i) i.addEventListener('input', calculate); });
+            Array.from(els.genderRadios).forEach(r => r.addEventListener('change', calculate));
+        });
+    </script>
+</body>
+</html>
