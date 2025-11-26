@@ -5,6 +5,7 @@
   - Sidebar Widget (Voting, Sharing, Tools)
   - Auto-Save / Drafts
   - Dynamic SEO
+  - DailyLineChart (New Interactive SVG Charts)
 */
 
 // --- CENTRAL DATA: Calculator Registry ---
@@ -412,6 +413,214 @@ const DynamicSEO = {
             meta.setAttribute('content', content);
             document.head.appendChild(meta);
         }
+    }
+};
+
+// --- NEW: DAILY LINE CHART (Lightweight SVG) ---
+/*
+  Usage:
+  const chart = new DailyLineChart('chartContainerID', {
+      color: '#518428', 
+      fillArea: true,
+      data: [{x: 2024, y: 1000}, {x: 2025, y: 1200}],
+      formatY: (val) => '$' + val
+  });
+  chart.update(newData);
+*/
+window.DailyLineChart = class {
+    constructor(containerId, options = {}) {
+        this.container = document.getElementById(containerId);
+        if (!this.container) return;
+        
+        this.options = Object.assign({
+            color: '#518428', // Brand Green
+            strokeWidth: 3,
+            fillArea: true,
+            height: 200,
+            formatY: (val) => val.toLocaleString(),
+            formatX: (val) => val,
+            padding: { top: 10, right: 10, bottom: 20, left: 10 }
+        }, options);
+
+        this.data = this.options.data || [];
+        this.svg = null;
+        this.tooltip = null;
+        
+        this.init();
+        if (this.data.length) this.draw();
+        
+        // Handle Resize
+        window.addEventListener('resize', () => this.draw());
+    }
+
+    init() {
+        this.container.innerHTML = '';
+        this.container.style.position = 'relative';
+        
+        // SVG Element
+        this.svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        this.svg.setAttribute("width", "100%");
+        this.svg.setAttribute("height", "100%");
+        this.svg.style.overflow = "visible";
+        this.container.appendChild(this.svg);
+
+        // Tooltip Element
+        this.tooltip = document.createElement("div");
+        this.tooltip.className = "absolute bg-slate-800 text-white text-[10px] px-2 py-1 rounded pointer-events-none opacity-0 transition-opacity shadow-lg z-10 whitespace-nowrap";
+        this.container.appendChild(this.tooltip);
+
+        // Interaction Overlay
+        this.overlay = document.createElement("div");
+        this.overlay.className = "absolute inset-0 z-0 cursor-crosshair";
+        this.container.appendChild(this.overlay);
+
+        this.overlay.addEventListener("mousemove", (e) => this.handleHover(e));
+        this.overlay.addEventListener("touchmove", (e) => this.handleHover(e.touches[0]));
+        this.overlay.addEventListener("mouseleave", () => this.hideTooltip());
+        this.overlay.addEventListener("touchend", () => this.hideTooltip());
+    }
+
+    update(newData) {
+        this.data = newData;
+        this.draw();
+    }
+
+    draw() {
+        if (!this.data || this.data.length < 2) return;
+
+        const rect = this.container.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height || this.options.height;
+        
+        this.svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+        this.svg.innerHTML = ''; // Clear previous
+
+        // Calculate Min/Max
+        const xVals = this.data.map(d => d.x);
+        const yVals = this.data.map(d => d.y);
+        const minX = Math.min(...xVals);
+        const maxX = Math.max(...xVals);
+        const minY = 0; // Stick to 0 for growth charts usually
+        const maxY = Math.max(...yVals) * 1.05; // 5% padding top
+
+        // Scaling Functions
+        const getX = (val) => {
+            const pct = (val - minX) / (maxX - minX);
+            return this.options.padding.left + pct * (width - this.options.padding.left - this.options.padding.right);
+        };
+        const getY = (val) => {
+            const pct = (val - minY) / (maxY - minY);
+            return height - this.options.padding.bottom - (pct * (height - this.options.padding.top - this.options.padding.bottom));
+        };
+
+        // 1. Draw Grid Lines (Horizontal)
+        const gridGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        [0, 0.25, 0.5, 0.75, 1].forEach(tick => {
+            const val = minY + tick * (maxY - minY);
+            const y = getY(val);
+            const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            line.setAttribute("x1", this.options.padding.left);
+            line.setAttribute("x2", width - this.options.padding.right);
+            line.setAttribute("y1", y);
+            line.setAttribute("y2", y);
+            line.setAttribute("stroke", "#e2e8f0"); // slate-200
+            line.setAttribute("stroke-width", "1");
+            if (tick === 0) line.setAttribute("stroke-width", "2"); // Base line thicker
+            gridGroup.appendChild(line);
+        });
+        this.svg.appendChild(gridGroup);
+
+        // 2. Build Path Data
+        let pathD = `M ${getX(this.data[0].x)} ${getY(this.data[0].y)}`;
+        this.data.forEach((p, i) => {
+            if (i === 0) return;
+            pathD += ` L ${getX(p.x)} ${getY(p.y)}`;
+        });
+
+        // 3. Draw Area (Fill)
+        if (this.options.fillArea) {
+            const areaD = pathD + ` L ${getX(this.data[this.data.length-1].x)} ${getY(minY)} L ${getX(this.data[0].x)} ${getY(minY)} Z`;
+            const areaPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            areaPath.setAttribute("d", areaD);
+            areaPath.setAttribute("fill", this.options.color);
+            areaPath.setAttribute("opacity", "0.1"); // Light fill
+            this.svg.appendChild(areaPath);
+        }
+
+        // 4. Draw Line (Stroke)
+        const linePath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        linePath.setAttribute("d", pathD);
+        linePath.setAttribute("fill", "none");
+        linePath.setAttribute("stroke", this.options.color);
+        linePath.setAttribute("stroke-width", this.options.strokeWidth);
+        linePath.setAttribute("stroke-linecap", "round");
+        linePath.setAttribute("stroke-linejoin", "round");
+        this.svg.appendChild(linePath);
+
+        // Save scale functions for hover interaction
+        this.scale = { getX, getY, minX, maxX, width, height };
+    }
+
+    handleHover(e) {
+        if (!this.scale || !this.data) return;
+        const rect = this.container.getBoundingClientRect();
+        // Handle touch or mouse coordinates
+        const clientX = e.clientX || (e.touches ? e.touches[0].clientX : 0);
+        const offsetX = clientX - rect.left;
+
+        // Find closest data point by X coordinate (inverse lookup)
+        const chartWidth = this.scale.width - this.options.padding.left - this.options.padding.right;
+        const clickPct = (offsetX - this.options.padding.left) / chartWidth;
+        const rawX = this.scale.minX + clickPct * (this.scale.maxX - this.scale.minX);
+        
+        // Find closest actual point
+        const closest = this.data.reduce((prev, curr) => 
+            Math.abs(curr.x - rawX) < Math.abs(prev.x - rawX) ? curr : prev
+        );
+
+        if (closest) {
+            const cx = this.scale.getX(closest.x);
+            const cy = this.scale.getY(closest.y);
+
+            // Show indicator circle
+            let circle = this.svg.querySelector('.hover-circle');
+            if (!circle) {
+                circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                circle.setAttribute("class", "hover-circle");
+                circle.setAttribute("r", "5");
+                circle.setAttribute("fill", "#fff");
+                circle.setAttribute("stroke", this.options.color);
+                circle.setAttribute("stroke-width", "2");
+                this.svg.appendChild(circle);
+            }
+            circle.setAttribute("cx", cx);
+            circle.setAttribute("cy", cy);
+            circle.style.display = 'block';
+
+            // Show Tooltip
+            this.tooltip.innerHTML = `
+                <div class="font-bold">${this.options.formatX(closest.x)}</div>
+                <div>${this.options.formatY(closest.y)}</div>
+            `;
+            this.tooltip.style.opacity = 1;
+            
+            // Position Tooltip (avoid edge overflow)
+            const tipRect = this.tooltip.getBoundingClientRect();
+            let left = cx - (tipRect.width / 2);
+            let top = cy - tipRect.height - 10;
+
+            if (left < 0) left = 10;
+            if (left + tipRect.width > rect.width) left = rect.width - tipRect.width - 10;
+
+            this.tooltip.style.left = `${left}px`;
+            this.tooltip.style.top = `${top}px`;
+        }
+    }
+
+    hideTooltip() {
+        if (this.tooltip) this.tooltip.style.opacity = 0;
+        const circle = this.svg ? this.svg.querySelector('.hover-circle') : null;
+        if (circle) circle.style.display = 'none';
     }
 };
 
