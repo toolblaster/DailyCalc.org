@@ -102,6 +102,12 @@
     
     <div id="header-placeholder" class="no-print"></div>
 
+    <!-- NEW: Floating Tooltip for Chart (Dynamic Background) -->
+    <!-- Removed bg-slate-900 and text-white to allow JS override -->
+    <div id="chartTooltip" class="fixed z-50 pointer-events-none opacity-0 transition-opacity duration-150 text-xs rounded-md px-3 py-2 shadow-xl border border-white/20 transform -translate-x-1/2 -translate-y-full mt-[-10px] backdrop-blur-sm font-medium text-white drop-shadow-md">
+        <!-- Content injected by JS -->
+    </div>
+
     <main class="bg-slate-50">
         <div class="mx-auto main-container px-2 py-4 sm:px-4">
             
@@ -370,7 +376,8 @@
                                                 <path id="chartRingHOA" data-id="hoa" class="chart-segment text-[#30add1]" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="6"></path>
                                             </svg>
                                             <div id="chartCenterText" class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none text-center">
-                                                <span class="text-[9px] text-slate-500 font-medium uppercase tracking-wide">Breakdown</span>
+                                                <!-- Static text instead of dynamic -->
+                                                <span class="text-[9px] text-slate-500 font-medium uppercase tracking-wide">Monthly</span>
                                             </div>
                                         </div>
                                     </div>
@@ -859,19 +866,14 @@
         document.addEventListener('DOMContentLoaded', () => {
             const inputs = {
                 homePrice: document.getElementById('homePrice'),
-                // ... existing inputs ...
                 downPaymentInput: document.getElementById('downPaymentInput'),
                 downPaymentType: document.getElementById('downPaymentType'),
-                
                 loanTerm: document.getElementById('loanTermInput'),
                 interestRate: document.getElementById('interestRate'),
                 startMonth: document.getElementById('startMonth'),
                 startYear: document.getElementById('startYear'),
-                
-                // MODIFIED: New Checkbox
                 includeTaxesCosts: document.getElementById('includeTaxesCosts'),
                 dynamicCostsContainer: document.getElementById('dynamicCostsContainer'),
-
                 propertyTax: document.getElementById('propertyTax'),
                 propertyTaxType: document.getElementById('propertyTaxType'),
                 homeInsurance: document.getElementById('homeInsurance'),
@@ -895,7 +897,7 @@
                 oneTimeContainer: document.getElementById('oneTimePaymentsContainer'),
                 addOneTimeBtn: document.getElementById('addOneTimePaymentBtn'),
             };
-            // ... existing display and chartRings objects ...
+
             const display = {
                 monthlyTotal: document.getElementById('monthlyPaymentDisplay'),
                 breakdownPI: document.getElementById('breakdownPI'),
@@ -912,13 +914,13 @@
                 totalInterest: document.getElementById('summaryTotalInterest'),
                 payoffDate: document.getElementById('summaryPayoffDate'),
                 amortizationBody: document.getElementById('amortizationBody'),
-                // NEW DISPLAYS
                 totalTax: document.getElementById('summaryTotalTax'),
                 totalIns: document.getElementById('summaryTotalIns'),
                 totalPMI: document.getElementById('summaryTotalPMI'),
                 totalHOA: document.getElementById('summaryTotalHOA'),
                 totalAllIn: document.getElementById('summaryTotalAllIn')
             };
+
             const chartRings = {
                 principal: document.getElementById('chartRingPrincipal'),
                 tax: document.getElementById('chartRingTax'),
@@ -927,12 +929,15 @@
                 hoa: document.getElementById('chartRingHOA')
             };
 
+            const tooltip = document.getElementById('chartTooltip');
+
             const d = new Date();
             inputs.startYear.value = d.getFullYear();
             inputs.startMonth.value = d.getMonth();
             document.querySelector('.otp-year').value = d.getFullYear() + 1;
 
-            // MODIFIED: Toggle Logic for Taxes & Costs
+            // --- EVENT LISTENERS FOR INPUTS ---
+            
             inputs.includeTaxesCosts.addEventListener('change', () => {
                 if (inputs.includeTaxesCosts.checked) {
                     inputs.dynamicCostsContainer.classList.remove('h-0', 'opacity-0', 'mb-0');
@@ -959,29 +964,25 @@
                 newRow.querySelector('.remove-otp').addEventListener('click', () => { newRow.remove(); calculate(); });
             });
 
-            // MODIFIED: Logic to handle Down Payment Type Switch
-            // When switching type, convert the value so the math stays consistent
             inputs.downPaymentType.addEventListener('change', () => {
                 const price = parseFloat(inputs.homePrice.value) || 0;
                 const currentVal = parseFloat(inputs.downPaymentInput.value) || 0;
                 const newType = inputs.downPaymentType.value;
 
                 if (newType === '$') {
-                    // Was %, convert to $
                     const dollarAmount = (currentVal / 100) * price;
                     inputs.downPaymentInput.value = Math.round(dollarAmount);
                 } else {
-                    // Was $, convert to %
                     const percent = price > 0 ? (currentVal / price) * 100 : 0;
                     inputs.downPaymentInput.value = percent.toFixed(2);
                 }
                 calculate();
             });
 
-            const calculate = () => {
+            // --- CORE CALCULATION FUNCTION ---
+            function calculate() {
                 const homePrice = parseFloat(inputs.homePrice.value) || 0;
                 
-                // MODIFIED: Get Down Payment based on dropdown
                 let downPayment = 0;
                 let dpValue = parseFloat(inputs.downPaymentInput.value) || 0;
                 if (inputs.downPaymentType.value === '%') {
@@ -999,40 +1000,32 @@
                 const startY = parseInt(inputs.startYear.value) || new Date().getFullYear();
                 const startDate = new Date(startY, startM);
 
-                // --- DYNAMIC COSTS LOGIC ---
-                // Check if costs are included
                 const includeCosts = inputs.includeTaxesCosts.checked;
 
                 let taxYear = 0, insYear = 0, pmiYear = 0, hoaMonth = 0, otherMonth = 0;
 
                 if (includeCosts) {
-                    // 1. Property Tax (Annual)
                     let taxValue = parseFloat(inputs.propertyTax.value) || 0;
-                    let taxType = inputs.propertyTaxType.value; // $ or %
+                    let taxType = inputs.propertyTaxType.value; 
                     taxYear = (taxType === '%') ? (taxValue / 100) * homePrice : taxValue;
 
-                    // 2. Home Insurance (Annual)
                     let insValue = parseFloat(inputs.homeInsurance.value) || 0;
                     let insType = inputs.homeInsuranceType.value;
                     insYear = (insType === '%') ? (insValue / 100) * homePrice : insValue;
 
-                    // 3. PMI (Annual)
                     let pmiValue = parseFloat(inputs.pmi.value) || 0;
                     let pmiType = inputs.pmiType.value;
                     pmiYear = (pmiType === '%') ? (pmiValue / 100) * loanAmount : pmiValue;
 
-                    // 4. HOA Fees (Monthly)
                     let hoaValue = parseFloat(inputs.hoaFees.value) || 0;
                     let hoaType = inputs.hoaFeesType.value;
                     hoaMonth = (hoaType === '%') ? (hoaValue / 100) * homePrice : hoaValue;
 
-                    // 5. Other Costs (Monthly)
                     let otherValue = parseFloat(inputs.otherCosts.value) || 0;
                     let otherType = inputs.otherCostsType.value;
                     otherMonth = (otherType === '%') ? (otherValue / 100) * homePrice : otherValue;
                 }
 
-                // Combine HOA & Other for display
                 let totalOtherMonth = hoaMonth + otherMonth;
 
                 const taxIncPct = (parseFloat(inputs.taxIncrease.value) || 0) / 100;
@@ -1066,7 +1059,6 @@
                 let schedule = [];
                 let currentD = new Date(startDate);
                 
-                // NEW ACCUMULATORS FOR TOTALS
                 let accTax = 0;
                 let accIns = 0;
                 let accPMI = 0;
@@ -1075,7 +1067,6 @@
                 while (balance > 0.01 && monthCount < 720) {
                     monthCount++;
                     if (monthCount > 1 && (monthCount - 1) % 12 === 0) {
-                        // Only increase if we started with a base cost
                         if (includeCosts) {
                             taxYear *= (1 + taxIncPct);
                             insYear *= (1 + insIncPct);
@@ -1095,12 +1086,9 @@
                     if (principalPayment > balance) principalPayment = balance;
                     balance -= principalPayment;
                     
-                    // ACCUMULATE COSTS (Logic: Stop PMI if Equity > 20%)
                     if (includeCosts) {
                         accTax += taxYear / 12;
                         accIns += insYear / 12;
-                        // Calculate LTV. If balance / homePrice <= 0.80, stop PMI.
-                        // NOTE: This assumes original homePrice is used for LTV (standard practice without appraisal)
                         if ((balance / homePrice) > 0.8) {
                             accPMI += pmiYear / 12;
                         }
@@ -1115,10 +1103,6 @@
                 finalPayoffDate = new Date(currentD);
                 finalPayoffDate.setMonth(finalPayoffDate.getMonth() - 1); 
                 
-                const initTax = taxYear / 12; // Note: This is the LAST year's tax due to loop mutation. We need FIRST year for monthly display? 
-                // Actually, updateDisplay usually wants the starting monthly payment.
-                // Let's re-calc initial monthly values for the big "Monthly Pay" header
-                // Re-getting input values because loop mutated them
                 let startTaxYear = (inputs.propertyTaxType.value === '%') ? (parseFloat(inputs.propertyTax.value)/100)*homePrice : parseFloat(inputs.propertyTax.value);
                 let startInsYear = (inputs.homeInsuranceType.value === '%') ? (parseFloat(inputs.homeInsurance.value)/100)*homePrice : parseFloat(inputs.homeInsurance.value);
                 let startPmiYear = (inputs.pmiType.value === '%') ? (parseFloat(inputs.pmi.value)/100)*loanAmount : parseFloat(inputs.pmi.value);
@@ -1142,9 +1126,11 @@
                 updateChart(basePI, displayTax, displayIns, displayPMI, displayHOA, initTotal);
                 updateAmortizationTable(schedule, loanAmount); 
                 saveToHistory(homePrice, annualRate, initTotal);
-            };
+            }
 
-            const updateDisplay = (pi, tax, ins, pmi, hoa, total, housePrice, downPayment, loan, totalPaid, interest, payoffDate, totalMonths, totalTax, totalIns, totalPMI, totalHOA, totalAllIn) => {
+            // --- HELPER FUNCTIONS ---
+
+            function updateDisplay(pi, tax, ins, pmi, hoa, total, housePrice, downPayment, loan, totalPaid, interest, payoffDate, totalMonths, totalTax, totalIns, totalPMI, totalHOA, totalAllIn) {
                 const fmt = (num) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(num);
                 const fmtCents = (num) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(num);
                 display.monthlyTotal.textContent = fmtCents(total);
@@ -1162,20 +1148,14 @@
                 display.totalInterest.textContent = fmt(interest);
                 display.payoffDate.textContent = payoffDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
                 
-                // NEW TOTAL DISPLAYS
                 if(display.totalTax) display.totalTax.textContent = fmt(totalTax);
                 if(display.totalIns) display.totalIns.textContent = fmt(totalIns);
                 if(display.totalPMI) display.totalPMI.textContent = fmt(totalPMI);
                 if(display.totalHOA) display.totalHOA.textContent = fmt(totalHOA);
                 if(display.totalAllIn) display.totalAllIn.textContent = fmt(totalAllIn);
+            }
 
-                const centerEl = document.getElementById('chartCenterText');
-                if (centerEl) {
-                     centerEl.innerHTML = `<span class="text-[9px] text-slate-400 font-medium">Monthly</span>`;
-                }
-            };
-
-            const updateChart = (pi, tax, ins, pmi, hoa, total) => {
+            function updateChart(pi, tax, ins, pmi, hoa, total) {
                 if (total <= 0) return;
                 const getPct = (val) => (val / total) * 100;
                 const pctPI = getPct(pi);
@@ -1198,38 +1178,75 @@
                 setSegment(chartRings.ins, pctIns, offset); offset += pctIns;
                 setSegment(chartRings.pmi, pctPMI, offset); offset += pctPMI;
                 setSegment(chartRings.hoa, pctHOA, offset);
-            };
+            }
 
             const labels = { principal: 'Principal & Int.', tax: 'Property Tax', ins: 'Home Insurance', pmi: 'PMI', hoa: 'HOA / Other' };
-            const highlightSegment = (id) => {
+            
+            // Colors map for Dynamic Tooltip
+            const segmentStyles = {
+                principal: { bg: '#428bca', text: '#ffffff' },
+                tax: { bg: '#96c03b', text: '#ffffff' },
+                ins: { bg: '#a90000', text: '#ffffff' },
+                pmi: { bg: '#d9534f', text: '#ffffff' },
+                hoa: { bg: '#30add1', text: '#ffffff' }
+            };
+
+            function highlightSegment(id) {
                 Object.values(chartRings).forEach(s => s.style.opacity = '0.3');
                 const active = document.querySelector(`.chart-segment[data-id="${id}"]`);
                 if(active) { active.style.opacity = '1'; active.style.strokeWidth = '12'; }
-                document.querySelectorAll('#resultTable div[data-legend-for]').forEach(r => r.classList.remove('bg-slate-200')); // Use generic hover style
+                document.querySelectorAll('#resultTable div[data-legend-for]').forEach(r => r.classList.remove('bg-slate-200')); 
                 const activeRow = document.querySelector(`#resultTable div[data-legend-for="${id}"]`);
                 if(activeRow) activeRow.classList.add('bg-slate-200');
-                const valEl = document.getElementById(id === 'principal' ? 'breakdownPI' : id === 'tax' ? 'breakdownTax' : id === 'ins' ? 'breakdownIns' : id === 'pmi' ? 'breakdownPMI' : 'breakdownHOA');
-                if (valEl) {
-                    const centerContainer = document.getElementById('chartCenterText');
-                    centerContainer.innerHTML = `<div class="text-[9px] text-slate-500 leading-tight">${labels[id]}</div><div class="font-bold text-slate-800 text-[10px] leading-tight">${valEl.textContent}</div>`;
-                }
-            };
-            const resetHighlight = () => {
+            }
+
+            function resetHighlight() {
                 Object.values(chartRings).forEach(s => { s.style.opacity = '1'; s.style.strokeWidth = '8'; });
                 document.querySelectorAll('#resultTable div[data-legend-for]').forEach(r => r.classList.remove('bg-slate-200'));
-                const centerContainer = document.getElementById('chartCenterText');
-                centerContainer.innerHTML = `<div class="text-[10px] text-slate-400 font-medium">Monthly</div>`;
-            };
+            }
+
+            // --- TOOLTIP LOGIC ---
             document.querySelectorAll('.chart-segment').forEach(seg => {
-                seg.addEventListener('mouseenter', () => highlightSegment(seg.dataset.id));
-                seg.addEventListener('mouseleave', resetHighlight);
+                seg.addEventListener('mouseenter', (e) => {
+                    const id = seg.dataset.id;
+                    highlightSegment(id);
+                    
+                    if (tooltip) {
+                        const style = segmentStyles[id];
+                        if (style) {
+                            tooltip.style.backgroundColor = style.bg;
+                            tooltip.style.color = style.text;
+                            tooltip.style.borderColor = style.bg; // Match border to bg
+                        }
+
+                        const valEl = document.getElementById(id === 'principal' ? 'breakdownPI' : id === 'tax' ? 'breakdownTax' : id === 'ins' ? 'breakdownIns' : id === 'pmi' ? 'breakdownPMI' : 'breakdownHOA');
+                        if (valEl) {
+                            // Note: Removed 'text-slate-300' classes inside since we force text color via style above
+                            tooltip.innerHTML = `<div class="font-bold text-[11px] opacity-90 mb-0.5">${labels[id]}</div><div class="text-sm font-bold drop-shadow-sm">${valEl.textContent}</div>`;
+                            tooltip.classList.remove('opacity-0');
+                        }
+                    }
+                });
+
+                seg.addEventListener('mousemove', (e) => {
+                    if (tooltip) {
+                        tooltip.style.left = e.clientX + 'px';
+                        tooltip.style.top = e.clientY + 'px';
+                    }
+                });
+
+                seg.addEventListener('mouseleave', () => {
+                    resetHighlight();
+                    if (tooltip) tooltip.classList.add('opacity-0');
+                });
             });
+
             document.querySelectorAll('#resultTable div[data-legend-for]').forEach(row => {
                 row.addEventListener('mouseenter', () => highlightSegment(row.dataset.legendFor));
                 row.addEventListener('mouseleave', resetHighlight);
             });
 
-            const updateAmortizationTable = (schedule, initialLoan) => {
+            function updateAmortizationTable(schedule, initialLoan) {
                 let html = '';
                 let prevInterest = 0;
                 let prevBalance = initialLoan;
@@ -1241,8 +1258,9 @@
                     prevBalance = item.balance;
                 });
                 display.amortizationBody.innerHTML = html;
-            };
+            }
 
+            // --- SAVE / SHARE / HISTORY ---
             document.getElementById('saveBtn').addEventListener('click', () => {
                 const presetName = prompt("Name this calculation (e.g., 'Dream House 2025'):");
                 if (presetName) {
@@ -1258,7 +1276,6 @@
                 }
             });
 
-            // --- SMART HISTORY SAVER ---
             let historyDebounce;
             function saveToHistory(price, rate, monthly) {
                 clearTimeout(historyDebounce);
@@ -1347,6 +1364,8 @@
             document.getElementById('calcButton').addEventListener('click', calculate);
             document.getElementById('clearButton').addEventListener('click', () => { window.location.href = window.location.pathname; });
             document.getElementById('toggleTableBtn').addEventListener('click', () => { document.getElementById('amortizationContainer').classList.remove('hidden'); });
+            
+            // Initial calculation
             calculate();
         });
     </script>
