@@ -1,6 +1,7 @@
 /*
   DailyCalc.org Common Layout Injector
-  [2025-11-27] Updated SEO Divider to use universal .calc-section-divider class
+  [2025-11-27] Updated Layout Logic: SEO content now sits inside the left column 
+  to prevent vertical gaps on short calculators (like BMI).
 */
 
 const headerHTML = `
@@ -109,12 +110,14 @@ const CalculatorLayout = {
         const target = document.getElementById(config.targetId || 'calculator-layout');
         if (!target) return; 
 
+        // 1. Grab Content Elements
         const toolEl = document.getElementById(config.toolId);
         const seoEl = document.getElementById(config.seoId);
         const sidebarEl = document.getElementById(config.sidebarId);
 
         if (!toolEl) { console.error('Layout: Tool element not found.'); return; }
 
+        // 2. Generate Breadcrumbs (Default)
         const catSlug = config.category.toLowerCase().replace(/\s+/g, '-');
         const breadcrumbHTML = `
             <nav class="mb-3 text-xs text-slate-500 no-print" aria-label="Breadcrumb">
@@ -128,6 +131,7 @@ const CalculatorLayout = {
             </nav>
         `;
 
+        // 3. Generate Title
         const badgeHTML = config.badge ? `<span class="ml-2 inline-block rounded-full bg-slate-200/70 border border-slate-300 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-slate-600 align-middle">${config.badge}</span>` : '';
         const titleHTML = `
             <h1 class="mb-6 font-heading text-2xl font-bold text-brand-dark">
@@ -136,6 +140,7 @@ const CalculatorLayout = {
             </h1>
         `;
 
+        // 4. Construct SKELETON
         const wrapper = document.createElement('div');
         wrapper.className = "mx-auto main-container px-2 py-4 sm:px-4";
 
@@ -146,15 +151,15 @@ const CalculatorLayout = {
             <div class="flex flex-col gap-4 lg:flex-row mb-8">
                 
                 <!-- LEFT COLUMN: Tool + SEO -->
+                <!-- Use flex-1 to take available space, min-w-0 to prevent flex overflow -->
                 <div class="flex-1 min-w-0 flex flex-col gap-8" id="layout-left-column">
                     <div id="layout-tool-container"></div>
-                    <!-- Mobile Widget Placeholder -->
+                    <!-- Mobile Widget Placeholder (Visible only md:hidden) -->
                     <div id="mobile-widget-placeholder" class="md:hidden"></div>
                     
-                    <!-- SEO Container -->
+                    <!-- SEO Container (Now inside left column) -->
                     <div id="layout-seo-wrapper" class="hidden">
-                        <!-- UNIVERSAL DIVIDER INJECTED HERE -->
-                        <div class="calc-section-divider"></div>
+                        <div class="w-full border-t-[6px] border-slate-400 rounded-full mb-8 no-print opacity-20"></div>
                         <div id="layout-seo-container"></div>
                     </div>
                 </div>
@@ -172,6 +177,7 @@ const CalculatorLayout = {
             </div>
         `;
 
+        // 5. Inject Content
         const toolContainer = wrapper.querySelector('#layout-tool-container');
         toolContainer.appendChild(toolEl);
         toolEl.classList.remove('hidden');
@@ -192,6 +198,7 @@ const CalculatorLayout = {
         target.innerHTML = '';
         target.appendChild(wrapper);
 
+        // 6. Post-Render Init
         if (window.SidebarWidget && typeof window.SidebarWidget.init === 'function') window.SidebarWidget.init();
         this.loadRelatedTools(config.category);
     },
@@ -233,6 +240,7 @@ function loadCommonLayout() {
     const yearEl = document.getElementById('currentYear');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+    // Mobile Menu Logic
     const toggle = document.getElementById('mobileMenuToggle');
     const menu = document.getElementById('mobileMenu');
     const overlay = document.getElementById('mobileMenuOverlay');
@@ -260,10 +268,15 @@ function loadCommonLayout() {
         }
     };
 
-    if(toggle) toggle.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(!document.getElementById('menuOpenIcon').classList.contains('hidden')); });
+    if(toggle) toggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = !document.getElementById('menuOpenIcon').classList.contains('hidden'); // logic inverted visually
+        toggleMenu(isOpen);
+    });
     if(close) close.addEventListener('click', () => toggleMenu(false));
     if(overlay) overlay.addEventListener('click', () => toggleMenu(false));
 
+    // Suggest Tool Copy
     const suggest = document.getElementById('suggestToolButton');
     if(suggest) {
         suggest.addEventListener('click', () => {
@@ -277,4 +290,9 @@ function loadCommonLayout() {
     }
 }
 
-if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', loadCommonLayout); else loadCommonLayout();
+// Run immediately if DOM is ready, otherwise wait
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadCommonLayout);
+} else {
+    loadCommonLayout();
+}
