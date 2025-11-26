@@ -1,6 +1,7 @@
 /*
   DailyCalc.org Centralized Tailwind Configuration
   [2025-11-07] Updated .calc-card-compact border to slate-400
+  [2025-11-27] Increased global text contrast for accessibility (Slate-500 -> Slate-600/700)
 */
 
 tailwind.config = {
@@ -59,6 +60,7 @@ tailwind.config = {
                     backgroundColor: '#ffffff',
                     transition: 'border-color 0.15s ease-in-out',
                     height: '28px',
+                    color: theme('colors.slate.900'), /* Forced High Contrast Input Text */
                     '&:focus': {
                         outline: 'none',
                         borderColor: theme('colors.brand.green'),
@@ -78,7 +80,7 @@ tailwind.config = {
                     borderColor: theme('colors.slate.300'),
                     borderRadius: '3px',
                     backgroundColor: 'white',
-                    color: theme('colors.slate.900'),
+                    color: theme('colors.slate.900'), /* Forced High Contrast */
                     height: '28px',
                     '&:focus': {
                         outline: 'none',
@@ -98,8 +100,8 @@ tailwind.config = {
 
                 '.input-label': {
                     fontSize: '12px',
-                    fontWeight: '500',
-                    color: theme('colors.slate.700'),
+                    fontWeight: '600', /* Bolder */
+                    color: theme('colors.slate.800'), /* Darker (was 700) */
                     textAlign: 'right',
                     whiteSpace: 'nowrap',
                 },
@@ -137,6 +139,7 @@ tailwind.config = {
                     borderRadius: theme('borderRadius.lg'),
                     boxShadow: theme('boxShadow.sm'),
                     overflow: 'hidden',
+                    color: theme('colors.slate.700'), /* Base text color for content */
                 },
                 
                 '.info-card': {
@@ -147,6 +150,7 @@ tailwind.config = {
                     padding: theme('spacing.4'),
                     marginBottom: theme('spacing.4'),
                     height: '100%',
+                    color: theme('colors.slate.700'), /* Darker text for info cards */
                 },
 
                 /* --- Feature & Stat Cards --- */
@@ -157,12 +161,12 @@ tailwind.config = {
                     padding: theme('spacing.2'),
                     borderRadius: theme('borderRadius.DEFAULT'),
                     borderWidth: '1px',
-                    borderColor: theme('colors.slate.100'),
+                    borderColor: theme('colors.slate.300'), /* Slightly darker border */
                     backgroundColor: '#ffffff',
                     transition: 'all 0.2s ease',
                     boxShadow: theme('boxShadow.sm'),
                     '&:hover': {
-                        borderColor: theme('colors.slate.300'),
+                        borderColor: theme('colors.slate.400'),
                         transform: 'translateY(-1px)',
                         boxShadow: theme('boxShadow.md'),
                     }
@@ -193,7 +197,7 @@ tailwind.config = {
                     borderWidth: '1px',
                     borderColor: theme('colors.slate.200'),
                     backgroundColor: '#ffffff',
-                    color: theme('colors.slate.500'),
+                    color: theme('colors.slate.600'), /* Darker (was 500) */
                     fontSize: '13px',
                     transition: 'all 0.15s ease',
                     cursor: 'pointer',
@@ -215,7 +219,7 @@ tailwind.config = {
                     alignItems: 'center',
                     gap: theme('spacing.2'),
                     fontSize: '13px', 
-                    color: theme('colors.blue.600'),
+                    color: theme('colors.slate.700'), /* Darker link color (was blue-600/slate) */
                     padding: '0.1rem 0',
                     transition: 'all 0.2s ease',
                     '&:hover': {
@@ -224,7 +228,7 @@ tailwind.config = {
                     },
                     'i': {
                         fontSize: '10px',
-                        color: theme('colors.slate.400'),
+                        color: theme('colors.slate.500'), /* Darker Icon (was 400) */
                         width: '14px', 
                         textAlign: 'center',
                         transition: 'color 0.2s ease',
@@ -297,7 +301,7 @@ tailwind.config = {
                     justifyContent: 'center',
                     borderRadius: theme('borderRadius.md'), 
                     borderWidth: '1px',
-                    borderColor: theme('colors.slate.400'), // MODIFIED: Fixed darker border (was slate-300)
+                    borderColor: theme('colors.slate.400'), 
                     backgroundColor: theme('colors.slate.50'),
                     padding: theme('spacing.1.5'), 
                     textAlign: 'center',
@@ -329,7 +333,7 @@ tailwind.config = {
                         marginTop: '0',
                         fontSize: '9px', 
                         lineHeight: '1.1',
-                        color: theme('colors.slate.500'),
+                        color: theme('colors.slate.600'), /* Darker description text (was 500) */
                         display: 'block', 
                     },
                     '&:hover': {
@@ -346,8 +350,6 @@ tailwind.config = {
                     alignItems: 'center',
                     gap: theme('spacing.4'),
                     marginBottom: theme('spacing.6'),
-
-                    /* NEW: Box Styles moved here to group Icon + Title + Desc */
                     backgroundColor: theme('colors.slate.100'),
                     padding: theme('spacing.4'),
                     borderRadius: theme('borderRadius.lg'),
@@ -374,8 +376,6 @@ tailwind.config = {
                     lineHeight: '1.2',
                     marginBottom: theme('spacing.1'),
                     
-                    /* REMOVED: Box Styles (moved to header) */
-                    
                     'span': {
                         backgroundImage: `linear-gradient(to right, ${theme('colors.brand.red')}, ${theme('colors.brand.dark')})`,
                         backgroundClip: 'text',
@@ -386,7 +386,7 @@ tailwind.config = {
                 '.calc-desc': {
                     marginTop: '0',
                     fontSize: theme('fontSize.xs'),
-                    color: theme('colors.slate.600'),
+                    color: theme('colors.slate.700'), /* Darker Header Description (was 600) */
                 },
                 '.calc-subcat-title': {
                     fontFamily: theme('fontFamily.heading'),
