@@ -1,103 +1,161 @@
-DailyCalc.org - Your Essential Daily Calculator Suite
+DailyCalc.org - Developer & AI Guide
 
-DailyCalc.org is a comprehensive, user-friendly suite of online calculators designed for everyday needs. Built with a "mobile-first" philosophy, it offers a clean, distraction-free interface for finance, health, everyday life, and unit conversions.
+DailyCalc.org is a lightweight, mobile-first suite of online calculators. It is built with a "Zero-Build" philosophy, using vanilla JavaScript and Tailwind CSS (via CDN) to ensure instant deployment and easy editing.
 
-🚀 Key Features
+🏗️ Architecture Overview
 
-Universal Design: Consistent, high-quality UI across all tools using a centralized Tailwind configuration.
+The site does not use a framework like React or Vue. Instead, it uses a custom Layout Engine to inject common UI elements (Header, Sidebar, Footer) at runtime.
 
-Mobile-First: Fully responsive layouts that look great on phones, tablets, and desktops.
+Core Files (The "Brain")
 
-Smart Functionality: Tools remember your inputs (via local storage) and offer advanced features like sharing and printing.
+js/common-layout.js:
 
-Zero Clutter: Ad placements are strategic and non-intrusive, prioritizing user experience.
+Contains the CalculatorLayout.render() engine.
 
-SEO Optimized: Each page includes rich, educational content and semantic HTML.
+Responsibility: Wipes the <body> of a calculator page and dynamically rebuilds it with the standard Header, Breadcrumbs, Grid Layout, Sidebar (with Widgets/Ads), and Footer.
 
-📂 Directory Structure
+js/global.js:
 
-dailycalc.org/
-├── index.html              # Homepage (Dashboard & Categories)
-├── dashboard.html          # User Dashboard (Saved Calculations & History)
-├── css/
-│   └── global.css          # Global styles & Tailwind directives
-├── js/
-│   ├── tailwind-config.js  # Centralized Tailwind config & custom components
-│   ├── common-layout.js    # Shared Header/Footer injection
-│   ├── global.js           # Utility functions (theme, storage)
-│   ├── homepage.js         # Homepage specific logic
-│   └── dashboard.js        # Dashboard logic (presets, history)
-│
-├── finance/                # Financial Calculators
-│   ├── index.html          # Finance Category Page
-│   └── mortgage-calculator.html  # Advanced Mortgage Calculator 🆕
-│
-├── health/                 # Health Calculators
-│   └── index.html          # Health Category Page
-│
-├── everyday-life/          # Lifestyle Calculators
-│   └── index.html          # Everyday Life Category Page
-│
-└── converters/             # Unit Converters
-    └── index.html          # Converters Category Page
+Contains the CALCULATOR_REGISTRY (list of all tools).
+
+Responsibility: Handles Global Search, Auto-Save (Drafts), and Sidebar Widgets (Voting/Share).
+
+js/tailwind-config.js:
+
+Responsibility: Centralized design system. Defines colors (brand-red), font sizes, and UI components (like .compact-input and .calc-card-compact).
+
+🚀 How to Create a New Calculator
+
+Do not copy old files. We now use a strict template that leverages the Layout Engine.
+
+Step 1: Create the HTML File
+
+Create a new file (e.g., finance/auto-loan.html) and paste this Standard Template:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tool Title | DailyCalc.org</title>
+    <meta name="description" content="SEO description here...">
+    
+    <!-- Standard Imports -->
+    <link rel="preconnect" href="[https://fonts.googleapis.com](https://fonts.googleapis.com)">
+    <link rel="preconnect" href="[https://fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
+    <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600&display=swap)" rel="stylesheet">
+    <link rel="stylesheet" href="[https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css](https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css)">
+    <link rel="stylesheet" href="../css/global.css">
+    <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
+    <script src="../js/tailwind-config.js"></script>
+    <script src="../js/global.js" defer></script>
+    <script src="../js/common-layout.js" defer></script>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased">
+    
+    <!-- The Engine will fill this container -->
+    <main id="calculator-layout"></main>
+
+    <!-- SLOT 1: The Calculator Interface -->
+    <div id="tool-slot" class="hidden">
+        <div class="calc-tool-header">
+            <i class="fa-solid fa-calculator"></i>
+            <span class="text-xs font-medium">Tool Tagline</span>
+        </div>
+        <div class="flex flex-col gap-4 border-x border-b border-slate-400 bg-white p-3 shadow-sm rounded-b-md md:flex-row md:items-start">
+            <!-- Inputs -->
+            <div class="w-full bg-[#EEEEEE] p-4 rounded border border-slate-400">
+                 <div class="input-row mb-3">
+                    <label class="input-label w-[40%]">Input Label</label>
+                    <input type="number" id="uniqueInputId" class="compact-input w-[60%]">
+                 </div>
+                 <button id="calcButton" class="w-full bg-[#518428] text-white font-bold py-2 rounded mt-2">Calculate</button>
+            </div>
+            <!-- Results -->
+            <div class="flex-1">
+                 <div class="result-header rounded-t-md">
+                     <span class="font-bold">Result</span>
+                     <span class="text-xl font-bold" id="resultDisplay">-</span>
+                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLOT 2: SEO Content -->
+    <div id="seo-slot" class="hidden">
+        <div class="content-section">
+            <div class="bg-gradient-to-r from-brand-dark to-brand-red px-4 py-3">
+                <h2 class="font-bold text-white">Guide</h2>
+            </div>
+            <div class="p-5 text-xs text-slate-600 leading-relaxed">
+                <p>Educational content goes here...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Render Layout
+            CalculatorLayout.render({
+                title: "Tool Title",
+                category: "Finance", // Must match key in CALCULATOR_REGISTRY
+                toolId: "tool-slot",
+                seoId: "seo-slot"
+            });
+
+            // 2. Calculator Logic
+            // ... your JS here ...
+        });
+    </script>
+</body>
+</html>
 
 
-🛠️ Calculator Modules
+Step 2: Register the Tool
 
-1. Finance 💰
+Open js/global.js and add your new tool to the CALCULATOR_REGISTRY object so it appears in search and sidebars.
 
-Mortgage Calculator (New!): * Features: Ultra-compact layout, monthly PITI breakdown, interactive donut chart, amortization schedule, and advanced options for extra payments & annual cost increases.
+const CALCULATOR_REGISTRY = {
+    'Finance': [
+        // ... existing tools ...
+        { name: "New Tool Name", url: "/finance/new-tool.html", icon: "fa-solid-icon-name" }
+    ]
+}
 
-Tools: Save to dashboard, shareable links with pre-filled data, and optimized print reports.
 
-2. Health ❤️
+🧠 System Features (Automated)
 
-(Coming Soon) BMI Calculator, Calorie Counter, Water Intake.
+1. Auto-Save (Drafts)
 
-3. Everyday Life 📅
+How it works: js/global.js automatically scans for any <input> or <select> with an id.
 
-(Coming Soon) Age Calculator, Date Difference, Discount Calculator.
+Requirement: Always give your inputs a unique id.
 
-4. Converters 🔄
+Behavior: Saves value to sessionStorage on change. Restores on reload.
 
-(Coming Soon) Length, Weight, Temperature, Currency.
+2. Global Search
 
-🎨 Design System
+How it works: The search bar (in Header) indexes the CALCULATOR_REGISTRY on page load.
 
-The project uses a centralized design system defined in js/tailwind-config.js. This ensures consistency across all pages.
+Requirement: Ensure your tool is registered in js/global.js.
 
-Brand Colors: * Red: #F1203D (Primary Action)
+3. Dynamic Sidebar
 
-Dark: #050505 (Text & Headers)
+How it works: CalculatorLayout automatically injects the sidebar.
 
-Green: #166534 (Financial Success/Results)
+Widgets: It includes the "Vote/Feedback" widget and a list of "Related Tools" based on the category you pass to .render().
 
-Typography: Poppins for headings, Inter for body text.
+🎨 Design System (Tailwind Config)
 
-Components:
+Use these custom classes defined in js/tailwind-config.js to maintain consistency:
 
-.compact-input: Standardized, high-density input fields.
+.compact-input: The standard input field (right-aligned, small text).
 
-.calc-tool-header: Unified header bar for all calculator tools.
+.calc-tool-header: The gradient header bar above the tool.
 
-.chart-segment: Interactive SVG chart elements.
+.result-header: The green header for results.
 
-💻 How to Run
+.content-section: A white card container with border and shadow.
 
-Clone the repository.
-
-Open index.html in your browser (or serve via a local server like Live Server for best results).
-
-No Build Step Required: The project uses the Tailwind CSS CDN script with a custom config file for rapid development and easy deployment.
-
-📝 To-Do List
-
-[ ] Add Auto Loan Calculator
-
-[ ] Add BMI Calculator
-
-[ ] Implement "Dark Mode" toggle
-
-[ ] Add Currency Converter with API integration
-
-Built for simplicity and utility.
+.calc-card-compact: The subcategory buttons found on Category pages.
