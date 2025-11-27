@@ -1276,27 +1276,21 @@
                 }
             });
 
+            // UPDATED: Use global HistoryManager
             let historyDebounce;
             function saveToHistory(price, rate, monthly) {
                 clearTimeout(historyDebounce);
                 historyDebounce = setTimeout(() => {
                     if (price < 1000 || monthly <= 0) return;
-                    const historyItem = { 
-                        calculator: 'Mortgage Calculator', 
-                        inputs: `$${price.toLocaleString()} @ ${rate}%`, 
-                        result: `$${monthly.toLocaleString(undefined, {maximumFractionDigits: 2})}/mo`, 
-                        timestamp: new Date().toISOString(), 
-                        url: window.location.href 
-                    };
-                    let history = [];
-                    try { history = JSON.parse(localStorage.getItem('dailyCalcHistory')) || []; } catch(e) { history = []; }
-                    if (history.length > 0) {
-                        const lastItem = history[0];
-                        if (lastItem.inputs === historyItem.inputs && lastItem.result === historyItem.result) return; 
+                    
+                    // Call the new global manager
+                    if (window.HistoryManager) {
+                        window.HistoryManager.save(
+                            'Mortgage Calculator',
+                            `$${price.toLocaleString()} @ ${rate}%`,
+                            `$${monthly.toLocaleString(undefined, {maximumFractionDigits: 2})}/mo`
+                        );
                     }
-                    history.unshift(historyItem);
-                    if (history.length > 50) history.pop(); 
-                    localStorage.setItem('dailyCalcHistory', JSON.stringify(history));
                 }, 4000); 
             }
 
