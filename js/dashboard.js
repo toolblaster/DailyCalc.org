@@ -1,7 +1,7 @@
 /*
   DailyCalc.org Dashboard Logic
   This script loads and displays data from localStorage for the dashboard page.
-  UPDATED: Reverted to Horizontal/Compact layout for Mobile based on user feedback.
+  [2025-11-28] Removed .reverse() because HistoryManager now stores Newest First.
 */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let history = [];
         try {
             history = JSON.parse(localStorage.getItem('dailyCalcHistory')) || [];
-            history.reverse(); 
+            // REMOVED reverse() to respect the storage order (Newest at index 0)
         } catch (e) {
             console.error("Error reading history", e);
         }
