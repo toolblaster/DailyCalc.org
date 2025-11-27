@@ -18,6 +18,79 @@
     <script src="../js/global.js" defer></script>
     <script src="../js/common-layout.js" defer></script>
     
+    <!-- SCHEMA MARKUP -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "BMI Calculator",
+      "url": "https://dailycalc.org/health/bmi-calculator.html",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "Any",
+      "description": "Free BMI Calculator for men and women. Calculate Body Mass Index, ideal weight range, and BMR calories based on age, height, and gender.",
+      "browserRequirements": "Requires JavaScript. Works on all modern browsers.",
+      "permissions": "None",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "BMI Calculation",
+        "Ideal Weight Range",
+        "BMR (Basal Metabolic Rate)",
+        "Interactive Gauge",
+        "Imperial and Metric Support"
+      ],
+      "author": {
+        "@type": "Organization",
+        "name": "DailyCalc.org"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "Is BMI accurate for athletes?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Not always. BMI does not distinguish between muscle and fat. Athletes with high muscle mass may have a high BMI but very low body fat. In these cases, a Body Fat Calculator is more accurate."
+        }
+      }, {
+        "@type": "Question",
+        "name": "What is the \"healthy\" range?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For most adults, a BMI between 18.5 and 24.9 is considered healthy. This range is associated with the lowest risk of weight-related health issues like diabetes and heart disease."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Why does BMI change with age?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Standard BMI categories apply to adults 20+. For children and teens, BMI is age-and-gender specific (percentiles) because they are still growing. Older adults may also have slightly different ideal ranges."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Does muscle weigh more than fat?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Technically, a pound is a pound. However, muscle is much more dense than fat. One pound of muscle takes up less space than one pound of fat, which is why you can look leaner but weigh the same."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How can I lower my BMI?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "To lower BMI, you need to create a calorie deficit by eating fewer calories than you burn (BMR + Activity). Combining a balanced diet with regular exercise is the safest way to reach a healthy weight."
+        }
+      }]
+    }
+    </script>
+
     <style>
         .bmi-gradient {
             background: linear-gradient(90deg, 
@@ -63,11 +136,11 @@
                     </div>
 
                     <!-- Input Grid -->
-                    <div class="space-y-3">
+                    <div class="space-y-4"> <!-- Increased spacing slightly for breathing room -->
                         <!-- Gender -->
                         <div class="flex items-center justify-between">
-                            <label class="text-xs font-bold text-slate-700">Gender</label>
-                            <div class="flex gap-2 w-32">
+                            <label class="text-xs font-bold text-slate-700 w-1/3 text-right pr-4">Gender</label> <!-- Fixed width, align right, pad right -->
+                            <div class="flex gap-2 w-2/3"> <!-- Fixed width remaining -->
                                 <label class="flex-1 cursor-pointer">
                                     <input type="radio" name="gender" value="male" class="peer hidden" checked>
                                     <div class="text-[10px] font-bold text-center py-1.5 border border-slate-300 rounded bg-white text-slate-500 peer-checked:bg-blue-50 peer-checked:text-blue-600 peer-checked:border-blue-300 transition-all">Male</div>
@@ -80,35 +153,35 @@
                         </div>
                         <!-- Age -->
                         <div class="flex items-center justify-between">
-                            <label class="text-xs font-bold text-slate-700">Age</label>
-                            <div class="relative w-32">
-                                <input type="number" id="age" value="30" class="compact-input pr-8 font-bold text-slate-900" placeholder="0">
+                            <label class="text-xs font-bold text-slate-700 w-1/3 text-right pr-4">Age</label>
+                            <div class="relative w-2/3">
+                                <input type="number" id="age" value="30" class="compact-input pr-8 font-bold text-slate-900 w-full" placeholder="0"> <!-- w-full -->
                                 <span class="absolute right-2 top-1.5 text-[10px] text-slate-500 font-bold">yrs</span>
                             </div>
                         </div>
                         <!-- Weight -->
                         <div class="flex items-center justify-between">
-                            <label class="text-xs font-bold text-slate-700">Weight</label>
-                            <div class="relative w-32">
-                                <input type="number" id="weight" class="compact-input pr-8 font-bold text-slate-900" placeholder="0">
+                            <label class="text-xs font-bold text-slate-700 w-1/3 text-right pr-4">Weight</label>
+                            <div class="relative w-2/3">
+                                <input type="number" id="weight" class="compact-input pr-8 font-bold text-slate-900 w-full" placeholder="0"> <!-- w-full -->
                                 <span id="weightUnit" class="absolute right-2 top-1.5 text-[10px] text-slate-500 font-bold">lbs</span>
                             </div>
                         </div>
                         <!-- Height -->
                         <div class="flex items-center justify-between">
-                            <label class="text-xs font-bold text-slate-700">Height</label>
-                            <div id="imperialHeight" class="flex gap-2 w-32">
+                            <label class="text-xs font-bold text-slate-700 w-1/3 text-right pr-4">Height</label>
+                            <div id="imperialHeight" class="flex gap-2 w-2/3">
                                 <div class="relative w-full">
-                                    <input type="number" id="heightFt" class="compact-input pr-5 font-bold text-slate-900" placeholder="0">
+                                    <input type="number" id="heightFt" class="compact-input pr-5 font-bold text-slate-900 w-full" placeholder="0">
                                     <span class="absolute right-1.5 top-1.5 text-[10px] text-slate-500 font-bold">ft</span>
                                 </div>
                                 <div class="relative w-full">
-                                    <input type="number" id="heightIn" class="compact-input pr-5 font-bold text-slate-900" placeholder="0">
+                                    <input type="number" id="heightIn" class="compact-input pr-5 font-bold text-slate-900 w-full" placeholder="0">
                                     <span class="absolute right-1.5 top-1.5 text-[10px] text-slate-500 font-bold">in</span>
                                 </div>
                             </div>
-                            <div id="metricHeight" class="relative w-32 hidden">
-                                <input type="number" id="heightCm" class="compact-input pr-8 font-bold text-slate-900" placeholder="0">
+                            <div id="metricHeight" class="relative w-2/3 hidden">
+                                <input type="number" id="heightCm" class="compact-input pr-8 font-bold text-slate-900 w-full" placeholder="0">
                                 <span class="absolute right-2 top-1.5 text-[10px] text-slate-500 font-bold">cm</span>
                             </div>
                         </div>
@@ -139,7 +212,8 @@
                     <div class="p-4 bg-white">
                         <div id="resultCategory" class="text-sm font-bold text-slate-400 text-center mb-4">Enter Details</div>
                         <div class="flex-1 w-full flex flex-col justify-center">
-                            <div class="relative h-4 w-full rounded-full bmi-gradient shadow-inner mb-6">
+                            <!-- Added mt-10 to create vertical space for the popup tooltip so it doesn't overlap text -->
+                            <div class="relative h-4 w-full rounded-full bmi-gradient shadow-inner mb-6 mt-10">
                                 <div id="gaugeMarker" class="gauge-marker absolute -top-2 left-0 -ml-2 h-0 w-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[8px] border-t-slate-800 hidden"></div>
                                  <div id="gaugeLabel" class="gauge-marker absolute -top-8 left-0 -ml-6 w-12 text-center text-[10px] font-bold bg-slate-800 text-white rounded px-1 py-0.5 hidden">
                                     <span id="gaugeValue">--</span>
@@ -236,6 +310,55 @@
                     <p class="mb-4">This calculator is designed for <strong>adults (men and women) over age 20</strong>. It is not accurate for:</p>
                     <div class="flex flex-wrap gap-3 mb-3"><span class="px-3 py-1 bg-white rounded-full text-slate-600 border border-slate-200 font-medium shadow-sm text-[11px]"><i class="fa-solid fa-child mr-1"></i> Children & Teens</span><span class="px-3 py-1 bg-white rounded-full text-slate-600 border border-slate-200 font-medium shadow-sm text-[11px]"><i class="fa-solid fa-person-pregnant mr-1"></i> Pregnant Women</span><span class="px-3 py-1 bg-white rounded-full text-slate-600 border border-slate-200 font-medium shadow-sm text-[11px]"><i class="fa-solid fa-dumbbell mr-1"></i> Professional Athletes</span></div>
                     <p class="italic text-slate-500 text-[11px]">*Athletes often have high muscle mass, which weighs more than fat. They might have a "High" BMI but very low body fat.</p>
+                </section>
+
+                <!-- NEW SECTION: FAQ -->
+                <section class="info-card">
+                    <h3 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-question text-[#518428]"></i> Frequently Asked Questions
+                    </h3>
+                    <div class="space-y-4">
+                        <!-- Q1 -->
+                        <div class="flex gap-3 items-start">
+                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-[10px] font-bold border border-slate-200 mt-0.5">1</div>
+                            <div>
+                                <h4 class="text-[12px] font-bold text-brand-dark mb-1 leading-tight">Is BMI accurate for athletes?</h4>
+                                <p class="text-xs text-slate-600">Not always. BMI does not distinguish between muscle and fat. Athletes with high muscle mass may have a high BMI but very low body fat. In these cases, a Body Fat Calculator is more accurate.</p>
+                            </div>
+                        </div>
+                        <!-- Q2 -->
+                        <div class="flex gap-3 items-start">
+                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-[10px] font-bold border border-slate-200 mt-0.5">2</div>
+                            <div>
+                                <h4 class="text-[12px] font-bold text-brand-dark mb-1 leading-tight">What is the "healthy" range?</h4>
+                                <p class="text-xs text-slate-600">For most adults, a BMI between <strong>18.5 and 24.9</strong> is considered healthy. This range is associated with the lowest risk of weight-related health issues like diabetes and heart disease.</p>
+                            </div>
+                        </div>
+                        <!-- Q3 -->
+                        <div class="flex gap-3 items-start">
+                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-[10px] font-bold border border-slate-200 mt-0.5">3</div>
+                            <div>
+                                <h4 class="text-[12px] font-bold text-brand-dark mb-1 leading-tight">Why does BMI change with age?</h4>
+                                <p class="text-xs text-slate-600">Standard BMI categories apply to adults 20+. For children and teens, BMI is age-and-gender specific (percentiles) because they are still growing. Older adults may also have slightly different ideal ranges.</p>
+                            </div>
+                        </div>
+                        <!-- Q4 -->
+                        <div class="flex gap-3 items-start">
+                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-[10px] font-bold border border-slate-200 mt-0.5">4</div>
+                            <div>
+                                <h4 class="text-[12px] font-bold text-brand-dark mb-1 leading-tight">Does muscle weigh more than fat?</h4>
+                                <p class="text-xs text-slate-600">Technically, a pound is a pound. However, muscle is much more <em>dense</em> than fat. One pound of muscle takes up less space than one pound of fat, which is why you can look leaner but weigh the same.</p>
+                            </div>
+                        </div>
+                        <!-- Q5 -->
+                        <div class="flex gap-3 items-start">
+                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-[10px] font-bold border border-slate-200 mt-0.5">5</div>
+                            <div>
+                                <h4 class="text-[12px] font-bold text-brand-dark mb-1 leading-tight">How can I lower my BMI?</h4>
+                                <p class="text-xs text-slate-600">To lower BMI, you need to create a calorie deficit by eating fewer calories than you burn (BMR + Activity). Combining a balanced diet with regular exercise is the safest way to reach a healthy weight.</p>
+                            </div>
+                        </div>
+                    </div>
                 </section>
             </div>
         </div>
