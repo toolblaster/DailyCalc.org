@@ -3,6 +3,7 @@
   [2025-11-27] Updated Layout Logic: SEO content now sits inside the left column 
   to prevent vertical gaps on short calculators (like BMI).
   [2025-11-27] Implemented centralized .calc-section-divider for consistent visuals across 250+ calculators.
+  [2025-11-27] Adjusted divider top margin (!mt-2) to balance with flex gap-8, ensuring equal 40px spacing.
 */
 
 const headerHTML = `
@@ -161,7 +162,8 @@ const CalculatorLayout = {
                     <!-- SEO Container (Now inside left column) -->
                     <div id="layout-seo-wrapper" class="hidden">
                         <!-- CENTRALIZED DIVIDER INJECTION -->
-                        <div class="calc-section-divider"></div>
+                        <!-- NOTE: Using !mt-2 to balance against flex gap-8. Total top space = 32px(gap) + 8px = 40px. -->
+                        <div class="calc-section-divider !mt-2"></div>
                         <div id="layout-seo-container"></div>
                     </div>
                 </div>
