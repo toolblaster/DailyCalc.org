@@ -1,14 +1,9 @@
 /*
   DailyCalc.org Global Utilities
-  - Calculator Registry
-  - Global Search
-  - Sidebar Widget (Voting, Sharing, Tools)
-  - Auto-Save / Drafts
-  - Dynamic SEO
-  - DailyLineChart (New Interactive SVG Charts)
+  ...
+  [2025-11-28] HistoryManager: Enforced "Single Entry Per Tool" policy for ALL calculators.
 */
 
-// --- CENTRAL DATA: Calculator Registry ---
 const CALCULATOR_REGISTRY = {
     'Finance': [
         { name: "Mortgage Calculator", url: "/finance/mortgage-calculator.html", icon: "fa-house-chimney" },
@@ -41,6 +36,46 @@ const CALCULATOR_REGISTRY = {
         { name: "Temperature", url: "/converters/temperature.html", icon: "fa-temperature-half" }
     ]
 };
+
+// --- HISTORY MANAGER ---
+const HistoryManager = {
+    /**
+     * Saves a calculation to history.
+     * POLICY: "Single Entry Per Tool".
+     * If an entry for this calculator already exists, it is removed and replaced 
+     * by the new one at the top of the list. This prevents history clutter.
+     */
+    save(toolName, inputs, result, url) {
+        if (!toolName || !result) return;
+
+        let history = [];
+        try {
+            history = JSON.parse(localStorage.getItem('dailyCalcHistory')) || [];
+        } catch (e) {
+            history = [];
+        }
+
+        const newItem = {
+            calculator: toolName,
+            inputs: inputs,
+            result: result,
+            timestamp: new Date().toISOString(),
+            url: url || window.location.href
+        };
+
+        // 1. Remove ANY existing entry for this specific tool (Clean Slate)
+        history = history.filter(item => item.calculator !== toolName);
+        
+        // 2. Add the new entry to the top
+        history.unshift(newItem);
+
+        // 3. Global Cap (Safety) - Just in case user visits > 100 unique tools
+        if (history.length > 100) history = history.slice(0, 100);
+
+        localStorage.setItem('dailyCalcHistory', JSON.stringify(history));
+    }
+};
+window.HistoryManager = HistoryManager;
 
 // --- GLOBAL SEARCH MODULE ---
 const GlobalSearch = {
@@ -416,24 +451,14 @@ const DynamicSEO = {
     }
 };
 
-// --- NEW: DAILY LINE CHART (Lightweight SVG) ---
-/*
-  Usage:
-  const chart = new DailyLineChart('chartContainerID', {
-      color: '#518428', 
-      fillArea: true,
-      data: [{x: 2024, y: 1000}, {x: 2025, y: 1200}],
-      formatY: (val) => '$' + val
-  });
-  chart.update(newData);
-*/
+// --- DAILY LINE CHART (Lightweight SVG) ---
 window.DailyLineChart = class {
     constructor(containerId, options = {}) {
         this.container = document.getElementById(containerId);
         if (!this.container) return;
         
         this.options = Object.assign({
-            color: '#518428', // Brand Green
+            color: '#518428', 
             strokeWidth: 3,
             fillArea: true,
             height: 200,
@@ -449,7 +474,6 @@ window.DailyLineChart = class {
         this.init();
         if (this.data.length) this.draw();
         
-        // Handle Resize
         window.addEventListener('resize', () => this.draw());
     }
 
@@ -457,19 +481,16 @@ window.DailyLineChart = class {
         this.container.innerHTML = '';
         this.container.style.position = 'relative';
         
-        // SVG Element
         this.svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         this.svg.setAttribute("width", "100%");
         this.svg.setAttribute("height", "100%");
         this.svg.style.overflow = "visible";
         this.container.appendChild(this.svg);
 
-        // Tooltip Element
         this.tooltip = document.createElement("div");
         this.tooltip.className = "absolute bg-slate-800 text-white text-[10px] px-2 py-1 rounded pointer-events-none opacity-0 transition-opacity shadow-lg z-10 whitespace-nowrap";
         this.container.appendChild(this.tooltip);
 
-        // Interaction Overlay
         this.overlay = document.createElement("div");
         this.overlay.className = "absolute inset-0 z-0 cursor-crosshair";
         this.container.appendChild(this.overlay);
@@ -493,17 +514,15 @@ window.DailyLineChart = class {
         const height = rect.height || this.options.height;
         
         this.svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
-        this.svg.innerHTML = ''; // Clear previous
+        this.svg.innerHTML = ''; 
 
-        // Calculate Min/Max
         const xVals = this.data.map(d => d.x);
         const yVals = this.data.map(d => d.y);
         const minX = Math.min(...xVals);
         const maxX = Math.max(...xVals);
-        const minY = 0; // Stick to 0 for growth charts usually
-        const maxY = Math.max(...yVals) * 1.05; // 5% padding top
+        const minY = 0; 
+        const maxY = Math.max(...yVals) * 1.05; 
 
-        // Scaling Functions
         const getX = (val) => {
             const pct = (val - minX) / (maxX - minX);
             return this.options.padding.left + pct * (width - this.options.padding.left - this.options.padding.right);
@@ -513,7 +532,6 @@ window.DailyLineChart = class {
             return height - this.options.padding.bottom - (pct * (height - this.options.padding.top - this.options.padding.bottom));
         };
 
-        // 1. Draw Grid Lines (Horizontal)
         const gridGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
         [0, 0.25, 0.5, 0.75, 1].forEach(tick => {
             const val = minY + tick * (maxY - minY);
@@ -523,31 +541,28 @@ window.DailyLineChart = class {
             line.setAttribute("x2", width - this.options.padding.right);
             line.setAttribute("y1", y);
             line.setAttribute("y2", y);
-            line.setAttribute("stroke", "#e2e8f0"); // slate-200
+            line.setAttribute("stroke", "#e2e8f0"); 
             line.setAttribute("stroke-width", "1");
-            if (tick === 0) line.setAttribute("stroke-width", "2"); // Base line thicker
+            if (tick === 0) line.setAttribute("stroke-width", "2"); 
             gridGroup.appendChild(line);
         });
         this.svg.appendChild(gridGroup);
 
-        // 2. Build Path Data
         let pathD = `M ${getX(this.data[0].x)} ${getY(this.data[0].y)}`;
         this.data.forEach((p, i) => {
             if (i === 0) return;
             pathD += ` L ${getX(p.x)} ${getY(p.y)}`;
         });
 
-        // 3. Draw Area (Fill)
         if (this.options.fillArea) {
             const areaD = pathD + ` L ${getX(this.data[this.data.length-1].x)} ${getY(minY)} L ${getX(this.data[0].x)} ${getY(minY)} Z`;
             const areaPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
             areaPath.setAttribute("d", areaD);
             areaPath.setAttribute("fill", this.options.color);
-            areaPath.setAttribute("opacity", "0.1"); // Light fill
+            areaPath.setAttribute("opacity", "0.1"); 
             this.svg.appendChild(areaPath);
         }
 
-        // 4. Draw Line (Stroke)
         const linePath = document.createElementNS("http://www.w3.org/2000/svg", "path");
         linePath.setAttribute("d", pathD);
         linePath.setAttribute("fill", "none");
@@ -557,23 +572,19 @@ window.DailyLineChart = class {
         linePath.setAttribute("stroke-linejoin", "round");
         this.svg.appendChild(linePath);
 
-        // Save scale functions for hover interaction
         this.scale = { getX, getY, minX, maxX, width, height };
     }
 
     handleHover(e) {
         if (!this.scale || !this.data) return;
         const rect = this.container.getBoundingClientRect();
-        // Handle touch or mouse coordinates
         const clientX = e.clientX || (e.touches ? e.touches[0].clientX : 0);
         const offsetX = clientX - rect.left;
 
-        // Find closest data point by X coordinate (inverse lookup)
         const chartWidth = this.scale.width - this.options.padding.left - this.options.padding.right;
         const clickPct = (offsetX - this.options.padding.left) / chartWidth;
         const rawX = this.scale.minX + clickPct * (this.scale.maxX - this.scale.minX);
         
-        // Find closest actual point
         const closest = this.data.reduce((prev, curr) => 
             Math.abs(curr.x - rawX) < Math.abs(prev.x - rawX) ? curr : prev
         );
@@ -582,7 +593,6 @@ window.DailyLineChart = class {
             const cx = this.scale.getX(closest.x);
             const cy = this.scale.getY(closest.y);
 
-            // Show indicator circle
             let circle = this.svg.querySelector('.hover-circle');
             if (!circle) {
                 circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
@@ -597,14 +607,12 @@ window.DailyLineChart = class {
             circle.setAttribute("cy", cy);
             circle.style.display = 'block';
 
-            // Show Tooltip
             this.tooltip.innerHTML = `
                 <div class="font-bold">${this.options.formatX(closest.x)}</div>
                 <div>${this.options.formatY(closest.y)}</div>
             `;
             this.tooltip.style.opacity = 1;
             
-            // Position Tooltip (avoid edge overflow)
             const tipRect = this.tooltip.getBoundingClientRect();
             let left = cx - (tipRect.width / 2);
             let top = cy - tipRect.height - 10;
