@@ -2,6 +2,7 @@
   DailyCalc.org Common Layout Injector
   [2025-11-27] Updated Layout Logic: SEO content now sits inside the left column 
   to prevent vertical gaps on short calculators (like BMI).
+  [2025-11-27] Implemented centralized .calc-section-divider for consistent visuals across 250+ calculators.
 */
 
 const headerHTML = `
@@ -159,7 +160,8 @@ const CalculatorLayout = {
                     
                     <!-- SEO Container (Now inside left column) -->
                     <div id="layout-seo-wrapper" class="hidden">
-                        <div class="w-full border-t-[6px] border-slate-400 rounded-full mb-8 no-print opacity-20"></div>
+                        <!-- CENTRALIZED DIVIDER INJECTION -->
+                        <div class="calc-section-divider"></div>
                         <div id="layout-seo-container"></div>
                     </div>
                 </div>
