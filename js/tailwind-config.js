@@ -1,7 +1,6 @@
 /*
   DailyCalc.org Centralized Tailwind Configuration
-  [2025-11-27] Added .calc-seo-content for standardized SEO guide layout
-  [2025-11-27] Added .calc-section-divider for universal high-contrast separators
+  [2025-11-27] Updated .calc-section-divider to match Mortgage Calculator style (100% opacity, Slate-400)
 */
 
 tailwind.config = {
@@ -98,15 +97,17 @@ tailwind.config = {
                     gap: theme('spacing.6'), /* Consistent vertical spacing between cards */
                 },
 
-                /* --- NEW: Universal Section Divider --- */
+                /* --- NEW: Universal Section Divider (Centralized from Mortgage Calc) --- */
                 '.calc-section-divider': {
                     width: '100%',
+                    maxWidth: '702px', /* Matches Mortgage Calc Constraint */
                     height: '0',
-                    margin: `${theme('spacing.8')} 0`,
+                    marginTop: theme('spacing.10'),    /* Matches my-10 */
+                    marginBottom: theme('spacing.10'), /* Matches my-10 */
                     borderTopWidth: '6px',
-                    borderColor: theme('colors.slate.400'), /* High contrast to match Mortgage Calc */
+                    borderColor: theme('colors.slate.400'), /* Solid Slate 400 */
                     borderRadius: '9999px',
-                    opacity: '0.8',
+                    opacity: '1', /* Removed opacity-20 to make it "dark slate" */
                     '@media print': { display: 'none' }
                 },
 
