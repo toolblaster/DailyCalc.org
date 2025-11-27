@@ -1,6 +1,7 @@
 /*
   DailyCalc.org Centralized Tailwind Configuration
   [2025-11-27] Updated .calc-section-divider to match Mortgage Calculator style (100% opacity, Slate-400)
+  [2025-11-27] Added mx-auto to divider for consistent centering.
 */
 
 tailwind.config = {
@@ -108,6 +109,8 @@ tailwind.config = {
                     borderColor: theme('colors.slate.400'), /* Solid Slate 400 */
                     borderRadius: '9999px',
                     opacity: '1', /* Removed opacity-20 to make it "dark slate" */
+                    marginLeft: 'auto',  /* Ensure Centering */
+                    marginRight: 'auto', /* Ensure Centering */
                     '@media print': { display: 'none' }
                 },
 
