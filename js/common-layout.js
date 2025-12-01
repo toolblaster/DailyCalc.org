@@ -3,6 +3,7 @@
   ...
   [2025-11-28] Added Wishlist (Favorites) feature replacing 'Suggest a Tool'.
   [2025-12-01] Fixed Wishlist header text color.
+  [2025-12-01] Updated Footer links: Privacy, Terms, Contact (Moved to legal/ folder).
 */
 
 const headerHTML = `
@@ -125,15 +126,16 @@ const footerHTML = `
             <div class="mt-6 flex flex-col items-center gap-4 border-t border-white/10 pt-6 text-xs text-slate-500 sm:flex-row sm:justify-center sm:gap-6">
                 <p class="text-center sm:text-left">&copy; <span id="currentYear"></span> DailyCalc.org. All rights reserved.</p>
                 <div class="flex flex-wrap justify-center gap-4 sm:justify-start">
-                    <a href="/privacy.html" class="transition hover:text-white">Privacy</a>
-                    <a href="/terms.html" class="transition hover:text-white">Terms</a>
-                    <a href="/accessibility.html" class="transition hover:text-white">Accessibility</a>
+                    <a href="/legal/privacy.html" class="transition hover:text-white">Privacy</a>
+                    <a href="/legal/terms.html" class="transition hover:text-white">Terms</a>
+                    <a href="/legal/contact.html" class="transition hover:text-white">Contact</a>
                 </div>
             </div>
         </div>
     </footer>
 `;
 
+// ... existing toastHTML, CalculatorLayout, WishlistUI, loadCommonLayout ...
 const toastHTML = `<div id="clipboard-toast"></div>`;
 
 /* --- LAYOUT ENGINE --- */
