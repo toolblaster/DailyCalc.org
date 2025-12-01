@@ -19,49 +19,73 @@
 <body class="bg-slate-50 text-slate-900 font-sans antialiased">
     <div id="header-placeholder"></div>
 
-    <main class="mx-auto main-container px-4 py-8 sm:px-6">
-        <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-            <div class="bg-gradient-to-r from-brand-dark to-brand-red px-6 py-8 text-center text-white">
-                <h1 class="text-2xl font-bold font-heading mb-2">Get in Touch</h1>
-                <p class="text-sm opacity-90">Have a question or a tool suggestion? We'd love to hear from you.</p>
+    <main class="mx-auto main-container px-4 py-4 sm:px-6">
+        <div class="max-w-lg mx-auto bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <!-- Compact Header -->
+            <div class="bg-gradient-to-r from-brand-dark to-brand-red px-4 py-3 text-center text-white">
+                <h1 class="text-lg font-bold font-heading mb-0.5">Get in Touch</h1>
+                <p class="text-[11px] opacity-90">Questions or suggestions? We'd love to hear from you.</p>
             </div>
             
-            <div class="p-6 sm:p-10">
-                <form action="#" method="POST" class="space-y-6" onsubmit="event.preventDefault(); alert('Thank you! This is a demo form.');">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="p-4 sm:p-5 relative">
+                
+                <!-- SUCCESS MESSAGE (Hidden by default) -->
+                <div id="success-message" class="hidden absolute inset-0 bg-white z-10 flex flex-col items-center justify-center p-8 text-center animate-fade-in">
+                    <div class="h-12 w-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-3 text-lg shadow-sm">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                    <h2 class="text-lg font-bold text-slate-800 mb-1">Message Sent!</h2>
+                    <p class="text-slate-600 mb-4 text-xs">Thank you. We'll be in touch soon.</p>
+                    <a href="/" class="bg-slate-100 text-slate-700 font-bold py-2 px-5 rounded-lg hover:bg-slate-200 transition-colors text-xs">Return Home</a>
+                    <button id="send-another" class="mt-3 text-[10px] text-slate-400 hover:text-brand-red underline">Send another message</button>
+                </div>
+
+                <!-- FORM -->
+                <form action="https://api.web3forms.com/submit" method="POST" class="space-y-2" id="contact-form">
+                    
+                    <!-- REQUIRED: Web3Forms Access Key -->
+                    <input type="hidden" name="access_key" value="d808d6fb-3a0a-4a7a-9a9b-d520c674ba3f">
+
+                    <!-- OPTIONAL: Configuration -->
+                    <input type="hidden" name="subject" value="New Submission from DailyCalc Contact Form">
+                    <input type="hidden" name="from_name" value="DailyCalc Contact Form">
+                    <input type="hidden" name="redirect" value="https://dailycalc.org/legal/contact.html?success=true">
+                    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
+                    <div class="grid grid-cols-2 gap-3">
                         <div>
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" id="name" name="name" class="form-input" placeholder="Your name" required>
+                            <label for="name" class="form-label text-[11px] mb-0.5">Name</label>
+                            <input type="text" id="name" name="name" class="form-input py-1.5 px-2 text-xs" placeholder="Name" required>
                         </div>
                         <div>
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" id="email" name="email" class="form-input" placeholder="your@email.com" required>
+                            <label for="email" class="form-label text-[11px] mb-0.5">Email</label>
+                            <input type="email" id="email" name="email" class="form-input py-1.5 px-2 text-xs" placeholder="Email" required>
                         </div>
                     </div>
 
                     <div>
-                        <label for="subject" class="form-label">Subject</label>
-                        <select id="subject" name="subject" class="form-input">
-                            <option value="feedback">General Feedback</option>
-                            <option value="suggestion">Tool Suggestion</option>
-                            <option value="bug">Report a Bug</option>
-                            <option value="other">Other Inquiry</option>
+                        <label for="subject-select" class="form-label text-[11px] mb-0.5">Subject</label>
+                        <select id="subject-select" name="topic" class="form-input py-1.5 px-2 text-xs">
+                            <option value="General Feedback">General Feedback</option>
+                            <option value="Tool Suggestion">Tool Suggestion</option>
+                            <option value="Bug Report">Report a Bug</option>
+                            <option value="Business Inquiry">Business Inquiry</option>
                         </select>
                     </div>
 
                     <div>
-                        <label for="message" class="form-label">Message</label>
-                        <textarea id="message" name="message" rows="5" class="form-input" placeholder="How can we help you?" required></textarea>
+                        <label for="message" class="form-label text-[11px] mb-0.5">Message</label>
+                        <textarea id="message" name="message" rows="3" class="form-input py-2 px-2 text-xs leading-relaxed" placeholder="How can we help you?" required></textarea>
                     </div>
 
-                    <button type="submit" class="w-full bg-brand-red text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-red-600 transition-colors transform active:scale-95 duration-200">
-                        Send Message
+                    <button type="submit" id="submit-btn" class="w-full bg-brand-red text-white font-bold py-2 px-6 rounded shadow-md hover:bg-red-600 transition-all transform active:scale-95 duration-200 text-xs mt-1 flex items-center justify-center gap-2">
+                        <span>Send Message</span>
                     </button>
                 </form>
 
-                <div class="mt-10 pt-6 border-t border-slate-100 text-center">
-                    <p class="text-sm text-slate-500 mb-4">Or reach us directly at:</p>
-                    <a href="mailto:hello@dailycalc.org" class="inline-flex items-center gap-2 text-brand-dark font-medium hover:text-brand-red transition-colors">
+                <div class="mt-3 pt-2 border-t border-slate-100 text-center">
+                    <p class="text-[10px] text-slate-400 mb-1">Prefer email instead? Reach us directly:</p>
+                    <a href="mailto:hello@dailycalc.org" class="inline-flex items-center gap-1.5 text-slate-600 text-xs font-medium hover:text-brand-red transition-colors">
                         <i class="fa-regular fa-envelope"></i> hello@dailycalc.org
                     </a>
                 </div>
@@ -70,5 +94,41 @@
     </main>
 
     <div id="footer-placeholder"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Success Message Logic (Runs on page load if ?success=true)
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('success') === 'true') {
+                const form = document.getElementById('contact-form');
+                const successMsg = document.getElementById('success-message');
+                
+                if (form && successMsg) {
+                    form.classList.add('opacity-0', 'pointer-events-none');
+                    successMsg.classList.remove('hidden');
+                    const newUrl = window.location.pathname;
+                    window.history.replaceState({}, document.title, newUrl);
+                }
+            }
+
+            // 2. Loading State Logic (Runs when user clicks submit)
+            const contactForm = document.getElementById('contact-form');
+            const submitBtn = document.getElementById('submit-btn');
+
+            if (contactForm && submitBtn) {
+                contactForm.addEventListener('submit', function() {
+                    // Only triggers if HTML5 validation passes
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Sending...</span>';
+                    submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+                });
+            }
+
+            // 3. Reset Handler
+            document.getElementById('send-another')?.addEventListener('click', () => {
+                window.location.reload();
+            });
+        });
+    </script>
 </body>
 </html>
