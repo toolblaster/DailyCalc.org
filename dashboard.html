@@ -7,7 +7,7 @@
     <!-- Meta Title (60 Chars Max) -->
     <title>My Dashboard | DailyCalc.org</title>
     <!-- Meta Description (160 Chars Max) -->
-    <meta name="description" content="View your saved calculation history and presets on your personal DailyCalc.org dashboard.">
+    <meta name="description" content="View your saved calculation history, favorite tools, and presets on your personal DailyCalc.org dashboard.">
     <!-- Prevent this page from being indexed by search engines -->
     <meta name="robots" content="noindex, nofollow">
 
@@ -46,13 +46,37 @@
                 <h1 class="font-heading text-lg font-bold text-brand-dark flex items-center gap-2">
                     <i class="fa-solid fa-gauge-high text-brand-red"></i> Dashboard
                 </h1>
-                <p class="text-xs text-slate-500">Local history & saved presets.</p>
+                <p class="text-xs text-slate-500">Manage your history, favorite tools, and saved calculations.</p>
             </div>
 
-            <!-- High Density 2-Column Grid -->
-            <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 items-start">
+            <!-- Responsive Grid: 1 col mobile, 2 col tablet, 3 col desktop -->
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3 items-start">
 
-                <!-- Section: My Calculation History -->
+                <!-- Section 1: My Wishlist (New) -->
+                <section id="wishlist-section" class="content-section h-full min-h-[300px]">
+                    <div class="bg-gradient-to-r from-brand-dark to-brand-red px-3 py-2 flex justify-between items-center border-b border-white/10">
+                        <div class="flex items-center gap-2">
+                            <h2 class="text-sm font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-heart text-white/80"></i> My Wishlist
+                            </h2>
+                            <span id="wishlistCount" class="text-[10px] font-medium text-white/80 bg-white/10 px-2 py-0.5 rounded-full">0</span>
+                        </div>
+                    </div>
+
+                    <!-- Wishlist Container -->
+                    <div id="wishlistContainer" class="max-h-[600px] overflow-y-auto slim-scroll">
+                        <!-- JS will inject rows here -->
+                    </div>
+
+                    <!-- Wishlist Empty State -->
+                    <div id="wishlistEmptyState" class="hidden flex flex-col items-center justify-center py-12 text-center text-slate-400">
+                        <i class="fa-regular fa-heart text-3xl mb-2 opacity-20"></i>
+                        <p class="text-xs font-medium text-slate-500">No tools saved</p>
+                        <p class="text-[10px]">Use the <i class="fa-regular fa-heart"></i> icon to save tools here.</p>
+                    </div>
+                </section>
+
+                <!-- Section 2: My Calculation History -->
                 <section id="history-section" class="content-section h-full min-h-[300px]">
                     <div class="bg-gradient-to-r from-brand-dark to-brand-red px-3 py-2 flex justify-between items-center border-b border-white/10">
                         <div class="flex items-center gap-2">
@@ -63,7 +87,7 @@
                         </div>
                         <!-- Specific Clear Button -->
                         <button id="clearHistoryButton" class="hidden text-[10px] font-semibold text-white/70 hover:text-white hover:bg-white/10 px-2 py-1 rounded transition">
-                            <i class="fa-solid fa-trash-can mr-1"></i> Clear History
+                            <i class="fa-solid fa-trash-can mr-1"></i> Clear
                         </button>
                     </div>
 
@@ -80,7 +104,7 @@
                     </div>
                 </section>
 
-                <!-- Section: My Saved Presets -->
+                <!-- Section 3: My Saved Presets -->
                 <section id="presets-section" class="content-section h-full min-h-[300px]">
                     <div class="bg-gradient-to-r from-brand-dark to-brand-red px-3 py-2 flex justify-between items-center border-b border-white/10">
                         <div class="flex items-center gap-2">
@@ -91,7 +115,7 @@
                         </div>
                         <!-- Specific Clear Button -->
                         <button id="clearPresetsButton" class="hidden text-[10px] font-semibold text-white/70 hover:text-white hover:bg-white/10 px-2 py-1 rounded transition">
-                            <i class="fa-solid fa-trash-can mr-1"></i> Clear Presets
+                            <i class="fa-solid fa-trash-can mr-1"></i> Clear
                         </button>
                     </div>
 
@@ -104,7 +128,7 @@
                     <div id="presetsEmptyState" class="hidden flex flex-col items-center justify-center py-12 text-center text-slate-400">
                         <i class="fa-solid fa-star text-3xl mb-2 opacity-20"></i>
                         <p class="text-xs font-medium text-slate-500">No presets saved</p>
-                        <p class="text-[10px]">Save calculations to view them here.</p>
+                        <p class="text-[10px]">Save specific results to view them here.</p>
                     </div>
                 </section>
             </div>
