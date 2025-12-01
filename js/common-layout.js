@@ -1,9 +1,8 @@
 /*
   DailyCalc.org Common Layout Injector
-  [2025-11-27] Updated Layout Logic: SEO content now sits inside the left column 
-  to prevent vertical gaps on short calculators (like BMI).
-  [2025-11-27] Implemented centralized .calc-section-divider for consistent visuals across 250+ calculators.
-  [2025-11-27] Adjusted divider top margin (!mt-2) to balance with flex gap-8, ensuring equal 40px spacing.
+  ...
+  [2025-11-28] Added Wishlist (Favorites) feature replacing 'Suggest a Tool'.
+  [2025-12-01] Fixed Wishlist header text color.
 */
 
 const headerHTML = `
@@ -41,19 +40,50 @@ const headerHTML = `
                     <nav aria-label="Primary" class="flex flex-wrap items-center gap-2 text-sm font-medium text-slate-600 md:hidden">
                         <a href="/" class="rounded-lg p-2 text-white transition hover:bg-white/10"><i class="fa-solid fa-house h-5 w-5"></i></a>
                         <button class="js-open-search rounded-lg p-2 text-white transition hover:bg-white/10"><i class="fa-solid fa-search h-5 w-5"></i></button>
-                        <a href="/dashboard.html" class="rounded-lg p-2 text-white transition hover:bg-white/10"><i class="fa-solid fa-history h-5 w-5"></i></a>
+                        <!-- Mobile Wishlist Button -->
+                        <button id="mobileWishlistBtn" class="rounded-lg p-2 text-white transition hover:bg-white/10 relative">
+                            <i class="fa-solid fa-heart h-5 w-5"></i>
+                            <span id="mobileWishlistCount" class="absolute top-1 right-1 flex h-3 w-3 items-center justify-center rounded-full bg-yellow-400 text-[8px] font-bold text-black hidden">0</span>
+                        </button>
                         <button id="mobileMenuToggle" class="rounded-lg p-2 text-white transition hover:bg-white/10"><i class="fa-solid fa-bars h-5 w-5" id="menuOpenIcon"></i><i class="fa-solid fa-xmark h-5 w-5 hidden" id="menuCloseIcon"></i></button>
                     </nav>
 
                     <div class="hidden items-center gap-3 md:flex">
                         <a href="/" class="inline-flex items-center justify-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white shadow-soft transition hover:bg-white/20"><i class="fa-solid fa-house"></i> Home</a>
-                        <a href="/dashboard.html" class="inline-flex items-center justify-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white shadow-soft transition hover:bg-white/20"><i class="fa-solid fa-history"></i> My Dashboard</a>
-                        <button id="suggestToolButton" class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-brand-red shadow-soft transition hover:bg-slate-200"><i class="fa-solid fa-lightbulb"></i> Suggest a Tool</button>
+                        <a href="/dashboard.html" class="inline-flex items-center justify-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white shadow-soft transition hover:bg-white/20"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+                        
+                        <!-- Desktop Wishlist Button (Replaces Suggest a Tool) -->
+                        <button id="desktopWishlistBtn" class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-brand-red shadow-soft transition hover:bg-slate-200 relative group">
+                            <i class="fa-solid fa-heart group-hover:scale-110 transition-transform"></i> 
+                            <span>Wishlist</span>
+                            <span id="desktopWishlistCount" class="ml-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-brand-dark text-[10px] text-white hidden">0</span>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </header>
+
+    <!-- Wishlist Modal / Drawer -->
+    <div id="wishlistDrawer" class="fixed inset-0 z-[60] hidden">
+        <div id="wishlistOverlay" class="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity opacity-0"></div>
+        <div id="wishlistContent" class="absolute right-0 top-0 h-full w-80 max-w-full bg-white shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+            <div class="bg-gradient-to-r from-brand-dark to-brand-red p-4 text-white flex justify-between items-center shadow-md">
+                <h3 class="font-bold text-lg flex items-center gap-2 text-white"><i class="fa-solid fa-heart text-white"></i> My Wishlist</h3>
+                <button id="closeWishlistBtn" class="text-white/80 hover:text-white transition"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <div class="flex-1 overflow-y-auto p-4 bg-slate-50" id="wishlistListContainer">
+                <!-- Items injected here -->
+                <div class="text-center text-slate-400 mt-10">
+                    <i class="fa-regular fa-heart text-4xl mb-3 opacity-30"></i>
+                    <p class="text-xs">Your wishlist is empty.<br>Save tools to access them quickly.</p>
+                </div>
+            </div>
+            <div class="p-4 border-t border-slate-200 bg-white">
+                <a href="/dashboard.html" class="block w-full rounded-lg bg-slate-100 py-3 text-center text-xs font-bold text-slate-700 hover:bg-slate-200 transition">View Full Dashboard</a>
+            </div>
+        </div>
+    </div>
 
     <!-- Mobile Menu -->
     <div id="mobileMenu" class="md:hidden fixed inset-0 z-50 hidden">
@@ -153,7 +183,6 @@ const CalculatorLayout = {
             <div class="flex flex-col gap-4 lg:flex-row mb-8">
                 
                 <!-- LEFT COLUMN: Tool + SEO -->
-                <!-- Use flex-1 to take available space, min-w-0 to prevent flex overflow -->
                 <div class="flex-1 min-w-0 flex flex-col gap-8" id="layout-left-column">
                     <div id="layout-tool-container"></div>
                     <!-- Mobile Widget Placeholder (Visible only md:hidden) -->
@@ -162,7 +191,6 @@ const CalculatorLayout = {
                     <!-- SEO Container (Now inside left column) -->
                     <div id="layout-seo-wrapper" class="hidden">
                         <!-- CENTRALIZED DIVIDER INJECTION -->
-                        <!-- NOTE: Using !mt-2 to balance against flex gap-8. Total top space = 32px(gap) + 8px = 40px. -->
                         <div class="calc-section-divider !mt-2"></div>
                         <div id="layout-seo-container"></div>
                     </div>
@@ -230,6 +258,104 @@ const CalculatorLayout = {
 
 window.CalculatorLayout = CalculatorLayout;
 
+// --- Wishlist UI Logic ---
+const WishlistUI = {
+    init() {
+        const dBtn = document.getElementById('desktopWishlistBtn');
+        const mBtn = document.getElementById('mobileWishlistBtn');
+        const drawer = document.getElementById('wishlistDrawer');
+        const overlay = document.getElementById('wishlistOverlay');
+        const content = document.getElementById('wishlistContent');
+        const close = document.getElementById('closeWishlistBtn');
+
+        const toggleDrawer = (show) => {
+            if (show) {
+                drawer.classList.remove('hidden');
+                requestAnimationFrame(() => {
+                    overlay.classList.remove('opacity-0');
+                    content.classList.remove('translate-x-full');
+                });
+                this.renderList();
+            } else {
+                overlay.classList.add('opacity-0');
+                content.classList.add('translate-x-full');
+                setTimeout(() => drawer.classList.add('hidden'), 300);
+            }
+        };
+
+        if (dBtn) dBtn.addEventListener('click', () => toggleDrawer(true));
+        if (mBtn) mBtn.addEventListener('click', () => toggleDrawer(true));
+        if (close) close.addEventListener('click', () => toggleDrawer(false));
+        if (overlay) overlay.addEventListener('click', () => toggleDrawer(false));
+
+        this.updateCounts();
+        
+        // Listen for custom events if WishlistManager dispatches them
+        window.addEventListener('wishlistUpdated', () => this.updateCounts());
+    },
+
+    updateCounts() {
+        if (!window.WishlistManager) return;
+        const count = window.WishlistManager.getCount();
+        const dBadge = document.getElementById('desktopWishlistCount');
+        const mBadge = document.getElementById('mobileWishlistCount');
+        
+        if (dBadge) {
+            dBadge.textContent = count;
+            dBadge.classList.toggle('hidden', count === 0);
+        }
+        if (mBadge) {
+            mBadge.textContent = count;
+            mBadge.classList.toggle('hidden', count === 0);
+        }
+    },
+
+    renderList() {
+        const container = document.getElementById('wishlistListContainer');
+        if (!container || !window.WishlistManager) return;
+        
+        const items = window.WishlistManager.getItems();
+        container.innerHTML = '';
+
+        if (items.length === 0) {
+            container.innerHTML = `
+                <div class="flex flex-col items-center justify-center h-full text-slate-400 py-10">
+                    <i class="fa-regular fa-heart text-4xl mb-3 opacity-30"></i>
+                    <p class="text-xs text-center">Your wishlist is empty.<br>Save tools to see them here.</p>
+                </div>`;
+            return;
+        }
+
+        const ul = document.createElement('ul');
+        ul.className = 'space-y-3';
+        
+        items.forEach(item => {
+            const li = document.createElement('li');
+            li.className = 'bg-white border border-slate-200 rounded-lg p-3 shadow-sm flex items-center justify-between gap-3 group hover:border-brand-red/30 transition';
+            li.innerHTML = `
+                <a href="${item.url}" class="flex-1 min-w-0">
+                    <h4 class="text-xs font-bold text-slate-700 truncate group-hover:text-brand-red transition">${item.name || 'Saved Tool'}</h4>
+                    <p class="text-[10px] text-slate-500 truncate">${item.category || 'Tool'}</p>
+                </a>
+                <button class="remove-wishlist-btn h-6 w-6 flex items-center justify-center rounded-full bg-slate-100 text-slate-400 hover:bg-red-50 hover:text-red-500 transition" data-url="${item.url}">
+                    <i class="fa-solid fa-trash-can text-[10px]"></i>
+                </button>
+            `;
+            ul.appendChild(li);
+        });
+        container.appendChild(ul);
+
+        container.querySelectorAll('.remove-wishlist-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const url = e.currentTarget.dataset.url;
+                window.WishlistManager.remove(url);
+                this.renderList(); // Re-render immediately
+                this.updateCounts();
+            });
+        });
+    }
+};
+
 function loadCommonLayout() {
     const h = document.getElementById('header-placeholder');
     const f = document.getElementById('footer-placeholder');
@@ -274,24 +400,14 @@ function loadCommonLayout() {
 
     if(toggle) toggle.addEventListener('click', (e) => {
         e.stopPropagation();
-        const isOpen = !document.getElementById('menuOpenIcon').classList.contains('hidden'); // logic inverted visually
+        const isOpen = !document.getElementById('menuOpenIcon').classList.contains('hidden'); 
         toggleMenu(isOpen);
     });
     if(close) close.addEventListener('click', () => toggleMenu(false));
     if(overlay) overlay.addEventListener('click', () => toggleMenu(false));
 
-    // Suggest Tool Copy
-    const suggest = document.getElementById('suggestToolButton');
-    if(suggest) {
-        suggest.addEventListener('click', () => {
-            navigator.clipboard.writeText('hello@dailycalc.org').then(() => {
-                const t = document.getElementById('clipboard-toast');
-                t.textContent = "Copied 'hello@dailycalc.org'!";
-                t.classList.add('toast-visible');
-                setTimeout(() => t.classList.remove('toast-visible'), 3000);
-            });
-        });
-    }
+    // Initialize Wishlist UI
+    WishlistUI.init();
 }
 
 // Run immediately if DOM is ready, otherwise wait
