@@ -1,7 +1,7 @@
 /*
   DailyCalc.org Dashboard Logic
   This script loads and displays data from localStorage for the dashboard page.
-  [2025-11-28] Removed .reverse() because HistoryManager now stores Newest First.
+  [2025-11-28] Updated to support Wishlist, Smart History, and Presets.
 */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -17,41 +17,99 @@ document.addEventListener('DOMContentLoaded', () => {
     const clearPresetsButton = document.getElementById('clearPresetsButton');
     const presetsCountBadge = document.getElementById('presetsCount');
 
+    const wishlistContainer = document.getElementById('wishlistContainer');
+    const wishlistEmptyState = document.getElementById('wishlistEmptyState');
+    const wishlistCountBadge = document.getElementById('wishlistCount');
+
     // --- Helper: Time Ago ---
     function timeAgo(dateString) {
+        if(!dateString) return "";
         const date = new Date(dateString);
         const now = new Date();
         const seconds = Math.floor((now - date) / 1000);
         
         let interval = seconds / 31536000;
-        if (interval > 1) return Math.floor(interval) + "y";
+        if (interval > 1) return Math.floor(interval) + "y ago";
         interval = seconds / 2592000;
-        if (interval > 1) return Math.floor(interval) + "mo";
+        if (interval > 1) return Math.floor(interval) + "mo ago";
         interval = seconds / 86400;
-        if (interval > 1) return Math.floor(interval) + "d";
+        if (interval > 1) return Math.floor(interval) + "d ago";
         interval = seconds / 3600;
-        if (interval > 1) return Math.floor(interval) + "h";
+        if (interval > 1) return Math.floor(interval) + "h ago";
         interval = seconds / 60;
-        if (interval > 1) return Math.floor(interval) + "m";
-        return "now";
+        if (interval > 1) return Math.floor(interval) + "m ago";
+        return "just now";
     }
 
     // --- Helper: Get Icon for Calculator ---
     function getIconForCalc(name) {
+        if(!name) return 'fa-calculator';
         const lowerName = name.toLowerCase();
         if (lowerName.includes('mortgage') || lowerName.includes('loan')) return 'fa-house-chimney';
-        if (lowerName.includes('bmi') || lowerName.includes('health')) return 'fa-heart-pulse';
-        if (lowerName.includes('age') || lowerName.includes('date')) return 'fa-calendar-days';
+        if (lowerName.includes('bmi') || lowerName.includes('health') || lowerName.includes('calorie')) return 'fa-heart-pulse';
+        if (lowerName.includes('age') || lowerName.includes('date') || lowerName.includes('time')) return 'fa-calendar-days';
         if (lowerName.includes('converter')) return 'fa-arrows-rotate';
         return 'fa-calculator';
     }
 
-    // --- Logic to Load History ---
+    // --- 1. Load Wishlist (New) ---
+    function loadWishlist() {
+        let items = [];
+        try {
+            // Read directly or use global manager if available
+            items = JSON.parse(localStorage.getItem('dailyCalcWishlist')) || [];
+        } catch (e) {
+            console.error("Error reading wishlist", e);
+        }
+
+        wishlistContainer.innerHTML = '';
+        if (wishlistCountBadge) wishlistCountBadge.textContent = items.length;
+
+        if (items.length === 0) {
+            wishlistEmptyState.classList.remove('hidden');
+            wishlistContainer.classList.add('hidden');
+        } else {
+            wishlistEmptyState.classList.add('hidden');
+            wishlistContainer.classList.remove('hidden');
+
+            const ul = document.createElement('ul');
+            ul.className = 'divide-y divide-slate-100';
+
+            items.forEach(item => {
+                const li = document.createElement('li');
+                li.className = 'group flex items-center gap-3 p-2.5 hover:bg-slate-50 transition-colors duration-150';
+                
+                li.innerHTML = `
+                    <a href="${item.url}" class="flex-1 min-w-0 flex items-center gap-3 text-decoration-none">
+                        <!-- Icon -->
+                        <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-slate-200 bg-white text-slate-400 shadow-sm group-hover:border-brand-red/30 group-hover:text-brand-red transition-colors">
+                            <i class="fa-solid ${getIconForCalc(item.name)} text-xs"></i>
+                        </div>
+                        
+                        <!-- Text -->
+                        <div class="flex-1 min-w-0">
+                            <h3 class="text-xs font-bold text-slate-700 truncate group-hover:text-brand-red transition-colors">${item.name}</h3>
+                            <p class="text-[10px] text-slate-500 truncate">${item.category || 'Tool'}</p>
+                        </div>
+                    </a>
+
+                    <!-- Delete Action -->
+                    <button class="flex h-7 w-7 shrink-0 items-center justify-center rounded bg-slate-100 text-slate-400 hover:bg-red-50 hover:text-red-500 transition-all" data-delete-wishlist data-url="${item.url}" title="Remove from Wishlist">
+                        <i class="fa-solid fa-trash-can text-[10px]"></i>
+                    </button>
+                `;
+                ul.appendChild(li);
+            });
+            wishlistContainer.appendChild(ul);
+        }
+    }
+
+    // --- 2. Load History ---
     function loadHistory() {
         let history = [];
         try {
             history = JSON.parse(localStorage.getItem('dailyCalcHistory')) || [];
-            // REMOVED reverse() to respect the storage order (Newest at index 0)
+            // Note: HistoryManager stores newest at index 0, so no need to reverse.
         } catch (e) {
             console.error("Error reading history", e);
         }
@@ -75,16 +133,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 const li = document.createElement('li');
                 li.className = 'group hover:bg-slate-50 transition-colors duration-150';
                 
-                // COMPACT HORIZONTAL LAYOUT (Mobile & Desktop)
                 li.innerHTML = `
                     <a href="${item.url || '#'}" class="flex items-center gap-3 p-2.5 text-decoration-none block">
-                        
-                        <!-- Icon (Fixed Size) -->
+                        <!-- Icon -->
                         <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-slate-200 bg-white text-slate-400 shadow-sm group-hover:border-brand-red/30 group-hover:text-brand-red transition-colors">
                             <i class="fa-solid ${getIconForCalc(item.calculator)} text-xs"></i>
                         </div>
                         
-                        <!-- Middle: Info (Flexible) -->
+                        <!-- Middle -->
                         <div class="flex-1 min-w-0">
                             <div class="flex items-baseline justify-between mb-0.5">
                                 <span class="text-xs font-bold text-slate-700 truncate pr-2 group-hover:text-brand-red transition-colors">${item.calculator}</span>
@@ -95,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>
 
-                        <!-- Right: Result Badge (Fixed/Shrink) -->
+                        <!-- Right: Result Badge -->
                         <div class="ml-1 shrink-0">
                             <span class="inline-block max-w-[80px] sm:max-w-[120px] truncate rounded bg-green-50 px-2 py-1 text-[10px] font-bold text-green-700 border border-green-100 text-center">
                                 ${item.result}
@@ -109,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- Logic to Load Presets ---
+    // --- 3. Load Presets ---
     function loadPresets() {
         let presets = {};
         try {
@@ -144,7 +200,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     const li = document.createElement('li');
                     li.className = 'group flex items-center gap-3 p-2.5 hover:bg-slate-50 transition-colors duration-150 relative';
                     
-                    // COMPACT HORIZONTAL LAYOUT
                     li.innerHTML = `
                         <!-- Icon -->
                         <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-slate-200 bg-white text-slate-400 shadow-sm">
@@ -161,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <p class="text-[10px] text-slate-500 truncate mt-0.5" title="${preset.inputs}">${preset.inputs}</p>
                         </div>
 
-                        <!-- Actions (Always visible on mobile row to save click) -->
+                        <!-- Actions -->
                         <div class="flex items-center gap-1.5 pl-2">
                             <a href="${preset.url}" class="flex h-7 w-7 items-center justify-center rounded bg-blue-50 text-blue-600 hover:bg-blue-100 hover:shadow-sm transition-all" title="Load Preset">
                                 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
@@ -180,6 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Event Listeners ---
 
+    // Clear History
     if (clearHistoryButton) {
         clearHistoryButton.addEventListener('click', () => {
             if (confirm("Are you sure you want to clear your entire calculation history?")) {
@@ -189,6 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Clear Presets
     if (clearPresetsButton) {
         clearPresetsButton.addEventListener('click', () => {
             if (confirm("Are you sure you want to delete ALL saved presets?")) {
@@ -198,6 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Delete Individual Preset
     presetsContainer.addEventListener('click', (e) => {
         const btn = e.target.closest('[data-delete-preset]');
         if (btn) {
@@ -215,8 +273,31 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // NEW: Delete Individual Wishlist Item
+    wishlistContainer.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-delete-wishlist]');
+        if (btn) {
+            const url = btn.dataset.url;
+            // Use Global Manager if available, else manual delete
+            if (window.WishlistManager) {
+                window.WishlistManager.remove(url);
+            } else {
+                // Fallback
+                let items = JSON.parse(localStorage.getItem('dailyCalcWishlist')) || [];
+                items = items.filter(i => i.url !== url);
+                localStorage.setItem('dailyCalcWishlist', JSON.stringify(items));
+            }
+            loadWishlist();
+            // Dispatch event to update header/mobile counts if they exist
+            window.dispatchEvent(new Event('wishlistUpdated'));
+        }
+    });
+
     // --- Initial Load ---
+    loadWishlist();
     loadHistory();
     loadPresets();
 
+    // Listen for cross-tab updates or header updates
+    window.addEventListener('wishlistUpdated', loadWishlist);
 });
