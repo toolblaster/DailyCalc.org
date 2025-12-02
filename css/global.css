@@ -152,3 +152,111 @@ body.overflow-hidden {
 .category-container {
     max-width: 1050px; /* MODIFIED: Increased from 1000px */
 }
+
+/* --- CENTRALIZED PRINT STYLES --- */
+/* Applied automatically to all pages */
+@media print {
+    /* Hide Non-Essential Layout Elements */
+    #header-placeholder, 
+    #footer-placeholder, 
+    nav[aria-label="Breadcrumb"], 
+    h1, 
+    .calc-tool-header, 
+    #mobile-widget-placeholder, 
+    #desktop-widget-placeholder,
+    .calc-section-divider, 
+    .w-full.max-w-\[702px\], /* SEO Section */
+    .lg\:w-\[300px\], /* Sidebar */
+    .ad-box,
+    #chartTooltip,
+    #toggleMoreOptions, /* Hide toggles */
+    .no-print,
+    .calc-seo-content, /* Hides SEO content */
+    .content-section /* Hides Guide container */
+    {
+        display: none !important;
+    }
+
+    /* Reset Main Containers for Full Width */
+    body, main, .main-container {
+        background-color: white !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
+    }
+
+    /* Layout Grid Reset */
+    .flex-col.lg\:flex-row {
+        flex-direction: column !important;
+        gap: 0 !important;
+        margin: 0 !important;
+    }
+
+    .flex-1.min-w-0 {
+        width: 100% !important;
+        flex: none !important;
+    }
+
+    /* Calculator Wrapper Styling */
+    #calculator-wrapper, 
+    .calc-body-wrapper { /* Supports both ID and class naming conventions */
+        margin: 0 auto !important;
+        width: 100% !important;
+        box-shadow: none !important;
+        border: 1px solid #e2e8f0 !important;
+        border-radius: 8px !important;
+        /* UPDATED: Allows long content (like tables) to span multiple pages */
+        break-inside: auto !important; 
+        display: block !important;
+    }
+    
+    /* Ensure Input Section stays together on one page if possible */
+    .calc-input-section {
+        background-color: #f3f4f6 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        break-inside: avoid;
+        margin-bottom: 20px !important; /* Spacing between inputs and results in print */
+    }
+    
+    /* Hide Action Buttons in Print */
+    #saveBtn, #shareBtn, #printBtn, #downloadCsvBtn, #toggleTableBtn, 
+    .calc-action-group {
+        display: none !important;
+    }
+
+    /* Ensure Chart Colors Print */
+    .chart-segment {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    /* --- SPECIFIC FIXES FOR EXPANDABLE TABLES (Like Mortgage) --- */
+    
+    /* 1. Force the container to show and expand height */
+    #amortizationContainer {
+        display: block !important; /* Override .hidden */
+        max-height: none !important; /* Remove max-height limit */
+        height: auto !important;
+        overflow: visible !important; /* Remove scrollbars */
+        margin-top: 20px !important;
+        border: 1px solid #e2e8f0 !important;
+        break-inside: auto !important; /* Allow page breaking inside */
+    }
+
+    /* 2. Reset the inner scroll wrapper */
+    #amortizationContainer .overflow-x-auto, 
+    #amortizationContainer .slim-scroll {
+        max-height: none !important;
+        overflow: visible !important;
+        height: auto !important;
+    }
+
+    /* 3. Hide the Close button in the table header */
+    #amortizationContainer button {
+        display: none !important;
+    }
+}
