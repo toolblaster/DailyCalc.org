@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css">
     
-    <!-- Global CSS -->
+    <!-- Global CSS (Now contains centralized print styles) -->
     <link rel="stylesheet" href="../css/global.css">
     
     <!-- Tailwind & Config -->
@@ -123,7 +123,7 @@
             </nav>
 
             <!-- PAGE TITLE -->
-            <h1 class="mb-6 font-heading text-2xl font-bold text-brand-dark">
+            <h1 class="mb-6 font-heading text-2xl font-bold text-brand-dark no-print">
                 <span class="bg-gradient-to-r from-brand-dark to-brand-red bg-clip-text text-transparent">Mortgage Calculator</span>
                 <span class="ml-2 inline-block rounded-full bg-slate-200/70 border border-slate-300 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-slate-700 align-middle">Fixed-Rate</span>
             </h1>
@@ -141,10 +141,10 @@
                     </div>
 
                     <!-- CALCULATOR CONTENT WRAPPER -->
-                    <div class="flex flex-col gap-4 border-x border-b border-slate-400 bg-white p-3 shadow-sm rounded-b-md md:flex-row md:items-start">
+                    <div id="calculator-wrapper" class="flex flex-col gap-4 border-x border-b border-slate-400 bg-white p-3 shadow-sm rounded-b-md md:flex-row md:items-start">
                         
                         <!-- COLUMN 1: INPUTS -->
-                        <div class="w-full shrink-0 bg-[#EEEEEE] p-4 rounded border border-slate-400 md:w-[280px] print-break-inside-avoid shadow-lg text-slate-900">
+                        <div class="calc-input-section w-full shrink-0 bg-[#EEEEEE] p-4 rounded border border-slate-400 md:w-[280px] print-break-inside-avoid shadow-lg text-slate-900">
                             <form id="mortgageForm">
                                 <!-- Inputs -->
                                 <div class="input-row mb-3">
@@ -354,6 +354,9 @@
                                         <button id="shareBtn" class="h-7 w-7 flex items-center justify-center rounded bg-white/10 hover:bg-white/20 text-white transition-all backdrop-blur-sm" title="Share">
                                             <i class="fa-solid fa-share-nodes text-xs"></i>
                                         </button>
+                                        <button id="downloadCsvBtn" class="h-7 w-7 flex items-center justify-center rounded bg-white/10 hover:bg-white/20 text-white transition-all backdrop-blur-sm" title="Download CSV">
+                                            <i class="fa-solid fa-file-csv text-xs"></i>
+                                        </button>
                                         <button id="printBtn" class="h-7 w-7 flex items-center justify-center rounded bg-white/10 hover:bg-white/20 text-white transition-all backdrop-blur-sm" title="Print">
                                             <i class="fa-solid fa-print text-xs"></i>
                                         </button>
@@ -562,7 +565,7 @@
                                     <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
                                         <i class="fa-solid fa-calculator text-[#518428]"></i> The Math Behind Your Mortgage
                                     </h3>
-                                    <p class="mb-3">Curious about the numbers? Lenders use a standard amortization formula to determine your fixed monthly payment ($M$). It balances your principal ($P$), monthly interest rate ($r$), and the total number of months in your loan ($n$).</p>
+                                    <p class="mb-3">Curious about the numbers? Lenders use the standard amortization formula to determine your fixed monthly payment ($M$). It balances your principal ($P$), monthly interest rate ($r$), and the total number of months in your loan ($n$).</p>
                                     
                                     <div class="my-4 flex justify-center">
                                         <div class="bg-white px-6 py-3 rounded border border-slate-200 shadow-sm">
@@ -864,6 +867,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            let currentAmortizationData = [];
             const inputs = {
                 homePrice: document.getElementById('homePrice'),
                 downPaymentInput: document.getElementById('downPaymentInput'),
@@ -1247,12 +1251,23 @@
             });
 
             function updateAmortizationTable(schedule, initialLoan) {
+                currentAmortizationData = []; // Reset current data
                 let html = '';
                 let prevInterest = 0;
                 let prevBalance = initialLoan;
+                
                 schedule.forEach(item => {
                     const yearInterest = item.interest - prevInterest;
-                    const yearPrincipal = prevBalance - item.balance; 
+                    const yearPrincipal = prevBalance - item.balance;
+                    
+                    // Capture data for CSV
+                    currentAmortizationData.push({
+                        year: item.year,
+                        interest: Math.round(yearInterest),
+                        principal: Math.round(yearPrincipal),
+                        balance: Math.round(item.balance)
+                    });
+
                     html += `<tr class="hover:bg-slate-50 transition-colors"><td class="px-4 py-3 font-medium text-slate-800">${item.year}</td><td class="px-4 py-3 text-slate-600">$${Math.round(yearInterest).toLocaleString()}</td><td class="px-4 py-3 text-slate-600">$${Math.round(yearPrincipal).toLocaleString()}</td><td class="px-4 py-3 text-right font-medium text-slate-800">$${Math.round(item.balance).toLocaleString()}</td></tr>`;
                     prevInterest = item.interest;
                     prevBalance = item.balance;
@@ -1260,7 +1275,7 @@
                 display.amortizationBody.innerHTML = html;
             }
 
-            // --- SAVE / SHARE / HISTORY ---
+            // --- SAVE / SHARE / DOWNLOAD / HISTORY ---
             document.getElementById('saveBtn').addEventListener('click', () => {
                 const presetName = prompt("Name this calculation (e.g., 'Dream House 2025'):");
                 if (presetName) {
@@ -1274,6 +1289,38 @@
                     btn.innerHTML = `<i class="fa-solid fa-check text-green-600"></i>`;
                     setTimeout(() => btn.innerHTML = originalHtml, 2000);
                 }
+            });
+
+            // NEW: Download CSV Logic
+            document.getElementById('downloadCsvBtn').addEventListener('click', () => {
+                if (!currentAmortizationData || currentAmortizationData.length === 0) {
+                    alert('Please calculate first.');
+                    return;
+                }
+
+                const headers = ['Year', 'Interest Paid', 'Principal Paid', 'Remaining Balance'];
+                const csvContent = [
+                    headers.join(','),
+                    ...currentAmortizationData.map(row => 
+                        `${row.year},${row.interest},${row.principal},${row.balance}`
+                    )
+                ].join('\n');
+
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.setAttribute('href', url);
+                link.setAttribute('download', 'Mortgage_Schedule.csv');
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                // Feedback
+                const btn = document.getElementById('downloadCsvBtn');
+                const originalHtml = btn.innerHTML;
+                btn.innerHTML = `<i class="fa-solid fa-check text-green-600"></i>`;
+                setTimeout(() => btn.innerHTML = originalHtml, 2000);
             });
 
             // UPDATED: Use global HistoryManager
