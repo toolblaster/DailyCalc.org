@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found | DailyCalc.org</title>
+    <meta name="description" content="The page you are looking for does not exist.">
+    <!-- No Canonical needed for 404 usually, or point to home -->
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/global.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/tailwind-config.js"></script>
+    <script src="js/global.js" defer></script>
+    <script src="js/common-layout.js" defer></script>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased">
+    
+    <div id="header-placeholder"></div>
+
+    <main class="mx-auto main-container px-4 py-8 sm:px-6 flex-1 flex items-center justify-center min-h-[60vh]">
+        <div class="max-w-md w-full text-center">
+            
+            <!-- Icon -->
+            <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-slate-100 text-slate-400 mb-6 shadow-sm">
+                <i class="fa-solid fa-calculator fa-flip-horizontal text-4xl opacity-50"></i>
+            </div>
+
+            <!-- Text -->
+            <h1 class="text-4xl font-heading font-bold text-brand-dark mb-2">404</h1>
+            <h2 class="text-lg font-semibold text-slate-700 mb-3">Calculation Error</h2>
+            <p class="text-sm text-slate-500 mb-8 px-4">
+                We couldn't find the page you're looking for. It might have been moved, deleted, or never existed in the first place.
+            </p>
+
+            <!-- Actions -->
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <a href="/" class="inline-flex items-center justify-center gap-2 rounded-lg bg-brand-red px-6 py-2.5 text-sm font-bold text-white shadow-md hover:bg-red-600 transition-transform active:scale-95">
+                    <i class="fa-solid fa-house"></i> Return Home
+                </a>
+                <a href="/legal/contact.html" class="inline-flex items-center justify-center gap-2 rounded-lg bg-white border border-slate-300 px-6 py-2.5 text-sm font-bold text-slate-700 shadow-sm hover:bg-slate-50 hover:text-brand-red transition-colors">
+                    <i class="fa-regular fa-envelope"></i> Report Issue
+                </a>
+            </div>
+
+            <!-- Search Suggestion -->
+            <div class="mt-10 pt-6 border-t border-slate-200/60">
+                <p class="text-xs text-slate-400 mb-3">Looking for a specific calculator?</p>
+                <button class="js-open-search w-full max-w-xs mx-auto flex items-center gap-3 rounded-full border border-slate-200 bg-white px-4 py-2 text-left text-sm text-slate-400 shadow-sm hover:border-brand-red/30 hover:text-slate-500 transition-colors">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <span>Search tools...</span>
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+</body>
+</html>
