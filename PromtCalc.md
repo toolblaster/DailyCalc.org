@@ -16,6 +16,14 @@ Tool Header: class="calc-tool-header"
 
 Result Header: class="result-header"
 
+Accessibility (MANDATORY):
+
+Explicit Labels: Every input must have a <label for="id">. Do not rely on visual proximity.
+
+ARIA Labels: For inputs without visible text labels (like unit dropdowns or split date fields), use aria-label="Description".
+
+Contrast: The .compact-input class handles contrast automatically. Do not override text colors with lighter shades.
+
 Initialisation: At the bottom, call CalculatorLayout.render() with the correct title and category.
 
 Imports: Include the standard DailyCalc JS/CSS imports (Tailwind CDN, FontAwesome, global.css, global.js, common-layout.js).
