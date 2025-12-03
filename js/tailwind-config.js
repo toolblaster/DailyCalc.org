@@ -2,6 +2,7 @@
   DailyCalc.org Centralized Tailwind Configuration
   [2025-11-27] Updated .calc-section-divider to match Mortgage Calculator style (100% opacity, Slate-400)
   [2025-11-27] Added mx-auto to divider for consistent centering.
+  [2025-12-03] A11y Update: Enforced high contrast placeholders (Slate-500) globally for .compact-input.
 */
 
 tailwind.config = {
@@ -134,6 +135,11 @@ tailwind.config = {
                     },
                     '&::-webkit-inner-spin-button, &::-webkit-outer-spin-button': { '-webkit-appearance': 'none', margin: '0' },
                     '-moz-appearance': 'textfield',
+                    /* A11Y GLOBAL FIX: High contrast placeholders */
+                    '&::placeholder': {
+                        color: theme('colors.slate.500'),
+                        opacity: '1', /* Required for Firefox */
+                    },
                 },
                 '.compact-select': {
                     padding: '2px 20px 2px 6px',
