@@ -162,7 +162,7 @@
                                         <div class="relative flex-1">
                                             <input type="number" id="downPaymentInput" value="20" class="compact-input bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-8 w-full">
                                         </div>
-                                        <select id="downPaymentType" class="compact-select w-16 px-1 text-center bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-8">
+                                        <select id="downPaymentType" aria-label="Down payment unit" class="compact-select w-16 px-1 text-center bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-8">
                                             <option value="%">%</option>
                                             <option value="$">$</option>
                                         </select>
@@ -170,7 +170,8 @@
                                 </div>
 
                                 <div class="input-row mb-3">
-                                    <label for="loanTerm" class="input-label w-[35%] text-slate-800 font-bold">Loan Term</label>
+                                    <!-- A11Y FIX: Corrected 'for' attribute to match input ID 'loanTermInput' -->
+                                    <label for="loanTermInput" class="input-label w-[35%] text-slate-800 font-bold">Loan Term</label>
                                     <div class="w-[65%] flex items-center gap-2">
                                         <input type="number" id="loanTermInput" value="30" class="compact-input w-full bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-8">
                                         <span class="text-xs text-slate-700 whitespace-nowrap font-medium">years</span>
@@ -186,12 +187,13 @@
                                 </div>
                                 
                                 <div class="input-row mb-4">
-                                    <label class="input-label w-[35%] text-slate-800 font-bold">Start Date</label>
+                                    <span class="input-label w-[35%] text-slate-800 font-bold" id="startDateLabel">Start Date</span>
                                     <div class="flex w-[65%] gap-1">
-                                        <select id="startMonth" class="compact-select w-[50%] bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-8">
+                                        <select id="startMonth" aria-labelledby="startDateLabel" aria-label="Start Month" class="compact-select w-[50%] bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-8">
                                             <option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option><option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option><option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option>
                                         </select>
-                                        <input type="number" id="startYear" class="compact-input w-[50%] bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-8" placeholder="Year">
+                                        <!-- A11Y FIX: Added placeholder-slate-500 for better contrast -->
+                                        <input type="number" id="startYear" aria-labelledby="startDateLabel" aria-label="Start Year" class="compact-input w-[50%] bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-8 placeholder-slate-500" placeholder="Year">
                                     </div>
                                 </div>
                                 
@@ -216,7 +218,7 @@
                                             <div class="relative flex-1">
                                                 <input type="number" id="propertyTax" value="4800" class="compact-input bg-white w-full text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7">
                                             </div>
-                                            <select id="propertyTaxType" class="compact-select w-16 px-1 text-center bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7">
+                                            <select id="propertyTaxType" aria-label="Property tax unit" class="compact-select w-16 px-1 text-center bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7">
                                                 <option value="$">$</option>
                                                 <option value="%">%</option>
                                             </select>
@@ -230,7 +232,7 @@
                                             <div class="relative flex-1">
                                                 <input type="number" id="homeInsurance" value="1500" class="compact-input bg-white w-full text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7">
                                             </div>
-                                            <select id="homeInsuranceType" class="compact-select w-16 px-1 text-center bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7">
+                                            <select id="homeInsuranceType" aria-label="Home insurance unit" class="compact-select w-16 px-1 text-center bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7">
                                                 <option value="$">$</option>
                                                 <option value="%">%</option>
                                             </select>
@@ -244,7 +246,7 @@
                                             <div class="relative flex-1">
                                                 <input type="number" id="pmi" value="0.5" class="compact-input bg-white w-full text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7">
                                             </div>
-                                            <select id="pmiType" class="compact-select w-16 px-1 text-center bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7">
+                                            <select id="pmiType" aria-label="PMI unit" class="compact-select w-16 px-1 text-center bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7">
                                                 <option value="%">%</option>
                                                 <option value="$">$</option>
                                             </select>
@@ -258,7 +260,7 @@
                                             <div class="relative flex-1">
                                                 <input type="number" id="hoaFees" value="0" class="compact-input bg-white w-full text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7">
                                             </div>
-                                            <select id="hoaFeesType" class="compact-select w-16 px-1 text-center bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7">
+                                            <select id="hoaFeesType" aria-label="HOA fee unit" class="compact-select w-16 px-1 text-center bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7">
                                                 <option value="$">$</option>
                                                 <option value="%">%</option>
                                             </select>
@@ -272,7 +274,7 @@
                                             <div class="relative flex-1">
                                                 <input type="number" id="otherCosts" value="0" class="compact-input bg-white w-full text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7">
                                             </div>
-                                            <select id="otherCostsType" class="compact-select w-16 px-1 text-center bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7">
+                                            <select id="otherCostsType" aria-label="Other costs unit" class="compact-select w-16 px-1 text-center bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7">
                                                 <option value="$">$</option>
                                                 <option value="%">%</option>
                                             </select>
@@ -290,16 +292,17 @@
                                     <!-- Annual Increases -->
                                     <div class="calc-option-group !bg-white !border-slate-300 !rounded-md !p-3 !shadow-sm">
                                         <h3 class="text-[11px] font-bold text-slate-800 mb-2 uppercase tracking-wide">Annual Tax & Cost Increase</h3>
-                                        <div class="input-row mb-2"><label class="input-label w-[50%] text-slate-700 font-semibold">Property Tax</label><div class="relative w-[50%]"><input type="number" id="taxIncrease" value="0" class="compact-input pr-6 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7"><span class="absolute right-2 top-1 text-xs text-slate-600">%</span></div></div>
-                                        <div class="input-row mb-2"><label class="input-label w-[50%] text-slate-700 font-semibold">Home Ins.</label><div class="relative w-[50%]"><input type="number" id="insIncrease" value="0" class="compact-input pr-6 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7"><span class="absolute right-2 top-1 text-xs text-slate-600">%</span></div></div>
-                                        <div class="input-row mb-2"><label class="input-label w-[50%] text-slate-700 font-semibold">HOA Fee</label><div class="relative w-[50%]"><input type="number" id="hoaIncrease" value="0" class="compact-input pr-6 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7"><span class="absolute right-2 top-1 text-xs text-slate-600">%</span></div></div>
-                                        <div class="input-row mb-2"><label class="input-label w-[50%] text-slate-700 font-semibold">Other Costs</label><div class="relative w-[50%]"><input type="number" id="otherIncrease" value="0" class="compact-input pr-6 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7"><span class="absolute right-2 top-1 text-xs text-slate-600">%</span></div></div>
+                                        <!-- A11Y FIX: Added explicit 'for' attributes to labels in advanced section -->
+                                        <div class="input-row mb-2"><label for="taxIncrease" class="input-label w-[50%] text-slate-700 font-semibold">Property Tax</label><div class="relative w-[50%]"><input type="number" id="taxIncrease" value="0" class="compact-input pr-6 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7"><span class="absolute right-2 top-1 text-xs text-slate-600">%</span></div></div>
+                                        <div class="input-row mb-2"><label for="insIncrease" class="input-label w-[50%] text-slate-700 font-semibold">Home Ins.</label><div class="relative w-[50%]"><input type="number" id="insIncrease" value="0" class="compact-input pr-6 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7"><span class="absolute right-2 top-1 text-xs text-slate-600">%</span></div></div>
+                                        <div class="input-row mb-2"><label for="hoaIncrease" class="input-label w-[50%] text-slate-700 font-semibold">HOA Fee</label><div class="relative w-[50%]"><input type="number" id="hoaIncrease" value="0" class="compact-input pr-6 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7"><span class="absolute right-2 top-1 text-xs text-slate-600">%</span></div></div>
+                                        <div class="input-row mb-2"><label for="otherIncrease" class="input-label w-[50%] text-slate-700 font-semibold">Other Costs</label><div class="relative w-[50%]"><input type="number" id="otherIncrease" value="0" class="compact-input pr-6 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7"><span class="absolute right-2 top-1 text-xs text-slate-600">%</span></div></div>
                                     </div>
                                     <!-- Extra Payments -->
                                     <div class="calc-option-group !bg-white !border-slate-300 !rounded-md !p-3 !shadow-sm">
                                         <h3 class="text-[11px] font-bold text-slate-800 mb-2 uppercase tracking-wide">Extra Payments</h3>
-                                        <div class="mb-3"><div class="flex items-center gap-1 mb-1"><label class="text-[10px] font-bold text-slate-700">Extra Monthly Pay</label></div><div class="flex gap-1"><div class="relative w-[40%]"><span class="absolute left-1.5 top-1 text-[10px] text-slate-600">$</span><input type="number" id="extraMonthly" value="0" class="compact-input pl-4 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7"></div><span class="text-[10px] self-center text-slate-600 font-semibold">from</span><select id="extraMonthlyMonth" class="compact-select w-[40%] bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7"><option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option><option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option><option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option></select></div></div>
-                                        <div class="mb-3"><div class="flex items-center gap-1 mb-1"><label class="text-[10px] font-bold text-slate-700">Extra Yearly Pay</label></div><div class="flex gap-1"><div class="relative w-[40%]"><span class="absolute left-1.5 top-1 text-[10px] text-slate-600">$</span><input type="number" id="extraYearly" value="0" class="compact-input pl-4 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7"></div><span class="text-[10px] self-center text-slate-600 font-semibold">in</span><select id="extraYearlyMonth" class="compact-select w-[40%] bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7"><option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option><option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option><option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option></select></div></div>
+                                        <div class="mb-3"><div class="flex items-center gap-1 mb-1"><label for="extraMonthly" class="text-[10px] font-bold text-slate-700">Extra Monthly Pay</label></div><div class="flex gap-1"><div class="relative w-[40%]"><span class="absolute left-1.5 top-1 text-[10px] text-slate-600">$</span><input type="number" id="extraMonthly" value="0" class="compact-input pl-4 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7"></div><span class="text-[10px] self-center text-slate-600 font-semibold">from</span><select id="extraMonthlyMonth" aria-label="Extra monthly payment start month" class="compact-select w-[40%] bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7"><option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option><option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option><option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option></select></div></div>
+                                        <div class="mb-3"><div class="flex items-center gap-1 mb-1"><label for="extraYearly" class="text-[10px] font-bold text-slate-700">Extra Yearly Pay</label></div><div class="flex gap-1"><div class="relative w-[40%]"><span class="absolute left-1.5 top-1 text-[10px] text-slate-600">$</span><input type="number" id="extraYearly" value="0" class="compact-input pl-4 bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7"></div><span class="text-[10px] self-center text-slate-600 font-semibold">in</span><select id="extraYearlyMonth" aria-label="Extra yearly payment month" class="compact-select w-[40%] bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7"><option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option><option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option><option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option></select></div></div>
                                         <div>
                                             <div class="flex items-center justify-between gap-1 mb-1"><label class="text-[10px] font-bold text-slate-700">Extra One-time Pay</label></div>
                                             <div id="oneTimePaymentsContainer" class="space-y-2 mb-2">
@@ -307,15 +310,16 @@
                                                     <div class="flex gap-1 mb-1">
                                                         <div class="relative w-full">
                                                             <span class="absolute left-1.5 top-1 text-[10px] text-slate-600">$</span>
-                                                            <input type="number" class="compact-input pl-4 bg-white otp-amount text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7" value="0">
+                                                            <input type="number" aria-label="One-time payment amount" class="compact-input pl-4 bg-white otp-amount text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7" value="0">
                                                         </div>
                                                     </div>
                                                     <div class="flex gap-1">
                                                         <span class="text-[10px] self-center text-slate-600 font-semibold">in</span>
-                                                        <select class="compact-select w-[45%] otp-month bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7">
+                                                        <select class="compact-select w-[45%] otp-month bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7" aria-label="One-time payment month">
                                                             <option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option><option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option><option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option>
                                                         </select>
-                                                        <input type="number" class="compact-input w-[35%] otp-year bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7" placeholder="Year">
+                                                        <!-- A11Y FIX: placeholder-slate-500 -->
+                                                        <input type="number" aria-label="One-time payment year" class="compact-input w-[35%] otp-year bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7 placeholder-slate-500" placeholder="Year">
                                                     </div>
                                                 </div>
                                             </div>
@@ -962,7 +966,8 @@
             inputs.addOneTimeBtn.addEventListener('click', () => {
                 const newRow = document.createElement('div');
                 newRow.className = 'one-time-payment-row border-t border-slate-100 pt-2 mt-2 relative';
-                newRow.innerHTML = `<button type="button" class="remove-otp absolute -right-2 -top-2 text-red-400 hover:text-red-600 text-xs font-bold px-1">&times;</button><div class="flex gap-1 mb-1"><div class="relative w-full"><span class="absolute left-1.5 top-1 text-[10px] text-slate-400">$</span><input type="number" class="compact-input pl-4 bg-white otp-amount" value="0"></div></div><div class="flex gap-1"><span class="text-[10px] self-center text-slate-400">in</span><select class="compact-select w-[45%] otp-month"><option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option><option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option><option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option></select><input type="number" class="compact-input w-[35%] otp-year" placeholder="Year" value="${parseInt(document.querySelector('.otp-year').value) + 1}"></div>`;
+                // A11Y FIX: Added aria-label and placeholder-slate-500 to new dynamic rows
+                newRow.innerHTML = `<button type="button" class="remove-otp absolute -right-2 -top-2 text-red-400 hover:text-red-600 text-xs font-bold px-1" aria-label="Remove payment">&times;</button><div class="flex gap-1 mb-1"><div class="relative w-full"><span class="absolute left-1.5 top-1 text-[10px] text-slate-400">$</span><input type="number" aria-label="One-time payment amount" class="compact-input pl-4 bg-white otp-amount" value="0"></div></div><div class="flex gap-1"><span class="text-[10px] self-center text-slate-400">in</span><select class="compact-select w-[45%] otp-month" aria-label="One-time payment month"><option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option><option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option><option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option></select><input type="number" aria-label="One-time payment year" class="compact-input w-[35%] otp-year placeholder-slate-500" placeholder="Year" value="${parseInt(document.querySelector('.otp-year').value) + 1}"></div>`;
                 inputs.oneTimeContainer.appendChild(newRow);
                 newRow.querySelectorAll('input, select').forEach(el => el.addEventListener('input', calculate));
                 newRow.querySelector('.remove-otp').addEventListener('click', () => { newRow.remove(); calculate(); });
