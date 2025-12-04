@@ -4,6 +4,7 @@
   [2025-11-28] Added Wishlist (Favorites) feature replacing 'Suggest a Tool'.
   [2025-12-01] Fixed Wishlist header text color.
   [2025-12-01] Updated Footer links: Privacy, Terms, Contact (Moved to legal/ folder).
+  [2025-12-04] Logo Resizing: Reduced logo size to align perfectly with nav items (h-9 desktop, h-7 mobile).
 */
 
 const headerHTML = `
@@ -14,12 +15,14 @@ const headerHTML = `
                 <!-- 1. Logo -->
                 <div class="flex-shrink-0">
                     <a href="/" class="flex items-center gap-2 text-white" aria-label="DailyCalc.org homepage">
-                        <div class="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full border-2 border-white text-white">
-                            <span class="text-base sm:text-lg font-semibold">DC</span>
+                        <!-- Reduced height/width to h-7/w-7 (mobile) and h-9/w-9 (desktop) to match button heights -->
+                        <div class="flex h-7 w-7 sm:h-9 sm:w-9 items-center justify-center rounded-full border-2 border-white text-white">
+                            <span class="text-xs sm:text-base font-semibold">DC</span>
                         </div>
                         <div>
-                            <p class="font-heading text-lg sm:text-[20px] font-semibold">DailyCalc.org</p> 
-                            <p class="text-[10px] sm:text-[11px] text-slate-300">Daily calculators for everyone.</p>
+                            <!-- Reduced text size to text-base (mobile) and text-lg (desktop) -->
+                            <p class="font-heading text-base sm:text-lg font-semibold leading-tight">DailyCalc.org</p> 
+                            <p class="text-[9px] sm:text-[10px] text-slate-300 leading-none">Daily calculators for everyone.</p>
                         </div>
                     </a>
                 </div>
@@ -118,8 +121,8 @@ const footerHTML = `
         <div class="mx-auto max-w-[1050px] px-6 py-6">
             <div class="flex flex-col items-center text-center">
                 <a href="/" class="flex flex-col items-center justify-center gap-1 text-white">
-                    <div class="flex h-10 w-10 flex-none items-center justify-center rounded-full border-2 border-white text-white"><span class="text-lg font-semibold">DC</span></div>
-                    <div><p class="font-heading text-[18px] font-semibold">DailyCalc.org</p></div>
+                    <div class="flex h-9 w-9 flex-none items-center justify-center rounded-full border-2 border-white text-white"><span class="text-base font-semibold">DC</span></div>
+                    <div><p class="font-heading text-lg font-semibold">DailyCalc.org</p></div>
                 </a>
                 <p class="mt-2 max-w-sm text-[12px] text-slate-400">Neutral, global, and helpful calculators for daily life. Built to grow one trusted tool at a time.</p>
             </div>
