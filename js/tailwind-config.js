@@ -5,6 +5,8 @@
   [2025-12-03] A11y Update: Enforced high contrast placeholders (Slate-500) globally for .compact-input.
   [2025-12-04] Grid Update: Enforced 6 columns on Desktop for category cards.
   [2025-12-04] Spacing Fix: Reverted vertical expansion; added specific bottom padding to clear text from border.
+  [2025-12-04] Centralized Icon Style: Added auto-styling for icons inside .calc-tool-header.
+  [2025-12-04] Visual Update: High-contrast "White/Dark" input style with Blue focus to match Mortgage Calculator reference.
 */
 
 tailwind.config = {
@@ -19,12 +21,14 @@ tailwind.config = {
                     red: '#F1203D',
                     dark: '#050505',
                     green: '#518428',      
-                    'green-dark': '#3e651e' 
+                    'green-dark': '#3e651e',
+                    blue: '#1e40af' // Added for the new focus state (Blue-800 approx)
                 }
             },
             boxShadow: {
                 soft: '0 12px 40px rgba(15, 23, 42, 0.08)',
-                'soft-glow': '0 12px 40px -8px rgba(241, 32, 61, 0.15), 0 4px 6px -1px rgba(241, 32, 61, 0.08)'
+                'soft-glow': '0 12px 40px -8px rgba(241, 32, 61, 0.15), 0 4px 6px -1px rgba(241, 32, 61, 0.08)',
+                input: '0 1px 2px 0 rgba(0, 0, 0, 0.05)' // Subtle shadow for inputs
             }
         }
     },
@@ -117,23 +121,25 @@ tailwind.config = {
                     '@media print': { display: 'none' }
                 },
 
-                /* --- Components --- */
+                /* --- Components (UPDATED FOR IMAGE MATCH) --- */
                 '.compact-input': {
                     width: '100%',
-                    padding: '2px 6px',
+                    padding: '2px 8px', /* Increased horizontal padding */
                     fontSize: '13px',
                     borderWidth: '1px',
-                    borderColor: theme('colors.slate.300'),
+                    borderColor: '#64748b', /* Slate-500: Much darker border for contrast */
                     borderRadius: '3px',
                     textAlign: 'right',
                     backgroundColor: '#ffffff',
-                    transition: 'border-color 0.15s ease-in-out',
-                    height: '28px',
+                    transition: 'all 0.15s ease-in-out',
+                    height: '30px', /* Increased height slightly for better presence */
                     color: theme('colors.slate.900'),
+                    boxShadow: theme('boxShadow.input'), /* Added shadow for "extra white" feel */
                     '&:focus': {
                         outline: 'none',
-                        borderColor: theme('colors.brand.green'),
-                        boxShadow: `0 0 0 1px ${theme('colors.brand.green')}`,
+                        borderColor: '#2563eb', /* Blue-600: Distinct Blue focus from image */
+                        boxShadow: '0 0 0 2px rgba(37, 99, 235, 0.2)', /* Blue ring */
+                        zIndex: '10',
                     },
                     '&::-webkit-inner-spin-button, &::-webkit-outer-spin-button': { '-webkit-appearance': 'none', margin: '0' },
                     '-moz-appearance': 'textfield',
@@ -147,15 +153,16 @@ tailwind.config = {
                     padding: '2px 20px 2px 6px',
                     fontSize: '13px',
                     borderWidth: '1px',
-                    borderColor: theme('colors.slate.300'),
+                    borderColor: '#64748b', /* Slate-500: Matching Dark Border */
                     borderRadius: '3px',
                     backgroundColor: 'white',
                     color: theme('colors.slate.900'),
-                    height: '28px',
+                    height: '30px', /* Matching Height */
+                    boxShadow: theme('boxShadow.input'),
                     '&:focus': {
                         outline: 'none',
-                        borderColor: theme('colors.brand.green'),
-                        boxShadow: `0 0 0 1px ${theme('colors.brand.green')}`,
+                        borderColor: '#2563eb', /* Blue focus */
+                        boxShadow: '0 0 0 2px rgba(37, 99, 235, 0.2)',
                     },
                 },
                 '.input-row': {
@@ -183,6 +190,11 @@ tailwind.config = {
                     padding: `${theme('spacing.2')} ${theme('spacing.4')}`,
                     color: 'white',
                     boxShadow: theme('boxShadow.sm'),
+                    /* Centralized Icon Style */
+                    'i': {
+                        fontSize: theme('fontSize.sm'), /* text-sm */
+                        opacity: '0.9',                 /* opacity-90 */
+                    }
                 },
                 '.result-header': {
                     backgroundImage: `linear-gradient(to right, ${theme('colors.brand.green')}, ${theme('colors.brand.green-dark')})`,
