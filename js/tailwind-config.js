@@ -4,6 +4,7 @@
   [2025-11-27] Added mx-auto to divider for consistent centering.
   [2025-12-03] A11y Update: Enforced high contrast placeholders (Slate-500) globally for .compact-input.
   [2025-12-04] Grid Update: Enforced 6 columns on Desktop for category cards.
+  [2025-12-04] Spacing Fix: Reverted vertical expansion; added specific bottom padding to clear text from border.
 */
 
 tailwind.config = {
@@ -398,12 +399,16 @@ tailwind.config = {
                     borderWidth: '1px',
                     borderColor: theme('colors.slate.400'), 
                     backgroundColor: theme('colors.slate.50'),
-                    padding: theme('spacing.1.5'), 
+                    
+                    /* FIXED: Reverted standard padding to 1.5, added bottom-specific padding */
+                    padding: theme('spacing.1.5'),
+                    paddingBottom: theme('spacing.2.5'), /* Extra bottom space for text */
+                    
                     textAlign: 'center',
                     transition: 'all 0.2s ease',
                     textDecoration: 'none',
                     '> div': {
-                        marginBottom: theme('spacing.1'), 
+                        marginBottom: theme('spacing.1'), /* Reverted to tighter icon spacing */
                         display: 'flex',
                         height: theme('spacing.7'), 
                         width: theme('spacing.7'),  
@@ -420,7 +425,7 @@ tailwind.config = {
                         fontFamily: theme('fontFamily.heading'),
                         fontSize: '14px', 
                         fontWeight: '600',
-                        lineHeight: '1.1',
+                        lineHeight: '1.2', /* Slightly looser line-height */
                         color: theme('colors.slate.900'),
                         transition: 'color 0.2s ease',
                         /* Prevent overflow for longer titles */
