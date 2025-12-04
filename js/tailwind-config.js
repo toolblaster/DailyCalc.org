@@ -7,6 +7,7 @@
   [2025-12-04] Spacing Fix: Reverted vertical expansion; added specific bottom padding to clear text from border.
   [2025-12-04] Centralized Icon Style: Added auto-styling for icons inside .calc-tool-header.
   [2025-12-04] Visual Update: High-contrast "White/Dark" input style with Blue focus to match Mortgage Calculator reference.
+  [2025-12-04] Select Dropdown Fix: Adjusted padding for .compact-select to ensure text and arrow are well-spaced.
 */
 
 tailwind.config = {
@@ -150,7 +151,7 @@ tailwind.config = {
                     },
                 },
                 '.compact-select': {
-                    padding: '2px 20px 2px 6px',
+                    padding: '2px 24px 2px 8px', /* Adjusted padding: right padding for arrow, left for text */
                     fontSize: '13px',
                     borderWidth: '1px',
                     borderColor: '#64748b', /* Slate-500: Matching Dark Border */
@@ -159,6 +160,11 @@ tailwind.config = {
                     color: theme('colors.slate.900'),
                     height: '30px', /* Matching Height */
                     boxShadow: theme('boxShadow.input'),
+                    appearance: 'none', /* Remove default arrow to control styling if needed, but keeping simple for now */
+                    backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`,
+                    backgroundPosition: 'right 0.2rem center',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: '1.2em 1.2em',
                     '&:focus': {
                         outline: 'none',
                         borderColor: '#2563eb', /* Blue focus */
