@@ -3,6 +3,7 @@
   [2025-11-27] Updated .calc-section-divider to match Mortgage Calculator style (100% opacity, Slate-400)
   [2025-11-27] Added mx-auto to divider for consistent centering.
   [2025-12-03] A11y Update: Enforced high contrast placeholders (Slate-500) globally for .compact-input.
+  [2025-12-04] Grid Update: Enforced 6 columns on Desktop for category cards.
 */
 
 tailwind.config = {
@@ -378,13 +379,14 @@ tailwind.config = {
                     borderWidth: '1px',
                     borderColor: theme('colors.slate.200'),
                 },
+                /* UPDATED GRID CONFIGURATION */
                 '.calc-grid-5': {
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+                    gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', /* Default Mobile: 2 cols */
                     gap: theme('spacing.2'), 
-                    '@media (min-width: 640px)': { gridTemplateColumns: 'repeat(4, minmax(0, 1fr))' },
-                    '@media (min-width: 768px)': { gridTemplateColumns: 'repeat(6, minmax(0, 1fr))' },
-                    '@media (min-width: 1024px)': { gridTemplateColumns: 'repeat(7, minmax(0, 1fr))' }, 
+                    '@media (min-width: 640px)': { gridTemplateColumns: 'repeat(3, minmax(0, 1fr))' }, /* SM: 3 cols */
+                    '@media (min-width: 768px)': { gridTemplateColumns: 'repeat(4, minmax(0, 1fr))' }, /* MD: 4 cols */
+                    '@media (min-width: 1024px)': { gridTemplateColumns: 'repeat(6, minmax(0, 1fr))' }, /* Desktop: 6 cols */
                 },
                 '.calc-card-compact': {
                     position: 'relative',
@@ -421,6 +423,12 @@ tailwind.config = {
                         lineHeight: '1.1',
                         color: theme('colors.slate.900'),
                         transition: 'color 0.2s ease',
+                        /* Prevent overflow for longer titles */
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        display: '-webkit-box',
+                        '-webkit-line-clamp': '2',
+                        '-webkit-box-orient': 'vertical',
                     },
                     'p': {
                         marginTop: '0',
