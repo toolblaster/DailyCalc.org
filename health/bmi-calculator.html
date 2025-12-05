@@ -268,7 +268,7 @@
                  </div>
 
                  <!-- Reference Table -->
-                 <div class="flex-1 rounded overflow-hidden calc-output-card !p-0 !block">
+                 <div class="flex-1 rounded overflow-hidden calc-output-card !p-0 !block !bg-white border !border-slate-500">
                      <div class="bg-slate-100 px-3 py-2 border-b border-slate-200"><h3 class="text-xs font-bold text-slate-700">Quick Reference</h3></div>
                      <table class="w-full text-xs text-left">
                          <tbody class="divide-y divide-slate-100">
@@ -288,183 +288,197 @@
     <div id="seo-slot" class="hidden">
         <div class="content-section">
             <div class="bg-gradient-to-r from-brand-dark to-brand-red px-4 py-3 border-b border-white/10">
-                <h2 class="font-bold text-white">BMI Guide & Charts</h2>
+                <h2 class="font-bold text-white">The Ultimate BMI Guide</h2>
             </div>
             <!-- Using new Universal SEO Wrapper -->
             <div class="calc-seo-content">
                 
+                <!-- 1. INTRO & DEFINITION -->
                 <section class="info-card">
                     <h3 class="font-bold text-sm text-brand-dark mb-2 flex items-center gap-2">
-                        <i class="fa-solid fa-circle-info text-brand-red"></i> What is Body Mass Index (BMI)?
+                        <i class="fa-solid fa-circle-info seo-icon"></i> What is Body Mass Index (BMI)?
                     </h3>
-                    <p class="mb-3">Body Mass Index (BMI) is a simple screening tool used by doctors and health professionals to estimate the amount of body fat a person has. It calculates a score based on your <strong>weight</strong> in relation to your <strong>height</strong>.</p>
-                    
-                    <!-- NEW: Formula Section -->
-                    <div class="flex flex-wrap justify-center gap-3 mb-4">
-                        <div class="bg-white px-4 py-2 rounded border border-slate-200 shadow-sm text-center min-w-[140px]">
-                            <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wide block mb-1">Metric Formula</span>
-                            <span class="font-serif text-sm text-slate-800 italic font-medium">
-                                BMI = kg / m²
-                            </span>
-                        </div>
-                        <div class="bg-white px-4 py-2 rounded border border-slate-200 shadow-sm text-center min-w-[140px]">
-                            <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wide block mb-1">Imperial Formula</span>
-                            <span class="font-serif text-sm text-slate-800 italic font-medium">
-                                BMI = 703 &times; lb / in²
-                            </span>
-                        </div>
-                    </div>
-
-                    <p class="mb-2">While it doesn't measure body fat directly, BMI is widely used because it's a quick, non-invasive way to categorize weight and screen for potential health risks related to obesity or being underweight.</p>
+                    <p class="mb-3">Body Mass Index (BMI) is a widely used screening tool that estimates body fat based on a person's <strong>weight</strong> relative to their <strong>height</strong>. Invented by Adolphe Quetelet in the 1830s, it remains the standard metric for health organizations like the WHO and CDC to categorize weight status.</p>
+                    <p class="mb-2">While it doesn't measure body fat directly (like a caliper scan), it correlates strongly with direct measures. Health professionals use it to screen for weight categories that may lead to health problems.</p>
                 </section>
 
-                <!-- NEW: Why Use Section (Inspired by Competitor) -->
+                <!-- 2. MANUAL CALCULATION (Featured Snippet Bait) -->
                 <section class="info-card">
                     <h3 class="font-bold text-sm text-brand-dark mb-3 flex items-center gap-2">
-                        <i class="fa-solid fa-bullseye text-[#518428]"></i> Why Monitor Your BMI?
+                        <i class="fa-solid fa-calculator seo-icon"></i> How to Calculate BMI Manually
                     </h3>
-                    <div class="grid sm:grid-cols-3 gap-4 text-xs text-slate-600">
-                        <div class="bg-white p-3 rounded border border-slate-200 shadow-sm">
-                            <strong class="block text-slate-800 mb-1">Health Assessment</strong>
-                            Quickly identify if your weight is putting you at risk for chronic diseases.
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <!-- Metric -->
+                        <div class="bg-white p-3 rounded border border-slate-200">
+                            <strong class="text-xs text-brand-dark block mb-2 border-b border-slate-100 pb-1">Metric Formula (kg/m²)</strong>
+                            <ol class="list-decimal pl-4 space-y-1 text-xs text-slate-600">
+                                <li>Measure your weight in kilograms (kg).</li>
+                                <li>Measure your height in meters (m).</li>
+                                <li>Square your height (m &times; m).</li>
+                                <li>Divide weight by squared height.</li>
+                            </ol>
+                            <div class="mt-2 bg-slate-50 p-2 rounded text-center font-serif italic text-slate-800 text-xs">
+                                BMI = kg / m²
+                            </div>
                         </div>
-                        <div class="bg-white p-3 rounded border border-slate-200 shadow-sm">
-                            <strong class="block text-slate-800 mb-1">Fitness Goals</strong>
-                            Set realistic targets for weight loss or muscle gain based on medical standards.
-                        </div>
-                        <div class="bg-white p-3 rounded border border-slate-200 shadow-sm">
-                            <strong class="block text-slate-800 mb-1">Medical Dosage</strong>
-                            Doctors often use BMI to determine the correct dosage for certain medications.
+                        <!-- Imperial -->
+                        <div class="bg-white p-3 rounded border border-slate-200">
+                            <strong class="text-xs text-brand-dark block mb-2 border-b border-slate-100 pb-1">Imperial Formula (lb/in²)</strong>
+                            <ol class="list-decimal pl-4 space-y-1 text-xs text-slate-600">
+                                <li>Measure your weight in pounds (lb).</li>
+                                <li>Measure height in inches (in).</li>
+                                <li>Square your height (in &times; in).</li>
+                                <li>Divide weight by height squared, then <strong>multiply by 703</strong>.</li>
+                            </ol>
+                            <div class="mt-2 bg-slate-50 p-2 rounded text-center font-serif italic text-slate-800 text-xs">
+                                BMI = 703 &times; (lb / in²)
+                            </div>
                         </div>
                     </div>
                 </section>
 
+                <!-- 3. INTERPRETING RESULTS -->
                 <section class="info-card">
-                    <h3 class="font-bold text-sm text-brand-dark mb-3 flex items-center gap-2"><i class="fa-solid fa-table text-brand-red"></i> BMI Table for Adults</h3>
-                    <p class="mb-3">For most adults (ages 20+), BMI scores fall into standard weight categories established by the World Health Organization (WHO). Use this table to interpret your result:</p>
+                    <h3 class="font-bold text-sm text-brand-dark mb-3 flex items-center gap-2"><i class="fa-solid fa-table seo-icon"></i> Understanding Your Result</h3>
+                    <p class="mb-3">For most adults (ages 20+), BMI falls into one of the following standard categories established by the World Health Organization (WHO):</p>
                     <div class="overflow-x-auto border border-slate-200 rounded-lg shadow-sm bg-white">
                         <table class="w-full text-left border-collapse">
-                            <thead><tr class="bg-slate-100 border-b border-slate-200 text-slate-700"><th class="px-3 py-2 font-bold">Category</th><th class="px-3 py-2 font-bold">BMI Range (kg/m²)</th><th class="px-3 py-2 font-bold">Health Risk Level</th></tr></thead>
+                            <thead><tr class="bg-slate-100 border-b border-slate-200 text-slate-700"><th class="px-3 py-2 font-bold">Category</th><th class="px-3 py-2 font-bold">BMI Range</th><th class="px-3 py-2 font-bold">Meaning</th></tr></thead>
                             <tbody class="divide-y divide-slate-100">
-                                <tr class="hover:bg-blue-50/50 transition-colors"><td class="px-3 py-2 font-medium text-blue-700"><span class="inline-block w-2 h-2 rounded-full bg-blue-500 mr-2"></span>Underweight</td><td class="px-3 py-2">Below 18.5</td><td class="px-3 py-2 text-slate-500">Minimal / Nutrition risk</td></tr>
-                                <tr class="hover:bg-green-50/50 transition-colors"><td class="px-3 py-2 font-medium text-green-700"><span class="inline-block w-2 h-2 rounded-full bg-green-500 mr-2"></span>Normal Weight</td><td class="px-3 py-2 font-bold text-slate-800">18.5 – 24.9</td><td class="px-3 py-2 text-slate-500">Low Risk</td></tr>
-                                <tr class="hover:bg-yellow-50/50 transition-colors"><td class="px-3 py-2 font-medium text-yellow-700"><span class="inline-block w-2 h-2 rounded-full bg-yellow-500 mr-2"></span>Overweight</td><td class="px-3 py-2">25.0 – 29.9</td><td class="px-3 py-2 text-slate-500">Increased Risk</td></tr>
-                                <tr class="hover:bg-red-50/50 transition-colors"><td class="px-3 py-2 font-medium text-red-600"><span class="inline-block w-2 h-2 rounded-full bg-red-500 mr-2"></span>Obesity Class I</td><td class="px-3 py-2">30.0 – 34.9</td><td class="px-3 py-2 text-slate-500">High Risk</td></tr>
-                                <tr class="hover:bg-red-50/50 transition-colors"><td class="px-3 py-2 font-medium text-red-700"><span class="inline-block w-2 h-2 rounded-full bg-red-700 mr-2"></span>Obesity Class II</td><td class="px-3 py-2">35.0 – 39.9</td><td class="px-3 py-2 text-slate-500">Very High Risk</td></tr>
-                                <tr class="hover:bg-red-50/50 transition-colors"><td class="px-3 py-2 font-medium text-red-900"><span class="inline-block w-2 h-2 rounded-full bg-red-900 mr-2"></span>Obesity Class III</td><td class="px-3 py-2">40.0 and above</td><td class="px-3 py-2 text-slate-500">Extremely High Risk</td></tr>
+                                <tr class="hover:bg-blue-50/50"><td class="px-3 py-2 font-medium text-blue-700">Underweight</td><td class="px-3 py-2">&lt; 18.5</td><td class="px-3 py-2 text-slate-500">Possible malnutrition</td></tr>
+                                <tr class="hover:bg-green-50/50"><td class="px-3 py-2 font-medium text-green-700">Normal</td><td class="px-3 py-2 font-bold text-slate-800">18.5 – 24.9</td><td class="px-3 py-2 text-slate-500">Lowest health risk</td></tr>
+                                <tr class="hover:bg-yellow-50/50"><td class="px-3 py-2 font-medium text-yellow-700">Overweight</td><td class="px-3 py-2">25.0 – 29.9</td><td class="px-3 py-2 text-slate-500">Increased cardiac load</td></tr>
+                                <tr class="hover:bg-red-50/50"><td class="px-3 py-2 font-medium text-red-600">Obesity (I, II, III)</td><td class="px-3 py-2">&ge; 30.0</td><td class="px-3 py-2 text-slate-500">High risk of disease</td></tr>
                             </tbody>
                         </table>
                     </div>
                 </section>
 
+                <!-- 4. MEN vs WOMEN vs AGE -->
+                <section class="info-card">
+                    <h3 class="font-bold text-sm text-brand-dark mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-venus-mars seo-icon"></i> BMI Differences by Group
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex gap-3">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center"><i class="fa-solid fa-person"></i></div>
+                            <div>
+                                <strong class="text-xs text-brand-dark">Men vs. Women</strong>
+                                <p class="text-xs text-slate-600 mt-0.5">The formula is the <strong>same</strong> for both. However, women naturally have more body fat than men at the same BMI. Men tend to have more muscle mass, which can sometimes skew results (making them appear overweight when they are muscular).</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center"><i class="fa-solid fa-person-cane"></i></div>
+                            <div>
+                                <strong class="text-xs text-brand-dark">Seniors (65+)</strong>
+                                <p class="text-xs text-slate-600 mt-0.5">Older adults often lose muscle mass. A slightly higher BMI (25-27) is sometimes considered protective against osteoporosis and frailty in this age group.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center"><i class="fa-solid fa-child-reaching"></i></div>
+                            <div>
+                                <strong class="text-xs text-brand-dark">Children & Teens (2-19)</strong>
+                                <p class="text-xs text-slate-600 mt-0.5">Do not use adult charts! Kids are growing, so their BMI is compared against percentiles for their specific age and gender (e.g., "95th percentile").</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 5. HEALTH RISKS -->
                 <div class="grid md:grid-cols-2 gap-6">
-                    <section class="info-card">
-                        <h3 class="font-bold text-sm text-brand-dark mb-2 flex items-center gap-2"><i class="fa-solid fa-arrow-trend-up text-red-500"></i> Risks of High BMI</h3>
-                        <p class="mb-2">Being overweight puts extra strain on your body. Common risks include:</p>
+                    <section class="info-card bg-red-50/30 border-red-100">
+                        <h3 class="font-bold text-sm text-red-700 mb-2 flex items-center gap-2"><i class="fa-solid fa-arrow-trend-up"></i> Risks of High BMI</h3>
+                        <p class="mb-2 text-xs text-slate-600">Excess weight puts strain on your organs and joints. Common associated conditions:</p>
                         <ul class="list-disc pl-5 space-y-1 text-slate-600 text-xs">
-                            <li>High blood pressure (Hypertension)</li>
                             <li>Type 2 Diabetes</li>
-                            <li><strong>Heart disease</strong> and stroke</li>
-                            <li>Osteoarthritis (joint pain)</li>
-                            <li>Sleep apnea and breathing problems</li>
-                            <li>Gallbladder disease</li>
+                            <li>Hypertension (High Blood Pressure)</li>
+                            <li>Heart Disease & Stroke</li>
+                            <li>Sleep Apnea</li>
+                            <li>Osteoarthritis</li>
                         </ul>
                     </section>
-                    <section class="info-card">
-                        <h3 class="font-bold text-sm text-brand-dark mb-2 flex items-center gap-2"><i class="fa-solid fa-arrow-trend-down text-blue-500"></i> Risks of Low BMI</h3>
-                        <p class="mb-2">Being underweight can also be dangerous:</p>
+                    <section class="info-card bg-blue-50/30 border-blue-100">
+                        <h3 class="font-bold text-sm text-blue-700 mb-2 flex items-center gap-2"><i class="fa-solid fa-arrow-trend-down"></i> Risks of Low BMI</h3>
+                        <p class="mb-2 text-xs text-slate-600">Being underweight indicates possible nutritional deficiencies. Risks include:</p>
                         <ul class="list-disc pl-5 space-y-1 text-slate-600 text-xs">
-                            <li>Malnutrition and vitamin deficiencies</li>
-                            <li>Weakened immune system</li>
-                            <li>Osteoporosis (weak bones)</li>
-                            <li>Fertility issues</li>
-                            <li>Anemia and fatigue</li>
+                            <li>Weakened Immune System</li>
+                            <li>Osteoporosis (Brittle Bones)</li>
+                            <li>Iron-deficiency Anemia</li>
+                            <li>Fertility Issues</li>
+                            <li>Chronic Fatigue</li>
                         </ul>
                     </section>
                 </div>
 
-                <!-- NEW: BMR Section (Valuable Addition) -->
+                <!-- 6. ACTION PLAN -->
                 <section class="info-card">
-                    <h3 class="font-bold text-sm text-brand-dark mb-2 flex items-center gap-2">
-                        <i class="fa-solid fa-fire text-orange-500"></i> Bonus: Understanding BMR
+                    <h3 class="font-bold text-sm text-brand-dark mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-person-walking seo-icon"></i> Tips for a Healthy Weight
                     </h3>
-                    <p class="mb-3">This calculator also provides your <strong>BMR (Basal Metabolic Rate)</strong>. This is the number of calories your body burns while at complete rest to maintain basic functions like breathing and digestion.</p>
-                    <div class="bg-orange-50 border border-orange-100 p-3 rounded text-xs text-orange-900">
-                        <strong>How to use it:</strong> To maintain your current weight, eat calories equal to your BMR + Activity Level. To lose weight, eat slightly less than this total.
-                    </div>
-                </section>
-
-                <section class="info-card bg-blue-50/50 border-blue-200">
-                    <h3 class="font-bold text-sm text-brand-dark mb-2 flex items-center gap-2"><i class="fa-solid fa-users-viewfinder text-brand-red"></i> Limitations & Exceptions</h3>
-                    <p class="mb-4">BMI is a useful screening tool, but it doesn't tell the whole story. It is not accurate for:</p>
-                    
-                    <div class="space-y-3">
-                        <div class="flex gap-3 items-start">
-                            <div class="bg-white p-1.5 rounded border border-slate-200 text-brand-dark"><i class="fa-solid fa-dumbbell"></i></div>
-                            <div>
-                                <strong class="text-xs text-brand-dark block">Athletes & Bodybuilders</strong>
-                                <span class="text-[11px] text-slate-600">Muscle is denser than fat. Athletes may have a high BMI but low body fat.</span>
-                            </div>
+                    <div class="grid sm:grid-cols-2 gap-4 text-xs">
+                        <div>
+                            <strong class="text-slate-800 block mb-1">To Lose Weight:</strong>
+                            <ul class="space-y-1 text-slate-600">
+                                <li><i class="fa-solid fa-check text-green-500 mr-1"></i> Create a calorie deficit (burn more than you eat).</li>
+                                <li><i class="fa-solid fa-check text-green-500 mr-1"></i> Prioritize protein and fiber to stay full.</li>
+                                <li><i class="fa-solid fa-check text-green-500 mr-1"></i> Aim for 150 mins of moderate activity per week.</li>
+                            </ul>
                         </div>
-                        <div class="flex gap-3 items-start">
-                            <div class="bg-white p-1.5 rounded border border-slate-200 text-brand-dark"><i class="fa-solid fa-child"></i></div>
-                            <div>
-                                <strong class="text-xs text-brand-dark block">Children & Teens (2-19)</strong>
-                                <span class="text-[11px] text-slate-600">Kids are still growing. Their BMI must be compared against age-and-gender percentiles (growth charts), not the adult table above.</span>
-                            </div>
+                        <div>
+                            <strong class="text-slate-800 block mb-1">To Gain Weight:</strong>
+                            <ul class="space-y-1 text-slate-600">
+                                <li><i class="fa-solid fa-check text-green-500 mr-1"></i> Eat calorie-dense, nutrient-rich foods (nuts, avocados).</li>
+                                <li><i class="fa-solid fa-check text-green-500 mr-1"></i> Eat more frequently (5-6 small meals).</li>
+                                <li><i class="fa-solid fa-check text-green-500 mr-1"></i> Strength train to build muscle, not just fat.</li>
+                            </ul>
                         </div>
                     </div>
                 </section>
 
-                <!-- FAQ Section (Existing) -->
+                <!-- 7. LIMITATIONS -->
+                <section class="info-card bg-slate-100 border-slate-200">
+                    <h3 class="font-bold text-sm text-slate-700 mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-triangle-exclamation text-yellow-600"></i> Limitations of BMI
+                    </h3>
+                    <p class="text-xs text-slate-600 mb-2">BMI is a simple tool, not a diagnostic one. It fails to distinguish between:</p>
+                    <ul class="list-disc pl-5 text-xs text-slate-600 space-y-1">
+                        <li><strong>Muscle vs. Fat:</strong> Bodybuilders may be classified as "Obese" despite having low body fat.</li>
+                        <li><strong>Bone Density:</strong> People with dense bones may weigh more.</li>
+                        <li><strong>Fat Distribution:</strong> It doesn't track visceral fat (belly fat), which is more dangerous than subcutaneous fat.</li>
+                    </ul>
+                    <p class="text-xs text-slate-500 mt-2 italic"><strong>Pro Tip:</strong> Use BMI alongside other metrics like Waist-to-Hip Ratio and Body Fat Percentage for a complete picture.</p>
+                </section>
+
+                <!-- 8. FAQ -->
                 <section class="info-card">
-                    <!-- ... existing FAQ content ... -->
                     <h3 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
-                        <i class="fa-solid fa-circle-question text-[#518428]"></i> Frequently Asked Questions
+                        <i class="fa-solid fa-circle-question seo-icon"></i> Frequently Asked Questions
                     </h3>
                     <div class="space-y-4">
-                        <!-- Q1 -->
                         <div class="flex gap-3 items-start">
                             <div class="flex-shrink-0 w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-[10px] font-bold border border-slate-200 mt-0.5">1</div>
                             <div>
-                                <h4 class="text-[12px] font-bold text-brand-dark mb-1 leading-tight">Is BMI accurate for athletes?</h4>
-                                <p class="text-xs text-slate-600">Not always. BMI does not distinguish between muscle and fat. Athletes with high muscle mass may have a high BMI but very low body fat. In these cases, a Body Fat Calculator is more accurate.</p>
+                                <h4 class="text-[12px] font-bold text-brand-dark mb-1 leading-tight">What is a good BMI for my age?</h4>
+                                <p class="text-xs text-slate-600">For adults 20-65, the target is 18.5 - 24.9. After age 65, a slightly higher range (up to 27) may be acceptable to preserve muscle mass and bone density.</p>
                             </div>
                         </div>
-                        <!-- Q2 -->
                         <div class="flex gap-3 items-start">
                             <div class="flex-shrink-0 w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-[10px] font-bold border border-slate-200 mt-0.5">2</div>
                             <div>
-                                <h4 class="text-[12px] font-bold text-brand-dark mb-1 leading-tight">What is the "healthy" range?</h4>
-                                <p class="text-xs text-slate-600">For most adults, a BMI between <strong>18.5 and 24.9</strong> is considered healthy. This range is associated with the lowest risk of weight-related health issues like diabetes and heart disease.</p>
+                                <h4 class="text-[12px] font-bold text-brand-dark mb-1 leading-tight">Is BMI different for males and females?</h4>
+                                <p class="text-xs text-slate-600">The calculation is identical. However, women naturally carry more essential body fat than men, so a woman and a man with the same BMI will likely have different body compositions.</p>
                             </div>
                         </div>
-                        <!-- Q3 -->
                         <div class="flex gap-3 items-start">
                             <div class="flex-shrink-0 w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-[10px] font-bold border border-slate-200 mt-0.5">3</div>
                             <div>
-                                <h4 class="text-[12px] font-bold text-brand-dark mb-1 leading-tight">Why does BMI change with age?</h4>
-                                <p class="text-xs text-slate-600">Standard BMI categories apply to adults 20+. For children and teens, BMI is age-and-gender specific (percentiles) because they are still growing. Older adults may also have slightly different ideal ranges.</p>
-                            </div>
-                        </div>
-                        <!-- Q4 -->
-                        <div class="flex gap-3 items-start">
-                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-[10px] font-bold border border-slate-200 mt-0.5">4</div>
-                            <div>
-                                <h4 class="text-[12px] font-bold text-brand-dark mb-1 leading-tight">Does muscle weigh more than fat?</h4>
-                                <p class="text-xs text-slate-600">Technically, a pound is a pound. However, muscle is much more <em>dense</em> than fat. One pound of muscle takes up less space than one pound of fat, which is why you can look leaner but weigh the same.</p>
-                            </div>
-                        </div>
-                        <!-- Q5 -->
-                        <div class="flex gap-3 items-start">
-                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-[10px] font-bold border border-slate-200 mt-0.5">5</div>
-                            <div>
-                                <h4 class="text-[12px] font-bold text-brand-dark mb-1 leading-tight">How can I lower my BMI?</h4>
-                                <p class="text-xs text-slate-600">To lower BMI, you need to create a calorie deficit by eating fewer calories than you burn (BMR + Activity). Combining a balanced diet with regular exercise is the safest way to reach a healthy weight.</p>
+                                <h4 class="text-[12px] font-bold text-brand-dark mb-1 leading-tight">Can I have a high BMI and be healthy?</h4>
+                                <p class="text-xs text-slate-600">Yes, if the weight comes from lean muscle rather than fat (e.g., athletes). However, for the general population, a high BMI is strongly linked to health risks.</p>
                             </div>
                         </div>
                     </div>
                 </section>
+
             </div>
         </div>
     </div>
