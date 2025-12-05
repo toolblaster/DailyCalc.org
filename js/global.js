@@ -3,6 +3,7 @@
   ...
   [2025-11-28] HistoryManager: Enforced "Single Entry Per Tool" policy for ALL calculators.
   [2025-11-28] WishlistManager: Added for managing Favorite tools via localStorage.
+  [2025-12-05] WishlistManager: Updated to store Icons. SidebarWidget now detects icons automatically.
 */
 
 const CALCULATOR_REGISTRY = {
@@ -82,7 +83,8 @@ const WishlistManager = {
         }
     },
 
-    add(name, category, url) {
+    // Updated: Accepts icon parameter
+    add(name, category, url, icon) {
         const items = this.getItems();
         // Prevent duplicates
         if (items.some(i => i.url === url)) return;
@@ -91,6 +93,7 @@ const WishlistManager = {
             name: name,
             category: category,
             url: url,
+            icon: icon || 'fa-calculator', // Store specific icon or fallback
             timestamp: new Date().toISOString()
         });
         
@@ -105,14 +108,15 @@ const WishlistManager = {
         this.dispatchUpdate();
     },
 
-    toggle(name, category, url) {
+    // Updated: Accepts icon parameter
+    toggle(name, category, url, icon) {
         const items = this.getItems();
         const exists = items.some(i => i.url === url);
         if (exists) {
             this.remove(url);
             return false; // Removed
         } else {
-            this.add(name, category, url);
+            this.add(name, category, url, icon);
             return true; // Added
         }
     },
@@ -133,7 +137,6 @@ const WishlistManager = {
 window.WishlistManager = WishlistManager;
 
 // ... (Rest of file: GlobalSearch, SidebarWidget, etc.) ...
-// Including the previous code for completeness
 
 const GlobalSearch = {
     // ... [Same as previous version] ...
@@ -352,7 +355,7 @@ const SidebarWidget = {
                         </a>
                     </div>
                 </div>
-                <!-- ADDED: Wishlist Toggle Button in Sidebar -->
+                <!-- Wishlist Toggle Button in Sidebar -->
                 <button class="widget-btn w-full gap-2" id="sidebar-wishlist-toggle" title="Add/Remove from Wishlist">
                     <i class="fa-regular fa-heart text-slate-400"></i> <span>Wishlist</span>
                 </button>
@@ -386,22 +389,40 @@ const SidebarWidget = {
             };
 
             wishlistBtn.addEventListener('click', () => {
-                // We need the page title and category. Since this is generic, we try to grab it from DOM or globals.
                 const title = document.title.split('|')[0].trim();
                 const category = document.querySelector('.calc-subcat-title')?.innerText || "Tool"; 
-                // Or try to find it in registry
+                
+                // Logic to find the correct icon for this tool
                 let foundCat = "Tool";
+                let foundIcon = "fa-calculator";
+                
+                // 1. Try to find in Registry
                 for(const [cat, tools] of Object.entries(CALCULATOR_REGISTRY)) {
-                    if(tools.some(t => window.location.pathname.includes(t.url))) { foundCat = cat; break; }
+                    const tool = tools.find(t => window.location.pathname.includes(t.url));
+                    if(tool) {
+                        foundCat = cat;
+                        foundIcon = tool.icon;
+                        break;
+                    }
                 }
 
-                window.WishlistManager.toggle(title, foundCat, currentUrl);
+                // 2. Fallback: try to grab icon from the page header if not found
+                if (foundIcon === "fa-calculator") {
+                     const domIcon = document.querySelector('.calc-tool-header i');
+                     if(domIcon) {
+                        domIcon.classList.forEach(cls => {
+                            if(cls.startsWith('fa-') && cls !== 'fa-solid' && cls !== 'fa-regular') foundIcon = cls;
+                        });
+                     }
+                }
+
+                // Pass the found icon to the Manager
+                window.WishlistManager.toggle(title, foundCat, currentUrl, foundIcon);
                 updateBtnState();
             });
 
             // Initial check
             updateBtnState();
-            // Listen for global updates (in case removed from header drawer)
             window.addEventListener('wishlistUpdated', updateBtnState);
         }
 
@@ -483,8 +504,7 @@ const SidebarWidget = {
 };
 
 // ... (AutoSave, DynamicSEO, DailyLineChart) ...
-// Included same as previous to complete file
-// --- AUTO-SAVE / DRAFTS MODULE ---
+
 const AutoSave = {
     init() {
         const pageId = window.location.pathname;
