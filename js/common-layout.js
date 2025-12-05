@@ -3,6 +3,8 @@
   ...
   [2025-11-28] Added Wishlist (Favorites) feature replacing 'Suggest a Tool'.
   [2025-12-05] Wishlist UI: Added Numbering (#1, #2) and specific Icon support in Wishlist Drawer.
+  [2025-12-05] Visual Update: Changed Category Quick Bar font to Poppins (font-heading).
+  [2025-12-05] Global Print: Added global event listener for #printBtn to ensure print functionality works everywhere.
 */
 
 const headerHTML = `
@@ -105,10 +107,11 @@ const headerHTML = `
     <nav class="border-b border-slate-200 bg-white hidden md:block">
         <div class="px-6">
             <div class="hide-scrollbar flex items-center gap-6 overflow-x-auto whitespace-nowrap py-3 md:gap-8 lg:justify-center">
-                <a href="/finance/" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red"><i class="fa-solid fa-sack-dollar fa-fw w-4 text-center text-brand-red"></i><span class="font-bold">Finance</span></a>
-                <a href="/health/" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red"><i class="fa-solid fa-heart-pulse fa-fw w-4 text-center text-brand-red"></i><span class="font-bold">Health</span></a>
-                <a href="/everyday-life/" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red"><i class="fa-solid fa-sun fa-fw w-4 text-center text-brand-red"></i><span class="font-bold">Everyday Life</span></a>
-                <a href="/converters/" class="flex flex-none items-center gap-2 text-xs text-slate-700 transition hover:text-brand-red"><i class="fa-solid fa-arrows-rotate fa-fw w-4 text-center text-brand-red"></i><span class="font-bold">Converters</span></a>
+                <!-- Added font-heading class to all links below for Poppins font -->
+                <a href="/finance/" class="flex flex-none items-center gap-2 text-xs font-heading text-slate-700 transition hover:text-brand-red"><i class="fa-solid fa-sack-dollar fa-fw w-4 text-center text-brand-red"></i><span class="font-bold">Finance</span></a>
+                <a href="/health/" class="flex flex-none items-center gap-2 text-xs font-heading text-slate-700 transition hover:text-brand-red"><i class="fa-solid fa-heart-pulse fa-fw w-4 text-center text-brand-red"></i><span class="font-bold">Health</span></a>
+                <a href="/everyday-life/" class="flex flex-none items-center gap-2 text-xs font-heading text-slate-700 transition hover:text-brand-red"><i class="fa-solid fa-sun fa-fw w-4 text-center text-brand-red"></i><span class="font-bold">Everyday Life</span></a>
+                <a href="/converters/" class="flex flex-none items-center gap-2 text-xs font-heading text-slate-700 transition hover:text-brand-red"><i class="fa-solid fa-arrows-rotate fa-fw w-4 text-center text-brand-red"></i><span class="font-bold">Converters</span></a>
             </div>
         </div>
     </nav>
@@ -230,10 +233,22 @@ const CalculatorLayout = {
             seoWrapper.classList.remove('hidden');
         }
 
+        // 6. AUTO-INJECT PRINT BUTTON Logic
+        // Check if toolEl has an action group but no print button
+        const actionGroup = toolEl.querySelector('.calc-action-group');
+        if (actionGroup && !actionGroup.querySelector('#printBtn')) {
+            const printBtn = document.createElement('button');
+            printBtn.id = 'printBtn';
+            printBtn.className = 'calc-action-btn dark'; // Use existing class for style match
+            printBtn.title = 'Print';
+            printBtn.innerHTML = '<i class="fa-solid fa-print"></i>';
+            actionGroup.appendChild(printBtn);
+        }
+
         target.innerHTML = '';
         target.appendChild(wrapper);
 
-        // 6. Post-Render Init
+        // 7. Post-Render Init
         if (window.SidebarWidget && typeof window.SidebarWidget.init === 'function') window.SidebarWidget.init();
         this.loadRelatedTools(config.category);
     },
@@ -423,6 +438,15 @@ function loadCommonLayout() {
     });
     if(close) close.addEventListener('click', () => toggleMenu(false));
     if(overlay) overlay.addEventListener('click', () => toggleMenu(false));
+
+    // Global Print Handler
+    document.addEventListener('click', (e) => {
+        const printBtn = e.target.closest('#printBtn');
+        if (printBtn) {
+            e.preventDefault();
+            window.print();
+        }
+    });
 
     // Initialize Wishlist UI
     WishlistUI.init();
