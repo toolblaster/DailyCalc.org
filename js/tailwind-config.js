@@ -1,7 +1,7 @@
 /*
   DailyCalc.org Centralized Tailwind Configuration
   ...
-  [2025-12-05] Added .calc-output-card for standardized, high-contrast secondary result cards.
+  [2025-12-05] Added .seo-icon for centralized styling of icons in SEO content sections.
 */
 
 tailwind.config = {
@@ -90,11 +90,10 @@ tailwind.config = {
                     gap: theme('spacing.3'),
                 },
 
-                /* --- NEW: High Emphasis Output Card --- */
                 '.calc-output-card': {
                     backgroundColor: '#ffffff',
                     borderWidth: '1px',
-                    borderColor: theme('colors.slate.500'), /* Dark Slate Border */
+                    borderColor: theme('colors.slate.500'),
                     borderRadius: theme('borderRadius.md'),
                     padding: theme('spacing.3'),
                     textAlign: 'center',
@@ -105,7 +104,6 @@ tailwind.config = {
                     justifyContent: 'center',
                     height: '100%',
                     transition: 'all 0.2s ease',
-                    /* Inner Typography Defaults */
                     'span': {
                         fontSize: '10px',
                         fontWeight: '700',
@@ -126,7 +124,6 @@ tailwind.config = {
                     }
                 },
 
-                /* --- NEW: Universal SEO Content Wrapper --- */
                 '.calc-seo-content': {
                     padding: theme('spacing.5'),
                     fontSize: theme('fontSize.xs'),
@@ -135,8 +132,13 @@ tailwind.config = {
                     display: 'grid',
                     gap: theme('spacing.6'), 
                 },
+                
+                /* --- NEW: Centralized SEO Icon Style --- */
+                '.seo-icon': {
+                    color: theme('colors.brand.red'),
+                    // You can add more properties here if needed, like font-size adjustments
+                },
 
-                /* --- NEW: Universal Section Divider --- */
                 '.calc-section-divider': {
                     width: '100%',
                     maxWidth: '702px', 
