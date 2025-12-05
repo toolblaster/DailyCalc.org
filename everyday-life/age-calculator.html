@@ -116,7 +116,7 @@
                      </div>
 
                      <!-- Next Milestone Card (Full Width) -->
-                     <div class="col-span-2 bg-slate-50 border border-slate-200 rounded p-3 shadow-inner flex flex-col justify-center items-center">
+                     <div class="col-span-2 bg-slate-50 border border-slate-400 rounded p-3 shadow-inner flex flex-col justify-center items-center mb-1">
                         <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wide mb-1">
                             <i class="fa-solid fa-flag-checkered text-brand-green mr-1"></i> Next Milestone
                         </span>
@@ -128,28 +128,29 @@
                         </div>
                      </div>
 
+                     <!-- UPDATED: Vertically Compact Cards (Horizontal Layout) -->
                      <!-- Total Weeks -->
-                     <div class="calc-output-card">
-                        <span>Total Weeks</span>
-                        <div class="value" id="totalWeeks">--</div>
+                     <div class="bg-white border border-slate-300 rounded px-3 py-2 shadow-sm flex items-center justify-between hover:border-slate-400 transition-colors">
+                        <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Total Weeks</span>
+                        <div class="text-sm font-bold text-slate-900" id="totalWeeks">--</div>
                      </div>
 
                      <!-- Total Days -->
-                     <div class="calc-output-card">
-                        <span>Total Days</span>
-                        <div class="value" id="totalDays">--</div>
+                     <div class="bg-white border border-slate-300 rounded px-3 py-2 shadow-sm flex items-center justify-between hover:border-slate-400 transition-colors">
+                        <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Total Days</span>
+                        <div class="text-sm font-bold text-slate-900" id="totalDays">--</div>
                      </div>
                      
                      <!-- Total Hours -->
-                     <div class="calc-output-card">
-                        <span>Total Hours</span>
-                        <div class="value" id="totalHours">--</div>
+                     <div class="bg-white border border-slate-300 rounded px-3 py-2 shadow-sm flex items-center justify-between hover:border-slate-400 transition-colors">
+                        <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Total Hours</span>
+                        <div class="text-sm font-bold text-slate-900" id="totalHours">--</div>
                      </div>
 
                      <!-- Total Minutes -->
-                     <div class="calc-output-card">
-                        <span>Total Minutes</span>
-                        <div class="value" id="totalMinutes">--</div>
+                     <div class="bg-white border border-slate-300 rounded px-3 py-2 shadow-sm flex items-center justify-between hover:border-slate-400 transition-colors">
+                        <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Total Mins</span>
+                        <div class="text-sm font-bold text-slate-900" id="totalMinutes">--</div>
                      </div>
                  </div>
 
@@ -262,6 +263,45 @@
                         </div>
                     </div>
                 </section>
+                
+                <!-- NEW: Split Layout for Milestones & Trivia -->
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Left: Global Age Milestones -->
+                    <section class="info-card border-brand-red/20 bg-red-50/30">
+                        <h3 class="font-bold text-sm text-brand-dark mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-cake-candles seo-icon"></i> Global Age Milestones
+                        </h3>
+                        <div class="space-y-2 text-xs text-slate-600">
+                            <p>Age carries different meanings across cultures:</p>
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li><strong>Age 15 (Quinceañera):</strong> In Latin American cultures, this marks the transition from childhood to womanhood.</li>
+                                <li><strong>Age 20 (Seijin no Hi):</strong> Japan celebrates "Coming of Age Day" for all new 20-year-olds.</li>
+                                <li><strong>Age 60 (Kanreki):</strong> In Japan and Korea, turning 60 symbolizes completing a full zodiac cycle and being "reborn."</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- Right: Did You Know? -->
+                    <section class="info-card border-blue-100 bg-blue-50/30">
+                        <h3 class="font-bold text-sm text-brand-dark mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-lightbulb text-brand-red"></i> Did You Know?
+                        </h3>
+                        <ul class="space-y-2 text-xs text-slate-600">
+                            <li class="leading-tight">
+                                <strong class="block text-brand-dark mb-0.5">Time Perception</strong>
+                                As you age, time feels faster because each year represents a smaller percentage of your life.
+                            </li>
+                            <li class="leading-tight">
+                                <strong class="block text-brand-dark mb-0.5">Cell Regeneration</strong>
+                                Your body replaces most of its cells every 7 to 10 years, meaning you are constantly "renewing."
+                            </li>
+                            <li class="leading-tight">
+                                <strong class="block text-brand-dark mb-0.5">The "27 Club"</strong>
+                                A cultural phenomenon noting the high number of popular musicians who died at age 27.
+                            </li>
+                        </ul>
+                    </section>
+                </div>
 
                 <!-- 5. FAQ Section -->
                 <section class="info-card">
@@ -316,7 +356,7 @@
                     title: "Age Calculator", 
                     category: "Everyday Life", 
                     toolId: "tool-slot", 
-                    seoId: "seo-slot" 
+                    seoId: "seo-slot"
                 });
             }
 
