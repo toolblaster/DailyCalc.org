@@ -1,13 +1,7 @@
 /*
   DailyCalc.org Centralized Tailwind Configuration
-  [2025-11-27] Updated .calc-section-divider to match Mortgage Calculator style (100% opacity, Slate-400)
-  [2025-11-27] Added mx-auto to divider for consistent centering.
-  [2025-12-03] A11y Update: Enforced high contrast placeholders (Slate-500) globally for .compact-input.
-  [2025-12-04] Grid Update: Enforced 6 columns on Desktop for category cards.
-  [2025-12-04] Spacing Fix: Reverted vertical expansion; added specific bottom padding to clear text from border.
-  [2025-12-04] Centralized Icon Style: Added auto-styling for icons inside .calc-tool-header.
-  [2025-12-04] Visual Update: High-contrast "White/Dark" input style with Blue focus to match Mortgage Calculator reference.
-  [2025-12-04] Select Dropdown Fix: Adjusted padding for .compact-select to ensure text and arrow are well-spaced.
+  ...
+  [2025-12-05] Added .calc-output-card for standardized, high-contrast secondary result cards.
 */
 
 tailwind.config = {
@@ -23,13 +17,13 @@ tailwind.config = {
                     dark: '#050505',
                     green: '#518428',      
                     'green-dark': '#3e651e',
-                    blue: '#1e40af' // Added for the new focus state (Blue-800 approx)
+                    blue: '#1e40af' 
                 }
             },
             boxShadow: {
                 soft: '0 12px 40px rgba(15, 23, 42, 0.08)',
                 'soft-glow': '0 12px 40px -8px rgba(241, 32, 61, 0.15), 0 4px 6px -1px rgba(241, 32, 61, 0.08)',
-                input: '0 1px 2px 0 rgba(0, 0, 0, 0.05)' // Subtle shadow for inputs
+                input: '0 1px 2px 0 rgba(0, 0, 0, 0.05)'
             }
         }
     },
@@ -96,6 +90,42 @@ tailwind.config = {
                     gap: theme('spacing.3'),
                 },
 
+                /* --- NEW: High Emphasis Output Card --- */
+                '.calc-output-card': {
+                    backgroundColor: '#ffffff',
+                    borderWidth: '1px',
+                    borderColor: theme('colors.slate.500'), /* Dark Slate Border */
+                    borderRadius: theme('borderRadius.md'),
+                    padding: theme('spacing.3'),
+                    textAlign: 'center',
+                    boxShadow: theme('boxShadow.sm'),
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '100%',
+                    transition: 'all 0.2s ease',
+                    /* Inner Typography Defaults */
+                    'span': {
+                        fontSize: '10px',
+                        fontWeight: '700',
+                        color: theme('colors.slate.500'),
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.025em',
+                    },
+                    '.value': {
+                        fontSize: theme('fontSize.lg'),
+                        fontWeight: '700',
+                        color: theme('colors.slate.800'),
+                        marginTop: theme('spacing.1'),
+                        lineHeight: '1',
+                    },
+                    '&:hover': {
+                        borderColor: theme('colors.slate.700'),
+                        boxShadow: theme('boxShadow.md'),
+                    }
+                },
+
                 /* --- NEW: Universal SEO Content Wrapper --- */
                 '.calc-seo-content': {
                     padding: theme('spacing.5'),
@@ -103,71 +133,70 @@ tailwind.config = {
                     color: theme('colors.slate.700'),
                     lineHeight: theme('lineHeight.relaxed'),
                     display: 'grid',
-                    gap: theme('spacing.6'), /* Consistent vertical spacing between cards */
+                    gap: theme('spacing.6'), 
                 },
 
-                /* --- NEW: Universal Section Divider (Centralized from Mortgage Calc) --- */
+                /* --- NEW: Universal Section Divider --- */
                 '.calc-section-divider': {
                     width: '100%',
-                    maxWidth: '702px', /* Matches Mortgage Calc Constraint */
+                    maxWidth: '702px', 
                     height: '0',
-                    marginTop: theme('spacing.10'),    /* Matches my-10 */
-                    marginBottom: theme('spacing.10'), /* Matches my-10 */
+                    marginTop: theme('spacing.10'),    
+                    marginBottom: theme('spacing.10'), 
                     borderTopWidth: '6px',
-                    borderColor: theme('colors.slate.400'), /* Solid Slate 400 */
+                    borderColor: theme('colors.slate.400'),
                     borderRadius: '9999px',
-                    opacity: '1', /* Removed opacity-20 to make it "dark slate" */
-                    marginLeft: 'auto',  /* Ensure Centering */
-                    marginRight: 'auto', /* Ensure Centering */
+                    opacity: '1',
+                    marginLeft: 'auto',  
+                    marginRight: 'auto', 
                     '@media print': { display: 'none' }
                 },
 
-                /* --- Components (UPDATED FOR IMAGE MATCH) --- */
+                /* --- Components (Inputs/Headers) --- */
                 '.compact-input': {
                     width: '100%',
-                    padding: '2px 8px', /* Increased horizontal padding */
+                    padding: '2px 8px', 
                     fontSize: '13px',
                     borderWidth: '1px',
-                    borderColor: '#64748b', /* Slate-500: Much darker border for contrast */
+                    borderColor: '#64748b', 
                     borderRadius: '3px',
                     textAlign: 'right',
                     backgroundColor: '#ffffff',
                     transition: 'all 0.15s ease-in-out',
-                    height: '30px', /* Increased height slightly for better presence */
+                    height: '30px', 
                     color: theme('colors.slate.900'),
-                    boxShadow: theme('boxShadow.input'), /* Added shadow for "extra white" feel */
+                    boxShadow: theme('boxShadow.input'), 
                     '&:focus': {
                         outline: 'none',
-                        borderColor: '#2563eb', /* Blue-600: Distinct Blue focus from image */
-                        boxShadow: '0 0 0 2px rgba(37, 99, 235, 0.2)', /* Blue ring */
+                        borderColor: '#2563eb', 
+                        boxShadow: '0 0 0 2px rgba(37, 99, 235, 0.2)', 
                         zIndex: '10',
                     },
                     '&::-webkit-inner-spin-button, &::-webkit-outer-spin-button': { '-webkit-appearance': 'none', margin: '0' },
                     '-moz-appearance': 'textfield',
-                    /* A11Y GLOBAL FIX: High contrast placeholders */
                     '&::placeholder': {
                         color: theme('colors.slate.500'),
-                        opacity: '1', /* Required for Firefox */
+                        opacity: '1', 
                     },
                 },
                 '.compact-select': {
-                    padding: '2px 24px 2px 8px', /* Adjusted padding: right padding for arrow, left for text */
+                    padding: '2px 24px 2px 8px',
                     fontSize: '13px',
                     borderWidth: '1px',
-                    borderColor: '#64748b', /* Slate-500: Matching Dark Border */
+                    borderColor: '#64748b', 
                     borderRadius: '3px',
                     backgroundColor: 'white',
                     color: theme('colors.slate.900'),
-                    height: '30px', /* Matching Height */
+                    height: '30px', 
                     boxShadow: theme('boxShadow.input'),
-                    appearance: 'none', /* Remove default arrow to control styling if needed, but keeping simple for now */
+                    appearance: 'none', 
                     backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`,
                     backgroundPosition: 'right 0.2rem center',
                     backgroundRepeat: 'no-repeat',
                     backgroundSize: '1.2em 1.2em',
                     '&:focus': {
                         outline: 'none',
-                        borderColor: '#2563eb', /* Blue focus */
+                        borderColor: '#2563eb', 
                         boxShadow: '0 0 0 2px rgba(37, 99, 235, 0.2)',
                     },
                 },
@@ -196,10 +225,9 @@ tailwind.config = {
                     padding: `${theme('spacing.2')} ${theme('spacing.4')}`,
                     color: 'white',
                     boxShadow: theme('boxShadow.sm'),
-                    /* Centralized Icon Style */
                     'i': {
-                        fontSize: theme('fontSize.sm'), /* text-sm */
-                        opacity: '0.9',                 /* opacity-90 */
+                        fontSize: theme('fontSize.sm'), 
+                        opacity: '0.9',                 
                     }
                 },
                 '.result-header': {
@@ -271,10 +299,9 @@ tailwind.config = {
                 '.info-card': {
                     backgroundColor: theme('colors.slate.50'),
                     borderWidth: '1px',
-                    borderColor: theme('colors.slate.300'), // Slightly darker for visibility
+                    borderColor: theme('colors.slate.300'), 
                     borderRadius: theme('borderRadius.md'),
                     padding: theme('spacing.4'),
-                    /* Removed height: 100% to allow natural flow in grid */
                     color: theme('colors.slate.700'),
                 },
                 '.feature-card': {
@@ -398,14 +425,13 @@ tailwind.config = {
                     borderWidth: '1px',
                     borderColor: theme('colors.slate.200'),
                 },
-                /* UPDATED GRID CONFIGURATION */
                 '.calc-grid-5': {
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', /* Default Mobile: 2 cols */
+                    gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', 
                     gap: theme('spacing.2'), 
-                    '@media (min-width: 640px)': { gridTemplateColumns: 'repeat(3, minmax(0, 1fr))' }, /* SM: 3 cols */
-                    '@media (min-width: 768px)': { gridTemplateColumns: 'repeat(4, minmax(0, 1fr))' }, /* MD: 4 cols */
-                    '@media (min-width: 1024px)': { gridTemplateColumns: 'repeat(6, minmax(0, 1fr))' }, /* Desktop: 6 cols */
+                    '@media (min-width: 640px)': { gridTemplateColumns: 'repeat(3, minmax(0, 1fr))' }, 
+                    '@media (min-width: 768px)': { gridTemplateColumns: 'repeat(4, minmax(0, 1fr))' }, 
+                    '@media (min-width: 1024px)': { gridTemplateColumns: 'repeat(6, minmax(0, 1fr))' }, 
                 },
                 '.calc-card-compact': {
                     position: 'relative',
@@ -418,15 +444,14 @@ tailwind.config = {
                     borderColor: theme('colors.slate.400'), 
                     backgroundColor: theme('colors.slate.50'),
                     
-                    /* FIXED: Reverted standard padding to 1.5, added bottom-specific padding */
                     padding: theme('spacing.1.5'),
-                    paddingBottom: theme('spacing.2.5'), /* Extra bottom space for text */
+                    paddingBottom: theme('spacing.2.5'), 
                     
                     textAlign: 'center',
                     transition: 'all 0.2s ease',
                     textDecoration: 'none',
                     '> div': {
-                        marginBottom: theme('spacing.1'), /* Reverted to tighter icon spacing */
+                        marginBottom: theme('spacing.1'), 
                         display: 'flex',
                         height: theme('spacing.7'), 
                         width: theme('spacing.7'),  
@@ -443,10 +468,9 @@ tailwind.config = {
                         fontFamily: theme('fontFamily.heading'),
                         fontSize: '14px', 
                         fontWeight: '600',
-                        lineHeight: '1.2', /* Slightly looser line-height */
+                        lineHeight: '1.2', 
                         color: theme('colors.slate.900'),
                         transition: 'color 0.2s ease',
-                        /* Prevent overflow for longer titles */
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
                         display: '-webkit-box',
