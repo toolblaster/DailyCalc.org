@@ -244,22 +244,31 @@
                     </div>
                  </div>
 
-                 <!-- Value-Add Grid -->
+                 <!-- Value-Add Grid (UPDATED with .calc-output-card) -->
                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                     <div class="bg-white border border-slate-200 rounded p-3 shadow-sm">
-                        <div class="flex items-center gap-2 mb-1"><div class="bg-green-100 text-green-600 w-6 h-6 rounded-full flex items-center justify-center text-[10px]"><i class="fa-solid fa-scale-balanced"></i></div><span class="text-xs font-bold text-slate-700">Healthy Weight</span></div>
-                        <div class="text-lg font-bold text-slate-900" id="idealWeightDisplay">-- - --</div>
+                     <!-- Healthy Weight Card -->
+                     <div class="calc-output-card">
+                        <div class="flex items-center gap-2 mb-1">
+                            <div class="bg-green-100 text-green-600 w-6 h-6 rounded-full flex items-center justify-center text-[10px]"><i class="fa-solid fa-scale-balanced"></i></div>
+                            <span>Healthy Weight</span>
+                        </div>
+                        <div class="value" id="idealWeightDisplay">-- - --</div>
                         <p class="text-[10px] text-slate-500 leading-tight mt-1" id="weightAdvice">Enter height to see range.</p>
                      </div>
-                     <div class="bg-white border border-slate-200 rounded p-3 shadow-sm">
-                        <div class="flex items-center gap-2 mb-1"><div class="bg-orange-100 text-orange-600 w-6 h-6 rounded-full flex items-center justify-center text-[10px]"><i class="fa-solid fa-fire"></i></div><span class="text-xs font-bold text-slate-700">Daily Burn (BMR)</span></div>
-                        <div class="text-lg font-bold text-slate-900" id="bmrDisplay">--</div>
+                     
+                     <!-- BMR Card -->
+                     <div class="calc-output-card">
+                        <div class="flex items-center gap-2 mb-1">
+                            <div class="bg-orange-100 text-orange-600 w-6 h-6 rounded-full flex items-center justify-center text-[10px]"><i class="fa-solid fa-fire"></i></div>
+                            <span>Daily Burn (BMR)</span>
+                        </div>
+                        <div class="value" id="bmrDisplay">--</div>
                         <p class="text-[10px] text-slate-500 leading-tight mt-1">Calories/day at rest.</p>
                      </div>
                  </div>
 
                  <!-- Reference Table -->
-                 <div class="flex-1 border border-slate-200 rounded overflow-hidden">
+                 <div class="flex-1 rounded overflow-hidden calc-output-card !p-0 !block">
                      <div class="bg-slate-100 px-3 py-2 border-b border-slate-200"><h3 class="text-xs font-bold text-slate-700">Quick Reference</h3></div>
                      <table class="w-full text-xs text-left">
                          <tbody class="divide-y divide-slate-100">
