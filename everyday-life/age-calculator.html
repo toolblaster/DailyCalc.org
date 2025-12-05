@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Age Calculator | Years, Months, Weeks & Days | DailyCalc.org</title>
-    <meta name="description" content="Calculate your exact age in years, months, and days. Find out how many weeks you've been alive, countdown to your next birthday, and understand chronological vs. biological age.">
+    <meta name="description" content="Calculate your exact age in years, months, and days. Find out next big life milestone, and total weeks alive with our free Age Calculator.">
     
     <!-- Standard Imports -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,40 +32,12 @@
         "Exact Age Calculation",
         "Total Weeks and Days",
         "Next Birthday Countdown",
-        "Leap Year Logic"
+        "10,000 Day Milestones"
       ],
       "author": {
         "@type": "Organization",
         "name": "DailyCalc.org"
       }
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [{
-        "@type": "Question",
-        "name": "How is age calculated manually?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "To calculate age manually, subtract your birth year from the current year. If the current month is before your birth month, subtract 1 from the year count. Then, calculate the remaining months and days."
-        }
-      }, {
-        "@type": "Question",
-        "name": "What is chronological age?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Chronological age is the amount of time that has passed from your birth to the given date. It is the primary metric used for legal documents, milestones, and age limits."
-        }
-      }, {
-        "@type": "Question",
-        "name": "Does this calculator count leap years?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes. Our tool accounts for leap years (years with 366 days) to ensure your 'Total Days' and 'Total Weeks' stats are mathematically precise."
-        }
-      }]
     }
     </script>
 </head>
@@ -143,7 +115,19 @@
                         </div>
                      </div>
 
-                     <!-- UPDATED: Using .calc-output-card -->
+                     <!-- Next Milestone Card (Full Width) -->
+                     <div class="col-span-2 bg-slate-50 border border-slate-200 rounded p-3 shadow-inner flex flex-col justify-center items-center">
+                        <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wide mb-1">
+                            <i class="fa-solid fa-flag-checkered text-brand-green mr-1"></i> Next Milestone
+                        </span>
+                        <div class="text-xs text-slate-700 text-center">
+                            You will turn <span class="font-bold text-brand-dark" id="milestoneDays">--</span> days old on:
+                        </div>
+                        <div class="text-sm font-bold text-brand-dark mt-1 bg-white px-3 py-1 rounded border border-slate-200" id="milestoneDate">
+                            --
+                        </div>
+                     </div>
+
                      <!-- Total Weeks -->
                      <div class="calc-output-card">
                         <span>Total Weeks</span>
@@ -185,7 +169,8 @@
                 <!-- 1. Intro -->
                 <section class="info-card">
                     <h3 class="font-bold text-sm text-brand-dark mb-2 flex items-center gap-2">
-                        <i class="fa-solid fa-hourglass-start text-brand-red"></i> What is Chronological Age?
+                        <!-- Updated with .seo-icon -->
+                        <i class="fa-solid fa-hourglass-start seo-icon"></i> What is Chronological Age?
                     </h3>
                     <p class="mb-3">Chronological age is the exact amount of time that has passed from your birth to a given date. While it seems simple, counting it precisely involves navigating calendar quirks like <strong>Leap Years</strong> (which occur every 4 years) and varying month lengths (28, 30, or 31 days).</p>
                     <p class="mb-2 text-xs text-slate-600">This tool calculates age based on the Gregorian calendar, the most widely used civil calendar system in the world.</p>
@@ -194,32 +179,34 @@
                 <!-- 2. Use Cases Grid -->
                 <section class="info-card">
                     <h3 class="font-bold text-sm text-brand-dark mb-3 flex items-center gap-2">
-                        <i class="fa-solid fa-list-check text-[#518428]"></i> Why Calculate Exact Age?
+                        <!-- Updated with .seo-icon -->
+                        <i class="fa-solid fa-list-check seo-icon"></i> Why Calculate Exact Age?
                     </h3>
                     <div class="grid sm:grid-cols-2 gap-4 text-xs">
                         <div class="feature-card">
-                            <div class="text-blue-600 mt-0.5"><i class="fa-solid fa-file-contract"></i></div>
+                            <!-- Use seo-icon here as well for centralized accent -->
+                            <div class="mt-0.5"><i class="fa-solid fa-file-contract seo-icon"></i></div>
                             <div>
                                 <strong class="text-slate-800 block mb-0.5">Administrative & Legal</strong>
                                 <span class="text-slate-600">Checking eligibility for driving licenses (16+), voting (18+), or retirement benefits (65+).</span>
                             </div>
                         </div>
                         <div class="feature-card">
-                            <div class="text-red-500 mt-0.5"><i class="fa-solid fa-heart-pulse"></i></div>
+                            <div class="mt-0.5"><i class="fa-solid fa-heart-pulse seo-icon"></i></div>
                             <div>
                                 <strong class="text-slate-800 block mb-0.5">Medical Metrics</strong>
                                 <span class="text-slate-600">Doctors use precise age (in months) for infant growth charts and to calculate accurate <a href="/health/bmi-calculator.html" class="underline hover:text-brand-red">BMI percentiles</a>.</span>
                             </div>
                         </div>
                         <div class="feature-card">
-                            <div class="text-orange-500 mt-0.5"><i class="fa-solid fa-graduation-cap"></i></div>
+                            <div class="mt-0.5"><i class="fa-solid fa-graduation-cap seo-icon"></i></div>
                             <div>
                                 <strong class="text-slate-800 block mb-0.5">Education & School</strong>
                                 <span class="text-slate-600">Determining school grade admission based on "age cut-off" dates (e.g., must be 5 by September 1st).</span>
                             </div>
                         </div>
                         <div class="feature-card">
-                            <div class="text-purple-600 mt-0.5"><i class="fa-solid fa-champagne-glasses"></i></div>
+                            <div class="mt-0.5"><i class="fa-solid fa-champagne-glasses seo-icon"></i></div>
                             <div>
                                 <strong class="text-slate-800 block mb-0.5">Fun & Milestones</strong>
                                 <span class="text-slate-600">Finding out exactly how many days you've been alive or planning a "10,000th Day" party.</span>
@@ -232,7 +219,8 @@
                 <div class="grid md:grid-cols-2 gap-6">
                     <section class="info-card bg-slate-100 border-slate-200">
                         <h3 class="font-bold text-sm text-slate-800 mb-2 flex items-center gap-2">
-                            <i class="fa-solid fa-calculator"></i> The Math Behind It
+                            <!-- Updated with .seo-icon -->
+                            <i class="fa-solid fa-calculator seo-icon"></i> The Math Behind It
                         </h3>
                         <p class="mb-2 text-xs text-slate-600">Calculating age manually can be tricky:</p>
                         <ol class="list-decimal pl-4 space-y-1 text-xs text-slate-600">
@@ -245,7 +233,8 @@
 
                     <section class="info-card bg-yellow-50/50 border-yellow-100">
                         <h3 class="font-bold text-sm text-yellow-800 mb-2 flex items-center gap-2">
-                            <i class="fa-solid fa-calendar-day"></i> Leap Year Logic
+                            <!-- Updated with .seo-icon -->
+                            <i class="fa-solid fa-calendar-day seo-icon"></i> Leap Year Logic
                         </h3>
                         <p class="text-xs text-yellow-900 leading-relaxed">
                             A year is technically <strong>365.2425 days</strong> long. To account for this quarter-day, we add a 29th day to February every 4 years.
@@ -258,7 +247,8 @@
                 <!-- 4. Cultural Section -->
                 <section class="info-card">
                     <h3 class="font-bold text-sm text-brand-dark mb-2 flex items-center gap-2">
-                        <i class="fa-solid fa-earth-asia text-blue-500"></i> Cultural Age Differences
+                        <!-- Updated with .seo-icon -->
+                        <i class="fa-solid fa-earth-asia seo-icon"></i> Cultural Age Differences
                     </h3>
                     <p class="text-xs text-slate-700 mb-3">In most of the world, you are "0" when born and turn "1" after a year. However, age reckoning varies:</p>
                     <div class="space-y-3">
@@ -273,37 +263,38 @@
                     </div>
                 </section>
 
-                <!-- 5. FAQ Section (Expanded) -->
+                <!-- 5. FAQ Section -->
                 <section class="info-card">
                     <h3 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
-                        <i class="fa-solid fa-circle-question text-[#518428]"></i> Frequently Asked Questions
+                        <!-- Updated with .seo-icon -->
+                        <i class="fa-solid fa-circle-question seo-icon"></i> Frequently Asked Questions
                     </h3>
                     <div class="space-y-4">
                         <div class="flex gap-3 items-start">
                             <div class="flex-shrink-0 w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-[10px] font-bold border border-slate-200 mt-0.5">1</div>
                             <div>
-                                <h4 class="text-[12px] font-bold text-brand-dark mb-1 leading-tight">Can I calculate age for a future date?</h4>
+                                <strong class="block text-[12px] font-bold text-brand-dark mb-1 leading-tight">Can I calculate age for a future date?</strong>
                                 <p class="text-xs text-slate-600">Yes. Changing the "Age at Date" field allows you to see how old you (or someone else) will be at a future event, like a graduation in 2030.</p>
                             </div>
                         </div>
                         <div class="flex gap-3 items-start">
                             <div class="flex-shrink-0 w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-[10px] font-bold border border-slate-200 mt-0.5">2</div>
                             <div>
-                                <h4 class="text-[12px] font-bold text-brand-dark mb-1 leading-tight">What if I was born on February 29?</h4>
+                                <strong class="block text-[12px] font-bold text-brand-dark mb-1 leading-tight">What if I was born on February 29?</strong>
                                 <p class="text-xs text-slate-600">If you are a "Leapling," your birthday technically occurs only every 4 years. In non-leap years, most legal systems consider you a year older on March 1st.</p>
                             </div>
                         </div>
                         <div class="flex gap-3 items-start">
                             <div class="flex-shrink-0 w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-[10px] font-bold border border-slate-200 mt-0.5">3</div>
                             <div>
-                                <h4 class="text-[12px] font-bold text-brand-dark mb-1 leading-tight">Why is the total weeks count useful?</h4>
+                                <strong class="block text-[12px] font-bold text-brand-dark mb-1 leading-tight">Why is the total weeks count useful?</strong>
                                 <p class="text-xs text-slate-600">Viewing your life in weeks (e.g., "4,000 weeks") is a popular productivity and philosophy concept ("Memento Mori") that helps visualize time passing more concretely than years.</p>
                             </div>
                         </div>
                         <div class="flex gap-3 items-start">
                             <div class="flex-shrink-0 w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-[10px] font-bold border border-slate-200 mt-0.5">4</div>
                             <div>
-                                <h4 class="text-[12px] font-bold text-brand-dark mb-1 leading-tight">Does this calculate biological age?</h4>
+                                <strong class="block text-[12px] font-bold text-brand-dark mb-1 leading-tight">Does this calculate biological age?</strong>
                                 <p class="text-xs text-slate-600">No. This tool calculates <em>chronological</em> age (time elapsed). Biological age depends on health markers like cell regeneration, which requires medical testing.</p>
                             </div>
                         </div>
@@ -346,6 +337,9 @@
             const totalDaysEl = document.getElementById('totalDays');
             const totalHoursEl = document.getElementById('totalHours');
             const totalMinutesEl = document.getElementById('totalMinutes');
+            
+            const milestoneDaysEl = document.getElementById('milestoneDays');
+            const milestoneDateEl = document.getElementById('milestoneDate');
 
             // 3. Set Defaults (Today)
             const today = new Date();
@@ -417,18 +411,25 @@
                     nextBirthday.setFullYear(currentYear + 1);
                 }
 
-                // Check for infinite loop or invalid date if Feb 29
-                if (dob.getMonth() === 1 && dob.getDate() === 29) {
-                     // Logic handles JS auto-correction (Feb 29 -> Mar 1 on non-leap years)
-                     // But strictly next 'birthday' might be Mar 1
-                }
-
                 const diffBirthday = nextBirthday - target;
                 const daysToBirthday = Math.ceil(diffBirthday / (1000 * 60 * 60 * 24));
                 
                 const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
                 nextBirthdayDate.textContent = nextBirthday.toLocaleDateString('en-US', options);
                 nextBirthdayDays.textContent = daysToBirthday;
+
+                // --- Milestone Calculation ---
+                // Find next multiple of 1000 days from totalDays
+                const nextMultiple = Math.ceil((totalDays + 1) / 1000) * 1000;
+                // Add the difference to current target date
+                const daysToAdd = nextMultiple - totalDays;
+                const milestoneDate = new Date(target);
+                milestoneDate.setDate(target.getDate() + daysToAdd);
+                
+                milestoneDaysEl.textContent = nextMultiple.toLocaleString();
+                milestoneDateEl.textContent = milestoneDate.toLocaleDateString('en-US', { 
+                    weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' 
+                });
 
                 // Save to History (if function exists)
                 if (window.HistoryManager) {
@@ -450,6 +451,8 @@
                 totalDaysEl.textContent = "--";
                 totalHoursEl.textContent = "--";
                 totalMinutesEl.textContent = "--";
+                milestoneDaysEl.textContent = "--";
+                milestoneDateEl.textContent = "--";
             }
 
             // 5. Event Listeners
