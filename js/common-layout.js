@@ -2,9 +2,7 @@
   DailyCalc.org Common Layout Injector
   ...
   [2025-11-28] Added Wishlist (Favorites) feature replacing 'Suggest a Tool'.
-  [2025-12-01] Fixed Wishlist header text color.
-  [2025-12-01] Updated Footer links: Privacy, Terms, Contact (Moved to legal/ folder).
-  [2025-12-04] Logo Resizing: Reduced logo size to align perfectly with nav items (h-9 desktop, h-7 mobile).
+  [2025-12-05] Wishlist UI: Added Numbering (#1, #2) and specific Icon support in Wishlist Drawer.
 */
 
 const headerHTML = `
@@ -334,10 +332,25 @@ const WishlistUI = {
         const ul = document.createElement('ul');
         ul.className = 'space-y-3';
         
-        items.forEach(item => {
+        // Loop through items (they are already sorted latest first by WishlistManager.add using unshift)
+        items.forEach((item, index) => {
             const li = document.createElement('li');
-            li.className = 'bg-white border border-slate-200 rounded-lg p-3 shadow-sm flex items-center justify-between gap-3 group hover:border-brand-red/30 transition';
+            li.className = 'bg-white border border-slate-200 rounded-lg p-3 shadow-sm flex items-center gap-3 group hover:border-brand-red/30 transition relative'; // Added relative for positioning badge
+            
+            // Calculate Badge Number (Latest #1)
+            const number = index + 1;
+            
             li.innerHTML = `
+                <!-- Number Badge -->
+                <div class="absolute -left-2 -top-2 h-5 w-5 rounded-full bg-brand-dark text-white flex items-center justify-center text-[10px] font-bold shadow-sm z-10 border border-white">
+                    ${number}
+                </div>
+
+                <!-- Icon Container -->
+                <div class="h-8 w-8 shrink-0 flex items-center justify-center rounded bg-slate-50 text-brand-red border border-slate-100">
+                    <i class="fa-solid ${item.icon || 'fa-calculator'}"></i>
+                </div>
+
                 <a href="${item.url}" class="flex-1 min-w-0">
                     <h4 class="text-xs font-bold text-slate-700 truncate group-hover:text-brand-red transition">${item.name || 'Saved Tool'}</h4>
                     <p class="text-[10px] text-slate-500 truncate">${item.category || 'Tool'}</p>
