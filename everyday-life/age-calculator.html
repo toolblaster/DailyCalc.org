@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator | Years, Months, Weeks & Days | DailyCalc.org</title>
+    <meta name="description" content="Calculate your exact age in years, months, and days. Find out how many weeks you've been alive and countdown to your next birthday with our free Age Calculator.">
+    
+    <!-- Standard Imports -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="../css/global.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../js/tailwind-config.js"></script>
+    <script src="../js/global.js" defer></script>
+    <script src="../js/common-layout.js" defer></script>
+    
+    <!-- SCHEMA MARKUP -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Age Calculator",
+      "url": "https://dailycalc.org/everyday-life/age-calculator.html",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "description": "Free Age Calculator to calculate exact chronological age in years, months, and days.",
+      "featureList": [
+        "Exact Age Calculation",
+        "Total Weeks and Days",
+        "Next Birthday Countdown",
+        "Zodiac Sign (Coming Soon)"
+      ],
+      "author": {
+        "@type": "Organization",
+        "name": "DailyCalc.org"
+      }
+    }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased">
+    
+    <div id="header-placeholder"></div>
+    <main id="calculator-layout"></main>
+
+    <!-- SLOT 1: CALCULATOR INTERFACE -->
+    <div id="tool-slot" class="hidden">
+        
+        <div class="calc-tool-header">
+            <i class="fa-solid fa-cake-candles"></i>
+            <span class="text-xs font-medium">Calculate your exact chronological age</span>
+        </div>
+
+        <!-- UNIVERSAL LAYOUT WRAPPER -->
+        <div class="calc-body-wrapper">
+            
+            <!-- LEFT: INPUT SECTION -->
+            <div class="calc-input-section">
+                 <form id="ageForm">
+                    <div class="mb-4">
+                        <label class="block text-xs font-bold text-slate-700 mb-2">Date of Birth</label>
+                        <!-- Native Date Picker for Mobile Optimization -->
+                        <div class="relative">
+                            <input type="date" id="dobInput" class="compact-input w-full pr-2 text-center font-bold text-slate-800 h-10 cursor-pointer" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-xs font-bold text-slate-700 mb-2">Age at Date (Optional)</label>
+                        <div class="relative">
+                            <input type="date" id="targetDateInput" class="compact-input w-full pr-2 text-center font-bold text-slate-800 h-10 cursor-pointer">
+                            <p class="text-[10px] text-slate-500 mt-1 text-center">Defaults to Today</p>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <button type="button" id="calcButton" class="w-full rounded bg-[#518428] py-2.5 text-sm font-bold text-white shadow-md hover:bg-green-700 hover:shadow-lg transition-all">CALCULATE AGE</button>
+                        <button type="button" id="clearButton" class="text-[11px] text-slate-500 hover:text-brand-red font-semibold text-center underline decoration-slate-300 hover:decoration-brand-red transition-all">Reset to Today</button>
+                    </div>
+                 </form>
+            </div>
+
+            <!-- RIGHT: OUTPUT SECTION -->
+            <div class="calc-output-section">
+                 
+                 <!-- Main Result Card -->
+                 <div class="rounded-lg border border-slate-400 bg-white shadow-lg overflow-hidden flex flex-col">
+                    <div class="result-header">
+                        <div><div class="result-label">Your Age</div><div class="result-value text-xl sm:text-2xl" id="resultMain">--</div></div>
+                        <div class="calc-action-group">
+                            <button id="saveBtn" class="calc-action-btn dark" title="Save Result"><i class="fa-regular fa-bookmark"></i></button>
+                            <button id="shareBtn" class="calc-action-btn dark" title="Copy Link"><i class="fa-solid fa-share-nodes"></i></button>
+                        </div>
+                    </div>
+                    <div class="p-5 bg-white text-center">
+                        <p class="text-xs text-slate-500 font-medium uppercase tracking-wide mb-1">In Detail</p>
+                        <p class="text-lg font-bold text-slate-800" id="resultDetail">Enter your birth date</p>
+                    </div>
+                 </div>
+
+                 <!-- Fun Stats Grid -->
+                 <div class="grid grid-cols-2 gap-3">
+                     <!-- Next Birthday -->
+                     <div class="col-span-2 bg-gradient-to-br from-white to-orange-50 border border-orange-100 rounded p-3 shadow-sm flex items-center justify-between">
+                        <div>
+                            <span class="text-[10px] font-bold text-orange-600 uppercase tracking-wide"><i class="fa-solid fa-gift mr-1"></i> Next Birthday</span>
+                            <div class="text-sm font-bold text-slate-800 mt-0.5" id="nextBirthdayDate">--</div>
+                        </div>
+                        <div class="text-right">
+                             <div class="text-xl font-bold text-orange-500" id="nextBirthdayDays">--</div>
+                             <div class="text-[9px] text-slate-400 font-medium">days left</div>
+                        </div>
+                     </div>
+
+                     <!-- UPDATED: Using .calc-output-card -->
+                     <!-- Total Weeks -->
+                     <div class="calc-output-card">
+                        <span>Total Weeks</span>
+                        <div class="value" id="totalWeeks">--</div>
+                     </div>
+
+                     <!-- Total Days -->
+                     <div class="calc-output-card">
+                        <span>Total Days</span>
+                        <div class="value" id="totalDays">--</div>
+                     </div>
+                     
+                     <!-- Total Hours -->
+                     <div class="calc-output-card">
+                        <span>Total Hours</span>
+                        <div class="value" id="totalHours">--</div>
+                     </div>
+
+                     <!-- Total Minutes -->
+                     <div class="calc-output-card">
+                        <span>Total Minutes</span>
+                        <div class="value" id="totalMinutes">--</div>
+                     </div>
+                 </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- SLOT 2: SEO & GUIDE -->
+    <div id="seo-slot" class="hidden">
+        <div class="content-section">
+            <div class="bg-gradient-to-r from-brand-dark to-brand-red px-4 py-3 border-b border-white/10">
+                <h2 class="font-bold text-white">Age Calculation Guide</h2>
+            </div>
+            
+            <div class="calc-seo-content">
+                
+                <section class="info-card">
+                    <h3 class="font-bold text-sm text-brand-dark mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-info text-brand-red"></i> How We Calculate Age
+                    </h3>
+                    <p class="mb-3">Our Age Calculator determines your exact age by calculating the time difference between your <strong>Date of Birth</strong> and the current date (or a specific target date).</p>
+                    <p class="mb-2">It accounts for:</p>
+                    <ul class="list-disc pl-5 space-y-1 text-slate-600 text-xs">
+                        <li><strong>Leap Years:</strong> Years with 366 days (like 2020, 2024) are factored in to ensure the day count is precise.</li>
+                        <li><strong>Month Lengths:</strong> The varying number of days in each month (28, 30, or 31) are calculated accurately.</li>
+                    </ul>
+                </section>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <section class="info-card">
+                        <h3 class="font-bold text-sm text-brand-dark mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-calendar-check text-[#518428]"></i> Uses for this Tool
+                        </h3>
+                        <ul class="list-disc pl-5 space-y-2 text-slate-600 text-xs">
+                            <li><strong>Chronological Age:</strong> For official forms, medical records, or legal documents.</li>
+                            <li><strong>Event Planning:</strong> Calculate exactly how old someone will be on their next birthday or a future wedding date.</li>
+                            <li><strong>Fun Stats:</strong> Find out how many minutes or seconds you've been alive!</li>
+                        </ul>
+                    </section>
+
+                    <section class="info-card bg-orange-50/50 border-orange-100">
+                        <h3 class="font-bold text-sm text-brand-dark mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-lightbulb text-orange-500"></i> Did You Know?
+                        </h3>
+                        <p class="mb-2 text-slate-700">In some cultures (like traditional East Asian age reckoning), you are considered "1 year old" the moment you are born. This calculator uses the international standard system (starting at 0).</p>
+                    </section>
+                </div>
+
+                <!-- FAQ Section -->
+                <section class="info-card">
+                    <h3 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-question text-[#518428]"></i> Frequently Asked Questions
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex gap-3 items-start">
+                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-[10px] font-bold border border-slate-200 mt-0.5">1</div>
+                            <div>
+                                <h4 class="text-[12px] font-bold text-brand-dark mb-1 leading-tight">Does this account for leap years?</h4>
+                                <p class="text-xs text-slate-600">Yes. The calculator recognizes that leap years have 366 days (adding Feb 29th) and adjusts the total day count accordingly.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 items-start">
+                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-[10px] font-bold border border-slate-200 mt-0.5">2</div>
+                            <div>
+                                <h4 class="text-[12px] font-bold text-brand-dark mb-1 leading-tight">Can I calculate age for a future date?</h4>
+                                <p class="text-xs text-slate-600">Absolutely. Just change the "Age at Date" field to any date in the future. This is useful for seeing how old you will be at a future event like a graduation or retirement.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 items-start">
+                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-[10px] font-bold border border-slate-200 mt-0.5">3</div>
+                            <div>
+                                <h4 class="text-[12px] font-bold text-brand-dark mb-1 leading-tight">How is "Total Weeks" calculated?</h4>
+                                <p class="text-xs text-slate-600">Total weeks is calculated by dividing the total number of days you've been alive by 7. The remaining days are not typically shown as a decimal but are part of the calculation.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- REQUIRED: Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <!-- LOGIC -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Initialize Layout
+            if (typeof CalculatorLayout !== 'undefined') {
+                CalculatorLayout.render({ 
+                    title: "Age Calculator", 
+                    category: "Everyday Life", 
+                    toolId: "tool-slot", 
+                    seoId: "seo-slot" 
+                });
+            }
+
+            // 2. Elements
+            const dobInput = document.getElementById('dobInput');
+            const targetDateInput = document.getElementById('targetDateInput');
+            const calcBtn = document.getElementById('calcButton');
+            const clearBtn = document.getElementById('clearButton');
+            const saveBtn = document.getElementById('saveBtn');
+            const shareBtn = document.getElementById('shareBtn');
+            
+            // Output Elements
+            const resultMain = document.getElementById('resultMain');
+            const resultDetail = document.getElementById('resultDetail');
+            const nextBirthdayDate = document.getElementById('nextBirthdayDate');
+            const nextBirthdayDays = document.getElementById('nextBirthdayDays');
+            const totalWeeksEl = document.getElementById('totalWeeks');
+            const totalDaysEl = document.getElementById('totalDays');
+            const totalHoursEl = document.getElementById('totalHours');
+            const totalMinutesEl = document.getElementById('totalMinutes');
+
+            // 3. Set Defaults (Today)
+            const today = new Date();
+            const todayStr = today.toISOString().split('T')[0];
+            targetDateInput.value = todayStr;
+
+            // 4. Main Calculation Function
+            function calculateAge() {
+                const dobVal = dobInput.value;
+                const targetVal = targetDateInput.value;
+
+                if (!dobVal) {
+                    resetResults("Enter Birth Date");
+                    return;
+                }
+
+                const dob = new Date(dobVal);
+                const target = new Date(targetVal);
+
+                if (dob > target) {
+                    resetResults("Date is in future!");
+                    return;
+                }
+
+                // --- Calculate Year/Month/Day Difference ---
+                let years = target.getFullYear() - dob.getFullYear();
+                let months = target.getMonth() - dob.getMonth();
+                let days = target.getDate() - dob.getDate();
+
+                if (days < 0) {
+                    months--;
+                    // Get days in previous month
+                    const prevMonth = new Date(target.getFullYear(), target.getMonth(), 0);
+                    days += prevMonth.getDate();
+                }
+
+                if (months < 0) {
+                    years--;
+                    months += 12;
+                }
+
+                // --- Update Main UI ---
+                resultMain.textContent = `${years} yrs`;
+                resultDetail.textContent = `${years} years, ${months} months, ${days} days`;
+
+                // --- Calculate Totals (Time Diff) ---
+                // Set times to midnight to ensure clean day calculation
+                const dobTime = new Date(dobVal).setHours(0,0,0,0);
+                const targetTime = new Date(targetVal).setHours(0,0,0,0);
+                
+                const diffTime = Math.abs(targetTime - dobTime);
+                const totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)); 
+                const totalWeeks = Math.floor(totalDays / 7);
+                const totalHours = totalDays * 24;
+                const totalMinutes = totalHours * 60;
+
+                totalDaysEl.textContent = totalDays.toLocaleString();
+                totalWeeksEl.textContent = totalWeeks.toLocaleString();
+                totalHoursEl.textContent = totalHours.toLocaleString();
+                totalMinutesEl.textContent = totalMinutes.toLocaleString();
+
+                // --- Next Birthday Calculation ---
+                const currentYear = target.getFullYear();
+                let nextBirthday = new Date(dobVal);
+                nextBirthday.setFullYear(currentYear);
+                
+                // If birthday has passed this year, add 1 to year
+                if (nextBirthday < target) {
+                    nextBirthday.setFullYear(currentYear + 1);
+                }
+
+                // Check for infinite loop or invalid date if Feb 29
+                if (dob.getMonth() === 1 && dob.getDate() === 29) {
+                     // Logic handles JS auto-correction (Feb 29 -> Mar 1 on non-leap years)
+                     // But strictly next 'birthday' might be Mar 1
+                }
+
+                const diffBirthday = nextBirthday - target;
+                const daysToBirthday = Math.ceil(diffBirthday / (1000 * 60 * 60 * 24));
+                
+                const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
+                nextBirthdayDate.textContent = nextBirthday.toLocaleDateString('en-US', options);
+                nextBirthdayDays.textContent = daysToBirthday;
+
+                // Save to History (if function exists)
+                if (window.HistoryManager) {
+                    window.HistoryManager.save(
+                        "Age Calculator", 
+                        `Born: ${dobVal}`, 
+                        `${years}y ${months}m`, 
+                        window.location.href
+                    );
+                }
+            }
+
+            function resetResults(msg) {
+                resultMain.textContent = "--";
+                resultDetail.textContent = msg || "Enter your birth date";
+                nextBirthdayDate.textContent = "--";
+                nextBirthdayDays.textContent = "--";
+                totalWeeksEl.textContent = "--";
+                totalDaysEl.textContent = "--";
+                totalHoursEl.textContent = "--";
+                totalMinutesEl.textContent = "--";
+            }
+
+            // 5. Event Listeners
+            calcBtn.addEventListener('click', calculateAge);
+            dobInput.addEventListener('change', calculateAge);
+            targetDateInput.addEventListener('change', calculateAge);
+            
+            clearBtn.addEventListener('click', () => {
+                dobInput.value = '';
+                targetDateInput.value = todayStr;
+                resetResults();
+            });
+
+            // 6. Share & Save
+            if(saveBtn) saveBtn.addEventListener('click', () => {
+                const age = resultMain.textContent;
+                if(age === "--") return;
+                const presetName = prompt("Name this person (e.g., 'Mom', 'Best Friend'):");
+                if (presetName) {
+                    const preset = { 
+                        name: presetName, 
+                        date: new Date().toISOString(), 
+                        inputs: `Born: ${dobInput.value}`, 
+                        calculator: 'Age Calculator', 
+                        result: resultDetail.textContent, 
+                        url: window.location.href 
+                    };
+                    let allPresets = JSON.parse(localStorage.getItem('dailyCalcPresets')) || {};
+                    if (!allPresets['Everyday Life']) allPresets['Everyday Life'] = [];
+                    allPresets['Everyday Life'].push(preset);
+                    localStorage.setItem('dailyCalcPresets', JSON.stringify(allPresets));
+                    
+                    // Feedback Animation
+                    const originalHtml = saveBtn.innerHTML; 
+                    saveBtn.innerHTML = `<i class="fa-solid fa-check text-green-600"></i>`; 
+                    setTimeout(() => saveBtn.innerHTML = originalHtml, 2000);
+                }
+            });
+
+            if(shareBtn) shareBtn.addEventListener('click', () => {
+                const params = new URLSearchParams();
+                params.set('dob', dobInput.value);
+                if(targetDateInput.value !== todayStr) params.set('target', targetDateInput.value);
+                
+                const shareUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+                
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(shareUrl).then(() => showShareSuccess());
+                } else {
+                    prompt("Copy this link:", shareUrl);
+                }
+            });
+
+            function showShareSuccess() {
+                const originalHtml = shareBtn.innerHTML; 
+                shareBtn.innerHTML = `<i class="fa-solid fa-check text-green-600"></i>`; 
+                setTimeout(() => shareBtn.innerHTML = originalHtml, 2000);
+            }
+
+            // 7. Parse URL Params
+            const params = new URLSearchParams(window.location.search);
+            if(params.has('dob')) {
+                dobInput.value = params.get('dob');
+                if(params.has('target')) targetDateInput.value = params.get('target');
+                calculateAge();
+            }
+        });
+    </script>
+</body>
+</html>
