@@ -1,8 +1,7 @@
 /*
   DailyCalc.org Centralized Tailwind Configuration
   ...
-  [2025-12-05] Added .seo-icon for centralized styling of icons in SEO content sections.
-  [2025-12-06] Centralized .result-value size (20px/24px) to match Length Converter standard.
+  [2025-12-06] Centralized .result-value size (20px/24px) for consistency across all tools.
 */
 
 tailwind.config = {
@@ -249,9 +248,9 @@ tailwind.config = {
                     color: 'rgba(255, 255, 255, 0.9)',
                 },
                 /* CENTRALIZED RESULT SIZE 
-                   Ensures all calculators share the "perfect" size from Length Converter.
-                   Mobile: 20px (text-xl)
-                   Desktop: 24px (text-2xl)
+                   Ensures all calculators share the exact same size.
+                   Mobile: 20px
+                   Desktop (sm+): 24px
                 */
                 '.result-value': {
                     fontSize: '20px', 
