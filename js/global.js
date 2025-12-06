@@ -4,6 +4,7 @@
   [2025-11-28] HistoryManager: Enforced "Single Entry Per Tool" policy for ALL calculators.
   [2025-11-28] WishlistManager: Added for managing Favorite tools via localStorage.
   [2025-12-05] WishlistManager: Updated to store Icons. SidebarWidget now detects icons automatically.
+  [2025-12-06] Registry Update: Updated Length Converter URL to length-calculator.html.
 */
 
 const CALCULATOR_REGISTRY = {
@@ -33,7 +34,7 @@ const CALCULATOR_REGISTRY = {
         { name: "Fuel Cost", url: "/everyday-life/fuel-cost.html", icon: "fa-gas-pump" }
     ],
     'Converters': [
-        { name: "Length Converter", url: "/converters/length.html", icon: "fa-ruler" },
+        { name: "Length Converter", url: "/converters/length-calculator.html", icon: "fa-ruler" },
         { name: "Weight Converter", url: "/converters/weight.html", icon: "fa-weight-hanging" },
         { name: "Temperature", url: "/converters/temperature.html", icon: "fa-temperature-half" }
     ]
@@ -136,10 +137,8 @@ const WishlistManager = {
 };
 window.WishlistManager = WishlistManager;
 
-// ... (Rest of file: GlobalSearch, SidebarWidget, etc.) ...
-
+// --- SEARCH MODULE ---
 const GlobalSearch = {
-    // ... [Same as previous version] ...
     modalHTML: `
         <div id="searchModal" class="fixed inset-0 z-[100] hidden" aria-labelledby="searchModalTitle" role="dialog" aria-modal="true">
             <div id="searchModalOverlay" class="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity opacity-0"></div>
@@ -441,7 +440,6 @@ const SidebarWidget = {
     },
 
     getResultHTML(count, voteType) {
-        // ... [Same as previous] ...
         const thumbClass = voteType === 'yes' ? 'text-brand-green' : 'text-slate-400';
         const iconClass = voteType === 'yes' ? 'fa-solid' : 'fa-regular';
         return `
@@ -456,7 +454,6 @@ const SidebarWidget = {
     },
 
     transitionToResult(wrapper, count, voteType) {
-        // ... [Same as previous] ...
         const voteSection = wrapper.querySelector('#vote-section');
         if (voteSection) {
             voteSection.outerHTML = this.getResultHTML(count, voteType);
@@ -464,7 +461,6 @@ const SidebarWidget = {
     },
 
     attachShareListeners(wrapper) {
-        // ... [Same as previous] ...
         const url = encodeURIComponent(window.location.href);
         const title = encodeURIComponent(document.title);
         const shareTrigger = wrapper.querySelector('#share-trigger');
@@ -502,8 +498,6 @@ const SidebarWidget = {
         });
     }
 };
-
-// ... (AutoSave, DynamicSEO, DailyLineChart) ...
 
 const AutoSave = {
     init() {
