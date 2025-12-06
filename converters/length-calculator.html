@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Length Converter Calculator | Meters, Feet, Inches, Miles & More | DailyCalc.org</title>
+    <meta name="description" content="Free online Length Converter Calculator. Instantly convert between Metric (meters, cm, km) and Imperial (feet, inches, miles, yards) units with formula reference.">
+    
+    <!-- Standard Imports -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="../css/global.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../js/tailwind-config.js"></script>
+    <script src="../js/global.js" defer></script>
+    <script src="../js/common-layout.js" defer></script>
+    
+    <!-- Canonical URL Updated -->
+    <link rel="canonical" href="https://dailycalc.org/converters/length-calculator.html">
+
+    <!-- SCHEMA MARKUP -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Length Converter Calculator",
+      "url": "https://dailycalc.org/converters/length-calculator.html",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "description": "A comprehensive length conversion calculator supporting Metric and Imperial units including meters, kilometers, feet, inches, miles, and nautical miles.",
+      "featureList": [
+        "Instant Conversion",
+        "Metric to Imperial Support",
+        "Formula Display",
+        "Dynamic Conversion Table"
+      ],
+      "author": {
+        "@type": "Organization",
+        "name": "DailyCalc.org"
+      }
+    }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased">
+    
+    <div id="header-placeholder"></div>
+    <main id="calculator-layout"></main>
+
+    <!-- SLOT 1: CALCULATOR INTERFACE -->
+    <div id="tool-slot" class="hidden">
+        
+        <div class="calc-tool-header">
+            <i class="fa-solid fa-ruler-combined"></i>
+            <span class="text-xs font-medium">Convert length measurements instantly</span>
+        </div>
+
+        <!-- UNIVERSAL LAYOUT WRAPPER -->
+        <div class="calc-body-wrapper">
+            
+            <!-- LEFT: INPUT SECTION -->
+            <div class="calc-input-section">
+                 <form id="converterForm">
+                    <div class="mb-4">
+                        <label for="inputValue" class="block text-xs font-bold text-slate-700 mb-2">Value to Convert</label>
+                        <!-- Reduced height to h-8 and font size to text-base for compactness -->
+                        <input type="number" id="inputValue" value="1" class="compact-input w-full font-bold text-base h-9 pr-3 text-slate-800" placeholder="Enter length...">
+                    </div>
+
+                    <!-- UPDATED: Flex Layout for Proper Button Spacing -->
+                    <div class="flex items-end gap-2 mb-4">
+                        <div class="flex-1 min-w-0">
+                            <label for="fromUnit" class="block text-xs font-bold text-slate-700 mb-1">From</label>
+                            <!-- Adjusted height to h-9 and text size -->
+                            <select id="fromUnit" class="compact-select w-full h-9 font-medium text-slate-700 text-[11px] sm:text-xs truncate">
+                                <optgroup label="Metric" class="font-extrabold text-slate-900 bg-slate-100">
+                                    <option value="km">Kilometer (km)</option>
+                                    <option value="m" selected>Meter (m)</option>
+                                    <option value="dm">Decimeter (dm)</option>
+                                    <option value="cm">Centimeter (cm)</option>
+                                    <option value="mm">Millimeter (mm)</option>
+                                    <option value="um">Micrometer (μm)</option>
+                                    <option value="nm">Nanometer (nm)</option>
+                                </optgroup>
+                                <optgroup label="Imperial / US" class="font-extrabold text-slate-900 bg-slate-100">
+                                    <option value="mi">Mile (mi)</option>
+                                    <option value="yd">Yard (yd)</option>
+                                    <option value="ft">Foot (ft)</option>
+                                    <option value="in">Inch (in)</option>
+                                </optgroup>
+                                <optgroup label="Nautical & Astro" class="font-extrabold text-slate-900 bg-slate-100">
+                                    <option value="nmi">Nautical Mile</option>
+                                    <option value="ly">Light Year</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        
+                        <!-- Swap Button (Centered & Spaced) - Adjusted for h-9 inputs -->
+                        <div class="flex-none mb-0.5">
+                            <button type="button" id="swapBtn" class="w-8 h-8 bg-white border border-slate-300 rounded-full flex items-center justify-center text-slate-500 hover:text-brand-red hover:border-brand-red shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-brand-red/20" title="Swap Units">
+                                <i class="fa-solid fa-arrow-right-arrow-left text-xs"></i>
+                            </button>
+                        </div>
+
+                        <div class="flex-1 min-w-0">
+                            <label for="toUnit" class="block text-xs font-bold text-slate-700 mb-1">To</label>
+                            <!-- Adjusted height to h-9 and text size -->
+                            <select id="toUnit" class="compact-select w-full h-9 font-medium text-slate-700 text-[11px] sm:text-xs truncate">
+                                <optgroup label="Metric" class="font-extrabold text-slate-900 bg-slate-100">
+                                    <option value="km">Kilometer (km)</option>
+                                    <option value="m">Meter (m)</option>
+                                    <option value="dm">Decimeter (dm)</option>
+                                    <option value="cm">Centimeter (cm)</option>
+                                    <option value="mm">Millimeter (mm)</option>
+                                    <option value="um">Micrometer (μm)</option>
+                                    <option value="nm">Nanometer (nm)</option>
+                                </optgroup>
+                                <optgroup label="Imperial / US" class="font-extrabold text-slate-900 bg-slate-100">
+                                    <option value="mi">Mile (mi)</option>
+                                    <option value="yd">Yard (yd)</option>
+                                    <option value="ft" selected>Foot (ft)</option>
+                                    <option value="in">Inch (in)</option>
+                                </optgroup>
+                                <optgroup label="Nautical & Astro" class="font-extrabold text-slate-900 bg-slate-100">
+                                    <option value="nmi">Nautical Mile</option>
+                                    <option value="ly">Light Year</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <!-- Auto-calculation is enabled, but button provides visual confirmation -->
+                        <button type="button" id="calcButton" class="w-full rounded bg-[#518428] py-2.5 text-sm font-bold text-white shadow-md hover:bg-green-700 hover:shadow-lg transition-all">CONVERT</button>
+                        <button type="button" id="clearButton" class="text-[11px] text-slate-500 hover:text-brand-red font-semibold text-center underline decoration-slate-300 hover:decoration-brand-red transition-all">Reset</button>
+                    </div>
+                 </form>
+            </div>
+
+            <!-- RIGHT: OUTPUT SECTION -->
+            <div class="calc-output-section">
+                 
+                 <!-- Main Result Card -->
+                 <div class="rounded-lg border border-slate-400 bg-white shadow-lg overflow-hidden flex flex-col mb-4">
+                    <div class="result-header">
+                        <div class="flex flex-col">
+                            <div class="result-label opacity-80">Result</div>
+                            <div class="flex items-baseline gap-2 flex-wrap">
+                                <!-- Decreased font size using !text-xl sm:!text-2xl overrides -->
+                                <span class="result-value !text-xl sm:!text-2xl" id="resultValue">--</span>
+                                <span class="text-xs font-bold text-white/90" id="resultUnit">ft</span>
+                            </div>
+                        </div>
+                        <div class="calc-action-group">
+                            <button id="saveBtn" class="calc-action-btn dark" title="Save Result"><i class="fa-regular fa-bookmark"></i></button>
+                            <button id="shareBtn" class="calc-action-btn dark" title="Copy Link"><i class="fa-solid fa-share-nodes"></i></button>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-slate-50 border-t border-slate-200">
+                        <p class="text-xs text-slate-500 font-medium uppercase tracking-wide mb-1">Conversion Logic</p>
+                        <p class="text-sm font-bold text-slate-800" id="formulaDisplay">1 m = 3.28084 ft</p>
+                    </div>
+                 </div>
+
+                 <!-- Quick Reference Grid -->
+                 <div class="bg-white border border-slate-200 rounded-lg p-0 overflow-hidden shadow-sm">
+                     <div class="bg-slate-100 px-3 py-2 border-b border-slate-200 flex justify-between items-center">
+                         <h3 class="text-xs font-bold text-slate-700"><i class="fa-solid fa-list-ul mr-1 text-brand-red"></i> Quick Reference</h3>
+                         <span class="text-[10px] text-slate-400">Based on Input</span>
+                     </div>
+                     <div class="grid grid-cols-2 divide-x divide-y divide-slate-100 text-xs" id="quickRefGrid">
+                         <!-- Injected by JS -->
+                     </div>
+                 </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- SLOT 2: SEO & GUIDE -->
+    <div id="seo-slot" class="hidden">
+        <div class="content-section">
+            <div class="bg-gradient-to-r from-brand-dark to-brand-red px-4 py-3 border-b border-white/10">
+                <h2 class="font-bold text-white">Length Conversion Guide</h2>
+            </div>
+            
+            <div class="calc-seo-content">
+                
+                <!-- 1. Intro -->
+                <section class="info-card">
+                    <h3 class="font-bold text-sm text-brand-dark mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-globe seo-icon"></i> Metric vs. Imperial Systems
+                    </h3>
+                    <p class="mb-3">The world primarily uses two systems for measuring length. Understanding the difference is key to accurate conversion.</p>
+                    <div class="grid sm:grid-cols-2 gap-4 text-xs">
+                        <div class="bg-blue-50/50 p-3 rounded border border-blue-100">
+                            <strong class="text-blue-800 block mb-1">Metric System (SI)</strong>
+                            <p class="text-slate-600 mb-2">Used by 95% of the world. It is a decimal system based on powers of 10.</p>
+                            <ul class="list-disc pl-4 space-y-0.5 text-slate-500">
+                                <li>Base unit: <strong>Meter (m)</strong></li>
+                                <li>1 km = 1,000 m</li>
+                                <li>1 m = 100 cm = 1,000 mm</li>
+                            </ul>
+                        </div>
+                        <div class="bg-red-50/50 p-3 rounded border border-red-100">
+                            <strong class="text-red-800 block mb-1">Imperial / US Customary</strong>
+                            <p class="text-slate-600 mb-2">Primarily used in the United States, Liberia, and Myanmar. Based on historical standards.</p>
+                            <ul class="list-disc pl-4 space-y-0.5 text-slate-500">
+                                <li>Base units: Inch, Foot, Yard, Mile</li>
+                                <li>1 ft = 12 in</li>
+                                <li>1 yd = 3 ft</li>
+                                <li>1 mi = 5,280 ft</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. Common Formulas -->
+                <section class="info-card">
+                    <h3 class="font-bold text-sm text-brand-dark mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-calculator seo-icon"></i> Common Conversion Factors
+                    </h3>
+                    <div class="overflow-x-auto border border-slate-200 rounded-lg shadow-sm">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-slate-100 text-slate-700">
+                                <tr>
+                                    <th class="px-3 py-2 font-bold border-r border-slate-200">From</th>
+                                    <th class="px-3 py-2 font-bold border-r border-slate-200">To</th>
+                                    <th class="px-3 py-2 font-bold">Multiply By</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 text-slate-600">
+                                <tr><td class="px-3 py-2 border-r">Inches</td><td class="px-3 py-2 border-r">Centimeters</td><td class="px-3 py-2 font-mono text-brand-red">2.54</td></tr>
+                                <tr><td class="px-3 py-2 border-r">Feet</td><td class="px-3 py-2 border-r">Meters</td><td class="px-3 py-2 font-mono text-brand-red">0.3048</td></tr>
+                                <tr><td class="px-3 py-2 border-r">Yards</td><td class="px-3 py-2 border-r">Meters</td><td class="px-3 py-2 font-mono text-brand-red">0.9144</td></tr>
+                                <tr><td class="px-3 py-2 border-r">Miles</td><td class="px-3 py-2 border-r">Kilometers</td><td class="px-3 py-2 font-mono text-brand-red">1.60934</td></tr>
+                                <tr><td class="px-3 py-2 border-r">Meters</td><td class="px-3 py-2 border-r">Feet</td><td class="px-3 py-2 font-mono text-brand-red">3.28084</td></tr>
+                                <tr><td class="px-3 py-2 border-r">Kilometers</td><td class="px-3 py-2 border-r">Miles</td><td class="px-3 py-2 font-mono text-brand-red">0.62137</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 3. Did You Know -->
+                <section class="info-card bg-slate-50 border-slate-200">
+                    <h3 class="font-bold text-sm text-slate-800 mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-lightbulb text-yellow-500"></i> Did You Know?
+                    </h3>
+                    <ul class="space-y-2 text-xs text-slate-600">
+                        <li class="flex gap-2 items-start">
+                            <i class="fa-solid fa-check text-green-500 mt-0.5"></i>
+                            <span>The <strong>Meter</strong> was originally defined in 1793 as one ten-millionth of the distance from the equator to the North Pole.</span>
+                        </li>
+                        <li class="flex gap-2 items-start">
+                            <i class="fa-solid fa-check text-green-500 mt-0.5"></i>
+                            <span>A <strong>Nautical Mile</strong> is based on the circumference of the earth and equals one minute of latitude (approx 1.15 regular miles).</span>
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- 4. FAQ -->
+                <section class="info-card">
+                    <h3 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-question seo-icon"></i> Frequently Asked Questions
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex gap-3 items-start">
+                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-[10px] font-bold border border-slate-200 mt-0.5">1</div>
+                            <div>
+                                <strong class="block text-[12px] font-bold text-brand-dark mb-1 leading-tight">How many feet are in a mile?</strong>
+                                <p class="text-xs text-slate-600">There are exactly 5,280 feet in a standard mile.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 items-start">
+                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-[10px] font-bold border border-slate-200 mt-0.5">2</div>
+                            <div>
+                                <strong class="block text-[12px] font-bold text-brand-dark mb-1 leading-tight">Is a Yard longer than a Meter?</strong>
+                                <p class="text-xs text-slate-600">No. A meter is slightly longer. 1 Meter = 1.0936 Yards.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Init Layout (Updated Title)
+            if (typeof CalculatorLayout !== 'undefined') {
+                CalculatorLayout.render({ 
+                    title: "Length Converter", 
+                    category: "Converters", 
+                    toolId: "tool-slot", 
+                    seoId: "seo-slot" 
+                });
+            }
+
+            // 2. Elements
+            const inputValue = document.getElementById('inputValue');
+            const fromUnit = document.getElementById('fromUnit');
+            const toUnit = document.getElementById('toUnit');
+            const swapBtn = document.getElementById('swapBtn');
+            const resultValue = document.getElementById('resultValue');
+            const resultUnit = document.getElementById('resultUnit');
+            const formulaDisplay = document.getElementById('formulaDisplay');
+            const quickRefGrid = document.getElementById('quickRefGrid');
+            const calcBtn = document.getElementById('calcButton');
+            const clearBtn = document.getElementById('clearButton');
+            const saveBtn = document.getElementById('saveBtn');
+            const shareBtn = document.getElementById('shareBtn');
+
+            // 3. Conversion Rates (Base = Meter)
+            const rates = {
+                km: 1000,
+                m: 1,
+                dm: 0.1,
+                cm: 0.01,
+                mm: 0.001,
+                um: 0.000001,
+                nm: 0.000000001,
+                mi: 1609.344,
+                yd: 0.9144,
+                ft: 0.3048,
+                in: 0.0254,
+                nmi: 1852,
+                ly: 9460730472580800
+            };
+
+            const unitNames = {
+                km: 'Kilometers', m: 'Meters', dm: 'Decimeters', cm: 'Centimeters', mm: 'Millimeters',
+                um: 'Micrometers', nm: 'Nanometers',
+                mi: 'Miles', yd: 'Yards', ft: 'Feet', in: 'Inches', nmi: 'Nautical Miles', ly: 'Light Years'
+            };
+
+            // 4. Calculation Function
+            function convert() {
+                const val = parseFloat(inputValue.value);
+                if (isNaN(val)) {
+                    resultValue.textContent = "--";
+                    formulaDisplay.textContent = "Enter a number";
+                    return;
+                }
+
+                const from = fromUnit.value;
+                const to = toUnit.value;
+
+                // Step 1: Convert to Base (Meter)
+                const inMeters = val * rates[from];
+                
+                // Step 2: Convert to Target
+                const result = inMeters / rates[to];
+
+                // Display Formatting
+                // Use mostly significant digits, up to 6 decimals, strip trailing zeros
+                const formattedResult = parseFloat(result.toFixed(6));
+                
+                resultValue.textContent = formattedResult.toLocaleString('en-US', { maximumFractionDigits: 6 });
+                resultUnit.textContent = to;
+
+                // Update Formula Text
+                const oneUnitToTarget = (1 * rates[from]) / rates[to];
+                formulaDisplay.textContent = `1 ${from} ≈ ${parseFloat(oneUnitToTarget.toPrecision(6))} ${to}`;
+
+                updateQuickRef(inMeters, from);
+                
+                // Save to History (Debounced in a real app, direct here for simplicity or use the Manager)
+                if (window.HistoryManager) {
+                    window.HistoryManager.save(
+                        "Length Converter Calculator",
+                        `${val} ${from} to ${to}`,
+                        `${formattedResult} ${to}`
+                    );
+                }
+            }
+
+            // 5. Update Quick Ref Grid (Shows Value converted to other popular units)
+            function updateQuickRef(metersValue, currentFrom) {
+                const popularUnits = ['m', 'km', 'ft', 'in', 'mi', 'yd'];
+                // Filter out the current 'from' unit to avoid redundancy if space is tight, 
+                // but usually good to show all for comparison.
+                
+                let html = '';
+                popularUnits.forEach(u => {
+                    const val = metersValue / rates[u];
+                    const fmtVal = parseFloat(val.toPrecision(5)).toLocaleString();
+                    html += `
+                        <div class="px-3 py-2 flex justify-between items-center hover:bg-slate-50">
+                            <span class="font-medium text-slate-500">${unitNames[u]}</span>
+                            <span class="font-bold text-slate-800">${fmtVal} <span class="text-[10px] text-slate-400 font-normal">${u}</span></span>
+                        </div>
+                    `;
+                });
+                quickRefGrid.innerHTML = html;
+            }
+
+            // 6. Events
+            inputValue.addEventListener('input', convert);
+            fromUnit.addEventListener('change', convert);
+            toUnit.addEventListener('change', convert);
+            calcBtn.addEventListener('click', convert);
+
+            swapBtn.addEventListener('click', () => {
+                const temp = fromUnit.value;
+                fromUnit.value = toUnit.value;
+                toUnit.value = temp;
+                convert();
+                // Add a small rotation animation class if desired
+            });
+
+            clearBtn.addEventListener('click', () => {
+                inputValue.value = 1;
+                fromUnit.value = 'm';
+                toUnit.value = 'ft';
+                convert();
+            });
+
+            // 7. Save & Share
+            if(saveBtn) saveBtn.addEventListener('click', () => {
+                const name = prompt("Name this conversion:");
+                if(name) {
+                    const preset = {
+                        name: name,
+                        date: new Date().toISOString(),
+                        inputs: `${inputValue.value} ${fromUnit.value}`,
+                        result: `${resultValue.textContent} ${toUnit.value}`,
+                        calculator: "Length Converter Calculator",
+                        url: window.location.href
+                    };
+                    // Simplified Save (Use global logic in real app)
+                    let all = JSON.parse(localStorage.getItem('dailyCalcPresets')) || {};
+                    if(!all['Converters']) all['Converters'] = [];
+                    all['Converters'].push(preset);
+                    localStorage.setItem('dailyCalcPresets', JSON.stringify(all));
+                    alert("Saved!");
+                }
+            });
+
+            if(shareBtn) shareBtn.addEventListener('click', () => {
+                const params = new URLSearchParams();
+                params.set('v', inputValue.value);
+                params.set('f', fromUnit.value);
+                params.set('t', toUnit.value);
+                const url = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+                navigator.clipboard.writeText(url).then(() => alert("Link copied!"));
+            });
+
+            // 8. Load Params
+            const params = new URLSearchParams(window.location.search);
+            if(params.has('v')) {
+                inputValue.value = params.get('v');
+                if(params.has('f')) fromUnit.value = params.get('f');
+                if(params.has('t')) toUnit.value = params.get('t');
+            }
+
+            // Initial Run
+            convert();
+        });
+    </script>
+</body>
+</html>
