@@ -2,7 +2,7 @@
   DailyCalc.org Centralized Tailwind Configuration
   ...
   [2025-12-05] Added .seo-icon for centralized styling of icons in SEO content sections.
-  [2025-12-06] Updated .result-value font size to 20px/24px based on Length Converter standard.
+  [2025-12-06] Centralized .result-value size (20px/24px) to match Length Converter standard.
 */
 
 tailwind.config = {
@@ -134,10 +134,8 @@ tailwind.config = {
                     gap: theme('spacing.6'), 
                 },
                 
-                /* --- NEW: Centralized SEO Icon Style --- */
                 '.seo-icon': {
                     color: theme('colors.brand.red'),
-                    // You can add more properties here if needed, like font-size adjustments
                 },
 
                 '.calc-section-divider': {
@@ -250,7 +248,11 @@ tailwind.config = {
                     letterSpacing: '0.05em',
                     color: 'rgba(255, 255, 255, 0.9)',
                 },
-                /* UPDATED RESULT SIZE: 20px (Mobile) / 24px (Desktop) */
+                /* CENTRALIZED RESULT SIZE 
+                   Ensures all calculators share the "perfect" size from Length Converter.
+                   Mobile: 20px (text-xl)
+                   Desktop: 24px (text-2xl)
+                */
                 '.result-value': {
                     fontSize: '20px', 
                     fontWeight: '700',
