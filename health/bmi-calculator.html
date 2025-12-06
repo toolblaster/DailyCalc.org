@@ -218,7 +218,11 @@
                  <!-- Top Card -->
                  <div class="rounded-lg border border-slate-400 bg-white shadow-lg overflow-hidden flex flex-col">
                     <div class="result-header">
-                        <div><div class="result-label">Your BMI</div><div class="result-value" id="resultDisplay">--.-</div></div>
+                        <div>
+                            <div class="result-label">Your BMI</div>
+                            <!-- [2025-12-06] Verified use of centralized .result-value size -->
+                            <div class="result-value" id="resultDisplay">--.-</div>
+                        </div>
                         <div class="calc-action-group">
                             <button id="saveBtn" class="calc-action-btn dark" title="Save to Dashboard"><i class="fa-regular fa-bookmark"></i></button>
                             <button id="shareBtn" class="calc-action-btn dark" title="Copy Link"><i class="fa-solid fa-share-nodes"></i></button>
