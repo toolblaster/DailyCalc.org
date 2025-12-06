@@ -40,6 +40,33 @@
       }
     }
     </script>
+    
+    <!-- HOW TO SCHEMA -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to Calculate Your Exact Age Online",
+      "description": "A simple guide to finding your precise chronological age in years, months, weeks, and days using the DailyCalc Age Calculator.",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "Enter Date of Birth",
+          "text": "Locate the 'Date of Birth' field and use the calendar picker to select the exact month, day, and year you were born."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Select Target Date",
+          "text": "By default, the 'Age at Date' field is set to today. You can change this to a future date to forecast your age for an upcoming event, or a past date to calculate age at a specific time."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Calculate Results",
+          "text": "Click the 'CALCULATE AGE' button. The tool will instantly display your age in years, along with a detailed breakdown of total weeks, days, hours, and minutes lived."
+        }
+      ]
+    }
+    </script>
 </head>
 <body class="bg-slate-50 text-slate-900 font-sans antialiased">
     
@@ -128,7 +155,7 @@
                         </div>
                      </div>
 
-                     <!-- UPDATED: Vertically Compact Cards (Horizontal Layout) -->
+                     <!-- Vertically Compact Cards (Horizontal Layout) -->
                      <!-- Total Weeks -->
                      <div class="bg-white border border-slate-300 rounded px-3 py-2 shadow-sm flex items-center justify-between hover:border-slate-400 transition-colors">
                         <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Total Weeks</span>
@@ -170,7 +197,6 @@
                 <!-- 1. Intro -->
                 <section class="info-card">
                     <h3 class="font-bold text-sm text-brand-dark mb-2 flex items-center gap-2">
-                        <!-- Updated with .seo-icon -->
                         <i class="fa-solid fa-hourglass-start seo-icon"></i> What is Chronological Age?
                     </h3>
                     <p class="mb-3">Chronological age is the exact amount of time that has passed from your birth to a given date. While it seems simple, counting it precisely involves navigating calendar quirks like <strong>Leap Years</strong> (which occur every 4 years) and varying month lengths (28, 30, or 31 days).</p>
@@ -180,12 +206,10 @@
                 <!-- 2. Use Cases Grid -->
                 <section class="info-card">
                     <h3 class="font-bold text-sm text-brand-dark mb-3 flex items-center gap-2">
-                        <!-- Updated with .seo-icon -->
                         <i class="fa-solid fa-list-check seo-icon"></i> Why Calculate Exact Age?
                     </h3>
                     <div class="grid sm:grid-cols-2 gap-4 text-xs">
                         <div class="feature-card">
-                            <!-- Use seo-icon here as well for centralized accent -->
                             <div class="mt-0.5"><i class="fa-solid fa-file-contract seo-icon"></i></div>
                             <div>
                                 <strong class="text-slate-800 block mb-0.5">Administrative & Legal</strong>
@@ -220,7 +244,6 @@
                 <div class="grid md:grid-cols-2 gap-6">
                     <section class="info-card bg-slate-100 border-slate-200">
                         <h3 class="font-bold text-sm text-slate-800 mb-2 flex items-center gap-2">
-                            <!-- Updated with .seo-icon -->
                             <i class="fa-solid fa-calculator seo-icon"></i> The Math Behind It
                         </h3>
                         <p class="mb-2 text-xs text-slate-600">Calculating age manually can be tricky:</p>
@@ -234,7 +257,6 @@
 
                     <section class="info-card bg-yellow-50/50 border-yellow-100">
                         <h3 class="font-bold text-sm text-yellow-800 mb-2 flex items-center gap-2">
-                            <!-- Updated with .seo-icon -->
                             <i class="fa-solid fa-calendar-day seo-icon"></i> Leap Year Logic
                         </h3>
                         <p class="text-xs text-yellow-900 leading-relaxed">
@@ -248,7 +270,6 @@
                 <!-- 4. Cultural Section -->
                 <section class="info-card">
                     <h3 class="font-bold text-sm text-brand-dark mb-2 flex items-center gap-2">
-                        <!-- Updated with .seo-icon -->
                         <i class="fa-solid fa-earth-asia seo-icon"></i> Cultural Age Differences
                     </h3>
                     <p class="text-xs text-slate-700 mb-3">In most of the world, you are "0" when born and turn "1" after a year. However, age reckoning varies:</p>
@@ -264,7 +285,7 @@
                     </div>
                 </section>
                 
-                <!-- NEW: Split Layout for Milestones & Trivia -->
+                <!-- NEW GRID 2: Milestones & Trivia -->
                 <div class="grid md:grid-cols-2 gap-6">
                     <!-- Left: Global Age Milestones -->
                     <section class="info-card border-brand-red/20 bg-red-50/30">
@@ -303,10 +324,37 @@
                     </section>
                 </div>
 
+                <!-- NEW GRID 3: How To & Legal Milestones (Requested Update) -->
+                <div class="grid md:grid-cols-2 gap-6 mt-6">
+                    <!-- Left: How To Use (Pairs with Schema) -->
+                    <section class="info-card border-slate-200">
+                        <h3 class="font-bold text-sm text-slate-800 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-circle-question seo-icon"></i> How to Use This Calculator?
+                        </h3>
+                        <ol class="list-decimal pl-4 space-y-2 text-xs text-slate-600">
+                            <li><strong>Enter Birth Date:</strong> Use the date picker to select the exact day you were born.</li>
+                            <li><strong>Choose Target Date:</strong> By default, this is today. Change it to calculate your age for a past event or future milestone.</li>
+                            <li><strong>Get Results:</strong> Click calculate to see a breakdown of your age in years, months, weeks, and even minutes.</li>
+                        </ol>
+                    </section>
+
+                    <!-- Right: Common Legal Milestones -->
+                    <section class="info-card border-slate-200">
+                        <h3 class="font-bold text-sm text-slate-800 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-gavel seo-icon"></i> Common Legal Milestones (US)
+                        </h3>
+                        <ul class="space-y-2 text-xs text-slate-600">
+                            <li class="flex justify-between border-b border-slate-100 pb-1"><span>Driving Age (Permit)</span> <span class="font-bold text-slate-800">15-16</span></li>
+                            <li class="flex justify-between border-b border-slate-100 pb-1"><span>Voting Age</span> <span class="font-bold text-slate-800">18</span></li>
+                            <li class="flex justify-between border-b border-slate-100 pb-1"><span>Rental Car Age</span> <span class="font-bold text-slate-800">25</span></li>
+                            <li class="flex justify-between"><span>Retirement Benefits</span> <span class="font-bold text-slate-800">62-67</span></li>
+                        </ul>
+                    </section>
+                </div>
+
                 <!-- 5. FAQ Section -->
-                <section class="info-card">
+                <section class="info-card mt-6">
                     <h3 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
-                        <!-- Updated with .seo-icon -->
                         <i class="fa-solid fa-circle-question seo-icon"></i> Frequently Asked Questions
                     </h3>
                     <div class="space-y-4">
@@ -336,6 +384,13 @@
                             <div>
                                 <strong class="block text-[12px] font-bold text-brand-dark mb-1 leading-tight">Does this calculate biological age?</strong>
                                 <p class="text-xs text-slate-600">No. This tool calculates <em>chronological</em> age (time elapsed). Biological age depends on health markers like cell regeneration, which requires medical testing.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 items-start">
+                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-[10px] font-bold border border-slate-200 mt-0.5">5</div>
+                            <div>
+                                <strong class="block text-[12px] font-bold text-brand-dark mb-1 leading-tight">What is the verified world record for age?</strong>
+                                <p class="text-xs text-slate-600">The oldest verified person in recorded history was Jeanne Calment of France, who lived to reach 122 years and 164 days before passing away in 1997.</p>
                             </div>
                         </div>
                     </div>
