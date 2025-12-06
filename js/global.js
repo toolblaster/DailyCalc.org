@@ -4,7 +4,7 @@
   [2025-11-28] HistoryManager: Enforced "Single Entry Per Tool" policy for ALL calculators.
   [2025-11-28] WishlistManager: Added for managing Favorite tools via localStorage.
   [2025-12-05] WishlistManager: Updated to store Icons. SidebarWidget now detects icons automatically.
-  [2025-12-06] Registry Update: Updated Length Converter URL to length-calculator.html.
+  [2025-12-06] Registry Update: Updated Length Converter URL to length-converter.html.
 */
 
 const CALCULATOR_REGISTRY = {
@@ -34,7 +34,7 @@ const CALCULATOR_REGISTRY = {
         { name: "Fuel Cost", url: "/everyday-life/fuel-cost.html", icon: "fa-gas-pump" }
     ],
     'Converters': [
-        { name: "Length Converter", url: "/converters/length-calculator.html", icon: "fa-ruler" },
+        { name: "Length Converter", url: "/converters/length-converter.html", icon: "fa-ruler" },
         { name: "Weight Converter", url: "/converters/weight.html", icon: "fa-weight-hanging" },
         { name: "Temperature", url: "/converters/temperature.html", icon: "fa-temperature-half" }
     ]
