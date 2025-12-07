@@ -3,6 +3,7 @@
   ...
   [2025-12-06] Centralized .result-value size (20px/24px) for consistency across all tools.
   [2025-12-07] Increased contrast for .info-card borders (slate-300 -> slate-400).
+  [2025-12-07] Reduced contrast for .calc-section-divider (slate-400 -> slate-200) for better visual hierarchy.
 */
 
 tailwind.config = {
@@ -145,7 +146,8 @@ tailwind.config = {
                     marginTop: theme('spacing.10'),    
                     marginBottom: theme('spacing.10'), 
                     borderTopWidth: '6px',
-                    borderColor: theme('colors.slate.400'),
+                    // MODIFIED: Reduced contrast from slate.400 to slate.200
+                    borderColor: theme('colors.slate.200'),
                     borderRadius: '9999px',
                     opacity: '1',
                     marginLeft: 'auto',  
