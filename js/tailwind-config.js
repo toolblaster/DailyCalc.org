@@ -2,6 +2,7 @@
   DailyCalc.org Centralized Tailwind Configuration
   ...
   [2025-12-06] Centralized .result-value size (20px/24px) for consistency across all tools.
+  [2025-12-07] Increased contrast for .info-card borders (slate-300 -> slate-400).
 */
 
 tailwind.config = {
@@ -304,7 +305,7 @@ tailwind.config = {
                 '.info-card': {
                     backgroundColor: theme('colors.slate.50'),
                     borderWidth: '1px',
-                    borderColor: theme('colors.slate.300'), 
+                    borderColor: theme('colors.slate.400'), 
                     borderRadius: theme('borderRadius.md'),
                     padding: theme('spacing.4'),
                     color: theme('colors.slate.700'),
