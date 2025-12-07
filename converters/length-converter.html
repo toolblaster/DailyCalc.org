@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Length Converter Calculator | Meters, Feet, Inches, Miles & More | DailyCalc.org</title>
-    <meta name="description" content="Free online Length Converter. Convert Metric (m, km) & Imperial (ft, mi) instantly. Includes comprehensive guide on unit history, formulas, and industry standards.">
+    <title>Length Converter | Meters, Feet, Inches, Miles & More | DailyCalc.org</title>
+    <meta name="description" content="Free online Length Converter. Convert Metric (m, km), Imperial (ft, mi), Astronomical (AU, ly), and specialized units instantly.">
     
     <!-- Standard Imports -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,14 +26,15 @@
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "Length Converter Calculator",
+      "name": "Length Converter",
       "url": "https://dailycalc.org/converters/length-converter.html",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Any",
-      "description": "A comprehensive length conversion calculator supporting Metric and Imperial units including meters, kilometers, feet, inches, miles, and nautical miles.",
+      "description": "A comprehensive length conversion calculator supporting Metric, Imperial, Astronomical, and specialized units.",
       "featureList": [
         "Instant Conversion",
         "Metric to Imperial Support",
+        "Astronomical Units (ly, AU, pc)",
         "Formula Display",
         "Dynamic Conversion Table"
       ],
@@ -99,10 +100,10 @@
         }
       }, {
         "@type": "Question",
-        "name": "What is the difference between a Nautical Mile and a Mile?",
+        "name": "What is an Astronomical Unit (AU)?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "A standard mile (statute mile) is 5,280 feet. A Nautical Mile is slightly longer (6,076 feet) because it is based on the circumference of the Earth (one minute of latitude). It is primarily used in aviation and shipping."
+          "text": "An Astronomical Unit (AU) is the average distance from the Earth to the Sun, approximately 93 million miles or 150 million kilometers."
         }
       }, {
         "@type": "Question",
@@ -154,22 +155,26 @@
                                     <option value="mm">Millimeter (mm)</option>
                                     <option value="um">Micrometer (μm)</option>
                                     <option value="nm">Nanometer (nm)</option>
+                                    <option value="ang">Angstrom (Å)</option>
                                 </optgroup>
                                 <optgroup label="Imperial / US" class="font-extrabold text-slate-900 bg-slate-100">
                                     <option value="mi">Mile (mi)</option>
+                                    <option value="fur">Furlong (fur)</option>
+                                    <option value="ch">Chain (ch)</option>
                                     <option value="yd">Yard (yd)</option>
                                     <option value="ft">Foot (ft)</option>
                                     <option value="in">Inch (in)</option>
                                 </optgroup>
                                 <optgroup label="Nautical & Astro" class="font-extrabold text-slate-900 bg-slate-100">
                                     <option value="nmi">Nautical Mile</option>
+                                    <option value="au">Astronomical Unit</option>
                                     <option value="ly">Light Year</option>
+                                    <option value="pc">Parsec (pc)</option>
                                 </optgroup>
                             </select>
                         </div>
                         
-                        <!-- Swap Button (Centered & Spaced) - Adjusted for h-9 inputs -->
-                        <!-- [2025-12-07] Reduced size to w-6 h-6 and updated margin to mb-1.5 for centering against h-9 inputs -->
+                        <!-- Swap Button -->
                         <div class="flex-none mb-1.5">
                             <button type="button" id="swapBtn" class="w-6 h-6 bg-white border border-slate-300 rounded-full flex items-center justify-center text-slate-500 hover:text-brand-red hover:border-brand-red shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-brand-red/20" title="Swap Units">
                                 <i class="fa-solid fa-arrow-right-arrow-left text-[10px]"></i>
@@ -188,16 +193,21 @@
                                     <option value="mm">Millimeter (mm)</option>
                                     <option value="um">Micrometer (μm)</option>
                                     <option value="nm">Nanometer (nm)</option>
+                                    <option value="ang">Angstrom (Å)</option>
                                 </optgroup>
                                 <optgroup label="Imperial / US" class="font-extrabold text-slate-900 bg-slate-100">
                                     <option value="mi">Mile (mi)</option>
+                                    <option value="fur">Furlong (fur)</option>
+                                    <option value="ch">Chain (ch)</option>
                                     <option value="yd">Yard (yd)</option>
                                     <option value="ft" selected>Foot (ft)</option>
                                     <option value="in">Inch (in)</option>
                                 </optgroup>
                                 <optgroup label="Nautical & Astro" class="font-extrabold text-slate-900 bg-slate-100">
                                     <option value="nmi">Nautical Mile</option>
+                                    <option value="au">Astronomical Unit</option>
                                     <option value="ly">Light Year</option>
+                                    <option value="pc">Parsec (pc)</option>
                                 </optgroup>
                             </select>
                         </div>
@@ -261,12 +271,12 @@
             <div class="calc-seo-content">
                 
                 <!-- NEW INTRODUCTORY SECTION -->
-                <section class="info-card bg-slate-50 border-slate-200">
+                <section class="info-card">
                     <h3 class="font-bold text-sm text-slate-800 mb-2 flex items-center gap-2">
                         <i class="fa-solid fa-compass-drafting seo-icon"></i> Why Use This Length Converter?
                     </h3>
                     <p class="text-xs text-slate-700 leading-relaxed">
-                        Whether you are an architect converting blueprints, a student solving physics problems, or a traveler navigating distances in a foreign country, accurate length conversion is essential. This tool provides instant, precise translations between the global <strong>Metric System</strong> (meters, kilometers) and the <strong>Imperial System</strong> (feet, miles), ensuring you have the right measurements for any project or plan.
+                        Whether you are an architect converting blueprints, a student solving physics problems, or a traveler navigating distances in a foreign country, accurate length conversion is essential. This tool provides instant, precise translations between the global <strong>Metric System</strong>, the <strong>Imperial System</strong>, and even specialized <strong>Astronomical Units</strong>.
                     </p>
                 </section>
 
@@ -279,22 +289,22 @@
                     <div class="grid sm:grid-cols-2 gap-4 text-xs">
                         <div class="bg-blue-50/50 p-4 rounded border border-blue-100">
                             <strong class="text-blue-800 block mb-2 text-sm border-b border-blue-200 pb-1">Metric System (SI)</strong>
-                            <p class="text-slate-600 mb-2">Used by 95% of the globe (including Europe, Asia, and Canada). It uses a decimal system where units scale by powers of 10.</p>
+                            <p class="text-slate-600 mb-2">Used by 95% of the globe. It uses a decimal system where units scale by powers of 10.</p>
                             <ul class="list-disc pl-4 space-y-1 text-slate-600">
-                                <li><strong>Kilometer (km):</strong> Long distances (Roads).</li>
-                                <li><strong>Meter (m):</strong> The base unit (Rooms, land).</li>
-                                <li><strong>Centimeter (cm):</strong> Small objects (Paper, height).</li>
-                                <li><strong>Millimeter (mm):</strong> Precision (Engineering).</li>
+                                <li><strong>Kilometer (km):</strong> Long distances.</li>
+                                <li><strong>Meter (m):</strong> Base unit.</li>
+                                <li><strong>Centimeter (cm):</strong> Small objects.</li>
+                                <li><strong>Angstrom (Å):</strong> Atomic scale (10⁻¹⁰ m).</li>
                             </ul>
                         </div>
                         <div class="bg-red-50/50 p-4 rounded border border-red-100">
                             <strong class="text-red-800 block mb-2 text-sm border-b border-red-200 pb-1">Imperial / US Customary</strong>
-                            <p class="text-slate-600 mb-2">Used primarily in the USA, Liberia, and Myanmar. Units are based on historical human body measurements.</p>
+                            <p class="text-slate-600 mb-2">Used primarily in the USA. Units are historically based on human body measurements or agricultural surveys.</p>
                             <ul class="list-disc pl-4 space-y-1 text-slate-600">
-                                <li><strong>Mile (mi):</strong> Long distances (5,280 ft).</li>
-                                <li><strong>Yard (yd):</strong> Football fields (3 ft).</li>
-                                <li><strong>Foot (ft):</strong> Height, construction (12 in).</li>
-                                <li><strong>Inch (in):</strong> Small measurements.</li>
+                                <li><strong>Mile (mi):</strong> 5,280 ft.</li>
+                                <li><strong>Furlong:</strong> 660 ft (Horse racing).</li>
+                                <li><strong>Chain:</strong> 66 ft (Surveying).</li>
+                                <li><strong>Yard (yd):</strong> 3 ft.</li>
                             </ul>
                         </div>
                     </div>
@@ -305,12 +315,12 @@
                     <h3 class="font-bold text-sm text-brand-dark mb-3 flex items-center gap-2">
                         <i class="fa-solid fa-calculator seo-icon"></i> Common Conversion Factors
                     </h3>
-                    <div class="overflow-x-auto border border-slate-200 rounded-lg shadow-sm">
+                    <div class="overflow-x-auto border border-slate-300 rounded-lg shadow-sm">
                         <table class="w-full text-left text-xs">
                             <thead class="bg-slate-100 text-slate-700">
                                 <tr>
-                                    <th class="px-3 py-2 font-bold border-r border-slate-200">From Unit</th>
-                                    <th class="px-3 py-2 font-bold border-r border-slate-200">To Unit</th>
+                                    <th class="px-3 py-2 font-bold border-r border-slate-300">From Unit</th>
+                                    <th class="px-3 py-2 font-bold border-r border-slate-300">To Unit</th>
                                     <th class="px-3 py-2 font-bold text-right">Multiply By</th>
                                 </tr>
                             </thead>
@@ -330,7 +340,7 @@
                 <div class="grid md:grid-cols-2 gap-6">
                     
                     <!-- NEW SECTION: How To Use -->
-                    <section class="info-card border-slate-200">
+                    <section class="info-card">
                         <h3 class="font-bold text-sm text-slate-800 mb-3 flex items-center gap-2">
                             <i class="fa-solid fa-circle-question seo-icon"></i> How to Convert Units
                         </h3>
@@ -361,34 +371,34 @@
                     </section>
 
                     <!-- NEW SECTION: Everyday Examples -->
-                    <section class="info-card border-slate-200 bg-slate-50">
+                    <section class="info-card">
                         <h3 class="font-bold text-sm text-slate-800 mb-3 flex items-center gap-2">
                             <i class="fa-solid fa-ruler seo-icon"></i> Everyday Examples
                         </h3>
                         <p class="text-xs text-slate-600 mb-3">Visualizing these units can help estimate lengths without a calculator:</p>
                         <div class="space-y-2">
-                            <div class="flex items-center gap-3 bg-white p-2 rounded border border-slate-200 shadow-sm">
+                            <div class="flex items-center gap-3 bg-white p-2 rounded border border-slate-300 shadow-sm">
                                 <div class="w-8 text-center text-lg"><i class="fa-solid fa-hand-point-up text-blue-500"></i></div>
                                 <div class="text-xs">
                                     <strong class="block text-slate-800">1 Centimeter</strong>
                                     <span class="text-slate-500">Width of a standard fingernail.</span>
                                 </div>
                             </div>
-                            <div class="flex items-center gap-3 bg-white p-2 rounded border border-slate-200 shadow-sm">
+                            <div class="flex items-center gap-3 bg-white p-2 rounded border border-slate-300 shadow-sm">
                                 <div class="w-8 text-center text-lg"><i class="fa-solid fa-shoe-prints text-orange-500"></i></div>
                                 <div class="text-xs">
                                     <strong class="block text-slate-800">1 Foot</strong>
                                     <span class="text-slate-500">Length of a standard sheet of paper (almost).</span>
                                 </div>
                             </div>
-                            <div class="flex items-center gap-3 bg-white p-2 rounded border border-slate-200 shadow-sm">
+                            <div class="flex items-center gap-3 bg-white p-2 rounded border border-slate-300 shadow-sm">
                                 <div class="w-8 text-center text-lg"><i class="fa-solid fa-person-walking text-green-500"></i></div>
                                 <div class="text-xs">
                                     <strong class="block text-slate-800">1 Meter</strong>
                                     <span class="text-slate-500">Height of a door knob or waist height for an adult.</span>
                                 </div>
                             </div>
-                            <div class="flex items-center gap-3 bg-white p-2 rounded border border-slate-200 shadow-sm">
+                            <div class="flex items-center gap-3 bg-white p-2 rounded border border-slate-300 shadow-sm">
                                 <div class="w-8 text-center text-lg"><i class="fa-solid fa-road text-slate-500"></i></div>
                                 <div class="text-xs">
                                     <strong class="block text-slate-800">1 Kilometer</strong>
@@ -549,18 +559,24 @@
                 mm: 0.001,
                 um: 0.000001,
                 nm: 0.000000001,
+                ang: 0.0000000001,
                 mi: 1609.344,
+                fur: 201.168,
+                ch: 20.1168,
                 yd: 0.9144,
                 ft: 0.3048,
                 in: 0.0254,
                 nmi: 1852,
-                ly: 9460730472580800
+                au: 149597870700,
+                ly: 9460730472580800,
+                pc: 3.085677581e16
             };
 
             const unitNames = {
                 km: 'Kilometers', m: 'Meters', dm: 'Decimeters', cm: 'Centimeters', mm: 'Millimeters',
-                um: 'Micrometers', nm: 'Nanometers',
-                mi: 'Miles', yd: 'Yards', ft: 'Feet', in: 'Inches', nmi: 'Nautical Miles', ly: 'Light Years'
+                um: 'Micrometers', nm: 'Nanometers', ang: 'Angstroms',
+                mi: 'Miles', fur: 'Furlongs', ch: 'Chains', yd: 'Yards', ft: 'Feet', in: 'Inches',
+                nmi: 'Nautical Miles', au: 'Astronomical Units', ly: 'Light Years', pc: 'Parsecs'
             };
 
             // 4. Calculation Function
@@ -583,21 +599,32 @@
 
                 // Display Formatting
                 // Use mostly significant digits, up to 6 decimals, strip trailing zeros
-                const formattedResult = parseFloat(result.toFixed(6));
+                // For very small/large numbers, scientific notation might be needed but standard locale string handles a lot.
+                let formattedResult;
+                if (Math.abs(result) < 0.000001 || Math.abs(result) > 1e15) {
+                     formattedResult = result.toExponential(4);
+                } else {
+                     formattedResult = parseFloat(result.toFixed(6));
+                     formattedResult = formattedResult.toLocaleString('en-US', { maximumFractionDigits: 6 });
+                }
                 
-                resultValue.textContent = formattedResult.toLocaleString('en-US', { maximumFractionDigits: 6 });
+                resultValue.textContent = formattedResult;
                 resultUnit.textContent = to;
 
                 // Update Formula Text
                 const oneUnitToTarget = (1 * rates[from]) / rates[to];
-                formulaDisplay.textContent = `1 ${from} ≈ ${parseFloat(oneUnitToTarget.toPrecision(6))} ${to}`;
+                let displayRate;
+                if (oneUnitToTarget < 0.000001 || oneUnitToTarget > 1e15) displayRate = oneUnitToTarget.toExponential(4);
+                else displayRate = parseFloat(oneUnitToTarget.toPrecision(6));
+                
+                formulaDisplay.textContent = `1 ${from} ≈ ${displayRate} ${to}`;
 
                 updateQuickRef(inMeters, from);
                 
                 // Save to History (Debounced in a real app, direct here for simplicity or use the Manager)
                 if (window.HistoryManager) {
                     window.HistoryManager.save(
-                        "Length Converter Calculator",
+                        "Length Converter",
                         `${val} ${from} to ${to}`,
                         `${formattedResult} ${to}`
                     );
@@ -654,7 +681,7 @@
                         date: new Date().toISOString(),
                         inputs: `${inputValue.value} ${fromUnit.value}`,
                         result: `${resultValue.textContent} ${toUnit.value}`,
-                        calculator: "Length Converter Calculator",
+                        calculator: "Length Converter",
                         url: window.location.href
                     };
                     // Simplified Save (Use global logic in real app)
