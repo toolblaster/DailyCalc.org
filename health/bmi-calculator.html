@@ -87,6 +87,20 @@
           "@type": "Answer",
           "text": "To lower BMI, you need to create a calorie deficit by eating fewer calories than you burn (BMR + Activity). Combining a balanced diet with regular exercise is the safest way to reach a healthy weight."
         }
+      }, {
+        "@type": "Question",
+        "name": "Does BMI measure body fat directly?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. BMI is a simple calculation based on height and weight. It correlates with body fat but doesn't measure it directly like skinfold calipers or DEXA scans do."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is BMI valid for all ethnicities?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Health risks may vary by ethnicity. For example, some Asian populations may experience health risks at a lower BMI (often starting at 23 instead of 25), while other groups may have different thresholds."
+        }
       }]
     }
     </script>
@@ -313,7 +327,7 @@
                     </h3>
                     <div class="grid sm:grid-cols-2 gap-4">
                         <!-- Metric -->
-                        <div class="bg-white p-3 rounded border border-slate-200">
+                        <div class="bg-white p-3 rounded border border-slate-300">
                             <strong class="text-xs text-brand-dark block mb-2 border-b border-slate-100 pb-1">Metric Formula (kg/m²)</strong>
                             <ol class="list-decimal pl-4 space-y-1 text-xs text-slate-600">
                                 <li>Measure your weight in kilograms (kg).</li>
@@ -326,7 +340,7 @@
                             </div>
                         </div>
                         <!-- Imperial -->
-                        <div class="bg-white p-3 rounded border border-slate-200">
+                        <div class="bg-white p-3 rounded border border-slate-300">
                             <strong class="text-xs text-brand-dark block mb-2 border-b border-slate-100 pb-1">Imperial Formula (lb/in²)</strong>
                             <ol class="list-decimal pl-4 space-y-1 text-xs text-slate-600">
                                 <li>Measure your weight in pounds (lb).</li>
@@ -345,9 +359,9 @@
                 <section class="info-card">
                     <h3 class="font-bold text-sm text-brand-dark mb-3 flex items-center gap-2"><i class="fa-solid fa-table seo-icon"></i> Understanding Your Result</h3>
                     <p class="mb-3">For most adults (ages 20+), BMI falls into one of the following standard categories established by the World Health Organization (WHO):</p>
-                    <div class="overflow-x-auto border border-slate-200 rounded-lg shadow-sm bg-white">
+                    <div class="overflow-x-auto border border-slate-300 rounded-lg shadow-sm bg-white">
                         <table class="w-full text-left border-collapse">
-                            <thead><tr class="bg-slate-100 border-b border-slate-200 text-slate-700"><th class="px-3 py-2 font-bold">Category</th><th class="px-3 py-2 font-bold">BMI Range</th><th class="px-3 py-2 font-bold">Meaning</th></tr></thead>
+                            <thead><tr class="bg-slate-100 border-b border-slate-300 text-slate-700"><th class="px-3 py-2 font-bold">Category</th><th class="px-3 py-2 font-bold">BMI Range</th><th class="px-3 py-2 font-bold">Meaning</th></tr></thead>
                             <tbody class="divide-y divide-slate-100">
                                 <tr class="hover:bg-blue-50/50"><td class="px-3 py-2 font-medium text-blue-700">Underweight</td><td class="px-3 py-2">&lt; 18.5</td><td class="px-3 py-2 text-slate-500">Possible malnutrition</td></tr>
                                 <tr class="hover:bg-green-50/50"><td class="px-3 py-2 font-medium text-green-700">Normal</td><td class="px-3 py-2 font-bold text-slate-800">18.5 – 24.9</td><td class="px-3 py-2 text-slate-500">Lowest health risk</td></tr>
@@ -390,7 +404,8 @@
 
                 <!-- 5. HEALTH RISKS -->
                 <div class="grid md:grid-cols-2 gap-6">
-                    <section class="info-card bg-red-50/30 border-red-100">
+                    <!-- Restored red border (using 200 for better visibility) -->
+                    <section class="info-card bg-red-50/30 border-red-200">
                         <h3 class="font-bold text-sm text-red-700 mb-2 flex items-center gap-2"><i class="fa-solid fa-arrow-trend-up"></i> Risks of High BMI</h3>
                         <p class="mb-2 text-xs text-slate-600">Excess weight puts strain on your organs and joints. Common associated conditions:</p>
                         <ul class="list-disc pl-5 space-y-1 text-slate-600 text-xs">
@@ -401,7 +416,8 @@
                             <li>Osteoarthritis</li>
                         </ul>
                     </section>
-                    <section class="info-card bg-blue-50/30 border-blue-100">
+                    <!-- Restored blue border (using 200 for better visibility) -->
+                    <section class="info-card bg-blue-50/30 border-blue-200">
                         <h3 class="font-bold text-sm text-blue-700 mb-2 flex items-center gap-2"><i class="fa-solid fa-arrow-trend-down"></i> Risks of Low BMI</h3>
                         <p class="mb-2 text-xs text-slate-600">Being underweight indicates possible nutritional deficiencies. Risks include:</p>
                         <ul class="list-disc pl-5 space-y-1 text-slate-600 text-xs">
@@ -440,7 +456,7 @@
                 </section>
 
                 <!-- 7. LIMITATIONS -->
-                <section class="info-card bg-slate-100 border-slate-200">
+                <section class="info-card bg-slate-100">
                     <h3 class="font-bold text-sm text-slate-700 mb-2 flex items-center gap-2">
                         <i class="fa-solid fa-triangle-exclamation text-yellow-600"></i> Limitations of BMI
                     </h3>
@@ -478,6 +494,20 @@
                             <div>
                                 <h4 class="text-[12px] font-bold text-brand-dark mb-1 leading-tight">Can I have a high BMI and be healthy?</h4>
                                 <p class="text-xs text-slate-600">Yes, if the weight comes from lean muscle rather than fat (e.g., athletes). However, for the general population, a high BMI is strongly linked to health risks.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 items-start">
+                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-[10px] font-bold border border-slate-200 mt-0.5">4</div>
+                            <div>
+                                <h4 class="text-[12px] font-bold text-brand-dark mb-1 leading-tight">Does BMI measure body fat directly?</h4>
+                                <p class="text-xs text-slate-600">No. BMI is a simple calculation based on height and weight. It correlates with body fat but doesn't measure it directly like skinfold calipers or DEXA scans do.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 items-start">
+                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-[10px] font-bold border border-slate-200 mt-0.5">5</div>
+                            <div>
+                                <h4 class="text-[12px] font-bold text-brand-dark mb-1 leading-tight">Is BMI valid for all ethnicities?</h4>
+                                <p class="text-xs text-slate-600">Health risks may vary by ethnicity. For example, some Asian populations may experience health risks at a lower BMI (often starting at 23 instead of 25).</p>
                             </div>
                         </div>
                     </div>
