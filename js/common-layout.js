@@ -5,6 +5,7 @@
   [2025-12-05] Wishlist UI: Added Numbering (#1, #2) and specific Icon support in Wishlist Drawer.
   [2025-12-05] Visual Update: Changed Category Quick Bar font to Poppins (font-heading).
   [2025-12-05] Global Print: Added global event listener for #printBtn to ensure print functionality works everywhere.
+  [2025-12-07] Global Print Watermark: Added "DailyCalc.org" watermark to print view for all pages.
 */
 
 const headerHTML = `
@@ -139,8 +140,16 @@ const footerHTML = `
     </footer>
 `;
 
-// ... existing toastHTML, CalculatorLayout, WishlistUI, loadCommonLayout ...
 const toastHTML = `<div id="clipboard-toast"></div>`;
+
+// WATERMARK HTML (Hidden until print)
+const watermarkHTML = `
+    <div id="global-print-watermark" class="fixed inset-0 z-[100] hidden print:flex items-center justify-center pointer-events-none">
+        <div class="transform -rotate-45 opacity-5">
+            <p class="text-[10vw] font-bold text-slate-900 whitespace-nowrap">DailyCalc.org</p>
+        </div>
+    </div>
+`;
 
 /* --- LAYOUT ENGINE --- */
 const CalculatorLayout = {
@@ -398,6 +407,14 @@ function loadCommonLayout() {
     if (!document.getElementById('toast-placeholder')) {
         const t = document.createElement('div'); t.id = 'toast-placeholder'; t.innerHTML = toastHTML;
         document.body.appendChild(t);
+    }
+
+    // Inject Global Watermark
+    if (!document.getElementById('global-print-watermark')) {
+        const div = document.createElement('div');
+        div.innerHTML = watermarkHTML;
+        // Append the child div directly to body
+        document.body.appendChild(div.firstElementChild);
     }
     
     const yearEl = document.getElementById('currentYear');
