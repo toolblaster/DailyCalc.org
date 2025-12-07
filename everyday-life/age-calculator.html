@@ -246,7 +246,8 @@
 
                 <!-- 3. Technical Breakdown -->
                 <div class="grid md:grid-cols-2 gap-6">
-                    <section class="info-card bg-slate-100 border-slate-200">
+                    <!-- Added bg-slate-100, removed specific border -->
+                    <section class="info-card bg-slate-100">
                         <h3 class="font-bold text-sm text-slate-800 mb-2 flex items-center gap-2">
                             <i class="fa-solid fa-calculator seo-icon"></i> The Math Behind It
                         </h3>
@@ -255,11 +256,12 @@
                             <li>Subtract birth year from current year.</li>
                             <li>If current month < birth month, subtract 1 from years.</li>
                             <li>If current month = birth month but current day < birth day, subtract 1 from years.</li>
-                            <li>Calculate remaining months and days, adjusting for the previous month's total days (28/30/31).</li>
+                            <li>Calculate remaining months and days, adjusting for the previous month's total days (28, 30, or 31).</li>
                         </ol>
                     </section>
 
-                    <section class="info-card bg-yellow-50/50 border-yellow-100">
+                    <!-- Added bg-yellow-50/50, removed specific border -->
+                    <section class="info-card bg-yellow-50/50">
                         <h3 class="font-bold text-sm text-yellow-800 mb-2 flex items-center gap-2">
                             <i class="fa-solid fa-calendar-day seo-icon"></i> Leap Year Logic
                         </h3>
@@ -291,47 +293,58 @@
                 
                 <!-- NEW GRID 2: Milestones & Trivia -->
                 <div class="grid md:grid-cols-2 gap-6">
-                    <!-- Left: Global Age Milestones -->
-                    <section class="info-card border-brand-red/20 bg-red-50/30">
+                    <!-- Left: Global Age Milestones (Rewritten content + bg-red-50/30) -->
+                    <section class="info-card bg-red-50/30">
                         <h3 class="font-bold text-sm text-brand-dark mb-2 flex items-center gap-2">
                             <i class="fa-solid fa-cake-candles seo-icon"></i> Global Age Milestones
                         </h3>
                         <div class="space-y-2 text-xs text-slate-600">
-                            <p>Age carries different meanings across cultures:</p>
-                            <ul class="list-disc pl-5 space-y-1">
-                                <li><strong>Age 15 (Quinceañera):</strong> In Latin American cultures, this marks the transition from childhood to womanhood.</li>
-                                <li><strong>Age 20 (Seijin no Hi):</strong> Japan celebrates "Coming of Age Day" for all new 20-year-olds.</li>
-                                <li><strong>Age 60 (Kanreki):</strong> In Japan and Korea, turning 60 symbolizes completing a full zodiac cycle and being "reborn."</li>
+                            <p>Every culture celebrates the passage of time differently:</p>
+                            <ul class="space-y-2 mt-2">
+                                <li class="flex gap-2">
+                                    <span class="text-brand-red font-bold w-12 shrink-0">Age 1</span>
+                                    <span><strong>Doljanchi (Korea):</strong> A baby's first birthday where they "predict" their future by picking an object (like a pen or money).</span>
+                                </li>
+                                <li class="flex gap-2">
+                                    <span class="text-brand-red font-bold w-12 shrink-0">Age 20</span>
+                                    <span><strong>Seijin no Hi (Japan):</strong> "Coming of Age Day," where new 20-year-olds dress in kimonos to celebrate official adulthood.</span>
+                                </li>
+                                <li class="flex gap-2">
+                                    <span class="text-brand-red font-bold w-12 shrink-0">Age 60</span>
+                                    <span><strong>Kanreki (East Asia):</strong> Celebrating the completion of the 60-year zodiac cycle and a symbolic "rebirth" into infancy.</span>
+                                </li>
                             </ul>
                         </div>
                     </section>
 
-                    <!-- Right: Did You Know? -->
-                    <section class="info-card border-blue-100 bg-blue-50/30">
+                    <!-- Right: Did You Know? (Added bg-blue-50/30) -->
+                    <section class="info-card bg-blue-50/30">
                         <h3 class="font-bold text-sm text-brand-dark mb-2 flex items-center gap-2">
                             <i class="fa-solid fa-lightbulb text-brand-red"></i> Did You Know?
                         </h3>
                         <ul class="space-y-2 text-xs text-slate-600">
                             <li class="leading-tight">
                                 <strong class="block text-brand-dark mb-0.5">Time Perception</strong>
-                                As you age, time feels faster because each year represents a smaller percentage of your life.
+                                As you age, time feels faster because each year represents a smaller percentage of your life (Weber-Fechner Law).
                             </li>
                             <li class="leading-tight">
                                 <strong class="block text-brand-dark mb-0.5">Cell Regeneration</strong>
                                 Your body replaces most of its cells every 7 to 10 years, meaning you are constantly "renewing."
                             </li>
                             <li class="leading-tight">
-                                <strong class="block text-brand-dark mb-0.5">The "27 Club"</strong>
-                                A cultural phenomenon noting the high number of popular musicians who died at age 27.
+                                <strong class="block text-brand-dark mb-0.5">Golden Birthdays</strong>
+                                A "Golden Birthday" occurs when your age matches the day you were born (e.g., turning 25 on the 25th).
                             </li>
                         </ul>
                     </section>
                 </div>
 
                 <!-- NEW GRID 3: How To & Legal Milestones (Requested Update) -->
-                <div class="grid md:grid-cols-2 gap-6 mt-6">
+                <!-- Removed mt-6 to ensure uniform spacing via parent grid gap -->
+                <div class="grid md:grid-cols-2 gap-6">
                     <!-- Left: How To Use (Pairs with Schema) -->
-                    <section class="info-card border-slate-200">
+                    <!-- Also cleaned up border-slate-200 to rely on central style -->
+                    <section class="info-card">
                         <h3 class="font-bold text-sm text-slate-800 mb-2 flex items-center gap-2">
                             <i class="fa-solid fa-circle-question seo-icon"></i> How to Use This Calculator?
                         </h3>
@@ -343,7 +356,8 @@
                     </section>
 
                     <!-- Right: Common Legal Milestones -->
-                    <section class="info-card border-slate-200">
+                    <!-- Also cleaned up border-slate-200 -->
+                    <section class="info-card">
                         <h3 class="font-bold text-sm text-slate-800 mb-2 flex items-center gap-2">
                             <i class="fa-solid fa-gavel seo-icon"></i> Common Legal Milestones (US)
                         </h3>
@@ -357,7 +371,8 @@
                 </div>
 
                 <!-- 5. FAQ Section -->
-                <section class="info-card mt-6">
+                <!-- Removed mt-6 to ensure uniform spacing via parent grid gap -->
+                <section class="info-card">
                     <h3 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
                         <i class="fa-solid fa-circle-question seo-icon"></i> Frequently Asked Questions
                     </h3>
