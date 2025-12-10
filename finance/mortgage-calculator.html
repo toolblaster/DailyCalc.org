@@ -292,7 +292,8 @@
                                 <div id="moreOptionsContainer" class="hidden border-t border-slate-300 pt-3 mt-2 space-y-3">
                                     <!-- Annual Increases -->
                                     <div class="calc-option-group !bg-white !border-slate-300 !rounded-md !p-3 !shadow-sm">
-                                        <h3 class="text-[11px] font-bold text-slate-800 mb-2 uppercase tracking-wide">Annual Tax & Cost Increase</h3>
+                                        <!-- UPDATED: h3 -> h2 for semantics -->
+                                        <h2 class="text-[11px] font-bold text-slate-800 mb-2 uppercase tracking-wide">Annual Tax & Cost Increase</h2>
                                         <!-- A11Y FIX: Added explicit 'for' attributes to labels in advanced section -->
                                         <div class="input-row mb-2"><label for="taxIncrease" class="input-label w-[50%] text-slate-700 font-semibold">Property Tax</label><div class="relative w-[50%]"><input type="number" id="taxIncrease" value="0" class="compact-input pr-6"><span class="absolute right-2 top-1 text-xs text-slate-600">%</span></div></div>
                                         <div class="input-row mb-2"><label for="insIncrease" class="input-label w-[50%] text-slate-700 font-semibold">Home Ins.</label><div class="relative w-[50%]"><input type="number" id="insIncrease" value="0" class="compact-input pr-6"><span class="absolute right-2 top-1 text-xs text-slate-600">%</span></div></div>
@@ -301,7 +302,8 @@
                                     </div>
                                     <!-- Extra Payments -->
                                     <div class="calc-option-group !bg-white !border-slate-300 !rounded-md !p-3 !shadow-sm">
-                                        <h3 class="text-[11px] font-bold text-slate-800 mb-2 uppercase tracking-wide">Extra Payments</h3>
+                                        <!-- UPDATED: h3 -> h2 for semantics -->
+                                        <h2 class="text-[11px] font-bold text-slate-800 mb-2 uppercase tracking-wide">Extra Payments</h2>
                                         <div class="mb-3"><div class="flex items-center gap-1 mb-1"><label for="extraMonthly" class="text-[10px] font-bold text-slate-700">Extra Monthly Pay</label></div><div class="flex gap-1"><div class="relative w-[40%]"><span class="absolute left-1.5 top-1 text-[10px] text-slate-600">$</span><input type="number" id="extraMonthly" value="0" class="compact-input pl-4"></div><span class="text-[10px] self-center text-slate-600 font-semibold">from</span><select id="extraMonthlyMonth" aria-label="Extra monthly payment start month" class="compact-select w-[40%]"><option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option><option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option><option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option></select></div></div>
                                         <div class="mb-3"><div class="flex items-center gap-1 mb-1"><label for="extraYearly" class="text-[10px] font-bold text-slate-700">Extra Yearly Pay</label></div><div class="flex gap-1"><div class="relative w-[40%]"><span class="absolute left-1.5 top-1 text-[10px] text-slate-600">$</span><input type="number" id="extraYearly" value="0" class="compact-input pl-4"></div><span class="text-[10px] self-center text-slate-600 font-semibold">in</span><select id="extraYearlyMonth" aria-label="Extra yearly payment month" class="compact-select w-[40%]"><option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option><option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option><option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option></select></div></div>
                                         <div>
@@ -517,7 +519,8 @@
                             <!-- Amortization Container (Hidden by default) -->
                             <div id="amortizationContainer" class="hidden rounded-lg border border-slate-200 bg-white p-0 shadow-lg overflow-hidden transition-all">
                                 <div class="bg-slate-50 px-4 py-3 border-b border-slate-200 flex justify-between items-center">
-                                    <h3 class="text-sm font-bold text-slate-800">Amortization Schedule</h3>
+                                    <!-- UPDATED: h3 -> h2 for semantics -->
+                                    <h2 class="text-sm font-bold text-slate-800">Amortization Schedule</h2>
                                     <button onclick="document.getElementById('amortizationContainer').classList.add('hidden')" class="text-slate-500 hover:text-red-500 transition-colors"><i class="fa-solid fa-xmark"></i></button>
                                 </div>
                                 <div class="overflow-x-auto slim-scroll max-h-96 bg-white">
