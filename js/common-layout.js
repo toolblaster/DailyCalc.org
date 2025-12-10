@@ -6,6 +6,7 @@
   [2025-12-05] Visual Update: Changed Category Quick Bar font to Poppins (font-heading).
   [2025-12-05] Global Print: Added global event listener for #printBtn to ensure print functionality works everywhere.
   [2025-12-07] Global Print Watermark: Added "DailyCalc.org" watermark to print view for all pages.
+  [2025-12-10] Accessibility: Upgraded Sidebar and Wishlist headers from h3 to h2 to fix heading hierarchy (H1->H2).
 */
 
 const headerHTML = `
@@ -74,7 +75,8 @@ const headerHTML = `
         <div id="wishlistOverlay" class="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity opacity-0"></div>
         <div id="wishlistContent" class="absolute right-0 top-0 h-full w-80 max-w-full bg-white shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
             <div class="bg-gradient-to-r from-brand-dark to-brand-red p-4 text-white flex justify-between items-center shadow-md">
-                <h3 class="font-bold text-lg flex items-center gap-2 text-white"><i class="fa-solid fa-heart text-white"></i> My Wishlist</h3>
+                <!-- UPDATED: h3 -> h2 for semantics -->
+                <h2 class="font-bold text-lg flex items-center gap-2 text-white"><i class="fa-solid fa-heart text-white"></i> My Wishlist</h2>
                 <button id="closeWishlistBtn" class="text-white/80 hover:text-white transition"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
             <div class="flex-1 overflow-y-auto p-4 bg-slate-50" id="wishlistListContainer">
@@ -268,8 +270,9 @@ const CalculatorLayout = {
         const links = window.CALCULATOR_REGISTRY[category];
         if (!links) return;
         
+        // UPDATED: h3 -> h2 for semantics
         container.innerHTML = `
-            <div class="bg-gradient-to-r from-brand-dark to-brand-red px-4 py-2"><h3 class="text-sm font-bold text-white text-center">${category} Calculators</h3></div>
+            <div class="bg-gradient-to-r from-brand-dark to-brand-red px-4 py-2"><h2 class="text-sm font-bold text-white text-center">${category} Calculators</h2></div>
             <div class="p-4"><ul class="space-y-2"></ul></div>
         `;
         const ul = container.querySelector('ul');
