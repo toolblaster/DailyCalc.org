@@ -27,11 +27,11 @@ body.overflow-hidden {
 .category-card h3 {
     font-family: 'Poppins', 'Inter', system-ui, sans-serif;
     font-weight: 600;
-    color: #050505;
+    color: #0f172a; /* MODIFIED: Darkened from #050505 to slate-900 equivalent for consistent dark text */
 }
 /* Applied desc text size via Tailwind */
 .category-card p {
-    color: rgb(71 85 105);
+    color: #334155; /* MODIFIED: Darkened from rgb(71 85 105) (slate-500) to slate-700 equivalent for better contrast */
 }
 .category-icon {
     display: inline-flex;
@@ -50,7 +50,7 @@ body.overflow-hidden {
     padding-left: 1rem; /* MODIFIED: Was 1.25rem */
     margin-top: 0.25rem;
     list-style: disc;
-    color: rgb(100 116 139);
+    color: #475569; /* MODIFIED: Darkened from rgb(100 116 139) (slate-500) to slate-600 for better contrast */
     font-size: 11px; /* MODIFIED: Was 12px */
 }
 .subcategory-list.is-visible {
@@ -100,8 +100,8 @@ body.overflow-hidden {
     display: block;
     margin-bottom: 0.375rem; /* 6px (Was 4px) */
     font-size: 0.875rem; /* 14px (Was 12px) */
-    font-weight: 500;
-    color: rgb(71 85 105); /* slate-600 */
+    font-weight: 600; /* MODIFIED: Increased weight for better legibility */
+    color: #334155; /* MODIFIED: Darkened text color */
 }
 
 .form-input {
@@ -111,7 +111,7 @@ body.overflow-hidden {
     border: 1px solid rgb(203 213 225); /* slate-300 */
     padding: 0.625rem 0.875rem; /* 10px 14px */
     font-size: 0.875rem; /* 14px */
-    color: rgb(15 23 42); /* slate-900 */
+    color: #0f172a; /* MODIFIED: Darker text input color */
     background-color: #ffffff;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
