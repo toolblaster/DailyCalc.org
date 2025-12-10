@@ -123,6 +123,121 @@
             </div>
         </section>
 
+        <!-- *** POPULAR TOOLS SECTION (NEW) *** -->
+        <section id="popular-tools" class="py-2 sm:py-4 bg-slate-50">
+            <div class="mx-auto main-container px-4">
+                <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+                    <div class="mb-4 flex items-center justify-between border-b border-slate-100 pb-3">
+                        <h2 class="font-heading text-lg font-bold text-slate-900 flex items-center gap-2">
+                            <i class="fa-solid fa-fire text-orange-500"></i> Popular Tools
+                        </h2>
+                        <a href="#categories" class="text-xs font-semibold text-blue-600 hover:text-blue-800 hover:underline">View All</a>
+                    </div>
+                    
+                    <!-- 5 Column Grid -->
+                    <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+                        
+                        <!-- Tool 1 -->
+                        <a href="/finance/mortgage-calculator.html" class="calc-card-compact">
+                            <div><i class="fa-solid fa-house-chimney"></i></div>
+                            <h3>Mortgage Calculator</h3>
+                        </a>
+                        
+                        <!-- Tool 2 -->
+                        <a href="/health/bmi-calculator.html" class="calc-card-compact">
+                            <div><i class="fa-solid fa-weight-scale"></i></div>
+                            <h3>BMI Calculator</h3>
+                        </a>
+                        
+                        <!-- Tool 3 -->
+                        <a href="/everyday-life/age-calculator.html" class="calc-card-compact">
+                            <div><i class="fa-solid fa-cake-candles"></i></div>
+                            <h3>Age Calculator</h3>
+                        </a>
+                        
+                        <!-- Tool 4 -->
+                        <a href="/converters/length-converter.html" class="calc-card-compact">
+                            <div><i class="fa-solid fa-ruler"></i></div>
+                            <h3>Length Converter</h3>
+                        </a>
+                        
+                        <!-- Tool 5 -->
+                        <a href="/health/calorie-calculator.html" class="calc-card-compact">
+                            <div><i class="fa-solid fa-utensils"></i></div>
+                            <h3>Calorie Calculator</h3>
+                        </a>
+                        
+                        <!-- Tool 6 -->
+                        <a href="/finance/auto-loan-calculator.html" class="calc-card-compact">
+                            <div><i class="fa-solid fa-car"></i></div>
+                            <h3>Auto Loan Calc</h3>
+                        </a>
+                        
+                        <!-- Tool 7 -->
+                        <a href="/everyday-life/date-difference.html" class="calc-card-compact">
+                            <div><i class="fa-solid fa-calendar-days"></i></div>
+                            <h3>Date Difference</h3>
+                        </a>
+                        
+                        <!-- Tool 8 -->
+                        <a href="/health/body-fat.html" class="calc-card-compact">
+                            <div><i class="fa-solid fa-ruler-vertical"></i></div>
+                            <h3>Body Fat Calc</h3>
+                        </a>
+                        
+                        <!-- Tool 9 -->
+                        <a href="/finance/loan-calculator.html" class="calc-card-compact">
+                            <div><i class="fa-solid fa-hand-holding-dollar"></i></div>
+                            <h3>Loan Calculator</h3>
+                        </a>
+                        
+                        <!-- Tool 10 -->
+                        <a href="/everyday-life/time-duration.html" class="calc-card-compact">
+                            <div><i class="fa-solid fa-hourglass-half"></i></div>
+                            <h3>Time Duration</h3>
+                        </a>
+
+                        <!-- Tool 11 -->
+                        <a href="/everyday-life/tip-calculator.html" class="calc-card-compact">
+                            <div><i class="fa-solid fa-coins"></i></div>
+                            <h3>Tip Calculator</h3>
+                        </a>
+
+                        <!-- Tool 12 -->
+                        <a href="/everyday-life/percentage-calculator.html" class="calc-card-compact">
+                            <div><i class="fa-solid fa-percent"></i></div>
+                            <h3>Percentage Calc</h3>
+                        </a>
+
+                        <!-- Tool 13 -->
+                        <a href="/everyday-life/discount-calculator.html" class="calc-card-compact">
+                            <div><i class="fa-solid fa-tags"></i></div>
+                            <h3>Discount Calc</h3>
+                        </a>
+
+                        <!-- Tool 14 -->
+                        <a href="/finance/retirement-calculator.html" class="calc-card-compact">
+                            <div><i class="fa-solid fa-piggy-bank"></i></div>
+                            <h3>Retirement Calc</h3>
+                        </a>
+
+                        <!-- Tool 15 -->
+                        <a href="/converters/temperature-converter.html" class="calc-card-compact">
+                            <div><i class="fa-solid fa-temperature-three-quarters"></i></div>
+                            <h3>Temperature</h3>
+                        </a>
+
+                        <!-- Tool 16 (Visible on Mobile, Hidden on Desktop to cap at 15) -->
+                        <a href="/finance/salary-calculator.html" class="calc-card-compact lg:hidden">
+                            <div><i class="fa-solid fa-money-check-dollar"></i></div>
+                            <h3>Salary Calculator</h3>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- *** FEATURES & BENEFITS SECTION *** -->
         <!-- MODIFIED: Reduced padding from py-4 to py-2 and sm:py-8 to sm:py-6 for tighter layout -->
         <section id="features" class="py-2 sm:py-6 bg-slate-50 relative">
@@ -136,15 +251,20 @@
                         <h2 class="font-heading text-2xl font-bold text-brand-dark mb-3">
                             Trustworthy Tools, <span class="bg-gradient-to-r from-brand-red to-brand-dark bg-clip-text text-transparent">Built for You</span>
                         </h2>
+                        <!-- MODIFIED: Changed text-sm to text-xs -->
                         <p class="text-xs text-slate-600">
                             More than just calculators. DailyCalc offers powerful features to organize, save, and track your daily calculations—privately and instantly.
                         </p>
                     </div>
 
                     <!-- 3-Column Grid Layout (Mobile: 2 Columns) -->
+                    <!-- MODIFIED: Changed grid-cols-1 to grid-cols-2 for mobile layout -->
+                    <!-- MODIFIED: Reduced gap on mobile from default (implicitly gap-6 previously) to gap-3 sm:gap-6 -->
                     <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 relative z-10">
                         
                         <!-- Card 1: Dashboard & History -->
+                        <!-- MODIFIED: Reduced padding to p-3 sm:p-6 to fit 2 columns on mobile -->
+                        <!-- UPDATED: Added flex flex-col items-center text-center to center content -->
                         <div class="group p-3 sm:p-6 bg-white rounded-2xl border border-slate-100 shadow-sm hover:border-blue-200 hover:shadow-md transition-all flex flex-col items-center text-center">
                             <div class="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors">
                                 <i class="fa-solid fa-gauge-high text-lg"></i>
@@ -159,6 +279,8 @@
                         </div>
 
                         <!-- Card 2: Wishlist & Favorites -->
+                        <!-- MODIFIED: Reduced padding to p-3 sm:p-6 -->
+                        <!-- UPDATED: Added flex flex-col items-center text-center -->
                         <div class="group p-3 sm:p-6 bg-white rounded-2xl border border-slate-100 shadow-sm hover:border-pink-200 hover:shadow-md transition-all flex flex-col items-center text-center">
                             <div class="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-pink-50 text-pink-600 group-hover:bg-pink-600 group-hover:text-white transition-colors">
                                 <i class="fa-solid fa-heart text-lg"></i>
@@ -170,6 +292,8 @@
                         </div>
 
                         <!-- Card 3: Saved Presets -->
+                        <!-- MODIFIED: Reduced padding to p-3 sm:p-6 -->
+                        <!-- UPDATED: Added flex flex-col items-center text-center -->
                         <div class="group p-3 sm:p-6 bg-white rounded-2xl border border-slate-100 shadow-sm hover:border-green-200 hover:shadow-md transition-all flex flex-col items-center text-center">
                             <div class="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-green-50 text-green-600 group-hover:bg-green-600 group-hover:text-white transition-colors">
                                 <i class="fa-solid fa-bookmark text-lg"></i>
@@ -181,6 +305,8 @@
                         </div>
 
                         <!-- Card 4: Trustworthy -->
+                        <!-- MODIFIED: Reduced padding to p-3 sm:p-6 -->
+                        <!-- UPDATED: Added flex flex-col items-center text-center -->
                         <div class="group p-3 sm:p-6 bg-white rounded-2xl border border-slate-100 shadow-sm hover:border-purple-200 hover:shadow-md transition-all flex flex-col items-center text-center">
                             <div class="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-purple-50 text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition-colors">
                                 <i class="fa-solid fa-shield-halved text-lg"></i>
@@ -192,6 +318,8 @@
                         </div>
 
                         <!-- Card 5: Fast -->
+                        <!-- MODIFIED: Reduced padding to p-3 sm:p-6 -->
+                        <!-- UPDATED: Added flex flex-col items-center text-center -->
                         <div class="group p-3 sm:p-6 bg-white rounded-2xl border border-slate-100 shadow-sm hover:border-orange-200 hover:shadow-md transition-all flex flex-col items-center text-center">
                             <div class="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-orange-50 text-orange-600 group-hover:bg-orange-600 group-hover:text-white transition-colors">
                                 <i class="fa-solid fa-bolt text-lg"></i>
@@ -203,6 +331,8 @@
                         </div>
 
                         <!-- Card 6: Privacy (Community) -->
+                        <!-- MODIFIED: Reduced padding to p-3 sm:p-6 -->
+                        <!-- UPDATED: Added flex flex-col items-center text-center -->
                         <div class="group p-3 sm:p-6 bg-white rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-50 to-white shadow-sm hover:border-brand-red/30 hover:shadow-md transition-all flex flex-col items-center text-center">
                             <div class="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-slate-100 text-slate-600 group-hover:bg-brand-dark group-hover:text-white transition-colors">
                                 <i class="fa-solid fa-user-lock text-lg"></i>
