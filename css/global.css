@@ -260,3 +260,22 @@ body.overflow-hidden {
         display: none !important;
     }
 }
+
+/* --- CLS PREVENTION --- */
+/* Reserve space for injected header to prevent layout jump */
+#header-placeholder {
+    min-height: 52px; /* Mobile: Header Only (16px padding + 36px content) */
+}
+
+@media (min-width: 640px) {
+    #header-placeholder {
+        min-height: 60px; /* Tablet: Expanded Header (24px padding + 36px content) */
+    }
+}
+
+@media (min-width: 768px) {
+    #header-placeholder {
+        /* Desktop: Header (60px) + Category Quick Bar (~41px) */
+        min-height: 101px; 
+    }
+}
