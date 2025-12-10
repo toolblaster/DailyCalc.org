@@ -5,6 +5,7 @@
   [2025-11-28] WishlistManager: Added for managing Favorite tools via localStorage.
   [2025-12-05] WishlistManager: Updated to store Icons. SidebarWidget now detects icons automatically.
   [2025-12-06] Registry Update: Updated Length Converter URL to length-converter.html.
+  [2025-12-10] GlobalSearch: Compact layout applied. Reverted initial state to "Type to search".
 */
 
 const CALCULATOR_REGISTRY = {
@@ -142,7 +143,8 @@ const GlobalSearch = {
     modalHTML: `
         <div id="searchModal" class="fixed inset-0 z-[100] hidden" aria-labelledby="searchModalTitle" role="dialog" aria-modal="true">
             <div id="searchModalOverlay" class="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity opacity-0"></div>
-            <div id="searchModalContainer" class="relative flex min-h-full items-start justify-center p-4 pt-10 sm:p-4 pointer-events-none">
+            <!-- MODIFIED: Reduced top padding (pt-10 -> pt-6) and ensured modal aligns higher -->
+            <div id="searchModalContainer" class="relative flex min-h-0 items-start justify-center p-4 pt-6 sm:p-4 pointer-events-none">
                 <div id="searchModalContent" class="pointer-events-auto relative w-full max-w-lg transform-gpu overflow-hidden rounded-xl bg-white shadow-2xl transition-all scale-95 opacity-0">
                     <div class="relative border-b border-slate-100 bg-white p-3">
                         <div class="flex items-center gap-3">
@@ -153,7 +155,9 @@ const GlobalSearch = {
                             </button>
                         </div>
                     </div>
-                    <div id="searchResultsWrapper" class="max-h-[50vh] overflow-y-auto bg-slate-50/50 p-2">
+                    <!-- MODIFIED: Reduced max-height from 50vh to 350px for a more compact vertical footprint -->
+                    <div id="searchResultsWrapper" class="max-h-[350px] overflow-y-auto bg-slate-50/50 p-2">
+                        <!-- Initial State (Visible by default) -->
                         <div id="searchInitialState" class="py-8 text-center text-slate-400">
                             <i class="fa-regular fa-keyboard text-2xl mb-2 opacity-50"></i><p class="text-xs">Type to search...</p>
                         </div>
@@ -208,6 +212,7 @@ const GlobalSearch = {
     },
     open() {
         this.modal.classList.remove('hidden');
+        this.resetResults();
         requestAnimationFrame(() => {
             this.overlay.classList.remove('opacity-0');
             this.content.classList.remove('scale-95', 'opacity-0');
@@ -230,14 +235,15 @@ const GlobalSearch = {
     handleInput(query) {
         const cleanQuery = query.trim().toLowerCase();
         if (cleanQuery.length === 0) { this.resetResults(); return; }
+        
         this.initialState.classList.add('hidden');
         const results = this.searchIndex.filter(item => item.searchText.includes(cleanQuery));
         this.renderResults(results, query);
     },
     resetResults() {
         this.resultsContainer.innerHTML = '';
-        this.initialState.classList.remove('hidden');
         this.noResultsState.classList.add('hidden');
+        this.initialState.classList.remove('hidden'); // Show "Type to search" again
     },
     renderResults(results, query) {
         this.resultsContainer.innerHTML = '';
