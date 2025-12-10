@@ -10,6 +10,7 @@
   [2025-12-10] Accessibility: Added aria-labels to mobile menu links for discernible names.
   [2025-12-10] Accessibility: Added aria-label to Close buttons in Mobile Menu and Wishlist Drawer.
   [2025-12-10] Accessibility: Improved Desktop Wishlist button contrast (Text is now dark, Icon remains red).
+  [2025-12-10] Navigation: Added "Home" link to footer.
 */
 
 const headerHTML = `
@@ -143,6 +144,8 @@ const footerHTML = `
             <div class="mt-6 flex flex-col items-center gap-4 border-t border-white/10 pt-6 text-xs text-slate-500 sm:flex-row sm:justify-center sm:gap-6">
                 <p class="text-center sm:text-left">&copy; <span id="currentYear"></span> DailyCalc.org. All rights reserved.</p>
                 <div class="flex flex-wrap justify-center gap-4 sm:justify-start">
+                    <!-- Added Home Link -->
+                    <a href="/" class="transition hover:text-white">Home</a>
                     <a href="/legal/privacy.html" class="transition hover:text-white">Privacy</a>
                     <a href="/legal/terms.html" class="transition hover:text-white">Terms</a>
                     <a href="/legal/contact.html" class="transition hover:text-white">Contact</a>
