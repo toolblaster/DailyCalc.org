@@ -279,3 +279,12 @@ body.overflow-hidden {
         min-height: 101px; 
     }
 }
+
+/* --- Footer Accessibility Fixes --- */
+/* Ensure sufficient contrast for footer text on dark background */
+footer .text-slate-500 {
+    color: #94a3b8 !important; /* lighten to slate-400 for contrast > 4.5:1 */
+}
+footer .text-slate-400 {
+    color: #cbd5e1 !important; /* lighten to slate-300 for even better readability */
+}
