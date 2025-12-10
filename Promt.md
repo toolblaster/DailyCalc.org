@@ -24,6 +24,16 @@ ARIA Labels: For inputs without visible text labels (like unit dropdowns or spli
 
 Contrast: The .compact-input class handles contrast automatically. Do not override text colors with lighter shades.
 
+Heading Hierarchy (CRITICAL):
+
+The Layout Engine automatically injects the main Page Title as <h1>.
+
+Therefore, ALL headings inside your HTML (tool-slot or seo-slot) MUST start at <h2>.
+
+Use <h3> only as a direct subsection of an <h2>.
+
+NEVER skip levels (e.g., jumping from H1 -> H3 causes PageSpeed/Accessibility errors).
+
 Initialisation: At the bottom, call CalculatorLayout.render() with the correct title and category.
 
 Imports: Include the standard DailyCalc JS/CSS imports (Tailwind CDN, FontAwesome, global.css, global.js, common-layout.js).
