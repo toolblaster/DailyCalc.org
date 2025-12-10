@@ -9,6 +9,7 @@
   [2025-12-10] Accessibility: Upgraded Sidebar and Wishlist headers from h3 to h2 to fix heading hierarchy (H1->H2).
   [2025-12-10] Accessibility: Added aria-labels to mobile menu links for discernible names.
   [2025-12-10] Accessibility: Added aria-label to Close buttons in Mobile Menu and Wishlist Drawer.
+  [2025-12-10] Accessibility: Improved Desktop Wishlist button contrast (Text is now dark, Icon remains red).
 */
 
 const headerHTML = `
@@ -63,9 +64,11 @@ const headerHTML = `
                         <a href="/" class="inline-flex items-center justify-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white shadow-soft transition hover:bg-white/20"><i class="fa-solid fa-house"></i> Home</a>
                         <a href="/dashboard.html" class="inline-flex items-center justify-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white shadow-soft transition hover:bg-white/20"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
                         
-                        <!-- Desktop Wishlist Button (Replaces Suggest a Tool) -->
-                        <button id="desktopWishlistBtn" class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-brand-red shadow-soft transition hover:bg-slate-200 relative group">
-                            <i class="fa-solid fa-heart group-hover:scale-110 transition-transform"></i> 
+                        <!-- Desktop Wishlist Button (FIX: Contrast improved) -->
+                        <!-- Changed text-brand-red to text-slate-800 for high contrast text -->
+                        <!-- Added text-brand-red specifically to the icon -->
+                        <button id="desktopWishlistBtn" class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-bold text-slate-800 shadow-soft transition hover:bg-slate-100 relative group">
+                            <i class="fa-solid fa-heart text-brand-red group-hover:scale-110 transition-transform"></i> 
                             <span>Wishlist</span>
                             <span id="desktopWishlistCount" class="ml-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-brand-dark text-[10px] text-white hidden">0</span>
                         </button>
