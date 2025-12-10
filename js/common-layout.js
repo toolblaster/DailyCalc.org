@@ -7,6 +7,8 @@
   [2025-12-05] Global Print: Added global event listener for #printBtn to ensure print functionality works everywhere.
   [2025-12-07] Global Print Watermark: Added "DailyCalc.org" watermark to print view for all pages.
   [2025-12-10] Accessibility: Upgraded Sidebar and Wishlist headers from h3 to h2 to fix heading hierarchy (H1->H2).
+  [2025-12-10] Accessibility: Added aria-labels to mobile menu links for discernible names.
+  [2025-12-10] Accessibility: Added aria-label to Close buttons in Mobile Menu and Wishlist Drawer.
 */
 
 const headerHTML = `
@@ -44,14 +46,17 @@ const headerHTML = `
                 <!-- 3. Mobile/Desktop Buttons -->
                 <div class="flex-shrink-0">
                     <nav aria-label="Primary" class="flex flex-wrap items-center gap-2 text-sm font-medium text-slate-600 md:hidden">
-                        <a href="/" class="rounded-lg p-2 text-white transition hover:bg-white/10"><i class="fa-solid fa-house h-5 w-5"></i></a>
-                        <button class="js-open-search rounded-lg p-2 text-white transition hover:bg-white/10"><i class="fa-solid fa-search h-5 w-5"></i></button>
-                        <!-- Mobile Wishlist Button -->
-                        <button id="mobileWishlistBtn" class="rounded-lg p-2 text-white transition hover:bg-white/10 relative">
+                        <!-- Added aria-label="Home" -->
+                        <a href="/" class="rounded-lg p-2 text-white transition hover:bg-white/10" aria-label="Home"><i class="fa-solid fa-house h-5 w-5"></i></a>
+                        <!-- Added aria-label="Search" -->
+                        <button class="js-open-search rounded-lg p-2 text-white transition hover:bg-white/10" aria-label="Search"><i class="fa-solid fa-search h-5 w-5"></i></button>
+                        <!-- Mobile Wishlist Button: Added aria-label="Wishlist" -->
+                        <button id="mobileWishlistBtn" class="rounded-lg p-2 text-white transition hover:bg-white/10 relative" aria-label="Wishlist">
                             <i class="fa-solid fa-heart h-5 w-5"></i>
                             <span id="mobileWishlistCount" class="absolute top-1 right-1 flex h-3 w-3 items-center justify-center rounded-full bg-yellow-400 text-[8px] font-bold text-black hidden">0</span>
                         </button>
-                        <button id="mobileMenuToggle" class="rounded-lg p-2 text-white transition hover:bg-white/10"><i class="fa-solid fa-bars h-5 w-5" id="menuOpenIcon"></i><i class="fa-solid fa-xmark h-5 w-5 hidden" id="menuCloseIcon"></i></button>
+                        <!-- Added aria-label="Menu" -->
+                        <button id="mobileMenuToggle" class="rounded-lg p-2 text-white transition hover:bg-white/10" aria-label="Menu"><i class="fa-solid fa-bars h-5 w-5" id="menuOpenIcon"></i><i class="fa-solid fa-xmark h-5 w-5 hidden" id="menuCloseIcon"></i></button>
                     </nav>
 
                     <div class="hidden items-center gap-3 md:flex">
@@ -77,7 +82,8 @@ const headerHTML = `
             <div class="bg-gradient-to-r from-brand-dark to-brand-red p-4 text-white flex justify-between items-center shadow-md">
                 <!-- UPDATED: h3 -> h2 for semantics -->
                 <h2 class="font-bold text-lg flex items-center gap-2 text-white"><i class="fa-solid fa-heart text-white"></i> My Wishlist</h2>
-                <button id="closeWishlistBtn" class="text-white/80 hover:text-white transition"><i class="fa-solid fa-xmark text-xl"></i></button>
+                <!-- UPDATED: Added aria-label="Close Wishlist" -->
+                <button id="closeWishlistBtn" class="text-white/80 hover:text-white transition" aria-label="Close Wishlist"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
             <div class="flex-1 overflow-y-auto p-4 bg-slate-50" id="wishlistListContainer">
                 <!-- Items injected here -->
@@ -96,7 +102,8 @@ const headerHTML = `
     <div id="mobileMenu" class="md:hidden fixed inset-0 z-50 hidden">
         <div id="mobileMenuOverlay" class="absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300 ease-in-out"></div>
         <div id="mobileMenuContent" class="relative flex flex-col bg-gradient-to-r from-brand-dark to-brand-red h-full w-2/3 max-w-sm shadow-xl transform -translate-x-full transition-transform duration-300 ease-in-out">
-            <div class="flex justify-end p-2"><button id="mobileMenuClose" class="rounded-lg p-2 text-white transition hover:bg-white/10"><i class="fa-solid fa-xmark h-6 w-6"></i></button></div>
+            <!-- UPDATED: Added aria-label="Close Menu" -->
+            <div class="flex justify-end p-2"><button id="mobileMenuClose" class="rounded-lg p-2 text-white transition hover:bg-white/10" aria-label="Close Menu"><i class="fa-solid fa-xmark h-6 w-6"></i></button></div>
             <nav class="flex-1 overflow-y-auto px-4 pb-4">
                 <a href="/finance/" class="mobile-menu-link"><i class="fa-solid fa-sack-dollar fa-fw"></i><span>Finance</span></a>
                 <a href="/health/" class="mobile-menu-link"><i class="fa-solid fa-heart-pulse fa-fw"></i><span>Health</span></a>
