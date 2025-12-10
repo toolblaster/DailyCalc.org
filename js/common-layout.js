@@ -11,6 +11,8 @@
   [2025-12-10] Accessibility: Added aria-label to Close buttons in Mobile Menu and Wishlist Drawer.
   [2025-12-10] Accessibility: Improved Desktop Wishlist button contrast (Text is now dark, Icon remains red).
   [2025-12-10] Navigation: Added "Home" link to footer.
+  [2025-12-10] Visual Update: Made desktop header buttons (Home, Dashboard, Wishlist) smaller and more compact.
+  [2025-12-10] Visual Update: Centered Desktop Search Bar between Logo and Buttons and made it compact.
 */
 
 const headerHTML = `
@@ -19,7 +21,7 @@ const headerHTML = `
         <div class="mx-auto max-w-[1050px] flex-col px-6 py-2 sm:py-3">
             <div class="flex w-full items-center justify-between gap-4">
                 <!-- 1. Logo -->
-                <div class="flex-shrink-0">
+                <div class="flex-shrink-0 w-[200px]"> <!-- Added fixed width to logo container for balance -->
                     <a href="/" class="flex items-center gap-2 text-white" aria-label="DailyCalc.org homepage">
                         <!-- Reduced height/width to h-7/w-7 (mobile) and h-9/w-9 (desktop) to match button heights -->
                         <div class="flex h-7 w-7 sm:h-9 sm:w-9 items-center justify-center rounded-full border-2 border-white text-white">
@@ -34,19 +36,23 @@ const headerHTML = `
                 </div>
 
                 <!-- 2. Desktop Search Bar -->
-                <div class="hidden flex-1 px-4 md:block">
-                    <button class="js-open-search relative w-full max-w-xs mx-auto text-left" aria-label="Open search panel">
-                        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
-                            <i class="fa-solid fa-search text-slate-300"></i>
+                <!-- MODIFIED: Added flex justify-center to center the search bar -->
+                <div class="hidden flex-1 px-4 md:flex md:justify-center">
+                    <!-- MODIFIED: Reduced max-width to 220px for compactness -->
+                    <button class="js-open-search relative w-full max-w-[220px] text-left" aria-label="Open search panel">
+                        <!-- MODIFIED: Reduced padding left (pl-3) -->
+                        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                            <i class="fa-solid fa-search text-slate-300 text-xs"></i>
                         </div>
-                        <div class="w-full rounded-full border border-white/30 bg-white/10 px-5 py-2 pl-10 text-sm text-slate-300 shadow-sm transition duration-200 hover:bg-white/20">
-                            Search calculators...
+                        <!-- MODIFIED: Reduced vertical padding (py-1.5), padding left (pl-9), and text size (text-xs) to match buttons -->
+                        <div class="w-full rounded-full border border-white/30 bg-white/10 px-4 py-1.5 pl-9 text-xs font-medium text-slate-300 shadow-sm transition duration-200 hover:bg-white/20 truncate">
+                            Search tools...
                         </div>
                     </button>
                 </div>
                 
                 <!-- 3. Mobile/Desktop Buttons -->
-                <div class="flex-shrink-0">
+                <div class="flex-shrink-0 w-[200px] flex justify-end"> <!-- Added fixed width and justify-end for balance -->
                     <nav aria-label="Primary" class="flex flex-wrap items-center gap-2 text-sm font-medium text-slate-600 md:hidden">
                         <!-- Added aria-label="Home" -->
                         <a href="/" class="rounded-lg p-2 text-white transition hover:bg-white/10" aria-label="Home"><i class="fa-solid fa-house h-5 w-5"></i></a>
@@ -61,17 +67,16 @@ const headerHTML = `
                         <button id="mobileMenuToggle" class="rounded-lg p-2 text-white transition hover:bg-white/10" aria-label="Menu"><i class="fa-solid fa-bars h-5 w-5" id="menuOpenIcon"></i><i class="fa-solid fa-xmark h-5 w-5 hidden" id="menuCloseIcon"></i></button>
                     </nav>
 
-                    <div class="hidden items-center gap-3 md:flex">
-                        <a href="/" class="inline-flex items-center justify-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white shadow-soft transition hover:bg-white/20"><i class="fa-solid fa-house"></i> Home</a>
-                        <a href="/dashboard.html" class="inline-flex items-center justify-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white shadow-soft transition hover:bg-white/20"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+                    <div class="hidden items-center gap-2 md:flex">
+                        <!-- UPDATED: Smaller, compact buttons (px-3 py-1.5 text-xs font-bold) -->
+                        <a href="/" class="inline-flex items-center justify-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-bold text-white shadow-soft transition hover:bg-white/20"><i class="fa-solid fa-house"></i> Home</a>
+                        <a href="/dashboard.html" class="inline-flex items-center justify-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-bold text-white shadow-soft transition hover:bg-white/20"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
                         
-                        <!-- Desktop Wishlist Button (FIX: Contrast improved) -->
-                        <!-- Changed text-brand-red to text-slate-800 for high contrast text -->
-                        <!-- Added text-brand-red specifically to the icon -->
-                        <button id="desktopWishlistBtn" class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-bold text-slate-800 shadow-soft transition hover:bg-slate-100 relative group">
+                        <!-- Desktop Wishlist Button (FIX: Contrast improved + Compact) -->
+                        <button id="desktopWishlistBtn" class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-3 py-1.5 text-xs font-bold text-slate-800 shadow-soft transition hover:bg-slate-100 relative group">
                             <i class="fa-solid fa-heart text-brand-red group-hover:scale-110 transition-transform"></i> 
                             <span>Wishlist</span>
-                            <span id="desktopWishlistCount" class="ml-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-brand-dark text-[10px] text-white hidden">0</span>
+                            <span id="desktopWishlistCount" class="ml-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-brand-dark text-[9px] text-white hidden">0</span>
                         </button>
                     </div>
                 </div>
