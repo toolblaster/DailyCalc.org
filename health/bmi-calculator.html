@@ -126,7 +126,6 @@
     <div id="tool-slot" class="hidden">
         
         <div class="calc-tool-header">
-            <!-- Updated icon to match category card (fa-weight-scale) -->
             <i class="fa-solid fa-weight-scale"></i>
             <span class="text-xs font-medium">BMI, Ideal Weight & Calorie Estimator</span>
         </div>
@@ -162,7 +161,7 @@
                                 </label>
                                 <label class="flex-1 cursor-pointer">
                                     <input type="radio" name="gender" value="female" class="peer hidden">
-                                    <div class="text-[10px] font-bold text-center py-1.5 border border-slate-300 rounded bg-white text-slate-500 peer-checked:bg-pink-50 peer-checked:text-pink-600 peer-checked:border-pink-300 transition-all">Fem</div>
+                                    <div class="text-[10px] font-bold text-center py-1.5 border border-slate-300 rounded bg-white text-slate-500 peer-checked:bg-pink-50 peer-checked:text-pink-600 peer-checked:border-pink-300 transition-all">Female</div>
                                 </label>
                             </div>
                         </div>
@@ -175,45 +174,56 @@
                             </div>
                         </div>
                         
-                        <!-- Weight (With Unit Selector) -->
+                        <!-- Weight (With Toggle) -->
                         <div class="flex items-center justify-between">
                             <label class="text-xs font-bold text-slate-700 w-1/3 text-right pr-4">Weight</label>
-                            <div class="flex w-2/3 gap-1">
-                                <div class="relative flex-1">
-                                    <input type="number" id="weight" class="compact-input font-bold text-slate-900 w-full" placeholder="0">
+                            <div class="flex w-2/3 gap-2">
+                                <div class="flex-1 relative">
+                                    <!-- Imperial (lbs) -->
+                                    <div id="weightGroupLbs" class="relative w-full">
+                                        <input type="number" id="weightLbs" class="compact-input pr-8 font-bold text-slate-900 w-full" placeholder="0">
+                                        <span class="absolute right-2 top-1.5 text-[10px] text-slate-500 font-bold">lbs</span>
+                                    </div>
+                                    <!-- Metric (kg) -->
+                                    <div id="weightGroupKg" class="hidden relative w-full">
+                                        <input type="number" id="weightKg" class="compact-input pr-8 font-bold text-slate-900 w-full" placeholder="0">
+                                        <span class="absolute right-2 top-1.5 text-[10px] text-slate-500 font-bold">kg</span>
+                                    </div>
                                 </div>
-                                <select id="weightUnit" class="compact-select w-16 px-1 text-center bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7">
-                                    <option value="lbs">lbs</option>
-                                    <option value="kg">kg</option>
-                                </select>
+                                <!-- Toggle Button -->
+                                <button type="button" id="btnWeightToggle" class="h-9 w-8 flex-shrink-0 rounded border border-slate-300 bg-slate-50 text-slate-500 hover:text-brand-dark hover:bg-white hover:border-slate-400 transition-all flex justify-center items-center shadow-sm" title="Switch Weight Unit">
+                                    <i class="fa-solid fa-repeat text-xs"></i>
+                                </button>
                             </div>
                         </div>
 
-                        <!-- Height (With Unit Selector & Dynamic Inputs) -->
+                        <!-- Height (With Toggle) -->
                         <div class="flex items-center justify-between">
                             <label class="text-xs font-bold text-slate-700 w-1/3 text-right pr-4">Height</label>
-                            <div class="flex w-2/3 gap-1">
-                                <!-- Imperial Inputs (ft/in) -->
-                                <div id="heightGroupFt" class="flex flex-1 gap-1">
-                                    <div class="relative w-full">
-                                        <input type="number" id="heightFt" class="compact-input pr-5 font-bold text-slate-900 w-full" placeholder="0">
-                                        <span class="absolute right-1.5 top-1.5 text-[10px] text-slate-500 font-bold">ft</span>
+                            <div class="flex w-2/3 gap-2">
+                                <!-- Input Wrapper -->
+                                <div class="flex-1 relative">
+                                    <!-- Imperial Inputs (ft/in) -->
+                                    <div id="heightGroupFt" class="flex gap-1 w-full">
+                                        <div class="relative w-full">
+                                            <input type="number" id="heightFt" class="compact-input pr-5 font-bold text-slate-900 w-full" placeholder="0">
+                                            <span class="absolute right-1.5 top-1.5 text-[10px] text-slate-500 font-bold">ft</span>
+                                        </div>
+                                        <div class="relative w-full">
+                                            <input type="number" id="heightIn" class="compact-input pr-5 font-bold text-slate-900 w-full" placeholder="0">
+                                            <span class="absolute right-1.5 top-1.5 text-[10px] text-slate-500 font-bold">in</span>
+                                        </div>
                                     </div>
-                                    <div class="relative w-full">
-                                        <input type="number" id="heightIn" class="compact-input pr-5 font-bold text-slate-900 w-full" placeholder="0">
-                                        <span class="absolute right-1.5 top-1.5 text-[10px] text-slate-500 font-bold">in</span>
+                                    <!-- Metric Input (cm) -->
+                                    <div id="heightGroupCm" class="hidden relative w-full">
+                                        <input type="number" id="heightCm" class="compact-input pr-8 font-bold text-slate-900 w-full" placeholder="0">
+                                        <span class="absolute right-2 top-1.5 text-[10px] text-slate-500 font-bold">cm</span>
                                     </div>
                                 </div>
-                                <!-- Metric Input (cm) -->
-                                <div id="heightGroupCm" class="hidden relative flex-1">
-                                    <input type="number" id="heightCm" class="compact-input pr-8 font-bold text-slate-900 w-full" placeholder="0">
-                                    <span class="absolute right-2 top-1.5 text-[10px] text-slate-500 font-bold">cm</span>
-                                </div>
-                                <!-- Unit Selector -->
-                                <select id="heightUnit" class="compact-select w-16 px-1 text-center bg-white text-slate-900 font-bold border-slate-300 rounded shadow-sm h-7">
-                                    <option value="ft">ft</option>
-                                    <option value="cm">cm</option>
-                                </select>
+                                <!-- Toggle Button -->
+                                <button type="button" id="btnHeightToggle" class="h-9 w-8 flex-shrink-0 rounded border border-slate-300 bg-slate-50 text-slate-500 hover:text-brand-dark hover:bg-white hover:border-slate-400 transition-all flex justify-center items-center shadow-sm" title="Switch Height Unit">
+                                    <i class="fa-solid fa-repeat text-xs"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -234,7 +244,6 @@
                     <div class="result-header">
                         <div>
                             <div class="result-label">Your BMI</div>
-                            <!-- [2025-12-06] Verified use of centralized .result-value size -->
                             <div class="result-value" id="resultDisplay">--.-</div>
                         </div>
                         <div class="calc-action-group">
@@ -262,7 +271,7 @@
                     </div>
                  </div>
 
-                 <!-- Value-Add Grid (UPDATED with .calc-output-card) -->
+                 <!-- Value-Add Grid -->
                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                      <!-- Healthy Weight Card -->
                      <div class="calc-output-card">
@@ -287,7 +296,6 @@
 
                  <!-- Reference Table -->
                  <div class="flex-1 rounded overflow-hidden calc-output-card !p-0 !block !bg-white border !border-slate-500">
-                     <!-- UPDATED: h3 -> h2 for semantics -->
                      <div class="bg-slate-100 px-3 py-2 border-b border-slate-200"><h2 class="text-xs font-bold text-slate-700">Quick Reference</h2></div>
                      <table class="w-full text-xs text-left">
                          <tbody class="divide-y divide-slate-100">
@@ -531,14 +539,19 @@
                 labels: { imperial: document.getElementById('label-imperial'), metric: document.getElementById('label-metric') },
                 genderRadios: document.getElementsByName('gender'),
                 age: document.getElementById('age'),
-                weight: document.getElementById('weight'),
-                weightUnit: document.getElementById('weightUnit'), // Local select
+                // New Weight Elements
+                weightLbs: document.getElementById('weightLbs'),
+                weightKg: document.getElementById('weightKg'),
+                weightGroupLbs: document.getElementById('weightGroupLbs'),
+                weightGroupKg: document.getElementById('weightGroupKg'),
+                btnWeightToggle: document.getElementById('btnWeightToggle'),
+                // New Height Elements
                 heightFt: document.getElementById('heightFt'),
                 heightIn: document.getElementById('heightIn'),
                 heightCm: document.getElementById('heightCm'),
-                heightUnit: document.getElementById('heightUnit'), // Local select
-                heightGroupFt: document.getElementById('heightGroupFt'), // Wrapper
-                heightGroupCm: document.getElementById('heightGroupCm'), // Wrapper
+                heightGroupFt: document.getElementById('heightGroupFt'), 
+                heightGroupCm: document.getElementById('heightGroupCm'), 
+                btnHeightToggle: document.getElementById('btnHeightToggle'),
                 btn: document.getElementById('calcButton'),
                 clear: document.getElementById('clearButton'),
                 display: document.getElementById('resultDisplay'),
@@ -566,9 +579,11 @@
                     els.labels.imperial.classList.remove('bg-slate-100', 'shadow-sm', 'text-brand-dark', 'font-bold'); 
                     els.labels.imperial.classList.add('text-slate-500', 'font-medium');
                     
-                    // Set Local Dropdowns
-                    els.weightUnit.value = 'kg';
-                    els.heightUnit.value = 'cm';
+                    // Set Local Toggles
+                    els.heightGroupFt.classList.add('hidden');
+                    els.heightGroupCm.classList.remove('hidden');
+                    els.weightGroupLbs.classList.add('hidden');
+                    els.weightGroupKg.classList.remove('hidden');
                 } else {
                     // Update Styles
                     els.labels.imperial.classList.add('bg-slate-100', 'shadow-sm', 'text-brand-dark', 'font-bold'); 
@@ -576,42 +591,97 @@
                     els.labels.metric.classList.remove('bg-slate-100', 'shadow-sm', 'text-brand-dark', 'font-bold'); 
                     els.labels.metric.classList.add('text-slate-500', 'font-medium');
                     
-                    // Set Local Dropdowns
-                    els.weightUnit.value = 'lbs';
-                    els.heightUnit.value = 'ft';
+                    // Set Local Toggles
+                    els.heightGroupFt.classList.remove('hidden');
+                    els.heightGroupCm.classList.add('hidden');
+                    els.weightGroupLbs.classList.remove('hidden');
+                    els.weightGroupKg.classList.add('hidden');
                 }
-                updateVisibility();
                 calculate();
             }
 
-            // Update Visibility based on Local Dropdowns
-            function updateVisibility() {
-                // Height
-                if (els.heightUnit.value === 'ft') {
-                    els.heightGroupFt.classList.remove('hidden');
-                    els.heightGroupCm.classList.add('hidden');
-                } else {
-                    els.heightGroupFt.classList.add('hidden');
-                    els.heightGroupCm.classList.remove('hidden');
-                }
+            // Height Unit Toggle
+            if(els.btnHeightToggle) {
+                els.btnHeightToggle.addEventListener('click', () => {
+                    const isCmVisible = !els.heightGroupCm.classList.contains('hidden');
+                    if (isCmVisible) {
+                        // Switch TO Ft/In
+                        els.heightGroupCm.classList.add('hidden');
+                        els.heightGroupFt.classList.remove('hidden');
+                        const cm = parseFloat(els.heightCm.value);
+                        if(cm) {
+                            const totalInches = cm / 2.54;
+                            const feet = Math.floor(totalInches / 12);
+                            const inches = Math.round(totalInches % 12);
+                            els.heightFt.value = feet;
+                            els.heightIn.value = inches;
+                        }
+                    } else {
+                        // Switch TO Cm
+                        els.heightGroupFt.classList.add('hidden');
+                        els.heightGroupCm.classList.remove('hidden');
+                        const ft = parseFloat(els.heightFt.value) || 0;
+                        const inc = parseFloat(els.heightIn.value) || 0;
+                        if(ft || inc) {
+                            const cm = Math.round(((ft * 12) + inc) * 2.54);
+                            els.heightCm.value = cm;
+                        }
+                    }
+                    calculate();
+                });
+            }
+
+            // Weight Unit Toggle
+            if(els.btnWeightToggle) {
+                els.btnWeightToggle.addEventListener('click', () => {
+                    const isKgVisible = !els.weightGroupKg.classList.contains('hidden');
+                    if(isKgVisible) {
+                        // Switch TO Lbs
+                        els.weightGroupKg.classList.add('hidden');
+                        els.weightGroupLbs.classList.remove('hidden');
+                        const kg = parseFloat(els.weightKg.value);
+                        if(kg) {
+                            els.weightLbs.value = (kg * 2.20462).toFixed(1);
+                        }
+                    } else {
+                        // Switch TO Kg
+                        els.weightGroupLbs.classList.add('hidden');
+                        els.weightGroupKg.classList.remove('hidden');
+                        const lbs = parseFloat(els.weightLbs.value);
+                        if(lbs) {
+                            els.weightKg.value = (lbs / 2.20462).toFixed(1);
+                        }
+                    }
+                    calculate();
+                });
             }
 
             els.radios.forEach(r => r.addEventListener('change', toggleGlobalUnits));
-            els.heightUnit.addEventListener('change', () => { updateVisibility(); calculate(); });
-            els.weightUnit.addEventListener('change', calculate);
 
             function calculate() {
                 const gender = Array.from(els.genderRadios).find(r => r.checked).value;
                 const age = parseFloat(els.age.value) || 0;
-                let weightVal = parseFloat(els.weight.value);
                 
-                if (!weightVal || weightVal <= 0) { resetResult(); return; }
-
+                // Get Weight (Normalized to Kg)
+                let weightKg = 0;
+                const isKgInputVisible = !els.weightGroupKg.classList.contains('hidden');
+                
+                if (isKgInputVisible) {
+                     const kg = parseFloat(els.weightKg.value);
+                     if (!kg || kg <= 0) { resetResult(); return; }
+                     weightKg = kg;
+                } else {
+                     const lbs = parseFloat(els.weightLbs.value);
+                     if (!lbs || lbs <= 0) { resetResult(); return; }
+                     weightKg = lbs * 0.453592;
+                }
+                
                 // Get Height (Normalized to Meters)
                 let heightM = 0;
                 let heightCmVal = 0;
+                const isCmInputVisible = !els.heightGroupCm.classList.contains('hidden');
 
-                if (els.heightUnit.value === 'cm') {
+                if (isCmInputVisible) {
                     let cm = parseFloat(els.heightCm.value); 
                     if (!cm) { resetResult(); return; }
                     heightCmVal = cm; 
@@ -625,9 +695,6 @@
                     heightM = heightCmVal / 100;
                 }
 
-                // Get Weight (Normalized to Kg)
-                let weightKg = (els.weightUnit.value === 'kg') ? weightVal : (weightVal * 0.453592);
-
                 let bmi = weightKg / (heightM * heightM);
                 displayBMI(bmi);
 
@@ -638,7 +705,7 @@
                 let adviceText = "";
 
                 // Display Ideal Weight in selected unit
-                if (els.weightUnit.value === 'kg') {
+                if (isKgInputVisible) {
                     rangeText = `${minKg.toFixed(1)} - ${maxKg.toFixed(1)} kg`;
                     if (weightKg < minKg) adviceText = `Gain ${(minKg - weightKg).toFixed(1)} kg`; 
                     else if (weightKg > maxKg) adviceText = `Lose ${(weightKg - maxKg).toFixed(1)} kg`; 
@@ -646,9 +713,11 @@
                 } else {
                     let minLbs = minKg * 2.20462; 
                     let maxLbs = maxKg * 2.20462;
+                    // Reference original weightLbs input for context
+                    const weightValLbs = parseFloat(els.weightLbs.value);
                     rangeText = `${Math.round(minLbs)} - ${Math.round(maxLbs)} lbs`;
-                    if (weightVal < minLbs) adviceText = `Gain ${Math.round(minLbs - weightVal)} lbs`; 
-                    else if (weightVal > maxLbs) adviceText = `Lose ${Math.round(weightVal - maxLbs)} lbs`; 
+                    if (weightValLbs < minLbs) adviceText = `Gain ${Math.round(minLbs - weightValLbs)} lbs`; 
+                    else if (weightValLbs > maxLbs) adviceText = `Lose ${Math.round(weightValLbs - maxLbs)} lbs`; 
                     else adviceText = "You are in the healthy range!";
                 }
                 els.idealWeight.textContent = rangeText; 
@@ -711,12 +780,14 @@
                 if (els.display.textContent === "--.-") return;
                 const presetName = prompt("Name this result (e.g., 'My Jan Checkup'):");
                 if (presetName) {
-                    // Logic updated to save based on current select values, not global
                     let detail = "";
-                    if(els.heightUnit.value === 'cm') detail += `${els.heightCm.value}cm`;
+                    const isCmInputVisible = !els.heightGroupCm.classList.contains('hidden');
+                    if(isCmInputVisible) detail += `${els.heightCm.value}cm`;
                     else detail += `${els.heightFt.value}'${els.heightIn.value}"`;
                     
-                    detail += `, ${els.weight.value}${els.weightUnit.value}`;
+                    const isKgInputVisible = !els.weightGroupKg.classList.contains('hidden');
+                    if(isKgInputVisible) detail += `, ${els.weightKg.value}kg`;
+                    else detail += `, ${els.weightLbs.value}lbs`;
 
                     const preset = { name: presetName, date: new Date().toISOString(), inputs: detail, calculator: 'BMI Calculator', result: `BMI ${els.display.textContent}`, url: window.location.href };
                     let allPresets = JSON.parse(localStorage.getItem('dailyCalcPresets')) || {};
@@ -729,12 +800,28 @@
 
             if(els.shareBtn) els.shareBtn.addEventListener('click', () => {
                 const params = new URLSearchParams();
-                params.set('w', els.weight.value); 
-                params.set('wu', els.weightUnit.value);
-                params.set('hu', els.heightUnit.value);
-                params.set('hf', els.heightFt.value); 
-                params.set('hi', els.heightIn.value); 
-                params.set('hc', els.heightCm.value); 
+                
+                // Height
+                const isCmInputVisible = !els.heightGroupCm.classList.contains('hidden');
+                if(isCmInputVisible) {
+                     params.set('hu', 'cm');
+                     params.set('hc', els.heightCm.value);
+                } else {
+                     params.set('hu', 'ft');
+                     params.set('hf', els.heightFt.value); 
+                     params.set('hi', els.heightIn.value); 
+                }
+
+                // Weight
+                const isKgInputVisible = !els.weightGroupKg.classList.contains('hidden');
+                if(isKgInputVisible) {
+                    params.set('wu', 'kg');
+                    params.set('wk', els.weightKg.value);
+                } else {
+                    params.set('wu', 'lbs');
+                    params.set('wl', els.weightLbs.value);
+                }
+                
                 params.set('a', els.age.value);
                 const shareUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
                 if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(shareUrl).then(showShareSuccess); } else { els.shareInput.value = shareUrl; els.shareInput.classList.remove('hidden'); els.shareInput.select(); document.execCommand('copy'); els.shareInput.classList.add('hidden'); showShareSuccess(); }
@@ -747,33 +834,34 @@
             function showShareSuccess() { const originalHtml = els.shareBtn.innerHTML; els.shareBtn.innerHTML = `<i class="fa-solid fa-check text-green-600"></i>`; setTimeout(() => els.shareBtn.innerHTML = originalHtml, 2000); }
 
             const urlParams = new URLSearchParams(window.location.search);
-            if(urlParams.has('w')) {
-                els.weight.value = urlParams.get('w'); 
-                if(urlParams.get('a')) els.age.value = urlParams.get('a');
+            if(urlParams.has('a')) {
+                els.age.value = urlParams.get('a');
                 
-                // Set units from params if available, else infer from old 'u' param or default
-                if(urlParams.has('wu')) els.weightUnit.value = urlParams.get('wu');
-                if(urlParams.has('hu')) els.heightUnit.value = urlParams.get('hu');
-                else if(urlParams.has('u')) {
-                     // Backwards compatibility
-                     if(urlParams.get('u') === 'metric') { els.weightUnit.value = 'kg'; els.heightUnit.value = 'cm'; }
-                     else { els.weightUnit.value = 'lbs'; els.heightUnit.value = 'ft'; }
+                // Height
+                if(urlParams.has('hu') && urlParams.get('hu') === 'cm') {
+                    if(els.heightGroupCm.classList.contains('hidden')) els.btnHeightToggle.click();
+                    els.heightCm.value = urlParams.get('hc');
+                } else {
+                    if(els.heightGroupFt.classList.contains('hidden')) els.btnHeightToggle.click();
+                    els.heightFt.value = urlParams.get('hf');
+                    els.heightIn.value = urlParams.get('hi');
                 }
 
-                // Set Inputs
-                if(els.heightUnit.value === 'cm' && urlParams.get('hc')) els.heightCm.value = urlParams.get('hc');
-                if(els.heightUnit.value === 'ft') {
-                    if(urlParams.get('hf')) els.heightFt.value = urlParams.get('hf');
-                    if(urlParams.get('hi')) els.heightIn.value = urlParams.get('hi');
+                // Weight
+                if(urlParams.has('wu') && urlParams.get('wu') === 'kg') {
+                    if(els.weightGroupKg.classList.contains('hidden')) els.btnWeightToggle.click();
+                    els.weightKg.value = urlParams.get('wk');
+                } else {
+                    if(els.weightGroupLbs.classList.contains('hidden')) els.btnWeightToggle.click();
+                    els.weightLbs.value = urlParams.get('wl');
                 }
                 
-                updateVisibility();
                 calculate();
             }
 
             if(els.btn) els.btn.addEventListener('click', calculate);
-            if(els.clear) els.clear.addEventListener('click', () => { els.weight.value = ''; els.heightFt.value = ''; els.heightIn.value = ''; els.heightCm.value = ''; resetResult(); });
-            [els.weight, els.heightFt, els.heightIn, els.heightCm, els.age].forEach(i => { if(i) i.addEventListener('input', calculate); });
+            if(els.clear) els.clear.addEventListener('click', () => { els.weightLbs.value = ''; els.weightKg.value = ''; els.heightFt.value = ''; els.heightIn.value = ''; els.heightCm.value = ''; resetResult(); });
+            [els.weightLbs, els.weightKg, els.heightFt, els.heightIn, els.heightCm, els.age].forEach(i => { if(i) i.addEventListener('input', calculate); });
             Array.from(els.genderRadios).forEach(r => r.addEventListener('change', calculate));
         });
     </script>
