@@ -16,6 +16,12 @@ Tool Header: class="calc-tool-header"
 
 Result Header: class="result-header"
 
+Input Best Practices (NEW):
+
+Unit Toggles: For inputs that require unit switching (e.g., Weight: kg/lbs, Height: cm/ft), DO NOT use dropdowns inside the input group.
+Instead, create two separate input groups (one hidden, one visible) and use a square, icon-only toggle button (<i class="fa-solid fa-repeat"></i>) next to them to switch visibility and convert values automatically.
+Refer to health/bmi-calculator.html for the correct implementation pattern.
+
 Accessibility (MANDATORY):
 
 Explicit Labels: Every input must have a <label for="id">. Do not rely on visual proximity.
