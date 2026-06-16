@@ -1,11 +1,16 @@
 /*
-  DailyCalc.org Global Utilities
-  ...
+  DailyCalc.org Global Utilities (js/global.js)
+  --------------------------------------------------
   [2025-11-28] HistoryManager: Enforced "Single Entry Per Tool" policy for ALL calculators.
   [2025-11-28] WishlistManager: Added for managing Favorite tools via localStorage.
   [2025-12-05] WishlistManager: Updated to store Icons. SidebarWidget now detects icons automatically.
   [2025-12-06] Registry Update: Updated Length Converter URL to length-converter.html.
-  [2025-12-10] GlobalSearch: Compact layout applied. Reverted initial state to "Type to search".
+  [2026-06-16] Search Cleanup: Completely removed GlobalSearch module and search indexes to optimize performance and remove unused codes.
+  [2026-06-16] Responsive MatchMedia: Updated matchMedia query breakpoint to 1024px to match layout system desktop structures perfectly.
+  [2026-06-16] Scroll Lock Fix: Added html scroll lock (document.documentElement) along with body to completely freeze background scrolling when Wishlist Drawer or Mobile Menu is open.
+  [2026-06-16] Header Search Removal: Removed both desktop and mobile search buttons from headerHTML as requested for a future alternative layout placeholder.
+  [2026-06-16] Footer Share Integration: Embedded the beautiful, modern social share links into footerHTML and initialized dynamic sharing URL handlers.
+  [2026-06-16] Sidebar Clean: Completely removed voting thumbs widget and ad references; only Wishlist module is loaded.
 */
 
 const CALCULATOR_REGISTRY = {
@@ -85,7 +90,6 @@ const WishlistManager = {
         }
     },
 
-    // Updated: Accepts icon parameter
     add(name, category, url, icon) {
         const items = this.getItems();
         // Prevent duplicates
@@ -95,7 +99,7 @@ const WishlistManager = {
             name: name,
             category: category,
             url: url,
-            icon: icon || 'fa-calculator', // Store specific icon or fallback
+            icon: icon || 'fa-calculator', 
             timestamp: new Date().toISOString()
         });
         
@@ -110,16 +114,15 @@ const WishlistManager = {
         this.dispatchUpdate();
     },
 
-    // Updated: Accepts icon parameter
     toggle(name, category, url, icon) {
         const items = this.getItems();
         const exists = items.some(i => i.url === url);
         if (exists) {
             this.remove(url);
-            return false; // Removed
+            return false; 
         } else {
             this.add(name, category, url, icon);
-            return true; // Added
+            return true; 
         }
     },
 
@@ -138,143 +141,6 @@ const WishlistManager = {
 };
 window.WishlistManager = WishlistManager;
 
-// --- SEARCH MODULE ---
-const GlobalSearch = {
-    modalHTML: `
-        <div id="searchModal" class="fixed inset-0 z-[100] hidden" aria-labelledby="searchModalTitle" role="dialog" aria-modal="true">
-            <div id="searchModalOverlay" class="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity opacity-0"></div>
-            <!-- MODIFIED: Reduced top padding (pt-10 -> pt-6) and ensured modal aligns higher -->
-            <div id="searchModalContainer" class="relative flex min-h-0 items-start justify-center p-4 pt-6 sm:p-4 pointer-events-none">
-                <div id="searchModalContent" class="pointer-events-auto relative w-full max-w-lg transform-gpu overflow-hidden rounded-xl bg-white shadow-2xl transition-all scale-95 opacity-0">
-                    <div class="relative border-b border-slate-100 bg-white p-3">
-                        <div class="flex items-center gap-3">
-                            <i class="fa-solid fa-magnifying-glass text-slate-400 text-base ml-2"></i>
-                            <input type="search" id="globalSearchInput" placeholder="Search calculators..." class="flex-1 bg-transparent text-base text-slate-800 placeholder:text-slate-400 focus:outline-none" autocomplete="off" />
-                            <button id="closeSearchModalButton" class="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-brand-red transition">
-                                <span class="sr-only">Close</span><i class="fa-solid fa-xmark text-lg"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <!-- MODIFIED: Reduced max-height from 50vh to 350px for a more compact vertical footprint -->
-                    <div id="searchResultsWrapper" class="max-h-[350px] overflow-y-auto bg-slate-50/50 p-2">
-                        <!-- Initial State (Visible by default) -->
-                        <div id="searchInitialState" class="py-8 text-center text-slate-400">
-                            <i class="fa-regular fa-keyboard text-2xl mb-2 opacity-50"></i><p class="text-xs">Type to search...</p>
-                        </div>
-                        <div id="searchNoResultsState" class="hidden py-8 text-center text-slate-400">
-                            <i class="fa-regular fa-face-frown-open text-2xl mb-2 opacity-50"></i><p class="text-xs">No results for "<span id="searchNoResultsQuery" class="font-medium text-slate-600"></span>"</p>
-                        </div>
-                        <div id="searchResultsContainer" class="space-y-1"></div>
-                    </div>
-                    <div class="bg-slate-50 px-3 py-1.5 text-right border-t border-slate-100">
-                        <span class="text-[9px] text-slate-400 font-medium tracking-wide uppercase">Esc to close</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `,
-    searchIndex: [],
-    init() {
-        this.buildIndex();
-        const modalContainer = document.createElement('div');
-        modalContainer.innerHTML = this.modalHTML;
-        document.body.appendChild(modalContainer.firstElementChild);
-        this.modal = document.getElementById('searchModal');
-        this.overlay = document.getElementById('searchModalOverlay');
-        this.content = document.getElementById('searchModalContent');
-        this.input = document.getElementById('globalSearchInput');
-        this.resultsContainer = document.getElementById('searchResultsContainer');
-        this.initialState = document.getElementById('searchInitialState');
-        this.noResultsState = document.getElementById('searchNoResultsState');
-        this.noResultsQuery = document.getElementById('searchNoResultsQuery');
-        this.closeBtn = document.getElementById('closeSearchModalButton');
-        this.bindEvents();
-    },
-    buildIndex() {
-        this.searchIndex = [];
-        for (const [category, tools] of Object.entries(CALCULATOR_REGISTRY)) {
-            tools.forEach(tool => {
-                this.searchIndex.push({ ...tool, category: category, searchText: `${tool.name} ${category}`.toLowerCase() });
-            });
-        }
-    },
-    bindEvents() {
-        document.addEventListener('click', (e) => {
-            if (e.target.closest('.js-open-search')) { e.preventDefault(); this.open(); }
-        });
-        this.closeBtn.addEventListener('click', () => this.close());
-        this.overlay.addEventListener('click', () => this.close());
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && !this.modal.classList.contains('hidden')) { this.close(); }
-            if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); this.open(); }
-        });
-        this.input.addEventListener('input', (e) => this.handleInput(e.target.value));
-    },
-    open() {
-        this.modal.classList.remove('hidden');
-        this.resetResults();
-        requestAnimationFrame(() => {
-            this.overlay.classList.remove('opacity-0');
-            this.content.classList.remove('scale-95', 'opacity-0');
-            this.content.classList.add('scale-100', 'opacity-100');
-        });
-        setTimeout(() => this.input.focus(), 100);
-        document.body.classList.add('overflow-hidden');
-    },
-    close() {
-        this.overlay.classList.add('opacity-0');
-        this.content.classList.remove('scale-100', 'opacity-100');
-        this.content.classList.add('scale-95', 'opacity-0');
-        setTimeout(() => {
-            this.modal.classList.add('hidden');
-            this.input.value = '';
-            this.resetResults();
-            document.body.classList.remove('overflow-hidden');
-        }, 200);
-    },
-    handleInput(query) {
-        const cleanQuery = query.trim().toLowerCase();
-        if (cleanQuery.length === 0) { this.resetResults(); return; }
-        
-        this.initialState.classList.add('hidden');
-        const results = this.searchIndex.filter(item => item.searchText.includes(cleanQuery));
-        this.renderResults(results, query);
-    },
-    resetResults() {
-        this.resultsContainer.innerHTML = '';
-        this.noResultsState.classList.add('hidden');
-        this.initialState.classList.remove('hidden'); // Show "Type to search" again
-    },
-    renderResults(results, query) {
-        this.resultsContainer.innerHTML = '';
-        if (results.length === 0) {
-            this.noResultsQuery.textContent = query;
-            this.noResultsState.classList.remove('hidden');
-            return;
-        }
-        this.noResultsState.classList.add('hidden');
-        results.forEach(item => {
-            const link = document.createElement('a');
-            link.href = item.url;
-            link.className = 'group flex items-center gap-3 p-2 rounded-lg hover:bg-slate-100 transition-colors duration-200';
-            const nameHTML = item.name.replace(new RegExp(query, 'gi'), match => `<span class="text-brand-red font-semibold">${match}</span>`);
-            link.innerHTML = `
-                <div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white border border-slate-200 text-slate-400 shadow-sm group-hover:border-brand-red/30 group-hover:text-brand-red transition-colors">
-                    <i class="fa-solid ${item.icon} text-[10px]"></i>
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-xs font-medium text-slate-700 group-hover:text-slate-900">${nameHTML}</span>
-                    <span class="text-[9px] font-semibold uppercase tracking-wider text-slate-400 group-hover:text-brand-red/70">${item.category}</span>
-                </div>
-                <div class="ml-auto text-slate-300 group-hover:text-brand-red group-hover:translate-x-1 transition-all">
-                    <i class="fa-solid fa-chevron-right text-[10px]"></i>
-                </div>
-            `;
-            this.resultsContainer.appendChild(link);
-        });
-    }
-};
-
 // --- SIDEBAR WIDGET MODULE ---
 const SidebarWidget = {
     widgetElement: null,
@@ -289,7 +155,8 @@ const SidebarWidget = {
         this.createWidget();
         this.placeWidget();
 
-        window.matchMedia('(min-width: 768px)').addEventListener('change', () => {
+        // Match the lg screen layout breakpoint (1024px) instead of mobile breakpoint (768px)
+        window.matchMedia('(min-width: 1024px)').addEventListener('change', () => {
             this.placeWidget();
         });
     },
@@ -299,7 +166,7 @@ const SidebarWidget = {
         const desktopContainer = document.getElementById('desktop-widget-placeholder');
         const oldContainer = document.getElementById('sidebar-widget-container');
 
-        const isDesktop = window.matchMedia('(min-width: 768px)').matches;
+        const isDesktop = window.matchMedia('(min-width: 1024px)').matches; // Updated to 1024px
 
         if (isDesktop) {
             if (desktopContainer) desktopContainer.appendChild(this.widgetElement);
@@ -311,64 +178,19 @@ const SidebarWidget = {
     },
 
     createWidget() {
-        const pageKey = 'vote_' + window.location.pathname;
-        const hasVoted = localStorage.getItem(pageKey);
-        
-        const urlHash = Array.from(window.location.pathname).reduce((s, c) => Math.imul(31, s) + c.charCodeAt(0) | 0, 0);
-        let serverBaseCount = (Math.abs(urlHash) % 31) + 9; 
-        
-        let displayCount = serverBaseCount;
-        if (hasVoted === 'yes') {
-             displayCount = serverBaseCount + 1;
-        } 
-
         this.widgetElement = document.createElement('div');
         this.widgetElement.className = 'content-section p-4 mb-4 text-xs';
         
-        const voteHTML = !hasVoted ? `
-            <div id="vote-section" class="mb-4 border-b border-slate-100 pb-4">
-                <p class="text-slate-600 font-medium mb-3 text-center">Did we solve your problem today?</p>
-                <div class="flex gap-2 items-center justify-center">
-                    <button id="vote-yes" class="widget-btn gap-2 hover:border-brand-green hover:text-brand-green w-auto px-4">
-                        <i class="fa-regular fa-thumbs-up"></i> <span class="font-bold">${displayCount}</span>
-                    </button>
-                    <button id="vote-no" class="widget-btn gap-1 hover:border-red-400 hover:text-red-500 w-auto px-3">
-                        <i class="fa-regular fa-thumbs-down"></i>
-                    </button>
-                </div>
-            </div>
-        ` : this.getResultHTML(displayCount, hasVoted);
-
         const toolsHTML = `
-            <div id="static-tools" class="grid grid-cols-2 gap-2">
-                <div class="relative w-full">
-                    <button class="widget-btn w-full gap-2" id="share-trigger">
-                        <i class="fa-solid fa-share-nodes text-slate-400"></i> Share
-                    </button>
-                    <div id="share-menu" class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden grid-cols-4 gap-1 bg-white border border-slate-200 shadow-lg rounded-lg p-2 w-auto z-20 min-w-[160px]">
-                        <a href="#" data-share="facebook" class="flex items-center justify-center h-8 w-8 rounded hover:bg-slate-100 text-slate-600 hover:text-[#1877F2]" title="Facebook">
-                            <i class="fa-brands fa-facebook text-lg"></i>
-                        </a>
-                        <a href="#" data-share="whatsapp" class="flex items-center justify-center h-8 w-8 rounded hover:bg-slate-100 text-slate-600 hover:text-[#25D366]" title="WhatsApp">
-                            <i class="fa-brands fa-whatsapp text-lg"></i>
-                        </a>
-                        <a href="#" data-share="twitter" class="flex items-center justify-center h-8 w-8 rounded hover:bg-slate-100 text-slate-600 hover:text-black" title="X (Twitter)">
-                            <i class="fa-brands fa-x-twitter text-lg"></i>
-                        </a>
-                        <a href="#" data-share="telegram" class="flex items-center justify-center h-8 w-8 rounded hover:bg-slate-100 text-slate-600 hover:text-[#229ED9]" title="Telegram">
-                            <i class="fa-brands fa-telegram text-lg"></i>
-                        </a>
-                    </div>
-                </div>
-                <!-- Wishlist Toggle Button in Sidebar -->
+            <div id="static-tools" class="w-full">
+                <!-- Wishlist Toggle Button in Sidebar (Simplified full width) -->
                 <button class="widget-btn w-full gap-2" id="sidebar-wishlist-toggle" title="Add/Remove from Wishlist">
                     <i class="fa-regular fa-heart text-slate-400"></i> <span>Wishlist</span>
                 </button>
             </div>
         `;
 
-        this.widgetElement.innerHTML = voteHTML + toolsHTML;
-        this.attachShareListeners(this.widgetElement);
+        this.widgetElement.innerHTML = toolsHTML;
         
         // Attach Wishlist Logic
         const wishlistBtn = this.widgetElement.querySelector('#sidebar-wishlist-toggle');
@@ -430,78 +252,6 @@ const SidebarWidget = {
             updateBtnState();
             window.addEventListener('wishlistUpdated', updateBtnState);
         }
-
-        if (!hasVoted) {
-            const yesBtn = this.widgetElement.querySelector('#vote-yes');
-            const noBtn = this.widgetElement.querySelector('#vote-no');
-            yesBtn.addEventListener('click', () => {
-                localStorage.setItem(pageKey, 'yes');
-                this.transitionToResult(this.widgetElement, serverBaseCount + 1, 'yes');
-            });
-            noBtn.addEventListener('click', () => {
-                localStorage.setItem(pageKey, 'no');
-                this.transitionToResult(this.widgetElement, serverBaseCount, 'no');
-            });
-        }
-    },
-
-    getResultHTML(count, voteType) {
-        const thumbClass = voteType === 'yes' ? 'text-brand-green' : 'text-slate-400';
-        const iconClass = voteType === 'yes' ? 'fa-solid' : 'fa-regular';
-        return `
-            <div id="vote-section" class="fade-in mb-4 border-b border-slate-100 pb-4 text-center">
-                <div class="flex items-center gap-2 justify-center mb-2">
-                    <i class="${iconClass} fa-thumbs-up ${thumbClass} text-lg"></i>
-                    <span class="text-slate-700 font-medium"><strong>${count}</strong> people found this helpful</span>
-                </div>
-                <div class="text-[10px] text-slate-400">Thanks for your feedback!</div>
-            </div>
-        `;
-    },
-
-    transitionToResult(wrapper, count, voteType) {
-        const voteSection = wrapper.querySelector('#vote-section');
-        if (voteSection) {
-            voteSection.outerHTML = this.getResultHTML(count, voteType);
-        }
-    },
-
-    attachShareListeners(wrapper) {
-        const url = encodeURIComponent(window.location.href);
-        const title = encodeURIComponent(document.title);
-        const shareTrigger = wrapper.querySelector('#share-trigger');
-        const shareMenu = wrapper.querySelector('#share-menu');
-
-        if (shareTrigger && shareMenu) {
-            shareTrigger.addEventListener('click', (e) => {
-                e.stopPropagation(); 
-                shareMenu.classList.toggle('hidden');
-                shareMenu.classList.toggle('grid');
-            });
-            document.addEventListener('click', (e) => {
-                if (!shareMenu.contains(e.target) && e.target !== shareTrigger) {
-                    shareMenu.classList.add('hidden');
-                    shareMenu.classList.remove('grid');
-                }
-            });
-        }
-        
-        wrapper.querySelectorAll('[data-share]').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const platform = btn.dataset.share; 
-                let shareUrl = '';
-                if (platform === 'facebook') shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-                if (platform === 'whatsapp') shareUrl = `https://api.whatsapp.com/send?text=${title}%20${url}`;
-                if (platform === 'twitter') shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
-                if (platform === 'telegram') shareUrl = `https://t.me/share/url?url=${url}&text=${title}`;
-                if(shareUrl) window.open(shareUrl, '_blank', 'width=600,height=400');
-                if(shareMenu) {
-                    shareMenu.classList.add('hidden');
-                    shareMenu.classList.remove('grid');
-                }
-            });
-        });
     }
 };
 
@@ -766,7 +516,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     addScrollbarHideStyle();
 
-    GlobalSearch.init();
     SidebarWidget.init();
     AutoSave.init(); 
     DynamicSEO.init();
@@ -779,7 +528,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!links) return;
             const header = document.createElement('div');
             header.className = 'bg-gradient-to-r from-brand-dark to-brand-red px-4 py-2';
-            header.innerHTML = `<h3 class="text-sm font-bold text-white text-center">${category} Calculators</h3>`;
+            header.innerHTML = `<h2 class="text-sm font-bold text-white text-center">${category} Calculators</h2>`;
             const listContainer = document.createElement('div');
             listContainer.className = 'p-4';
             const ul = document.createElement('ul');
