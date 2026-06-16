@@ -1,10 +1,24 @@
-html {
+/*
+  DailyCalc.org Global Utilities Stylesheet
+  Moved to js/ folder for consolidated asset deployment.
+  [2026-06-16] Resolved horizontal scrolling issues by enforcing global overflow guards.
+  [2026-06-16] Search Cleanup: Removed the unused #calculatorSearch styles since search functionality was removed.
+  [2026-06-16] Sticky Sidebar Fix: Replaced overflow-x: hidden with overflow-x: clip to restore position: sticky functionality for related calculators sidebar.
+*/
+
+html, body {
+    /* Use clip instead of hidden to prevent breaking position: sticky on sidebars */
+    overflow-x: clip; 
+    position: relative;
+    width: 100%;
     scroll-behavior: smooth;
 }
+
 /* Prevent layout shift when body scroll is locked */
 body.overflow-hidden {
     padding-right: 0px; /* Adjust if scrollbar width is an issue, but modern browsers handle this well with overlay */
 }
+
 .category-card {
     display: flex; /* Re-applied by JS filter */
     flex-direction: column;
@@ -18,21 +32,25 @@ body.overflow-hidden {
     box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05); /* Smooth shadow */
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
+
 .category-card:hover {
     transform: translateY(-4px);
     border-color: #F1203D; /* MODIFIED: Solid brand-red on hover */
     box-shadow: 0 10px 30px rgba(241, 32, 61, 0.1); /* Prominent red-tinted shadow */
 }
-/* Applied H3 size via Tailwind */
-.category-card h3 {
+
+/* Applied H2/H3 size via Tailwind */
+.category-card h2, .category-card h3 {
     font-family: 'Poppins', 'Inter', system-ui, sans-serif;
     font-weight: 600;
     color: #0f172a; /* MODIFIED: Darkened from #050505 to slate-900 equivalent for consistent dark text */
 }
+
 /* Applied desc text size via Tailwind */
 .category-card p {
     color: #334155; /* MODIFIED: Darkened from rgb(71 85 105) (slate-500) to slate-700 equivalent for better contrast */
 }
+
 .category-icon {
     display: inline-flex;
     align-items: center;
@@ -45,6 +63,7 @@ body.overflow-hidden {
     background-image: linear-gradient(135deg, #f97316, #F1203D);
     color: white;
 }
+
 .subcategory-list {
     display: none;
     padding-left: 1rem; /* MODIFIED: Was 1.25rem */
@@ -53,22 +72,10 @@ body.overflow-hidden {
     color: #475569; /* MODIFIED: Darkened from rgb(100 116 139) (slate-500) to slate-600 for better contrast */
     font-size: 11px; /* MODIFIED: Was 12px */
 }
+
 .subcategory-list.is-visible {
     display: block;
 }
-
-/* MODIFIED: 
-  Custom focus styles are now applied directly in the header HTML.
-  This block can be simplified or removed, but we'll keep the base
-  style for any *other* search bars just in case.
-*/
-#calculatorSearch:focus {
-    outline: none;
-}
-
-/* REMOVED: .hide-scrollbar styles 
-  (They are now injected by js/global.js) 
-*/
 
 /* --- Mobile Menu Link Styles --- */
 /* These styles are used by the injected mobile menu */
@@ -83,10 +90,12 @@ body.overflow-hidden {
     color: rgb(226 232 240); /* slate-200 */
     transition: background-color 0.2s ease;
 }
+
 .mobile-menu-link:hover, .mobile-menu-link:focus {
     background-color: rgba(255, 255, 255, 0.1);
     color: white;
 }
+
 .mobile-menu-link i {
     width: 1.25rem; /* 20px */
     text-align: center;
