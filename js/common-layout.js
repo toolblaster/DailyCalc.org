@@ -1,6 +1,6 @@
 /*
   DailyCalc.org Common Layout Injector
-  ...
+  --------------------------------------------------
   [2025-11-28] Added Wishlist (Favorites) feature replacing 'Suggest a Tool'.
   [2025-12-05] Wishlist UI: Added Numbering (#1, #2) and specific Icon support in Wishlist Drawer.
   [2025-12-05] Visual Update: Changed Category Quick Bar font to Poppins (font-heading).
@@ -12,7 +12,12 @@
   [2025-12-10] Accessibility: Improved Desktop Wishlist button contrast (Text is now dark, Icon remains red).
   [2025-12-10] Navigation: Added "Home" link to footer.
   [2025-12-10] Visual Update: Made desktop header buttons (Home, Dashboard, Wishlist) smaller and more compact.
-  [2025-12-10] Visual Update: Centered Desktop Search Bar between Logo and Buttons and made it compact.
+  [2026-06-16] Mobile Layout Fix: Changed rigid desktop w-[200px] header columns to w-auto md:w-[200px] to resolve horizontal scrolling bugs on mobile viewports.
+  [2026-06-16] Scroll Lock Fix: Added html scroll lock (document.documentElement) along with body to completely freeze background scrolling when Wishlist Drawer or Mobile Menu is open.
+  [2026-06-16] Header Search Removal: Removed both desktop and mobile search buttons from headerHTML as requested for a future alternative layout placeholder.
+  [2026-06-16] Footer Share Integration: Embedded the beautiful, modern social share links into footerHTML and initialized dynamic sharing URL handlers.
+  [2026-06-16] Sidebar Clean: Completely removed voting thumbs widget and ad references; only Wishlist module is loaded.
+  [2026-06-16] Footer Minimalism: Removed the circular DC logo, title, and site description text line from the footer template.
 */
 
 const headerHTML = `
@@ -21,58 +26,40 @@ const headerHTML = `
         <div class="mx-auto max-w-[1050px] flex-col px-6 py-2 sm:py-3">
             <div class="flex w-full items-center justify-between gap-4">
                 <!-- 1. Logo -->
-                <div class="flex-shrink-0 w-[200px]"> <!-- Added fixed width to logo container for balance -->
+                <div class="flex-shrink-0 w-auto md:w-[200px]">
                     <a href="/" class="flex items-center gap-2 text-white" aria-label="DailyCalc.org homepage">
-                        <!-- Reduced height/width to h-7/w-7 (mobile) and h-9/w-9 (desktop) to match button heights -->
                         <div class="flex h-7 w-7 sm:h-9 sm:w-9 items-center justify-center rounded-full border-2 border-white text-white">
                             <span class="text-xs sm:text-base font-semibold">DC</span>
                         </div>
                         <div>
-                            <!-- Reduced text size to text-base (mobile) and text-lg (desktop) -->
                             <p class="font-heading text-base sm:text-lg font-semibold leading-tight">DailyCalc.org</p> 
                             <p class="text-[9px] sm:text-[10px] text-slate-300 leading-none">Daily calculators for everyone.</p>
                         </div>
                     </a>
                 </div>
 
-                <!-- 2. Desktop Search Bar -->
-                <!-- MODIFIED: Added flex justify-center to center the search bar -->
+                <!-- 2. Alternative Space Placeholder (Desktop) -->
                 <div class="hidden flex-1 px-4 md:flex md:justify-center">
-                    <!-- MODIFIED: Reduced max-width to 220px for compactness -->
-                    <button class="js-open-search relative w-full max-w-[220px] text-left" aria-label="Open search panel">
-                        <!-- MODIFIED: Reduced padding left (pl-3) -->
-                        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                            <i class="fa-solid fa-search text-slate-300 text-xs"></i>
-                        </div>
-                        <!-- MODIFIED: Reduced vertical padding (py-1.5), padding left (pl-9), and text size (text-xs) to match buttons -->
-                        <div class="w-full rounded-full border border-white/30 bg-white/10 px-4 py-1.5 pl-9 text-xs font-medium text-slate-300 shadow-sm transition duration-200 hover:bg-white/20 truncate">
-                            Search tools...
-                        </div>
-                    </button>
+                    <!-- Blank central gap reserved for future header modules -->
                 </div>
                 
                 <!-- 3. Mobile/Desktop Buttons -->
-                <div class="flex-shrink-0 w-[200px] flex justify-end"> <!-- Added fixed width and justify-end for balance -->
+                <div class="flex-shrink-0 w-auto md:w-[200px] flex justify-end">
                     <nav aria-label="Primary" class="flex flex-wrap items-center gap-2 text-sm font-medium text-slate-600 md:hidden">
-                        <!-- Added aria-label="Home" -->
                         <a href="/" class="rounded-lg p-2 text-white transition hover:bg-white/10" aria-label="Home"><i class="fa-solid fa-house h-5 w-5"></i></a>
-                        <!-- Added aria-label="Search" -->
-                        <button class="js-open-search rounded-lg p-2 text-white transition hover:bg-white/10" aria-label="Search"><i class="fa-solid fa-search h-5 w-5"></i></button>
-                        <!-- Mobile Wishlist Button: Added aria-label="Wishlist" -->
+                        <!-- Mobile Wishlist Button -->
                         <button id="mobileWishlistBtn" class="rounded-lg p-2 text-white transition hover:bg-white/10 relative" aria-label="Wishlist">
                             <i class="fa-solid fa-heart h-5 w-5"></i>
                             <span id="mobileWishlistCount" class="absolute top-1 right-1 flex h-3 w-3 items-center justify-center rounded-full bg-yellow-400 text-[8px] font-bold text-black hidden">0</span>
                         </button>
-                        <!-- Added aria-label="Menu" -->
                         <button id="mobileMenuToggle" class="rounded-lg p-2 text-white transition hover:bg-white/10" aria-label="Menu"><i class="fa-solid fa-bars h-5 w-5" id="menuOpenIcon"></i><i class="fa-solid fa-xmark h-5 w-5 hidden" id="menuCloseIcon"></i></button>
                     </nav>
 
                     <div class="hidden items-center gap-2 md:flex">
-                        <!-- UPDATED: Smaller, compact buttons (px-3 py-1.5 text-xs font-bold) -->
                         <a href="/" class="inline-flex items-center justify-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-bold text-white shadow-soft transition hover:bg-white/20"><i class="fa-solid fa-house"></i> Home</a>
                         <a href="/dashboard.html" class="inline-flex items-center justify-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-bold text-white shadow-soft transition hover:bg-white/20"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
                         
-                        <!-- Desktop Wishlist Button (FIX: Contrast improved + Compact) -->
+                        <!-- Desktop Wishlist Button -->
                         <button id="desktopWishlistBtn" class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-3 py-1.5 text-xs font-bold text-slate-800 shadow-soft transition hover:bg-slate-100 relative group">
                             <i class="fa-solid fa-heart text-brand-red group-hover:scale-110 transition-transform"></i> 
                             <span>Wishlist</span>
@@ -84,18 +71,15 @@ const headerHTML = `
         </div>
     </header>
 
-    <!-- Wishlist Modal / Drawer -->
+    <!-- Wishlist Drawer -->
     <div id="wishlistDrawer" class="fixed inset-0 z-[60] hidden">
         <div id="wishlistOverlay" class="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity opacity-0"></div>
         <div id="wishlistContent" class="absolute right-0 top-0 h-full w-80 max-w-full bg-white shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
             <div class="bg-gradient-to-r from-brand-dark to-brand-red p-4 text-white flex justify-between items-center shadow-md">
-                <!-- UPDATED: h3 -> h2 for semantics -->
                 <h2 class="font-bold text-lg flex items-center gap-2 text-white"><i class="fa-solid fa-heart text-white"></i> My Wishlist</h2>
-                <!-- UPDATED: Added aria-label="Close Wishlist" -->
                 <button id="closeWishlistBtn" class="text-white/80 hover:text-white transition" aria-label="Close Wishlist"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
             <div class="flex-1 overflow-y-auto p-4 bg-slate-50" id="wishlistListContainer">
-                <!-- Items injected here -->
                 <div class="text-center text-slate-400 mt-10">
                     <i class="fa-regular fa-heart text-4xl mb-3 opacity-30"></i>
                     <p class="text-xs">Your wishlist is empty.<br>Save tools to access them quickly.</p>
@@ -111,7 +95,6 @@ const headerHTML = `
     <div id="mobileMenu" class="md:hidden fixed inset-0 z-50 hidden">
         <div id="mobileMenuOverlay" class="absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300 ease-in-out"></div>
         <div id="mobileMenuContent" class="relative flex flex-col bg-gradient-to-r from-brand-dark to-brand-red h-full w-2/3 max-w-sm shadow-xl transform -translate-x-full transition-transform duration-300 ease-in-out">
-            <!-- UPDATED: Added aria-label="Close Menu" -->
             <div class="flex justify-end p-2"><button id="mobileMenuClose" class="rounded-lg p-2 text-white transition hover:bg-white/10" aria-label="Close Menu"><i class="fa-solid fa-xmark h-6 w-6"></i></button></div>
             <nav class="flex-1 overflow-y-auto px-4 pb-4">
                 <a href="/finance/" class="mobile-menu-link"><i class="fa-solid fa-sack-dollar fa-fw"></i><span>Finance</span></a>
@@ -126,7 +109,6 @@ const headerHTML = `
     <nav class="border-b border-slate-200 bg-white hidden md:block">
         <div class="px-6">
             <div class="hide-scrollbar flex items-center gap-6 overflow-x-auto whitespace-nowrap py-3 md:gap-8 lg:justify-center">
-                <!-- Added font-heading class to all links below for Poppins font -->
                 <a href="/finance/" class="flex flex-none items-center gap-2 text-xs font-heading text-slate-700 transition hover:text-brand-red"><i class="fa-solid fa-sack-dollar fa-fw w-4 text-center text-brand-red"></i><span class="font-bold">Finance</span></a>
                 <a href="/health/" class="flex flex-none items-center gap-2 text-xs font-heading text-slate-700 transition hover:text-brand-red"><i class="fa-solid fa-heart-pulse fa-fw w-4 text-center text-brand-red"></i><span class="font-bold">Health</span></a>
                 <a href="/everyday-life/" class="flex flex-none items-center gap-2 text-xs font-heading text-slate-700 transition hover:text-brand-red"><i class="fa-solid fa-sun fa-fw w-4 text-center text-brand-red"></i><span class="font-bold">Everyday Life</span></a>
@@ -140,16 +122,28 @@ const footerHTML = `
     <footer class="bg-brand-dark text-slate-200">
         <div class="mx-auto max-w-[1050px] px-6 py-6">
             <div class="flex flex-col items-center text-center">
-                <a href="/" class="flex flex-col items-center justify-center gap-1 text-white">
-                    <div class="flex h-9 w-9 flex-none items-center justify-center rounded-full border-2 border-white text-white"><span class="text-base font-semibold">DC</span></div>
-                    <div><p class="font-heading text-lg font-semibold">DailyCalc.org</p></div>
-                </a>
-                <p class="mt-2 max-w-sm text-[12px] text-slate-400">Neutral, global, and helpful calculators for daily life. Built to grow one trusted tool at a time.</p>
+                <!-- Share Section in Footer -->
+                <div class="flex flex-col items-center gap-2">
+                    <p class="text-[10px] font-semibold tracking-wider text-slate-500 uppercase">Share DailyCalc.org</p>
+                    <div class="flex gap-2.5">
+                        <a href="#" data-footer-share="facebook" class="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 hover:bg-[#1877F2] text-slate-400 hover:text-white transition" title="Share on Facebook">
+                            <i class="fa-brands fa-facebook text-xs"></i>
+                        </a>
+                        <a href="#" data-footer-share="whatsapp" class="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 hover:bg-[#25D366] text-slate-400 hover:text-white transition" title="Share on WhatsApp">
+                            <i class="fa-brands fa-whatsapp text-xs"></i>
+                        </a>
+                        <a href="#" data-footer-share="twitter" class="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 hover:bg-black text-slate-400 hover:text-white transition" title="Share on X (Twitter)">
+                            <i class="fa-brands fa-x-twitter text-xs"></i>
+                        </a>
+                        <a href="#" data-footer-share="telegram" class="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 hover:bg-[#229ED9] text-slate-400 hover:text-white transition" title="Share on Telegram">
+                            <i class="fa-brands fa-telegram text-xs"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
             <div class="mt-6 flex flex-col items-center gap-4 border-t border-white/10 pt-6 text-xs text-slate-500 sm:flex-row sm:justify-center sm:gap-6">
                 <p class="text-center sm:text-left">&copy; <span id="currentYear"></span> DailyCalc.org. All rights reserved.</p>
                 <div class="flex flex-wrap justify-center gap-4 sm:justify-start">
-                    <!-- Added Home Link -->
                     <a href="/" class="transition hover:text-white">Home</a>
                     <a href="/legal/privacy.html" class="transition hover:text-white">Privacy</a>
                     <a href="/legal/terms.html" class="transition hover:text-white">Terms</a>
@@ -234,7 +228,6 @@ const CalculatorLayout = {
                 <!-- RIGHT COLUMN: Sticky Sidebar -->
                 <div class="w-full shrink-0 space-y-4 lg:w-[300px] no-print">
                     <div id="desktop-widget-placeholder" class="hidden md:block"></div>
-                    <div class="ad-box"><span class="text-xs font-semibold text-slate-400">ADVERTISEMENT<br>300x250</span></div>
                     <div id="layout-sidebar-container"></div>
                     <div class="content-section sticky top-4" id="layout-related-tools" data-widget="related-tools" data-category="${config.category}">
                         <div class="p-4 text-center text-slate-400 text-xs"><i class="fa-solid fa-spinner fa-spin mb-2"></i><br>Loading tools...</div>
@@ -288,7 +281,6 @@ const CalculatorLayout = {
         const links = window.CALCULATOR_REGISTRY[category];
         if (!links) return;
         
-        // UPDATED: h3 -> h2 for semantics
         container.innerHTML = `
             <div class="bg-gradient-to-r from-brand-dark to-brand-red px-4 py-2"><h2 class="text-sm font-bold text-white text-center">${category} Calculators</h2></div>
             <div class="p-4"><ul class="space-y-2"></ul></div>
@@ -306,7 +298,6 @@ const CalculatorLayout = {
 
 window.CalculatorLayout = CalculatorLayout;
 
-// --- Wishlist UI Logic ---
 const WishlistUI = {
     init() {
         const dBtn = document.getElementById('desktopWishlistBtn');
@@ -323,10 +314,14 @@ const WishlistUI = {
                     overlay.classList.remove('opacity-0');
                     content.classList.remove('translate-x-full');
                 });
+                document.body.classList.add('overflow-hidden'); // Freeze body scrolling on body
+                document.documentElement.classList.add('overflow-hidden'); // Freeze scroll on HTML root container (bulletproof iOS/mobile fix)
                 this.renderList();
             } else {
                 overlay.classList.add('opacity-0');
                 content.classList.add('translate-x-full');
+                document.body.classList.remove('overflow-hidden'); // Restore body scrolling
+                document.documentElement.classList.remove('overflow-hidden'); // Restore root scrolling
                 setTimeout(() => drawer.classList.add('hidden'), 300);
             }
         };
@@ -338,7 +333,6 @@ const WishlistUI = {
 
         this.updateCounts();
         
-        // Listen for custom events if WishlistManager dispatches them
         window.addEventListener('wishlistUpdated', () => this.updateCounts());
     },
 
@@ -377,12 +371,10 @@ const WishlistUI = {
         const ul = document.createElement('ul');
         ul.className = 'space-y-3';
         
-        // Loop through items (they are already sorted latest first by WishlistManager.add using unshift)
         items.forEach((item, index) => {
             const li = document.createElement('li');
-            li.className = 'bg-white border border-slate-200 rounded-lg p-3 shadow-sm flex items-center gap-3 group hover:border-brand-red/30 transition relative'; // Added relative for positioning badge
+            li.className = 'bg-white border border-slate-200 rounded-lg p-3 shadow-sm flex items-center gap-3 group hover:border-brand-red/30 transition relative'; 
             
-            // Calculate Badge Number (Latest #1)
             const number = index + 1;
             
             li.innerHTML = `
@@ -412,7 +404,7 @@ const WishlistUI = {
             btn.addEventListener('click', (e) => {
                 const url = e.currentTarget.dataset.url;
                 window.WishlistManager.remove(url);
-                this.renderList(); // Re-render immediately
+                this.renderList(); 
                 this.updateCounts();
             });
         });
@@ -430,18 +422,15 @@ function loadCommonLayout() {
         document.body.appendChild(t);
     }
 
-    // Inject Global Watermark
     if (!document.getElementById('global-print-watermark')) {
         const div = document.createElement('div');
         div.innerHTML = watermarkHTML;
-        // Append the child div directly to body
         document.body.appendChild(div.firstElementChild);
     }
     
     const yearEl = document.getElementById('currentYear');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-    // Mobile Menu Logic
     const toggle = document.getElementById('mobileMenuToggle');
     const menu = document.getElementById('mobileMenu');
     const overlay = document.getElementById('mobileMenuOverlay');
@@ -457,12 +446,14 @@ function loadCommonLayout() {
                 content.classList.remove('-translate-x-full');
             });
             document.body.classList.add('overflow-hidden');
+            document.documentElement.classList.add('overflow-hidden'); 
             document.getElementById('menuOpenIcon').classList.add('hidden');
             document.getElementById('menuCloseIcon').classList.remove('hidden');
         } else {
             overlay.classList.add('opacity-0');
             content.classList.add('-translate-x-full');
             document.body.classList.remove('overflow-hidden');
+            document.documentElement.classList.remove('overflow-hidden'); 
             document.getElementById('menuOpenIcon').classList.remove('hidden');
             document.getElementById('menuCloseIcon').classList.add('hidden');
             setTimeout(() => menu.classList.add('hidden'), 300);
@@ -477,7 +468,6 @@ function loadCommonLayout() {
     if(close) close.addEventListener('click', () => toggleMenu(false));
     if(overlay) overlay.addEventListener('click', () => toggleMenu(false));
 
-    // Global Print Handler
     document.addEventListener('click', (e) => {
         const printBtn = e.target.closest('#printBtn');
         if (printBtn) {
@@ -486,11 +476,25 @@ function loadCommonLayout() {
         }
     });
 
-    // Initialize Wishlist UI
+    // Dynamic Footer Share Trigger Bindings
+    const url = encodeURIComponent(window.location.href);
+    const title = encodeURIComponent(document.title);
+    document.querySelectorAll('[data-footer-share]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const platform = btn.dataset.footerShare; 
+            let shareUrl = '';
+            if (platform === 'facebook') shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            if (platform === 'whatsapp') shareUrl = `https://api.whatsapp.com/send?text=${title}%20${url}`;
+            if (platform === 'twitter') shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+            if (platform === 'telegram') shareUrl = `https://t.me/share/url?url=${url}&text=${title}`;
+            if(shareUrl) window.open(shareUrl, '_blank', 'width=600,height=400');
+        });
+    });
+
     WishlistUI.init();
 }
 
-// Run immediately if DOM is ready, otherwise wait
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', loadCommonLayout);
 } else {
