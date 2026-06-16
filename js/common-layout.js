@@ -16,8 +16,8 @@
   [2026-06-16] Scroll Lock Fix: Added html scroll lock (document.documentElement) along with body to completely freeze background scrolling when Wishlist Drawer or Mobile Menu is open.
   [2026-06-16] Header Search Removal: Removed both desktop and mobile search buttons from headerHTML as requested for a future alternative layout placeholder.
   [2026-06-16] Footer Share Integration: Embedded the beautiful, modern social share links into footerHTML and initialized dynamic sharing URL handlers.
-  [2026-06-16] Sidebar Clean: Completely removed voting thumbs widget and ad references; only Wishlist module is loaded.
-  [2026-06-16] Footer Minimalism: Removed the circular DC logo, title, and site description text line from the footer template.
+  [2026-06-16] Explore Tools Integration: Added bento menu drawer styled from Toolblaster-Hub-for-Calculators-Utility-Tools-06-16-2026_11_22_PM.png on desktop/mobile headers with robust dynamic category list and bulletproof backdrop scrolling locks.
+  [2026-06-16] Right-Sided Navigation: Shifted Home, Dashboard, and Wishlist back towards the right, utilizing the empty center space as a premium design breathing buffer.
 */
 
 const headerHTML = `
@@ -25,7 +25,7 @@ const headerHTML = `
     <header class="bg-gradient-to-r from-brand-dark to-brand-red shadow-md sticky top-0 z-40">
         <div class="mx-auto max-w-[1050px] flex-col px-6 py-2 sm:py-3">
             <div class="flex w-full items-center justify-between gap-4">
-                <!-- 1. Logo -->
+                <!-- 1. Left: Logo Area -->
                 <div class="flex-shrink-0 w-auto md:w-[200px]">
                     <a href="/" class="flex items-center gap-2 text-white" aria-label="DailyCalc.org homepage">
                         <div class="flex h-7 w-7 sm:h-9 sm:w-9 items-center justify-center rounded-full border-2 border-white text-white">
@@ -38,13 +38,22 @@ const headerHTML = `
                     </a>
                 </div>
 
-                <!-- 2. Alternative Space Placeholder (Desktop) -->
-                <div class="hidden flex-1 px-4 md:flex md:justify-center">
-                    <!-- Blank central gap reserved for future header modules -->
+                <!-- 2. Middle-Right Shifted Navigation (Home, Dashboard, Wishlist shifted here to utilize center space beautifully) -->
+                <div class="hidden flex-1 items-center justify-end gap-2 pr-4 md:flex">
+                    <a href="/" class="inline-flex items-center justify-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-bold text-white shadow-soft transition hover:bg-white/20"><i class="fa-solid fa-house"></i> Home</a>
+                    <a href="/dashboard.html" class="inline-flex items-center justify-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-bold text-white shadow-soft transition hover:bg-white/20"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+                    
+                    <!-- Desktop Wishlist Button -->
+                    <button id="desktopWishlistBtn" class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-3 py-1.5 text-xs font-bold text-slate-800 shadow-soft transition hover:bg-slate-100 relative group">
+                        <i class="fa-solid fa-heart text-brand-red group-hover:scale-110 transition-transform"></i> 
+                        <span>Wishlist</span>
+                        <span id="desktopWishlistCount" class="ml-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-brand-dark text-[9px] text-white hidden">0</span>
+                    </button>
                 </div>
                 
-                <!-- 3. Mobile/Desktop Buttons -->
+                <!-- 3. Right: Mobile Drawer Toggle & Desktop Explore Tools Button (Spaced Out) -->
                 <div class="flex-shrink-0 w-auto md:w-[200px] flex justify-end">
+                    <!-- Mobile Menu Elements -->
                     <nav aria-label="Primary" class="flex flex-wrap items-center gap-2 text-sm font-medium text-slate-600 md:hidden">
                         <a href="/" class="rounded-lg p-2 text-white transition hover:bg-white/10" aria-label="Home"><i class="fa-solid fa-house h-5 w-5"></i></a>
                         <!-- Mobile Wishlist Button -->
@@ -52,18 +61,18 @@ const headerHTML = `
                             <i class="fa-solid fa-heart h-5 w-5"></i>
                             <span id="mobileWishlistCount" class="absolute top-1 right-1 flex h-3 w-3 items-center justify-center rounded-full bg-yellow-400 text-[8px] font-bold text-black hidden">0</span>
                         </button>
+                        <!-- Mobile Explore Tools Bento Button -->
+                        <button id="mobileExploreBtn" class="rounded-lg p-2 text-white transition hover:bg-white/10" aria-label="Explore Tools">
+                            <i class="fa-solid fa-grip h-5 w-5"></i>
+                        </button>
                         <button id="mobileMenuToggle" class="rounded-lg p-2 text-white transition hover:bg-white/10" aria-label="Menu"><i class="fa-solid fa-bars h-5 w-5" id="menuOpenIcon"></i><i class="fa-solid fa-xmark h-5 w-5 hidden" id="menuCloseIcon"></i></button>
                     </nav>
 
-                    <div class="hidden items-center gap-2 md:flex">
-                        <a href="/" class="inline-flex items-center justify-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-bold text-white shadow-soft transition hover:bg-white/20"><i class="fa-solid fa-house"></i> Home</a>
-                        <a href="/dashboard.html" class="inline-flex items-center justify-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-bold text-white shadow-soft transition hover:bg-white/20"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
-                        
-                        <!-- Desktop Wishlist Button -->
-                        <button id="desktopWishlistBtn" class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-3 py-1.5 text-xs font-bold text-slate-800 shadow-soft transition hover:bg-slate-100 relative group">
-                            <i class="fa-solid fa-heart text-brand-red group-hover:scale-110 transition-transform"></i> 
-                            <span>Wishlist</span>
-                            <span id="desktopWishlistCount" class="ml-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-brand-dark text-[9px] text-white hidden">0</span>
+                    <!-- Desktop Explore Tools Button (Styled exactly to Toolblaster-Hub-for-Calculators-Utility-Tools-06-16-2026_11_22_PM.png with premium breathing space) -->
+                    <div class="hidden items-center md:flex">
+                        <button id="desktopExploreBtn" class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-xs font-extrabold text-slate-800 shadow-soft transition hover:bg-slate-100 relative group" aria-label="Explore tools list">
+                            <i class="fa-solid fa-grip text-brand-red group-hover:rotate-90 transition-transform duration-300"></i> 
+                            <span class="tracking-wide uppercase">Explore Tools</span>
                         </button>
                     </div>
                 </div>
@@ -87,6 +96,25 @@ const headerHTML = `
             </div>
             <div class="p-4 border-t border-slate-200 bg-white">
                 <a href="/dashboard.html" class="block w-full rounded-lg bg-slate-100 py-3 text-center text-xs font-bold text-slate-700 hover:bg-slate-200 transition">View Full Dashboard</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Explore Tools Drawer (Bento Hub list of current and future applications) -->
+    <div id="exploreDrawer" class="fixed inset-0 z-[60] hidden">
+        <div id="exploreOverlay" class="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity opacity-0"></div>
+        <div id="exploreContent" class="absolute right-0 top-0 h-full w-[460px] max-w-full bg-white shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+            <div class="bg-gradient-to-r from-brand-dark to-brand-red p-4 text-white flex justify-between items-center shadow-md">
+                <h2 class="font-bold text-lg flex items-center gap-2 text-white">
+                    <i class="fa-solid fa-grip text-white"></i> All Active Applications
+                </h2>
+                <button id="closeExploreBtn" class="text-white/80 hover:text-white transition" aria-label="Close Explore Hub"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <div class="flex-1 overflow-y-auto p-5 bg-slate-50 space-y-6" id="exploreHubContainer">
+                <!-- Injected dynamically categories card-wise -->
+            </div>
+            <div class="p-4 border-t border-slate-200 bg-white text-center">
+                <span class="text-[9px] text-slate-400 font-semibold tracking-wider uppercase">DailyCalc.org Hub Ecosystem</span>
             </div>
         </div>
     </div>
@@ -298,6 +326,7 @@ const CalculatorLayout = {
 
 window.CalculatorLayout = CalculatorLayout;
 
+// --- Wishlist UI Logic ---
 const WishlistUI = {
     init() {
         const dBtn = document.getElementById('desktopWishlistBtn');
@@ -411,6 +440,79 @@ const WishlistUI = {
     }
 };
 
+/* --- STREAMING_CHUNK: Defining Explore Bento Hub UI logic... --- */
+const ExploreUI = {
+    init() {
+        const dBtn = document.getElementById('desktopExploreBtn');
+        const mBtn = document.getElementById('mobileExploreBtn');
+        const drawer = document.getElementById('exploreDrawer');
+        const overlay = document.getElementById('exploreOverlay');
+        const content = document.getElementById('exploreContent');
+        const close = document.getElementById('closeExploreBtn');
+
+        const toggleDrawer = (show) => {
+            if (show) {
+                drawer.classList.remove('hidden');
+                requestAnimationFrame(() => {
+                    overlay.classList.remove('opacity-0');
+                    content.classList.remove('translate-x-full');
+                });
+                document.body.classList.add('overflow-hidden');
+                document.documentElement.classList.add('overflow-hidden'); // Freeze parent window scroll context
+                this.renderHub();
+            } else {
+                overlay.classList.add('opacity-0');
+                content.classList.add('translate-x-full');
+                document.body.classList.remove('overflow-hidden');
+                document.documentElement.classList.remove('overflow-hidden'); // Restore browser viewport scroll
+                setTimeout(() => drawer.classList.add('hidden'), 300);
+            }
+        };
+
+        if (dBtn) dBtn.addEventListener('click', () => toggleDrawer(true));
+        if (mBtn) mBtn.addEventListener('click', () => toggleDrawer(true));
+        if (close) close.addEventListener('click', () => toggleDrawer(false));
+        if (overlay) overlay.addEventListener('click', () => toggleDrawer(false));
+    },
+
+    renderHub() {
+        const container = document.getElementById('exploreHubContainer');
+        if (!container || !window.CALCULATOR_REGISTRY) return;
+
+        container.innerHTML = '';
+        
+        // Loop and render dynamically category wise
+        for (const [category, tools] of Object.entries(window.CALCULATOR_REGISTRY)) {
+            const section = document.createElement('div');
+            section.className = 'bg-white rounded-xl border border-slate-200 shadow-sm p-4';
+            
+            let catIcon = 'fa-calculator';
+            if (category === 'Finance') catIcon = 'fa-sack-dollar';
+            if (category === 'Health') catIcon = 'fa-heart-pulse';
+            if (category === 'Everyday Life') catIcon = 'fa-sun';
+            if (category === 'Converters') catIcon = 'fa-arrows-rotate';
+
+            section.innerHTML = `
+                <h3 class="font-heading font-bold text-sm text-slate-800 flex items-center gap-2 pb-2 border-b border-slate-100 mb-3">
+                    <i class="fa-solid ${catIcon} text-brand-red"></i> ${category}
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    ${tools.map(tool => `
+                        <a href="${tool.url}" class="flex items-center gap-2 p-2 rounded-lg bg-slate-50 border border-slate-100 hover:border-brand-red/20 hover:bg-red-50/20 group transition-all">
+                            <div class="h-6 w-6 rounded bg-white border border-slate-200 flex items-center justify-center text-slate-400 group-hover:text-brand-red group-hover:border-brand-red/20 transition-colors">
+                                <i class="fa-solid ${tool.icon} text-[10px]"></i>
+                            </div>
+                            <span class="text-xs font-semibold text-slate-700 group-hover:text-slate-900 transition-colors truncate">${tool.name}</span>
+                        </a>
+                    `).join('')}
+                </div>
+            `;
+            container.appendChild(section);
+        }
+    }
+};
+
+/* --- STREAMING_CHUNK: Injecting complete layout initialization handlers... --- */
 function loadCommonLayout() {
     const h = document.getElementById('header-placeholder');
     const f = document.getElementById('footer-placeholder');
@@ -493,6 +595,7 @@ function loadCommonLayout() {
     });
 
     WishlistUI.init();
+    ExploreUI.init();
 }
 
 if (document.readyState === 'loading') {
