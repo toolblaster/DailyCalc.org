@@ -1,5 +1,5 @@
 /*
-  DailyCalc.org Common Layout Injector
+  DailyCalc.org Common Layout Injector (js/common-layout.js)
   --------------------------------------------------
   [2025-11-28] Added Wishlist (Favorites) feature replacing 'Suggest a Tool'.
   [2025-12-05] Wishlist UI: Added Numbering (#1, #2) and specific Icon support in Wishlist Drawer.
@@ -18,6 +18,11 @@
   [2026-06-16] Footer Share Integration: Embedded the beautiful, modern social share links into footerHTML and initialized dynamic sharing URL handlers.
   [2026-06-16] Explore Tools Integration: Added bento menu drawer styled from Toolblaster-Hub-for-Calculators-Utility-Tools-06-16-2026_11_22_PM.png on desktop/mobile headers with robust dynamic category list and bulletproof backdrop scrolling locks.
   [2026-06-16] Right-Sided Navigation: Shifted Home, Dashboard, and Wishlist back towards the right, utilizing the empty center space as a premium design breathing buffer.
+  [2026-06-16] Header Divider Integration: Added a subtle, low-contrast vertical separator between Wishlist and the new Explore Tools button.
+  [2026-06-17] Mobile Reordering & Separators: Placed the mobile Ad Box immediately after the wishlist placeholder, wrapped with custom slate separator lines to prevent mixup with the SEO section below.
+  [2026-06-17] Sidebar Spacing Refinement: Reduced desktop sidebar width from lg:w-[295px] to lg:w-[265px] to allocate 5px of additional breathing space to the left calculator tools column.
+  [2026-06-17] Permanent Ad-Box Removal: Ensured that no sidebar advertisement blocks exist in the layout config for the right-hand column container.
+  [2026-06-17] Circular Wishlist Icons: Updated Wishlist list rendering & Explore Bento list items to use fully circular (rounded-full) background shapes instead of rectangular ones.
 */
 
 const headerHTML = `
@@ -25,6 +30,7 @@ const headerHTML = `
     <header class="bg-gradient-to-r from-brand-dark to-brand-red shadow-md sticky top-0 z-40">
         <div class="mx-auto max-w-[1050px] flex-col px-6 py-2 sm:py-3">
             <div class="flex w-full items-center justify-between gap-4">
+                
                 <!-- 1. Left: Logo Area -->
                 <div class="flex-shrink-0 w-auto md:w-[200px]">
                     <a href="/" class="flex items-center gap-2 text-white" aria-label="DailyCalc.org homepage">
@@ -38,23 +44,13 @@ const headerHTML = `
                     </a>
                 </div>
 
-                <!-- 2. Middle-Right Shifted Navigation (Home, Dashboard, Wishlist shifted here to utilize center space beautifully) -->
-                <div class="hidden flex-1 items-center justify-end gap-2 pr-4 md:flex">
-                    <a href="/" class="inline-flex items-center justify-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-bold text-white shadow-soft transition hover:bg-white/20"><i class="fa-solid fa-house"></i> Home</a>
-                    <a href="/dashboard.html" class="inline-flex items-center justify-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-bold text-white shadow-soft transition hover:bg-white/20"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
-                    
-                    <!-- Desktop Wishlist Button -->
-                    <button id="desktopWishlistBtn" class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-3 py-1.5 text-xs font-bold text-slate-800 shadow-soft transition hover:bg-slate-100 relative group">
-                        <i class="fa-solid fa-heart text-brand-red group-hover:scale-110 transition-transform"></i> 
-                        <span>Wishlist</span>
-                        <span id="desktopWishlistCount" class="ml-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-brand-dark text-[9px] text-white hidden">0</span>
-                    </button>
-                </div>
+                <!-- 2. Middle: Empty Breathing Buffer -->
+                <div class="hidden flex-1 px-4 md:flex"></div>
                 
-                <!-- 3. Right: Mobile Drawer Toggle & Desktop Explore Tools Button (Spaced Out) -->
-                <div class="flex-shrink-0 w-auto md:w-[200px] flex justify-end">
-                    <!-- Mobile Menu Elements -->
-                    <nav aria-label="Primary" class="flex flex-wrap items-center gap-2 text-sm font-medium text-slate-600 md:hidden">
+                <!-- 3. Right: All Navigation & Tools -->
+                <div class="flex-shrink-0 flex items-center justify-end gap-2">
+                    <!-- Mobile Nav -->
+                    <nav aria-label="Primary" class="flex items-center gap-2 md:hidden">
                         <a href="/" class="rounded-lg p-2 text-white transition hover:bg-white/10" aria-label="Home"><i class="fa-solid fa-house h-5 w-5"></i></a>
                         <!-- Mobile Wishlist Button -->
                         <button id="mobileWishlistBtn" class="rounded-lg p-2 text-white transition hover:bg-white/10 relative" aria-label="Wishlist">
@@ -68,8 +64,22 @@ const headerHTML = `
                         <button id="mobileMenuToggle" class="rounded-lg p-2 text-white transition hover:bg-white/10" aria-label="Menu"><i class="fa-solid fa-bars h-5 w-5" id="menuOpenIcon"></i><i class="fa-solid fa-xmark h-5 w-5 hidden" id="menuCloseIcon"></i></button>
                     </nav>
 
-                    <!-- Desktop Explore Tools Button (Styled exactly to Toolblaster-Hub-for-Calculators-Utility-Tools-06-16-2026_11_22_PM.png with premium breathing space) -->
-                    <div class="hidden items-center md:flex">
+                    <!-- Desktop Nav Row -->
+                    <div class="hidden items-center md:flex gap-2">
+                        <a href="/" class="inline-flex items-center justify-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-bold text-white shadow-soft transition hover:bg-white/20"><i class="fa-solid fa-house"></i> Home</a>
+                        <a href="/dashboard.html" class="inline-flex items-center justify-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-bold text-white shadow-soft transition hover:bg-white/20"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+                        
+                        <!-- Desktop Wishlist Button -->
+                        <button id="desktopWishlistBtn" class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-3 py-1.5 text-xs font-bold text-slate-800 shadow-soft transition hover:bg-slate-100 relative group">
+                            <i class="fa-solid fa-heart text-brand-red group-hover:scale-110 transition-transform"></i> 
+                            <span>Wishlist</span>
+                            <span id="desktopWishlistCount" class="ml-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-brand-dark text-[9px] text-white hidden">0</span>
+                        </button>
+
+                        <!-- LOW CONTRAST SEPARATOR LINE -->
+                        <div class="h-6 w-px bg-white/20 mx-1"></div>
+
+                        <!-- Explore Tools Bento Button -->
                         <button id="desktopExploreBtn" class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-xs font-extrabold text-slate-800 shadow-soft transition hover:bg-slate-100 relative group" aria-label="Explore tools list">
                             <i class="fa-solid fa-grip text-brand-red group-hover:rotate-90 transition-transform duration-300"></i> 
                             <span class="tracking-wide uppercase">Explore Tools</span>
@@ -242,20 +252,28 @@ const CalculatorLayout = {
                 <!-- LEFT COLUMN: Tool + SEO -->
                 <div class="flex-1 min-w-0 flex flex-col gap-8" id="layout-left-column">
                     <div id="layout-tool-container"></div>
-                    <!-- Mobile Widget Placeholder (Visible only md:hidden) -->
-                    <div id="mobile-widget-placeholder" class="md:hidden"></div>
+                    
+                    <!-- Mobile Widget Placeholder (Visible only lg:hidden) -->
+                    <div id="mobile-widget-placeholder" class="lg:hidden"></div>
+
+                    <!-- Mobile Ad Box (Visible only lg:hidden) - Separators removed for clean look -->
+                    <div class="lg:hidden flex flex-col">
+                        <div class="ad-box mx-auto">
+                            <span class="text-xs font-semibold text-slate-400">ADVERTISEMENT<br>300x250</span>
+                        </div>
+                    </div>
                     
                     <!-- SEO Container (Now inside left column) -->
                     <div id="layout-seo-wrapper" class="hidden">
-                        <!-- CENTRALIZED DIVIDER INJECTION -->
-                        <div class="calc-section-divider !mt-2"></div>
+                        <!-- CENTRALIZED DIVIDER INJECTION (Visible only on Desktop to prevent duplicates with Mobile separators above) -->
+                        <div class="calc-section-divider !mt-2 hidden lg:block"></div>
                         <div id="layout-seo-container"></div>
                     </div>
                 </div>
 
-                <!-- RIGHT COLUMN: Sticky Sidebar -->
-                <div class="w-full shrink-0 space-y-4 lg:w-[300px] no-print">
-                    <div id="desktop-widget-placeholder" class="hidden md:block"></div>
+                <!-- RIGHT COLUMN: Sticky Sidebar (MODIFIED: Sidebar width reduced from 295px to lg:w-[265px] for even more left column breathing space) -->
+                <div class="w-full shrink-0 space-y-4 lg:w-[265px] no-print">
+                    <div id="desktop-widget-placeholder" class="hidden lg:block"></div>
                     <div id="layout-sidebar-container"></div>
                     <div class="content-section sticky top-4" id="layout-related-tools" data-widget="related-tools" data-category="${config.category}">
                         <div class="p-4 text-center text-slate-400 text-xs"><i class="fa-solid fa-spinner fa-spin mb-2"></i><br>Loading tools...</div>
@@ -412,8 +430,8 @@ const WishlistUI = {
                     ${number}
                 </div>
 
-                <!-- Icon Container -->
-                <div class="h-8 w-8 shrink-0 flex items-center justify-center rounded bg-slate-50 text-brand-red border border-slate-100">
+                <!-- Icon Container (MODIFIED: Changed from rounded/rectangular to rounded-full for circular aesthetics) -->
+                <div class="h-8 w-8 shrink-0 flex items-center justify-center rounded-full bg-slate-50 text-brand-red border border-slate-100">
                     <i class="fa-solid ${item.icon || 'fa-calculator'}"></i>
                 </div>
 
@@ -440,7 +458,7 @@ const WishlistUI = {
     }
 };
 
-/* --- STREAMING_CHUNK: Defining Explore Bento Hub UI logic... --- */
+/* --- Explore Bento Hub UI logic --- */
 const ExploreUI = {
     init() {
         const dBtn = document.getElementById('desktopExploreBtn');
@@ -499,7 +517,8 @@ const ExploreUI = {
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     ${tools.map(tool => `
                         <a href="${tool.url}" class="flex items-center gap-2 p-2 rounded-lg bg-slate-50 border border-slate-100 hover:border-brand-red/20 hover:bg-red-50/20 group transition-all">
-                            <div class="h-6 w-6 rounded bg-white border border-slate-200 flex items-center justify-center text-slate-400 group-hover:text-brand-red group-hover:border-brand-red/20 transition-colors">
+                            <!-- Icon Container (MODIFIED: Changed from rounded/rectangular to rounded-full for circular aesthetics) -->
+                            <div class="h-6 w-6 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-400 group-hover:text-brand-red group-hover:border-brand-red/20 transition-colors">
                                 <i class="fa-solid ${tool.icon} text-[10px]"></i>
                             </div>
                             <span class="text-xs font-semibold text-slate-700 group-hover:text-slate-900 transition-colors truncate">${tool.name}</span>
@@ -512,7 +531,6 @@ const ExploreUI = {
     }
 };
 
-/* --- STREAMING_CHUNK: Injecting complete layout initialization handlers... --- */
 function loadCommonLayout() {
     const h = document.getElementById('header-placeholder');
     const f = document.getElementById('footer-placeholder');
