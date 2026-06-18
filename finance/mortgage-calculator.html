@@ -8,13 +8,13 @@
     <meta name="description" content="Free Mortgage Calculator. Estimate 2025 monthly payments, taxes, PMI & insurance. View amortization schedules and payoff strategies for US fixed-rate loans.">
     <meta name="keywords" content="mortgage calculator, home loan, pmi calculator, amortization schedule, interest rate, housing market">
     
-    <link rel="canonical" href="https://dailycalc.org/finance/mortgage-calculator.html">
+    <link class="no-print" rel="canonical" href="https://dailycalc.org/finance/mortgage-calculator.html">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css">
     
-    <!-- Global CSS (Now contains centralized print styles) -->
+    <!-- Global CSS -->
     <link rel="stylesheet" href="../js/global.css">
     
     <!-- Tailwind & Config -->
@@ -102,8 +102,7 @@
     
     <div id="header-placeholder" class="no-print"></div>
 
-    <!-- NEW: Floating Tooltip for Chart (Dynamic Background) -->
-    <!-- Removed bg-slate-900 and text-white to allow JS override -->
+    <!-- Floating Tooltip for Chart -->
     <div id="chartTooltip" class="fixed z-50 pointer-events-none opacity-0 transition-opacity duration-150 text-xs rounded-md px-3 py-2 shadow-xl border border-white/20 transform -translate-x-1/2 -translate-y-full mt-[-10px] backdrop-blur-sm font-medium text-white drop-shadow-md">
         <!-- Content injected by JS -->
     </div>
@@ -136,7 +135,6 @@
                     
                     <!-- CALCULATOR HEADER BAR -->
                     <div class="calc-tool-header no-print">
-                        <!-- Updated icon to match category card (fa-house-chimney) -->
                         <i class="fa-solid fa-house-chimney text-sm opacity-90"></i>
                         <span class="text-xs font-medium">Modify the values and see the instant mortgage results</span>
                     </div>
@@ -171,7 +169,6 @@
                                 </div>
 
                                 <div class="input-row mb-3">
-                                    <!-- A11Y FIX: Corrected 'for' attribute to match input ID 'loanTermInput' -->
                                     <label for="loanTermInput" class="input-label w-[35%] text-slate-800 font-bold">Loan Term</label>
                                     <div class="w-[65%] flex items-center gap-2">
                                         <input type="number" id="loanTermInput" value="30" class="compact-input w-full">
@@ -193,7 +190,6 @@
                                         <select id="startMonth" aria-labelledby="startDateLabel" aria-label="Start Month" class="compact-select w-[50%]">
                                             <option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option><option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option><option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option>
                                         </select>
-                                        <!-- A11Y FIX: Added placeholder-slate-500 for better contrast -->
                                         <input type="number" id="startYear" aria-labelledby="startDateLabel" aria-label="Start Year" class="compact-input w-[50%] placeholder-slate-500" placeholder="Year">
                                     </div>
                                 </div>
@@ -206,8 +202,6 @@
 
                                 <!-- Standard Costs (Dynamic Inputs) -->
                                 <div id="dynamicCostsContainer" class="transition-all duration-300 ease-in-out overflow-hidden">
-                                    
-                                    <!-- Section Label: Annual Tax & Cost -->
                                     <div class="flex justify-end mb-2">
                                         <span class="text-[10px] font-bold text-slate-600 uppercase tracking-wide border-b border-slate-200 pb-0.5">Annual Tax & Cost</span>
                                     </div>
@@ -292,9 +286,7 @@
                                 <div id="moreOptionsContainer" class="hidden border-t border-slate-300 pt-3 mt-2 space-y-3">
                                     <!-- Annual Increases -->
                                     <div class="calc-option-group !bg-white !border-slate-300 !rounded-md !p-3 !shadow-sm">
-                                        <!-- UPDATED: h3 -> h2 for semantics -->
                                         <h2 class="text-[11px] font-bold text-slate-800 mb-2 uppercase tracking-wide">Annual Tax & Cost Increase</h2>
-                                        <!-- A11Y FIX: Added explicit 'for' attributes to labels in advanced section -->
                                         <div class="input-row mb-2"><label for="taxIncrease" class="input-label w-[50%] text-slate-700 font-semibold">Property Tax</label><div class="relative w-[50%]"><input type="number" id="taxIncrease" value="0" class="compact-input pr-6"><span class="absolute right-2 top-1 text-xs text-slate-600">%</span></div></div>
                                         <div class="input-row mb-2"><label for="insIncrease" class="input-label w-[50%] text-slate-700 font-semibold">Home Ins.</label><div class="relative w-[50%]"><input type="number" id="insIncrease" value="0" class="compact-input pr-6"><span class="absolute right-2 top-1 text-xs text-slate-600">%</span></div></div>
                                         <div class="input-row mb-2"><label for="hoaIncrease" class="input-label w-[50%] text-slate-700 font-semibold">HOA Fee</label><div class="relative w-[50%]"><input type="number" id="hoaIncrease" value="0" class="compact-input pr-6"><span class="absolute right-2 top-1 text-xs text-slate-600">%</span></div></div>
@@ -302,7 +294,6 @@
                                     </div>
                                     <!-- Extra Payments -->
                                     <div class="calc-option-group !bg-white !border-slate-300 !rounded-md !p-3 !shadow-sm">
-                                        <!-- UPDATED: h3 -> h2 for semantics -->
                                         <h2 class="text-[11px] font-bold text-slate-800 mb-2 uppercase tracking-wide">Extra Payments</h2>
                                         <div class="mb-3"><div class="flex items-center gap-1 mb-1"><label for="extraMonthly" class="text-[10px] font-bold text-slate-700">Extra Monthly Pay</label></div><div class="flex gap-1"><div class="relative w-[40%]"><span class="absolute left-1.5 top-1 text-[10px] text-slate-600">$</span><input type="number" id="extraMonthly" value="0" class="compact-input pl-4"></div><span class="text-[10px] self-center text-slate-600 font-semibold">from</span><select id="extraMonthlyMonth" aria-label="Extra monthly payment start month" class="compact-select w-[40%]"><option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option><option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option><option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option></select></div></div>
                                         <div class="mb-3"><div class="flex items-center gap-1 mb-1"><label for="extraYearly" class="text-[10px] font-bold text-slate-700">Extra Yearly Pay</label></div><div class="flex gap-1"><div class="relative w-[40%]"><span class="absolute left-1.5 top-1 text-[10px] text-slate-600">$</span><input type="number" id="extraYearly" value="0" class="compact-input pl-4"></div><span class="text-[10px] self-center text-slate-600 font-semibold">in</span><select id="extraYearlyMonth" aria-label="Extra yearly payment month" class="compact-select w-[40%]"><option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option><option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option><option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option></select></div></div>
@@ -321,7 +312,6 @@
                                                         <select class="compact-select w-[45%] otp-month" aria-label="One-time payment month">
                                                             <option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option><option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option><option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option>
                                                         </select>
-                                                        <!-- A11Y FIX: placeholder-slate-500 -->
                                                         <input type="number" aria-label="One-time payment year" class="compact-input w-[35%] otp-year placeholder-slate-500" placeholder="Year">
                                                     </div>
                                                 </div>
@@ -340,7 +330,7 @@
                             </form>
                         </div>
 
-                        <!-- COLUMN 2: RESULTS (REDESIGNED) -->
+                        <!-- COLUMN 2: RESULTS -->
                         <div class="flex-1 min-w-0 print-full-width flex flex-col gap-4">
 
                             <!-- UNIFIED DASHBOARD CARD -->
@@ -350,7 +340,6 @@
                                 <div class="result-header">
                                     <div>
                                         <div class="text-[10px] font-semibold uppercase tracking-wider text-green-100/80">Monthly Pay</div>
-                                        <!-- UPDATED: Replaced manual text-2xl with centralized .result-value class -->
                                         <div class="result-value" id="monthlyPaymentDisplay">$0.00</div>
                                     </div>
                                     
@@ -387,7 +376,6 @@
                                                 <path id="chartRingHOA" data-id="hoa" class="chart-segment text-[#30add1]" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="6"></path>
                                             </svg>
                                             <div id="chartCenterText" class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none text-center">
-                                                <!-- Static text instead of dynamic -->
                                                 <span class="text-[9px] text-slate-500 font-medium uppercase tracking-wide">Monthly</span>
                                             </div>
                                         </div>
@@ -444,11 +432,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                
-                                <!-- 3. SUMMARY FOOTER (Refined to 3 cols max, card style) -->
+
+                                <!-- 3. SUMMARY FOOTER -->
                                 <div class="bg-slate-50 px-4 py-4 border-t border-slate-100">
                                     <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-xs">
-                                        
                                         <!-- Loan Amount -->
                                         <div class="stat-card border-l-[#428bca]">
                                             <span class="text-[9px] text-slate-500 font-medium uppercase tracking-wide mb-0.5">Loan Amount</span>
@@ -508,7 +495,7 @@
                                     </div>
                                 </div>
 
-                                <!-- 4. AMORTIZATION TOGGLE (Bottom Bar) -->
+                                <!-- 4. AMORTIZATION TOGGLE -->
                                 <button type="button" id="toggleTableBtn" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 border-t border-slate-200 py-2.5 px-4 transition-all duration-200 flex items-center justify-center gap-2 text-xs font-semibold group no-print">
                                     <i class="fa-solid fa-table-list text-slate-500 group-hover:text-slate-700"></i>
                                     <span>View Amortization Schedule</span>
@@ -516,10 +503,9 @@
                                 </button>
                             </div>
 
-                            <!-- Amortization Container (Hidden by default) -->
+                            <!-- Amortization Container -->
                             <div id="amortizationContainer" class="hidden rounded-lg border border-slate-200 bg-white p-0 shadow-lg overflow-hidden transition-all">
                                 <div class="bg-slate-50 px-4 py-3 border-b border-slate-200 flex justify-between items-center">
-                                    <!-- UPDATED: h3 -> h2 for semantics -->
                                     <h2 class="text-sm font-bold text-slate-800">Amortization Schedule</h2>
                                     <button onclick="document.getElementById('amortizationContainer').classList.add('hidden')" class="text-slate-500 hover:text-red-500 transition-colors"><i class="fa-solid fa-xmark"></i></button>
                                 </div>
@@ -542,31 +528,36 @@
                         </div>
                     </div>
 
-                    <!-- NEW: Mobile Widget Placeholder (Visible only on mobile) -->
-                    <div id="mobile-widget-placeholder" class="md:hidden mb-8"></div>
+                    <!-- Mobile Widget Placeholder -->
+                    <div id="mobile-widget-placeholder" class="lg:hidden mb-4"></div>
 
-                    <!-- STRONG VISUAL SEPARATOR (Centralized) -->
-                    <div class="calc-section-divider"></div>
+                    <!-- Mobile Ad Box (Visible only lg:hidden) - Placed below wishlist, separators deleted! -->
+                    <div class="lg:hidden mb-4">
+                        <div class="ad-box mx-auto">
+                            <span class="text-xs font-semibold text-slate-400">ADVERTISEMENT<br>300x250</span>
+                        </div>
+                    </div>
 
-                    <!-- SEO CONTENT (Full Width, Sectioned) -->
-                    <div class="w-full max-w-[702px] no-print">
+                    <!-- Spacer to keep the desktop gap intact without a visible separator line -->
+                    <div class="h-8 hidden lg:block" aria-hidden="true"></div>
+
+                    <!-- SEO CONTENT -->
+                    <div class="w-full no-print">
                         <div class="content-section">
                             <div class="bg-gradient-to-r from-brand-dark to-brand-red px-4 py-3 border-b border-white/10">
                                 <h2 class="font-bold text-white">Mortgage Calculation Guide</h2>
                             </div>
-                            <!-- Using new Universal SEO Wrapper -->
                             <div class="calc-seo-content">
                                 
                                 <!-- Introduction Section -->
                                 <section class="info-card">
                                     <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
-                                        <!-- Updated Icon Color to brand-red -->
                                         <i class="fa-solid fa-house-chimney seo-icon"></i> What is a Mortgage?
                                     </h3>
                                     <p class="mb-3">
                                         A mortgage is a loan specifically designed for purchasing a home or other real estate. The property itself serves as collateral for the loan. Buying a home is likely the biggest purchase of your life, and our free <strong>Mortgage Calculator</strong> helps you estimate your total monthly payment for 2025 and beyond.
                                     </p>
-                                    <p>
+                                    <p class="">
                                         By factoring in property taxes, homeowners insurance, and PMI, you get a realistic picture of your true housing costs. <em>(Note: This tool is optimized for US fixed-rate loans.)</em> Use this tool to compare different loan scenarios, see how a larger down payment affects your wallet, and plan for a financially secure future. While primarily designed for US fixed-rate mortgages, the math works for any standard amortizing loan.
                                     </p>
                                 </section>
@@ -574,13 +565,11 @@
                                 <!-- FORMULA SECTION -->
                                 <section class="info-card">
                                     <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
-                                        <!-- Updated Icon Color to brand-red -->
                                         <i class="fa-solid fa-calculator seo-icon"></i> The Math Behind Your Mortgage
                                     </h3>
                                     <p class="mb-3">Curious about the numbers? Lenders use the standard amortization formula to determine your fixed monthly payment ($M$). It balances your principal ($P$), monthly interest rate ($r$), and the total number of months in your loan ($n$).</p>
                                     
                                     <div class="my-4 flex justify-center">
-                                        <!-- UPDATED: Inner box border contrast -->
                                         <div class="bg-white px-6 py-3 rounded border border-slate-300 shadow-sm">
                                             <span class="font-serif text-lg text-slate-900 italic">
                                                 M = P <span class="mx-1">&times;</span> 
@@ -614,7 +603,6 @@
                                     <!-- Left: Understanding PITI -->
                                     <section class="info-card">
                                         <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
-                                            <!-- Updated Icon Color to brand-red -->
                                             <i class="fa-solid fa-list-check seo-icon"></i> What is PITI?
                                         </h3>
                                         <p class="mb-2">Lenders use the acronym <strong>PITI</strong> to describe the four main components of your monthly mortgage bill:</p>
@@ -642,14 +630,12 @@
                                     <section class="flex flex-col gap-6">
                                         <div class="info-card">
                                             <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
-                                                <!-- Updated Icon Color to brand-red -->
                                                 <i class="fa-solid fa-chart-line seo-icon"></i> The Amortization Schedule
                                             </h3>
                                             <p class="mb-2">Your <strong>amortization schedule</strong> shows the journey to being debt-free. In the early years, most of your money goes toward interest. Over time, the scales tip, and you start paying off the house (principal) faster.</p>
-                                            <p>Use the "View Schedule" button above to see exactly when you'll cross the break-even point.</p>
+                                            <p class="sm:text-left">Use the "View Schedule" button above to see exactly when you'll cross the break-even point.</p>
                                         </div>
 
-                                        <!-- RESTORED: Specific border color as requested -->
                                         <div class="info-card bg-green-50/50 border-green-200">
                                             <h3 class="font-bold text-[#518428] mb-1 flex items-center gap-2">
                                                 <i class="fa-solid fa-lightbulb"></i> Smart Strategies
@@ -663,20 +649,18 @@
                                     </section>
                                 </div>
 
-                                <!-- NEW GRID: Costs (Left) & Lower Payment (Right) - DENSIFIED (Using .feature-card) -->
+                                <!-- Costs (Left) & Lower Payment (Right) -->
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     
                                     <!-- Left: Costs of Ownership -->
                                     <section class="info-card !px-4 !py-3">
                                         <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2 text-sm">
-                                            <!-- Updated Icon Color to brand-red -->
                                             <i class="fa-solid fa-wallet seo-icon"></i> Costs of Ownership
                                         </h3>
                                         <p class="mb-3 text-[11px] text-slate-600 leading-tight">Budget for these often-overlooked expenses:</p>
                                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                             <!-- Closing Costs -->
                                             <div class="feature-card">
-                                                <!-- Updated Icon Color to brand-red -->
                                                 <div class="mt-0.5"><i class="fa-solid fa-file-signature seo-icon"></i></div>
                                                 <div>
                                                     <strong class="text-slate-800 block mb-0.5 text-[11px]">Closing Costs</strong>
@@ -685,7 +669,6 @@
                                             </div>
                                             <!-- Maintenance -->
                                             <div class="feature-card">
-                                                <!-- Updated Icon Color to brand-red -->
                                                 <div class="mt-0.5"><i class="fa-solid fa-screwdriver-wrench seo-icon"></i></div>
                                                 <div>
                                                     <strong class="text-slate-800 block mb-0.5 text-[11px]">Maintenance</strong>
@@ -694,7 +677,6 @@
                                             </div>
                                             <!-- Utilities -->
                                             <div class="feature-card">
-                                                <!-- Updated Icon Color to brand-red -->
                                                 <div class="mt-0.5"><i class="fa-solid fa-faucet seo-icon"></i></div>
                                                 <div>
                                                     <strong class="text-slate-800 block mb-0.5 text-[11px]">Utilities</strong>
@@ -703,7 +685,6 @@
                                             </div>
                                             <!-- Furniture -->
                                             <div class="feature-card">
-                                                <!-- Updated Icon Color to brand-red -->
                                                 <div class="mt-0.5"><i class="fa-solid fa-couch seo-icon"></i></div>
                                                 <div>
                                                     <strong class="text-slate-800 block mb-0.5 text-[11px]">Furnishing</strong>
@@ -716,7 +697,6 @@
                                     <!-- Right: How to Lower Payment -->
                                     <section class="info-card !px-4 !py-3">
                                         <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2 text-sm">
-                                            <!-- Updated Icon Color to brand-red -->
                                             <i class="fa-solid fa-arrow-trend-down seo-icon"></i> Lower Your Payment
                                         </h3>
                                         <p class="mb-3 text-[11px] text-slate-600 leading-tight">Proven strategies to reduce monthly costs:</p>
@@ -753,29 +733,24 @@
                                     </section>
                                 </div>
 
-                                <!-- NEW SECTION: Common Terms -->
+                                <!-- Common Terms -->
                                 <section class="info-card">
                                     <h3 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
-                                        <!-- Updated Icon Color to brand-red -->
                                         <i class="fa-solid fa-book-open seo-icon"></i> Common Mortgage Terms Explained
                                     </h3>
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <!-- UPDATED: border-slate-200 -> border-slate-300 -->
                                         <div class="bg-white p-3 rounded border border-slate-300">
                                             <strong class="text-brand-dark block mb-1">LTV (Loan-to-Value)</strong>
                                             <p class="text-slate-600">The ratio of your loan amount to the home's value. Lenders use this to determine risk. <strong>Tip:</strong> keeping LTV under 80% usually avoids PMI.</p>
                                         </div>
-                                        <!-- UPDATED: border-slate-200 -> border-slate-300 -->
                                         <div class="bg-white p-3 rounded border border-slate-300">
                                             <strong class="text-brand-dark block mb-1">DTI (Debt-to-Income)</strong>
                                             <p class="text-slate-600">The percentage of your gross monthly income that goes to paying debts. Most lenders prefer a DTI under 36%.</p>
                                         </div>
-                                        <!-- UPDATED: border-slate-200 -> border-slate-300 -->
                                         <div class="bg-white p-3 rounded border border-slate-300">
                                             <strong class="text-brand-dark block mb-1">Escrow Account</strong>
                                             <p class="text-slate-600">A savings account managed by your lender. A portion of your monthly payment goes here to pay your property taxes and insurance when they are due.</p>
                                         </div>
-                                        <!-- UPDATED: border-slate-200 -> border-slate-300 -->
                                         <div class="bg-white p-3 rounded border border-slate-300">
                                             <strong class="text-brand-dark block mb-1">Fixed vs. Adjustable Rate</strong>
                                             <p class="text-slate-600"><strong>Fixed:</strong> Rate stays the same forever. <br><strong>Adjustable (ARM):</strong> Rate changes after a set period based on market conditions.</p>
@@ -783,13 +758,11 @@
                                     </div>
                                 </section>
 
-                                <!-- MOVED: Mortgage Checklist (Now in SEO content, before FAQ) -->
+                                <!-- Mortgage Checklist -->
                                 <section class="info-card">
                                     <h3 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
-                                        <!-- Updated Icon Color to brand-red -->
                                         <i class="fa-solid fa-clipboard-check seo-icon"></i> Mortgage Readiness Checklist
                                     </h3>
-                                    <!-- UPDATED: border-slate-200 -> border-slate-300 -->
                                     <div class="p-4 text-xs text-slate-600 bg-white rounded border border-slate-300">
                                         <p class="mb-3 font-medium text-slate-700">Have these ready before you apply:</p>
                                         <ul class="space-y-3">
@@ -813,15 +786,13 @@
                                     </div>
                                 </section>
 
-                                <!-- NEW SECTION: FAQ -->
+                                <!-- FAQ -->
                                 <section class="info-card">
                                     <h3 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
-                                        <!-- Updated Icon Color to brand-red -->
                                         <i class="fa-solid fa-circle-question seo-icon"></i> Frequently Asked Questions
                                     </h3>
                                     <div class="space-y-4">
                                         <!-- Q1 -->
-                                        <!-- UPDATED: border-slate-200 -> border-slate-300 -->
                                         <div class="flex gap-3 items-start">
                                             <div class="flex-shrink-0 w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-[10px] font-bold border border-slate-300 mt-0.5">1</div>
                                             <div>
@@ -830,7 +801,6 @@
                                             </div>
                                         </div>
                                         <!-- Q2 -->
-                                        <!-- UPDATED: border-slate-200 -> border-slate-300 -->
                                         <div class="flex gap-3 items-start">
                                             <div class="flex-shrink-0 w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-[10px] font-bold border border-slate-300 mt-0.5">2</div>
                                             <div>
@@ -839,7 +809,6 @@
                                             </div>
                                         </div>
                                         <!-- Q3 -->
-                                        <!-- UPDATED: border-slate-200 -> border-slate-300 -->
                                         <div class="flex gap-3 items-start">
                                             <div class="flex-shrink-0 w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-[10px] font-bold border border-slate-300 mt-0.5">3</div>
                                             <div>
@@ -847,8 +816,7 @@
                                                 <p class="text-xs text-slate-600">Making extra payments toward your <em>principal</em> balance reduces total interest. Even one extra payment per year can shave years off a 30-year term. Use the "More Options" section above to test this strategy.</p>
                                             </div>
                                         </div>
-                                         <!-- Q4 -->
-                                        <!-- UPDATED: border-slate-200 -> border-slate-300 -->
+                                        <!-- Q4 -->
                                         <div class="flex gap-3 items-start">
                                             <div class="flex-shrink-0 w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-[10px] font-bold border border-slate-300 mt-0.5">4</div>
                                             <div>
@@ -857,7 +825,6 @@
                                             </div>
                                         </div>
                                         <!-- Q5 -->
-                                        <!-- UPDATED: border-slate-200 -> border-slate-300 -->
                                         <div class="flex gap-3 items-start">
                                             <div class="flex-shrink-0 w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-[10px] font-bold border border-slate-300 mt-0.5">5</div>
                                             <div>
@@ -874,18 +841,13 @@
 
                 </div>
 
-                <!-- RIGHT SIDEBAR (Sticky) -->
-                <div class="w-full shrink-0 space-y-4 lg:w-[300px] no-print">
+                <!-- RIGHT SIDEBAR (Sticky - Reduced to 265px for extra desktop breathing room) -->
+                <div class="w-full shrink-0 space-y-4 lg:w-[265px] no-print">
                     
-                    <!-- NEW: Desktop Widget Placeholder (Hidden on mobile) -->
-                    <!-- Renamed from 'sidebar-widget-container' to be explicit, though I will update JS to handle both or fallback -->
-                    <div id="desktop-widget-placeholder" class="hidden md:block"></div>
-                    <!-- Kept old ID for safety if JS isn't fully updated yet, but intended to be replaced by logic -->
-                    
-                    <div class="ad-box"><span class="text-xs font-semibold text-slate-400">ADVERTISEMENT<br>300x250</span></div>
+                    <!-- Desktop Widget Placeholder (Hidden on mobile) -->
+                    <div id="desktop-widget-placeholder" class="hidden lg:block"></div>
                     
                     <!-- DYNAMIC SIDEBAR WIDGET -->
-                    <!-- The content inside this div is now populated by js/global.js based on the data-category -->
                     <div class="content-section sticky top-4" data-widget="related-tools" data-category="Finance">
                         <!-- Loading State (replaced immediately by JS) -->
                         <div class="p-4 text-center text-slate-400 text-xs">
@@ -997,7 +959,6 @@
             inputs.addOneTimeBtn.addEventListener('click', () => {
                 const newRow = document.createElement('div');
                 newRow.className = 'one-time-payment-row border-t border-slate-100 pt-2 mt-2 relative';
-                // A11Y FIX: Added aria-label and placeholder-slate-500 to new dynamic rows
                 newRow.innerHTML = `<button type="button" class="remove-otp absolute -right-2 -top-2 text-red-400 hover:text-red-600 text-xs font-bold px-1" aria-label="Remove payment">&times;</button><div class="flex gap-1 mb-1"><div class="relative w-full"><span class="absolute left-1.5 top-1 text-[10px] text-slate-400">$</span><input type="number" aria-label="One-time payment amount" class="compact-input pl-4 otp-amount" value="0"></div></div><div class="flex gap-1"><span class="text-[10px] self-center text-slate-400">in</span><select class="compact-select w-[45%] otp-month" aria-label="One-time payment month"><option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option><option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option><option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option></select><input type="number" aria-label="One-time payment year" class="compact-input w-[35%] otp-year placeholder-slate-500" placeholder="Year" value="${parseInt(document.querySelector('.otp-year').value) + 1}"></div>`;
                 inputs.oneTimeContainer.appendChild(newRow);
                 newRow.querySelectorAll('input, select').forEach(el => el.addEventListener('input', calculate));
@@ -1256,12 +1217,11 @@
                         if (style) {
                             tooltip.style.backgroundColor = style.bg;
                             tooltip.style.color = style.text;
-                            tooltip.style.borderColor = style.bg; // Match border to bg
+                            tooltip.style.borderColor = style.bg; 
                         }
 
                         const valEl = document.getElementById(id === 'principal' ? 'breakdownPI' : id === 'tax' ? 'breakdownTax' : id === 'ins' ? 'breakdownIns' : id === 'pmi' ? 'breakdownPMI' : 'breakdownHOA');
                         if (valEl) {
-                            // Note: Removed 'text-slate-300' classes inside since we force text color via style above
                             tooltip.innerHTML = `<div class="font-bold text-[11px] opacity-90 mb-0.5">${labels[id]}</div><div class="text-sm font-bold drop-shadow-sm">${valEl.textContent}</div>`;
                             tooltip.classList.remove('opacity-0');
                         }
@@ -1287,7 +1247,7 @@
             });
 
             function updateAmortizationTable(schedule, initialLoan) {
-                currentAmortizationData = []; // Reset current data
+                currentAmortizationData = []; 
                 let html = '';
                 let prevInterest = 0;
                 let prevBalance = initialLoan;
@@ -1327,7 +1287,7 @@
                 }
             });
 
-            // NEW: Download CSV Logic
+            // Download CSV Logic
             document.getElementById('downloadCsvBtn').addEventListener('click', () => {
                 if (!currentAmortizationData || currentAmortizationData.length === 0) {
                     alert('Please calculate first.');
@@ -1359,7 +1319,7 @@
                 setTimeout(() => btn.innerHTML = originalHtml, 2000);
             });
 
-            // UPDATED: Use global HistoryManager
+            // Use global HistoryManager
             let historyDebounce;
             function saveToHistory(price, rate, monthly) {
                 clearTimeout(historyDebounce);
