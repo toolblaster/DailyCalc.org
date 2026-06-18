@@ -4,6 +4,7 @@
   [2026-06-16] Resolved horizontal scrolling issues by enforcing global overflow guards.
   [2026-06-16] Search Cleanup: Removed the unused #calculatorSearch styles since search functionality was removed.
   [2026-06-16] Sticky Sidebar Fix: Replaced overflow-x: hidden with overflow-x: clip to restore position: sticky functionality for related calculators sidebar.
+  [2026-06-17] Sticky Footer & Whitespace Fix: Enforced min-height: 100vh and vertical flexbox on body to push footer permanently to the bottom on short pages (e.g., Dashboard).
 */
 
 html, body {
@@ -12,6 +13,19 @@ html, body {
     position: relative;
     width: 100%;
     scroll-behavior: smooth;
+    min-height: 100vh; /* Stretch html/body to cover at least the full viewport height */
+}
+
+/* Enforce Flex container on body to push footer to the bottom */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Stretch the main layout containers to fill all remaining vertical space */
+main, #calculator-layout, #dashboard-page {
+    flex-grow: 1;
 }
 
 /* Prevent layout shift when body scroll is locked */
